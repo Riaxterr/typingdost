@@ -954,7 +954,13 @@ const multilingualLessons = {
     }
 };
 
-// Programmatically generate subsets for specific Govt Exam types (SSC, RRB, High Court, LDC) for ALL languages
+// Programmatically generate subsets for all 15 Govt Exam categories for ALL languages
+const ALL_GOVT_EXAM_KEYS = [
+    'govtexam', 'ssc', 'rrb', 'highcourt', 'ldc',
+    'statepsc', 'police', 'paramilitary', 'banking', 'postal',
+    'defense', 'kvs', 'epfo', 'fci', 'districtcourt'
+];
+
 Object.keys(multilingualLessons).forEach(lang => {
     const langObj = multilingualLessons[lang];
     if (!langObj) return;
@@ -962,19 +968,30 @@ Object.keys(multilingualLessons).forEach(lang => {
         langObj.govtexam = langObj.sentences || lessons.govtexam;
     }
     const g = langObj.govtexam;
-    langObj.ssc = g.filter((_, i) => i % 4 === 0 || i % 4 === 1);
-    langObj.rrb = g.filter((_, i) => i % 4 === 1 || i % 4 === 2);
-    langObj.highcourt = g.filter((_, i) => i % 4 === 2 || i % 4 === 3);
-    langObj.ldc = g.filter((_, i) => i % 4 === 3 || i % 4 === 0);
-    if (!langObj.ssc.length) langObj.ssc = g;
-    if (!langObj.rrb.length) langObj.rrb = g;
-    if (!langObj.highcourt.length) langObj.highcourt = g;
-    if (!langObj.ldc.length) langObj.ldc = g;
+    langObj.ssc = g.filter((_, i) => i % 5 === 0 || i % 5 === 1);
+    langObj.rrb = g.filter((_, i) => i % 5 === 1 || i % 5 === 2);
+    langObj.highcourt = g.filter((_, i) => i % 5 === 2 || i % 5 === 3);
+    langObj.ldc = g.filter((_, i) => i % 5 === 3 || i % 5 === 4);
+    langObj.statepsc = g.filter((_, i) => i % 5 === 4 || i % 5 === 0);
+    langObj.police = g.filter((_, i) => i % 4 === 0 || i % 4 === 2);
+    langObj.paramilitary = g.filter((_, i) => i % 4 === 1 || i % 4 === 3);
+    langObj.banking = g.filter((_, i) => i % 3 === 0);
+    langObj.postal = g.filter((_, i) => i % 3 === 1);
+    langObj.defense = g.filter((_, i) => i % 3 === 2);
+    langObj.kvs = g.filter((_, i) => i % 6 === 0 || i % 6 === 3);
+    langObj.epfo = g.filter((_, i) => i % 6 === 1 || i % 6 === 4);
+    langObj.fci = g.filter((_, i) => i % 6 === 2 || i % 6 === 5);
+    langObj.districtcourt = g.filter((_, i) => i % 4 === 2 || i % 4 === 0);
+
+    ALL_GOVT_EXAM_KEYS.forEach(k => {
+        if (!langObj[k] || !langObj[k].length) langObj[k] = g;
+        lessons[k] = langObj[k];
+    });
 });
-lessons.ssc = multilingualLessons.english.ssc;
-lessons.rrb = multilingualLessons.english.rrb;
-lessons.highcourt = multilingualLessons.english.highcourt;
-lessons.ldc = multilingualLessons.english.ldc;
+
+ALL_GOVT_EXAM_KEYS.forEach(k => {
+    lessons[k] = (multilingualLessons.english && multilingualLessons.english[k]) ? multilingualLessons.english[k] : lessons.govtexam;
+});
 
 // --- DYNAMIC RENDERING OF DROPDOWNS ---
 const THEMES_LIST = [
@@ -11903,7 +11920,7 @@ if (cryptoDonateModal) {
                 document.querySelectorAll('.practice-item').forEach(btn => btn.classList.remove('selected'));
                 item.classList.add('selected');
                 
-                if (['govtexam', 'ssc', 'rrb', 'highcourt', 'ldc'].includes(lesson)) {
+                if (['govtexam', 'ssc', 'rrb', 'highcourt', 'ldc', 'statepsc', 'police', 'paramilitary', 'banking', 'postal', 'defense', 'kvs', 'epfo', 'fci', 'districtcourt'].includes(lesson)) {
                     if (govtTrigger) govtTrigger.classList.add('active-sub');
                     if (testTrigger) testTrigger.classList.remove('active-sub');
                     if (practiceTrigger) practiceTrigger.classList.remove('active-sub');

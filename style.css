@@ -2889,6 +2889,9 @@ body.gray-mode {
     left: 50%;
     transform: translateX(-50%) translateY(-10px);
     width: 320px;
+    max-height: 420px;
+    overflow-y: auto;
+    scrollbar-width: thin;
     background: var(--dropdown-bg);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
