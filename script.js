@@ -4058,7 +4058,54 @@ modalCloseBtn.addEventListener('click', () => {
 
 function openCertificatePage() {
     const currentTheme = localStorage.getItem('typingDostTheme') || 'matrix';
-    window.open(`certificate.html?wpm=${lastWpm}&accuracy=${lastAccuracy}&mode=${encodeURIComponent(lastTestMode)}&rawWpm=${lastRawWpm}&keyAcc=${lastKeyAccuracy}&corrected=${lastCorrectedMistakes}&uncorrected=${lastUncorrectedMistakes}&backspaces=${lastBackspaceCount}&theme=${encodeURIComponent(currentTheme)}`, '_blank');
+    const activeLang = (typeof localStorage !== 'undefined' ? localStorage.getItem('typingDostLang') : null) || 'english';
+    
+    // Compute comprehensive human-readable duration & test mode label
+    let durationLabel = '';
+    if (testMode === 'words') {
+        durationLabel = `${wordLimit} Words Test`;
+    } else {
+        if (maxTime === 60) durationLabel = '1 Minute Test';
+        else if (maxTime === 120) durationLabel = '2 Minutes Test';
+        else if (maxTime === 180) durationLabel = '3 Minutes Test';
+        else if (maxTime === 300) durationLabel = '5 Minutes Test';
+        else if (maxTime === 15) durationLabel = '15 Seconds Test';
+        else if (maxTime === 30) durationLabel = '30 Seconds Test';
+        else if (maxTime % 60 === 0) durationLabel = `${maxTime / 60} Minutes Test`;
+        else durationLabel = `${maxTime}s Custom Time Test`;
+    }
+
+    if (currentLesson === 'customtext') {
+        durationLabel = `Custom Text (${durationLabel})`;
+    } else if (currentLesson && currentLesson !== 'sentences') {
+        const lessonTitles = {
+            'ssc': 'SSC CGL/CHSL',
+            'rrb': 'RRB NTPC',
+            'highcourt': 'High Court Exam',
+            'ldc': 'LDC Exam',
+            'statepsc': 'State PSC Exam',
+            'police': 'Police Exam',
+            'paramilitary': 'Paramilitary Exam',
+            'banking': 'Banking Exam',
+            'postal': 'India Post Exam',
+            'defense': 'Defense Clerk',
+            'kvs': 'KVS/NVS Clerk',
+            'epfo': 'EPFO SSA',
+            'fci': 'FCI Assistant',
+            'districtcourt': 'District Court',
+            'quotes': 'Quotes Mode',
+            'story': 'Story Mode',
+            'easy': 'Easy Words',
+            'commonwords': 'Common Words',
+            'coder': 'Coder Mode',
+            'dataentry': 'Data Entry'
+        };
+        const title = lessonTitles[currentLesson] || currentLesson.toUpperCase();
+        durationLabel = `${title} • ${durationLabel}`;
+    }
+
+    const certUrl = `certificate.html?wpm=${lastWpm}&accuracy=${lastAccuracy}&mode=${encodeURIComponent(lastTestMode)}&duration=${encodeURIComponent(durationLabel)}&lang=${encodeURIComponent(activeLang)}&rawWpm=${lastRawWpm}&keyAcc=${lastKeyAccuracy}&corrected=${lastCorrectedMistakes}&uncorrected=${lastUncorrectedMistakes}&backspaces=${lastBackspaceCount}&theme=${encodeURIComponent(currentTheme)}`;
+    window.open(certUrl, '_blank');
 }
 const modalCertBtn = document.getElementById('modal-certificate-btn');
 const mascotCertBtn = document.getElementById('mascot-certificate-btn');

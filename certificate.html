@@ -421,7 +421,26 @@
             padding: 0 2rem 0.4rem;
             display: inline-block;
             border-bottom: 1px dashed rgba(255, 0, 85, 0.5);
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .cert-mode-capsule {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1.5px solid rgba(0, 240, 255, 0.4);
+            border-radius: 20px;
+            padding: 0.35rem 1.2rem;
+            margin: 0 auto 1.4rem auto;
+            color: #00f0ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
         }
 
         .cert-eval-statement {
@@ -792,7 +811,12 @@
             <h2>Claim Official Certificate</h2>
             <p class="form-desc">Enter your full name as it should appear on your verified typing speed certificate.</p>
             <div class="input-group">
-                <input type="text" id="username-input" class="name-input" placeholder="e.g. Example Name / Rahul Sharma" maxlength="40" autofocus autocomplete="name">
+                <label style="display:block; text-align:left; font-size:0.8rem; color:var(--text-sub); margin-bottom:0.35rem; font-weight:700; letter-spacing:0.5px;">CANDIDATE FULL NAME</label>
+                <input type="text" id="username-input" class="name-input" placeholder="e.g. Rahul Sharma" maxlength="40" autofocus autocomplete="name">
+            </div>
+            <div class="input-group" style="margin-top:0.9rem;">
+                <label style="display:block; text-align:left; font-size:0.8rem; color:var(--text-sub); margin-bottom:0.35rem; font-weight:700; letter-spacing:0.5px;">EVALUATION TEST MODE / DURATION</label>
+                <input type="text" id="test-mode-input" class="name-input" style="font-size:1rem; padding:0.75rem 1rem;" placeholder="e.g. 1 Minute Test / 2 Minutes Test / 3 Minutes Test / Custom Text">
             </div>
             <button class="cyber-btn" id="generate-btn">Generate Certificate</button>
         </div>
@@ -823,6 +847,12 @@
             <!-- Certification Text & Name -->
             <div class="cert-intro-text">This official document proudly certifies that</div>
             <div class="cert-candidate-name" id="cert-recipient-name">Example name</div>
+            <div>
+                <div class="cert-mode-capsule" id="cert-mode-capsule">
+                    <span class="mode-icon">⏱️</span>
+                    <span class="mode-text" id="cert-mode-text">1 MINUTE TEST</span>
+                </div>
+            </div>
             <div class="cert-eval-statement">
                 has successfully completed a real-time keyboard evaluation challenge on the <strong>TypingDost</strong> platform.
                 Under monitored testing conditions, they demonstrated rapid keystroke response rates, fluid muscle memory coordination, and exceptional character entry precision.
@@ -922,6 +952,8 @@
         const rawWpm = parseInt(urlParams.get('wpm')) || 0;
         const accuracy = parseInt(urlParams.get('accuracy')) || 100;
         const mode = urlParams.get('mode') || 'sentences';
+        const durationParam = urlParams.get('duration') || '';
+        const langParam = urlParams.get('lang') || 'english';
         const theme = urlParams.get('theme') || 'matrix';
 
         // Advanced statistics query parameters
@@ -931,10 +963,44 @@
         const uncorrectedParam = parseInt(urlParams.get('uncorrected')) || 0;
         const backspacesParam = parseInt(urlParams.get('backspaces')) || 0;
 
+        // Compute resolved test mode label
+        function getFormattedTestMode() {
+            if (durationParam && durationParam.trim().length > 0) {
+                return durationParam.trim();
+            }
+            if (mode === 'customtext') return 'Custom Text Mode';
+            if (mode === 'ssc') return 'SSC CGL / CHSL Test';
+            if (mode === 'rrb') return 'RRB NTPC Test';
+            if (mode === 'highcourt') return 'High Court Exam';
+            if (mode === 'ldc') return 'LDC Exam';
+            if (mode === 'statepsc') return 'State PSC Exam';
+            if (mode === 'police') return 'Police Exam';
+            if (mode === 'paramilitary') return 'Paramilitary Exam';
+            if (mode === 'banking') return 'Banking Exam';
+            if (mode === 'postal') return 'India Post Exam';
+            if (mode === 'defense') return 'Defense Clerk Test';
+            if (mode === 'kvs') return 'KVS/NVS Clerk Test';
+            if (mode === 'epfo') return 'EPFO SSA Test';
+            if (mode === 'fci') return 'FCI Assistant Test';
+            if (mode === 'districtcourt') return 'District Court Test';
+            if (mode === 'quotes') return 'Quotes Mode Test';
+            if (mode === 'story') return 'Story Mode Test';
+            if (mode === 'easy') return 'Easy Words Test';
+            if (mode === 'coder') return 'Coder Mode';
+            if (mode === 'dataentry') return 'Data Entry';
+            if (mode.startsWith('game') || mode === 'bubble-shooter') return 'Arcade Game Mode';
+            return '1 Minute Test';
+        }
+
         // Form handlers
         const formCard = document.getElementById('form-card');
         const usernameInput = document.getElementById('username-input');
+        const testModeInput = document.getElementById('test-mode-input');
         const generateBtn = document.getElementById('generate-btn');
+
+        if (testModeInput) {
+            testModeInput.value = getFormattedTestMode();
+        }
         
         // Certificate handlers
         const certDisplay = document.getElementById('certificate-display');
@@ -989,8 +1055,15 @@
                 return;
             }
 
+            // Resolve chosen test mode from input or params
+            const finalTestMode = (testModeInput && testModeInput.value.trim().length > 0) 
+                ? testModeInput.value.trim() 
+                : getFormattedTestMode();
+
             // Fill values
             certRecipientName.innerText = name;
+            const certModeText = document.getElementById('cert-mode-text');
+            if (certModeText) certModeText.innerText = finalTestMode.toUpperCase();
             certWpm.innerText = rawWpm;
             
             // Adjust label based on mode
@@ -1162,7 +1235,7 @@
         // ULTRA-HD NATIVE 2D CANVAS DIRECT CERTIFICATE GENERATOR
         // (Exact Pixel-Perfect Vector Reproduction of User Favorite)
         // =========================================================
-        function renderNativeCanvasCertificate(candidateName, wpm, acc, rank, dateStr, serialStr, rawVal, keyAccVal, errorsVal, backsVal, mascotImg) {
+        function renderNativeCanvasCertificate(candidateName, wpm, acc, rank, dateStr, serialStr, rawVal, keyAccVal, errorsVal, backsVal, mascotImg, modeBadgeText) {
             const canvas = document.createElement('canvas');
             canvas.width = 2400;
             canvas.height = 2100;
@@ -1261,22 +1334,45 @@
 
             ctx.font = '800 84px "Space Grotesk", sans-serif';
             ctx.fillStyle = '#ffffff';
-            ctx.fillText(candidateName, canvas.width / 2, 700);
+            ctx.fillText(candidateName, canvas.width / 2, 680);
 
             // Dashed accent underline
             ctx.strokeStyle = 'rgba(255, 0, 85, 0.6)';
             ctx.lineWidth = 3;
             ctx.setLineDash([12, 8]);
             ctx.beginPath();
-            ctx.moveTo(canvas.width / 2 - 450, 740);
-            ctx.lineTo(canvas.width / 2 + 450, 740);
+            ctx.moveTo(canvas.width / 2 - 450, 715);
+            ctx.lineTo(canvas.width / 2 + 450, 715);
             ctx.stroke();
             ctx.setLineDash([]);
 
+            // Mode & Duration Badge Capsule
+            const resolvedModeStr = (modeBadgeText || getFormattedTestMode()).toUpperCase();
+            ctx.font = '700 24px "Orbitron", sans-serif';
+            const badgeTextWidth = ctx.measureText('⏱️ ' + resolvedModeStr).width;
+            const badgeW = Math.max(360, badgeTextWidth + 70);
+            const badgeH = 50;
+            const badgeX = canvas.width / 2 - badgeW / 2;
+            const badgeY = 750;
+
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.08)';
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 25);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#00f0ff';
+            ctx.fillText('⏱️  ' + resolvedModeStr, canvas.width / 2, badgeY + 34);
+
             // Paragraph Statement
-            ctx.font = '400 28px "Space Grotesk", sans-serif';
+            ctx.font = '400 27px "Space Grotesk", sans-serif';
             ctx.fillStyle = '#8b9bb4';
-            ctx.fillText('has successfully completed a real-time keyboard evaluation challenge on the TypingDost platform.', canvas.width / 2, 830);
+            ctx.fillText('has successfully completed a real-time keyboard evaluation challenge on the TypingDost platform.', canvas.width / 2, 850);
+            ctx.fillText('Under monitored testing conditions, they demonstrated rapid keystroke response rates, fluid muscle', canvas.width / 2, 895);
+            ctx.fillText('memory coordination, and exceptional character entry precision.', canvas.width / 2, 940);
             ctx.fillText('Under monitored testing conditions, they demonstrated rapid keystroke response rates, fluid muscle', canvas.width / 2, 880);
             ctx.fillText('memory coordination, and exceptional character entry precision.', canvas.width / 2, 930);
 
@@ -1455,6 +1551,7 @@
                     mascotImg.src = 'typingdost_brand.png';
 
                     const executeDownload = () => {
+                        const finalModeStr = (testModeInput && testModeInput.value.trim().length > 0) ? testModeInput.value.trim() : getFormattedTestMode();
                         const canvas = renderNativeCanvasCertificate(
                             name,
                             rawWpm,
@@ -1466,7 +1563,8 @@
                             keyAccStr,
                             errorsStr,
                             backsStr,
-                            mascotImg
+                            mascotImg,
+                            finalModeStr
                         );
 
                         const nameSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
