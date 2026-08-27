@@ -3634,10 +3634,8 @@ const TAMIL_99_VOWEL_TO_SIGN_MAP = {
     'ஔ': 'ௌ'
 };
 
-const INDIC_VIRTUAL_KEYBOARD_LANGS = new Set([
-    'hindi', 'bengali', 'marathi', 'tamil', 'telugu', 'gujarati',
-    'kannada', 'malayalam', 'odia', 'punjabi', 'urdu', 'assamese'
-]);
+// With all languages romanized into English alphabet letters, direct standard typing is active for all languages
+const INDIC_VIRTUAL_KEYBOARD_LANGS = new Set([]);
 
 // State for pre-base matras (e.g. 'ि' / KeyF in Remington Gail & Kruti Dev 010)
 let pendingPreBaseMatra = null;

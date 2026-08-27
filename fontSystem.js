@@ -656,7 +656,7 @@ function injectIndianFonts() {
  */
 function applyTypingFont(fontFamily, lang) {
     if (typeof document === 'undefined') return;
-    const isRTL = (lang === 'urdu' || lang === 'arabic');
+    const isRTL = (lang === 'arabic');
     const targets = [
         document.getElementById('text-display'),
         document.getElementById('text-input'),
@@ -668,8 +668,7 @@ function applyTypingFont(fontFamily, lang) {
         el.style.fontFamily = fontFamily;
         el.style.direction = isRTL ? 'rtl' : 'ltr';
         el.style.textAlign = isRTL ? 'right' : 'left';
-        const complexScripts = ['bengali','marathi','tamil','telugu','gujarati','kannada','malayalam','odia','punjabi','urdu','assamese','hindi'];
-        el.style.lineHeight = lang === 'urdu' ? '2.8' : (complexScripts.includes(lang) ? '2.2' : '1.6');
+        el.style.lineHeight = '1.6';
         el.style.letterSpacing = '0';
     });
     document.body.setAttribute('data-lang', lang);
