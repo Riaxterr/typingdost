@@ -2200,11 +2200,17 @@
                 }).catch(function(){});
             }
 
-            // 4. cursor-effects — fairy dust trail (desktop only)
+            // 4. cursor-effects — falling letters trail (desktop only)
             if (!('ontouchstart' in window) && typeof cursoreffects !== 'undefined') {
                 try {
-                    new cursoreffects.fairyDustCursor({
-                        colors: ['#00ffff', '#a252ff', '#ff0055', '#ffd700']
+                    new cursoreffects.characterCursor({
+                        characters: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+                        colors: ['#00ffff', '#a252ff', '#ff0055', '#00ff88', '#ffd700'],
+                        font: "15px 'Courier New', monospace",
+                        characterVelocityChangeFunctions: {
+                            x_func: function() { return (Math.random() < 0.5 ? -1 : 1) / 30; },
+                            y_func: function() { return Math.random() * 0.15 + 0.1; }
+                        }
                     });
                 } catch(e) {}
             }
