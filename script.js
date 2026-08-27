@@ -286,69 +286,61 @@ const multilingualLessons = {
         ]
     },
     hindi: {
-        homerow: ["क ख ग घ ङ", "च छ ज झ ञ", "क ग च ज", "ख घ छ झ"],
-        toprow: ["ट ठ ड ढ ण", "त थ द ध न", "ट ड त द", "ठ ढ थ ध"],
-        bottomrow: ["प फ ब भ म", "य र ल व श", "प ब य ल", "फ भ र व"],
-        homerow_toprow: ["क ख ग ट ठ ड", "च छ ज त थ द", "ङ ञ ण न", "घ झ ढ ध"],
-        homerow_bottomrow: ["क ख ग प फ ब", "च छ ज य र ल", "ङ ञ म श", "घ झ भ व"],
-        toprow_bottomrow: ["ट ठ ड प फ ब", "त थ द य र ल", "ण न म श", "ढ ध भ व"],
-        allrows: ["क ख ग ट ठ ड प फ ब", "च छ ज त थ द य र ल", "ङ ञ ण न म श", "घ झ ढ ध भ व"],
-        numbers: ["१ २ ३ ४ ५", "६ ७ ८ ९ ०", "१ ३ ५ ७ ९", "२ ४ ६ ८ ०"],
         sentences: [
-            "कंप्यूटर पर तेजी से टाइप करना आज के समय में एक बहुत ही महत्वपूर्ण कौशल है।",
-            "लगातार अभ्यास करने से आपकी टाइपिंग स्पीड और सटीकता दोनों में सुधार होगा।",
-            "गलतियां करने से ना डरें, क्योंकि ये हमें सही तरीके से सीखने में मदद करती हैं।",
-            "कीबोर्ड पर उंगलियों की सही स्थिति ही तेज गति की असली कुंजी है।",
-            "हर दिन पन्द्रह मिनट का ध्यान केंद्रित अभ्यास आपको एक मास्टर बना सकता है।",
-            "साइबरपंक थीम और कीबोर्ड ध्वनियां टाइपिंग के अनुभव को और भी रोमांचक बनाती हैं।",
-            "सटीकता पर पहले ध्यान दें, गति निरंतर अभ्यास के साथ अपने आप आ जाएगी।",
-            "मेरा मैकेनिकल कीबोर्ड इतनी जोर से क्लिक करता है कि पड़ोसी भी हैरान रह जाते हैं।",
-            "कोडिंग करते समय ध्यान और सटीकता दोनों ही बेहद जरूरी होते हैं।",
-            "अपने दोस्तों के साथ टाइपिंग मुकाबला करके आप अपनी गति को और तेजी से बढ़ा सकते हैं।",
-            "हर एक की को बिना देखे दबाना ही सच्ची टच टाइपिंग की पहचान होती है।",
-            "टाइपिंग दोस्त पर रोज अभ्यास करने से आपकी उंगलियों की मसल मेमोरी मजबूत होगी।",
-            "कंप्यूटर पर काम करते समय पीठ को सीधा रखना और सही पोस्चर बनाए रखना जरूरी है।",
-            "साइबरपंक निऑन लाइट्स और शानदार साउंड इफेक्ट्स टाइपिंग को एक अनोखा अनुभव देते हैं।",
-            "धैर्य और लगातार प्रयास ही किसी भी कठिन कौशल को सीखने का एकमात्र रास्ता है।"
+            "Computer par tezi se type karna aaj ke zamane mein ek bahut hi mahatvapoorn kaushal hai.",
+            "Niyamit abhyas se aapki typing gati aur satikta dono mein sudhar hoga.",
+            "Galtiyan karne se mat daro kyunki galtiyon se hi hum sahi tarike se seekhte hain.",
+            "Keyboard par ungliyon ki sahi sthiti tez gati ki asli kunji hai.",
+            "Har din pandrah minute dhyan lagakar abhyas karne se aap ek master ban sakte hain.",
+            "Cyberpunk theme aur keyboard ki awaazein typing anubhav ko aur romanchak banati hain.",
+            "Pehle satikta par dhyan do, gati apne aap abhyas ke saath aa jayegi.",
+            "Apne doston ke saath typing mukabla karke aap apni gati ko aur tezi se badha sakte hain.",
+            "Har ek key ko bina dekhe dabaana hi sachchi touch typing ki pehchaan hoti hai.",
+            "Typing Dost par roz abhyas karne se aapki ungliyon ki muscle memory mazboot hogi.",
+            "Computer par kaam karte samay peeth ko seedha rakhna aur sahi posture banaaye rakhna zaroori hai.",
+            "Cyberpunk neon lights aur shaandaar sound effects typing ko ek anokha anubhav dete hain.",
+            "Dhairya aur lagaataar prayaas hi kisi bhi kathin kaushal ko seekhne ka ekmaatr raasta hai."
         ],
         easy: [
-            "दोस्त काम बात घर दिन रात खुशी प्यार",
-            "सच नाम आज भाई शुरू गति मन कल",
-            "पानी खाना अच्छा दोस्त दिल दिन नाम सच",
-            "काम शुरू घर आज रात प्यार भाई दोस्त",
-            "खुशी दिल सच काम आज नाम रात दिन",
-            "सुख दुख जीत हार सच झूठ नया पुराना",
-            "आज कल परसों सुबह शाम दिन रात समय",
-            "पानी आग हवा धरती आकाश पेड़ पौधा फल",
-            "लिखना पढ़ना चलना दौड़ना खाना पीना सोना जागना",
-            "शहर गांव सड़क गाड़ी रास्ता मंजिल सफर दोस्त"
+            "dost kaam baat ghar din raat khushi pyar",
+            "sach naam aaj bhai shuru gati man kal",
+            "paani khaana achha dost dil din naam sach",
+            "kaam shuru ghar aaj raat pyar bhai dost",
+            "khushi dil sach kaam aaj naam raat din",
+            "sukh dukh jeet haar sach jhoot naya puraana",
+            "aaj kal parson subah shaam din raat samay",
+            "paani aag hawa dharti aakaash ped paudha phal",
+            "likhna padhna chalna daudna khaana peena sona jaagna",
+            "shahar gaanv sadak gaadi raasta manzil safar dost"
         ],
         story: [
-            "एक छोटे से गांव में राहुल नाम का एक लड़का रहता था। उसे कंप्यूटर सीखने का बहुत शौक था। वह हर दिन टाइपिंग दोस्त पर अभ्यास करता और धीरे-धीरे उसकी गति अस्सी शब्द प्रति मिनट तक पहुंच गई।",
-            "शांत जंगल में, एक संत अपने बांस के कीबोर्ड पर शांति से कोड कर रहे थे। प्रत्येक कीस्ट्रोक एक पानी की बूंद की तरह गिर रहा था, जो हवा में गूंज रहा था।",
-            "अकीरा ने अपनी तेज कार के टर्मिनल पर नए निर्देशांक टाइप किए। निऑन लाइट्स बारिश की बूंदों में चमक रही थीं और वह अपने नए मिशन के लिए पूरी तरह तैयार था।"
+            "Ek chhote se gaanv mein Rahul naam ka ek ladka rehta tha. Use computer seekhne ka bahut shauk tha. Woh har din Typing Dost par abhyas karta aur dheere dheere uski gati assi shabd prati minute tak pahunch gayi.",
+            "Shaant jungle mein ek sant apne baans ke keyboard par shaanti se code kar rahe the. Pratyek keystroke ek paani ki boond ki tarah gir raha tha jo hawa mein goonj raha tha.",
+            "Akira ne apni tez car ke terminal par naye nirdeshank type kiye. Neon lights baarish ki boondon mein chamak rahi thi aur woh apne naye mission ke liye poori tarah taiyaar tha."
         ],
         quotes: [
-            "सफलता कोई दुर्घटना नहीं है, यह कड़ी मेहनत और निरंतर अभ्यास का परिणाम है।",
-            "कठिनाइयों के बीच ही अवसर छुपे होते हैं। — अल्बर्ट आइंस्टीन",
-            "आप चाहे जितना धीरे चलें, महत्वपूर्ण यह है कि आप रुकें नहीं। — कन्फ्यूशियस",
-            "ज्ञान ही सबसे बड़ी शक्ति है, और अभ्यास ही उसे पाने का माध्यम है।",
-            "अपने लक्ष्य पर ध्यान लगाएं, गति अपने आप आपका अनुसरण करेगी।",
-            "गलतियां हमें बताती हैं कि हम प्रयास कर रहे हैं।",
-            "एक बेहद सुंदर कोड वही है जो सरल और समझने में आसान हो।",
-            "हर एक छोटा बदलाव एक बड़ी सफलता का आधार बनता है।"
+            "Safalta koi durghatna nahi hai, yeh kadhi mehnat aur nirantar abhyas ka parinaam hai.",
+            "Kathinaiyon ke beech hi avasar chhupe hote hain. — Albert Einstein",
+            "Aap chaahe jitna dheere chalein, mahatvapurn yeh hai ki aap rukein nahi. — Confucius",
+            "Gyaan hi sabse badi shakti hai, aur abhyas hi use paane ka maadhyam hai.",
+            "Apne lakshya par dhyan lagayein, gati apne aap aapka anusaran karegi.",
+            "Galtiyan humein bataati hain ki hum prayaas kar rahe hain.",
+            "Ek behad sundar code wahi hai jo saral aur samajhne mein aasaan ho.",
+            "Har ek chhota badlaav ek badi safalta ka aadhaar banta hai."
         ],
         commonwords: [
-            "और भी है हैं को की के का से एक पर लिए होता होती रहे रहा कर करने चल क्या तो तू तुम आप हम बड़ा छोटा अभी बड़ा अच्छा हाँ नहीं मत क्यों कब कहाँ कैसे सब लोग घर बात यार दोस्त तेरा मेरा अपना अपने अपनी उनका उनकी उनके इसमें उसमें",
-            "समय काम नाम आज कल परसो सुबह शाम दिन रात पानी हवा आग धरती आकाश पेड़ पौधा फल लिखना पढ़ना चलना दौड़ना खाना पीना सोना जागना शहर गांव सड़क गाड़ी रास्ता मंजिल सफर दोस्त अभ्यास गति सटीकता परिणाम शक्ति अवसर लक्ष्य सुधार",
-            "लगातार अभ्यास करने से आपकी टाइपिंग स्पीड और सटीकता दोनों में सुधार होगा गलतियां करने से ना डरें क्योंकि ये हमें सही तरीके से सीखने में मदद करती हैं कीबोर्ड पर उंगलियों की सही स्थिति ही तेज गति की असली कुंजी है",
-            "हर दिन पन्द्रह मिनट का ध्यान केंद्रित अभ्यास आपको एक मास्टर बना सकता है सटीकता पर पहले ध्यान दें गति निरंतर अभ्यास के साथ अपने आप आ जाएगी धैर्य और लगातार प्रयास ही किसी भी कठिन कौशल को सीखने का एकमात्र रास्ता है",
-            "कंप्यूटर पर तेजी से टाइप करना आज के समय में एक बहुत ही महत्वपूर्ण कौशल है और इससे आपका काम बहुत आसान हो जाता है की को बिना देखे दबाना ही सच्ची टच टाइपिंग की असली पहचान होती है दोस्त"
+            "aur bhi hai hain ko ki ke ka se ek par liye hota hoti rahe raha kar karne chal kya toh tu tum aap hum bada chhota abhi achha haan nahi mat kyun kab kahan kaise sab log ghar baat yaar dost tera mera apna apne apni unka unki unke isme usme",
+            "samay kaam naam aaj kal parson subah shaam din raat paani hawa aag dharti aakaash ped paudha phal likhna padhna chalna daudna khaana peena sona jaagna shahar gaanv sadak gaadi raasta manzil safar dost abhyas gati satikta parinaam shakti avasar lakshya sudhaar",
+            "lagaataar abhyas karne se aapki typing speed aur satikta dono mein sudhaar hoga galtiyan karne se na daro kyunki ye humein sahi tarike se seekhne mein madad karti hain keyboard par ungliyon ki sahi sthiti hi tez gati ki asli kunji hai",
+            "har din pandrah minute ka dhyan kendrit abhyas aapko ek master bana sakta hai satikta par pehle dhyan dein gati nirantar abhyas ke saath apne aap aa jayegi dhairya aur lagaataar prayaas hi kisi bhi kathin kaushal ko seekhne ka ekmaatr raasta hai",
+            "computer par tezi se type karna aaj ke samay mein ek bahut hi mahatvapurn kaushal hai aur isse aapka kaam bahut aasaan ho jaata hai key ko bina dekhe dabaana hi sachchi touch typing ki asli pehchaan hoti hai dost"
         ],
         govtexam: [
-            "भारतीय संविधान विश्व का सबसे लंबा लिखित संविधान है। इसमें भारत के लोकतांत्रिक ढांचे, नागरिकों के मौलिक अधिकारों और कर्तव्यों का विस्तृत उल्लेख है। डॉ. भीमराव आंबेडकर को भारतीय संविधान का मुख्य वास्तुकार माना जाता है। इसे २६ नवंबर १९४९ को संविधान सभा द्वारा अपनाया गया और २६ जनवरी १९५० को पूरे देश में लागू किया गया। संविधान सभा के सदस्यों ने देश की विविधता को ध्यान में रखते हुए नियमों का निर्माण किया।",
-            "भारत एक कृषि प्रधान देश है, जहां की लगभग साठ प्रतिशत ग्रामीण आबादी प्रत्यक्ष या अप्रत्यक्ष रूप से कृषि पर निर्भर है। भारतीय अर्थव्यवस्था में कृषि का योगदान अत्यंत महत्वपूर्ण है। देश के विभिन्न हिस्सों में चावल, गेहूं, दलहन और गन्ने की खेती बड़े पैमाने पर की जाती है। पिछले कुछ वर्षों में आधुनिक सिंचाई तकनीकों और उन्नत बीजों के उपयोग से फसलों की पैदावार में काफी वृद्धि हुई है। हालांकि, मानसून की अनिश्चितता अभी भी किसानों के लिए एक बड़ी चुनौती है।",
-            "डिजिटल इंडिया मिशन भारत सरकार का एक प्रमुख कार्यक्रम है जो देश के कोने-कोने तक तकनीक की पहुंच सुनिश्चित कर रहा है। ऑनलाइन सरकारी सेवाओं ने आम नागरिकों के जीवन को सुगम बना दिया है। इंटरनेट और मोबाइल के विस्तार से गांवों में भी बैंकिंग, शिक्षा और स्वास्थ्य सुविधाएं पहुंच रही हैं। इससे सरकारी योजनाओं में पारदर्शिता आई है और भ्रष्टाचार में कमी आई है।"
+            "Bhartiya Samvidhan vishwa ka sabse lamba likhit samvidhan hai. Dr. B R Ambedkar iske pramukh rachyita the. Chavvees January unees sau pachaas mein yeh laagoo hua. Samvidhan mein Maulik Adhikaar aur Nirdeshak Tatva spasht roop se darj hain.",
+            "Bharat mein krishi arthvyavastha ki reedh ki haddi hai. Gramin janta ka ek bada hissa krishi par nirbhar hai. Dhaan, gehun, kapas aur chai Bharat ki pramukh phasalein hain. Sarkaar kisan kalyan ke liye kai yojanaayein chalati hai.",
+            "Bhartiya Loktantra mein teen stambh hain — Vidhayika, Kaaryapaalika aur Nyaayapaalika. Yeh teeno milkar shaasan vyavastha ko santulit rakhte hain. Chunav Aayog sab chunaavon ka sanchalan karta hai. Har naagrik ko matdaan ka adhikaar hai.",
+            "Suchna ka Adhikaar Adhiniyam 2005 mein laagoo hua. Iska uddeshya shaasan mein paardharshita laana hai. Koi bhi naagrik sarkaari vibhaagon se suchna maang sakta hai. Yeh kaanoon bhrashtachar ke khilaaf ek mazboot hathiyaar hai.",
+            "Bharat ka antariksh karyakram bahut safal raha hai. ISRO ne Chandrayaan aur Mangalyaan mission safaltaapoorvak launch kiye. Bharat ne kam laagat mein antariksh mein apni pehchaan banayi hai. ISRO ki sthapana unees sau unhattar mein hui thi."
         ]
     },
     spanish: {
@@ -503,476 +495,388 @@ const multilingualLessons = {
     },
     bengali: {
         sentences: [
-            "কম্পিউটারে দ্রুত টাইপ করা আজকের যুগে একটি অত্যন্ত গুরুত্বপূর্ণ দক্ষতা।",
-            "নিয়মিত অনুশীলনের মাধ্যমে আপনার টাইপিং গতি এবং নির্ভুলতা উভয়ই বৃদ্ধি পাবে।",
-            "ভুল করতে ভয় পাবেন না কারণ ভুল থেকেই আমরা সঠিকভাবে শিখতে পারি।",
-            "কীবোর্ডে আঙুলের সঠিক অবস্থান দ্রুত গতির আসল চাবিকাঠি।",
-            "প্রতিদিন পনেরো মিনিট মনোযোগ দিয়ে অনুশীলন করলে আপনি একজন মাস্টার হতে পারবেন।",
-            "সাইবারপাংক থিম এবং কীবোর্ড শব্দ টাইপিং অভিজ্ঞতাকে আরও রোমাঞ্চকর করে তোলে।",
-            "প্রথমে নির্ভুলতার উপর মনোযোগ দিন, গতি নিজে থেকেই আসবে।",
+            "Computer-e druto type kora ajker yuge ekti atyanta guruttopurno dokhota.",
+            "Niyomito onushiloner maddhome apnar typing goti ebong nirbhulota ubhoy-i briddhi pabe.",
+            "Bhul korte bhoy paben na karon bhul thekei amra shothikbhabe shikhte pari.",
+            "Keyboard-e anguler shothik obosthan druto gotir asol chabikathi.",
+            "Protidin ponero minute monojogh diye onushilon korle apni ekjon master hote parben.",
+            "Cyberpunk theme ebong keyboard shobdo typing onubhobke aro romanchkor kore tole.",
+            "Prothome nirbhulota-r upor monojogh din, goti nijei thekei asbe."
         ],
         easy: [
-            "বই পড়া ভালো কাজ দিন রাত ঘর বাড়ি",
-            "আলো জল হাওয়া মাটি আকাশ গাছ পাখি নদী",
-            "ভালো মন্দ সত্য মিথ্যা জয় পরাজয় আনন্দ দুঃখ",
-            "মা বাবা ভাই বোন বন্ধু শিক্ষক ছাত্র পরিবার",
-            "খাবার পানি ঘুম কাজ খেলা পড়াশোনা বিশ্রাম সময়",
-        ],
-        commonwords: [
-            "এবং আমি তুমি সে তারা আমরা তোমরা হয় হয়না করা করতে করছি থেকে পর্যন্ত সাথে জন্য কারণ যে কি কেন কোথায় কখন কিভাবে সব মানুষ ঘর বাড়ি",
-            "বাংলাদেশ ভারত ঢাকা কলকাতা বাংলা ভাষা সংস্কৃতি ইতিহাস ঐতিহ্য শিক্ষা সমাজ রাজনীতি অর্থনীতি বিজ্ঞান প্রযুক্তি উন্নয়ন",
+            "boi pora bhalo kaj din raat ghor bari",
+            "alo jol haowa mati akash gachh pakhi nodi",
+            "bhalo mondo shotto mittha joy porajoy anondo dukkho",
+            "ma baba bhai bon bondhu shikkhok chhatro poribar",
+            "khabar pani ghum kaj khela porashona bishram somoy"
         ],
         story: [
-            "একটি শান্ত বনে পিপ নামক একটি ছোট কাঠবিড়ালি সবচেয়ে উঁচু গাছে উঠার সিদ্ধান্ত নিল। ঠান্ডা বাতাস বইলেও পিপ থামল না এবং চূড়ায় পৌঁছে একটি সুন্দর সূর্যাস্ত উপভোগ করল।",
+            "Ekti shanto bone Pip namok ekti chhoto kathbirali shobcheye unchu gachhe othar siddhanto nilo. Thanda batash boileo Pip thamlo na ebong churay pouchhe ekti shundor shurjasto upobhog korlo."
         ],
         quotes: [
-            "শিক্ষাই জাতির মেরুদণ্ড।",
-            "পরিশ্রমই সাফল্যের চাবিকাঠি।",
-            "জ্ঞান হল শক্তি — ফ্রান্সিস বেকন",
+            "Shikkhay jatir merudondo.",
+            "Porishromey shafolyer chabikathi.",
+            "Gyan holo shokti — Francis Bacon"
+        ],
+        commonwords: [
+            "ebong ami tumi she tara amra tomra hoy hoyna kora korte korchhi theke porjonto shathe jonno karon je ki keno kothay kokhon kibhabe shob manush ghor bari",
+            "Bangladesh Bharat Dhaka Kolkata Bangla bhasha sanskriti itihas oitijjho shikkha shomaj rajniti orthoniti biggan projukti unnayan"
         ],
         govtexam: [
-            "ভারতীয় সংবিধান বিশ্বের সবচেয়ে দীর্ঘ লিখিত সংবিধান। ডঃ বি আর আম্বেদকর এই সংবিধানের প্রধান রচয়িতা। ২৬ জানুয়ারি ১৯৫০ সালে এটি কার্যকর হয়। সংবিধানে মৌলিক অধিকার ও নির্দেশমূলক নীতিমালা স্পষ্টভাবে উল্লেখ আছে।",
-            "ভারতে কৃষি অর্থনীতির মেরুদণ্ড। গ্রামীণ জনগোষ্ঠীর একটি বড় অংশ কৃষির উপর নির্ভরশীল। ধান, গম, পাট ও চা ভারতের প্রধান কৃষিপণ্য। কৃষি উন্নয়নে সেচ ব্যবস্থার বিস্তার অত্যন্ত জরুরি।",
-            "ডিজিটাল ইন্ডিয়া প্রকল্প দেশের প্রতিটি কোণে প্রযুক্তির আলো পৌঁছে দিচ্ছে। অনলাইন সেবা মানুষের জীবনকে আরও সহজ করেছে।",
-        ],
-        homerow: ["ক খ গ ঘ ঙ","চ ছ জ ঝ ঞ"],
-        toprow: ["ট ঠ ড ঢ ণ","ত থ দ ধ ন"],
-        bottomrow: ["প ফ ব ভ ম","য ৰ ল ৱ শ"],
-        homerow_toprow: ["ক খ গ ট ঠ ড","চ ছ জ ত থ দ"],
-        homerow_bottomrow: ["ক খ গ প ফ ব","চ ছ জ য ৰ ল"],
-        toprow_bottomrow: ["ট ঠ ড প ফ ব","ত থ দ য ৰ ল"],
-        allrows: ["ক খ গ ট ঠ ড প ফ ব"],
-        numbers: ["১ ২ ৩ ৪ ৫","৬ ৭ ৮ ৯ ০"],
+            "Bhartiya Sangbidhan bishwer shobcheye dirgho likhito sangbidhan. Dr. B R Ambedkar ei sangbidhaner prodhan rochoyita. Chhabbish January unish sho ponchash shale eta karjokor hoy. Sangbidhane moulik odhikar ebong nirdeshmulik nitimaala sposhto bhabe ullekh achhe.",
+            "Bharote krishi orthonitir merudondo. Gramin jonogoshthir ekti boro ongsh krishir upor nirbhorshil. Dhan, gom, pat o cha Bharoter prodhan phosol. Shorkar krishok kolyane onek yojona chaliye thake.",
+            "Bharotiya Loktontro-te tin stombho achhe — Bidhanshobha, Karjonirbahi ebong Bicharaloy. Ei tintiey ekshonge shashon byabosthake shontulit rakhe. Nirbachon Commission shob nirbachoner porichalona kore. Protek nagorik-er motodaner odhikar achhe."
+        ]
     },
     marathi: {
         sentences: [
-            "संगणकावर जलद टाइपिंग करणे आजच्या काळात एक अत्यंत महत्त्वाचे कौशल्य आहे।",
-            "नियमित सराव केल्याने तुमची टाइपिंग वेग आणि अचूकता दोन्ही वाढतील।",
-            "चुका करण्यास घाबरू नका कारण चुकांमधूनच आपण योग्यरित्या शिकतो।",
-            "कीबोर्डवर बोटांची योग्य स्थिती म्हणजेच जलद गतीची खरी गुरुकिल्ली आहे।",
-            "दररोज पंधरा मिनिटे लक्ष केंद्रित करून सराव केल्यास तुम्ही तज्ञ होऊ शकता।",
-            "सायबरपंक थीम आणि कीबोर्ड ध्वनी टाइपिंगचा अनुभव अधिक रोमांचकारी बनवतात।",
-            "प्रथम अचूकतेवर लक्ष द्या, वेग आपोआप येईल।",
+            "Computer var vegane type karane aajchya yugat ek atyant mahatvapurna kaushalya aahe.",
+            "Niyamit sravane aapli typing gati aani akatikta donhi sudhaartat.",
+            "Chuka karayala ghabroo naka kaaran chukaamdhunach aapan shikataat.",
+            "Keyboard var botaanchi yogya sthiti vegvaan gatichi khari killi aahe.",
+            "Darrojhi pandhra minute laksha deun srav kela tar aapan ek master banoo shakta.",
+            "Cyberpunk theme aani keyboard dhvani typing anubhav adhik romanchak karataat.",
+            "Aadhi akatiktavar laksha dya, gati aapoaap sravaasobt yeil."
         ],
         easy: [
-            "घर शाळा काम दिन रात पाणी अन्न प्रेम",
-            "आई बाबा भाऊ बहीण मित्र शिक्षक विद्यार्थी कुटुंब",
-            "चांगले वाईट सत्य खोटे जय पराजय आनंद दुःख",
-            "पुस्तक वाचणे लिहिणे शिकणे खेळणे धावणे झोपणे उठणे",
-            "शहर गाव रस्ता वाहन प्रवास मंजिल स्वप्न यश",
-        ],
-        commonwords: [
-            "आणि मी तू तो ती ते आम्ही तुम्ही आहे नाही करणे करत होते होता होती असे म्हणजे पण परंतु कारण जे काय का कुठे कधी कसे सर्व माणूस",
-            "महाराष्ट्र मुंबई पुणे नागपूर मराठी भाषा संस्कृती इतिहास परंपरा शिक्षण समाज राजकारण अर्थव्यवस्था विज्ञान तंत्रज्ञान विकास",
+            "ghar shaala kaam divas raatr paani khaaana prem",
+            "aai baba bhau bahin mitra shikshak vidyaarthi kutumb",
+            "changla vaait khara khota jay parabhav aanand dukha",
+            "vel kaam naav aaj udhya subah sandhyakal divas raatr",
+            "paani aag vaara dharati aakash zhaad phul phal"
         ],
         story: [
-            "एका शांत जंगलात पिप नावाच्या एका छोट्या खारुताईने सर्वात उंच झाडावर चढण्याचे ठरवले. थंड वारा असूनही पिप थांबला नाही आणि वर पोहोचून एक सुंदर सूर्यास्त पाहिला।",
+            "Eka shaant jangalat Pip naavaacha ek lahansha kharuti sarvaat unchya zhaadavar chadhnyaachaa nirdhaar kela. Thand vaara vahat hota pan Pip thamabala nahi aani shikharavar pohochlya var ek sundar suryaast paahila."
         ],
         quotes: [
-            "ज्ञान हेच खरे धन आहे।",
-            "परिश्रम हाच यशाचा मार्ग आहे।",
-            "शिक्षण म्हणजे भविष्याचा पाया।",
+            "Vidya he sarvottam dhan aahe.",
+            "Parishram hach yashaachi killi.",
+            "Dnyan hech shakti aahe — Francis Bacon"
+        ],
+        commonwords: [
+            "aani mi too to tee te aamhi tumhi aahe nahi karane karat aahe pasun paryant sobat saathi kaaran jo kaay ka kuthe kevha kase sarva lok ghar goshti",
+            "Maharashtra Bharat Mumbai Pune Marathi bhasha sanskriti itihaas parampara shikshan samaaj rajkaran arthavyavastha vidnyan tantrvidnyan vikas"
         ],
         govtexam: [
-            "भारतीय संविधान हे जगातील सर्वात मोठे लिखित संविधान आहे। डॉ बाबासाहेब आंबेडकर यांनी या संविधानाचा मसुदा तयार केला। २६ जानेवारी १९५० रोजी हे संविधान लागू झाले। मूलभूत हक्क आणि मार्गदर्शक तत्त्वे हे संविधानाचे महत्त्वाचे भाग आहेत।",
-            "महाराष्ट्र हे भारतातील एक प्रमुख राज्य असून येथे शेती, उद्योग आणि सेवा क्षेत्र सर्व विकसित आहे। मुंबई ही देशाची आर्थिक राजधानी म्हणून ओळखली जाते।",
-            "डिजिटल इंडिया मोहीम देशातील प्रत्येक गावापर्यंत तंत्रज्ञान पोहोचवत आहे। ऑनलाइन सेवांमुळे जनजीवन अधिक सुलभ झाले आहे।",
-        ],
-        homerow: ["क ख ग घ ङ","च छ ज झ ञ"],
-        toprow: ["ट ठ ड ढ ण","त थ द ध न"],
-        bottomrow: ["प फ ब भ म","य र ल व श"],
-        homerow_toprow: ["क ख ग ट ठ ड","च छ ज त थ द"],
-        homerow_bottomrow: ["क ख ग प फ ब","च छ ज य र ल"],
-        toprow_bottomrow: ["ट ठ ड प फ ব","त थ द य र ल"],
-        allrows: ["क ख ग ट ठ ड प फ ब"],
-        numbers: ["१ २ ३ ४ ५","६ ७ ८ ९ ०"],
+            "Bhartiya Samvidhan vishvataala sarvaat motha likhit samvidhan aahe. Dr. B R Ambedkar yaanche pradhan nirmata hote. Seviis January ekonish she panchaas madhye te laagu zhaale. Samvidhanat moolbhoot adhikaar aani nirdeshak tatve spasht aahet.",
+            "Bharat madhe sheti arthavyavasthecha kana aahe. Gramin janateche mottha bhag shetivr avlambun aahe. Bhaat, gaahu, kaapus aani chaha Bharatacha mukhya pike aahet. Sarkaar shetkari kalyansaathi anek yojana raabavte.",
+            "Bhartiya Loktantra madhe teen stambh aahet — Vidhimandal, Karyapalika aani Nyayapalika. He tinhi milun shaasan vyavastha santulit thevtaat. Nivdanuk Aayog sarva nivdanukancha sanchalan karte. Pratyek nagrikaala matadanacha adhikaar aahe."
+        ]
     },
     tamil: {
         sentences: [
-            "கணினியில் வேகமாக தட்டச்சு செய்வது இன்றைய காலத்தில் மிக முக்கியமான திறமை ஆகும்।",
-            "தொடர்ந்து பயிற்சி செய்வதால் உங்கள் தட்டச்சு வேகம் மற்றும் துல்லியம் இரண்டும் அதிகரிக்கும்।",
-            "தவறுகள் செய்வதற்கு அஞ்சாதீர்கள் ஏனென்றால் தவறுகளிலிருந்தே நாம் சரியாக கற்றுக்கொள்கிறோம்।",
-            "விசைப்பலகையில் விரல்களின் சரியான நிலையே வேகத்தின் உண்மையான திறவுகோல்।",
-            "தினமும் பதினைந்து நிமிடம் கவனம் செலுத்தி பயிற்சி செய்தால் நீங்கள் நிபுணராகலாம்।",
-            "சைபர்பங்க் தீம் மற்றும் விசைப்பலகை ஒலிகள் தட்டச்சு அனுபவத்தை மேலும் சுவாரஸ்யமாக்குகின்றன।",
-            "முதலில் துல்லியத்தில் கவனம் செலுத்துங்கள், வேகம் தானாகவே வரும்।",
+            "Computer-il vegamaaga type seivathu indraiya kaalathil migavum mukkiyamaana thiramai aagum.",
+            "Thodarchi pairchiyyin moolam ungal typing vegathaiyum thuulliyanmaiyaiyum athigarikkalaam.",
+            "Thavaru seiyya bayappadaadheeergal, thavarugaril irundhu dhaan naam sariyaaga katrukkolgirom.",
+            "Keyboard-il viral-in sari nilaigal vegamaana typing-in unmaiyaana saaviththiram.",
+            "Thinanthorum padhinaindhu nimidangal kavanam seluthhi payirchi seidhal neeengal oru nibunaraagalaam.",
+            "Cyberpunk theemavilum keyboard oliyilum typing anubavam migavum sugamaagum.",
+            "Mudhalil thulliyathanamai meethu kavanam seluthungal, vegam thaamaagavae varum."
         ],
         easy: [
-            "வீடு பள்ளி வேலை நாள் இரவு நீர் உணவு அன்பு",
-            "அம்மா அப்பா அண்ணன் தங்கை நண்பன் ஆசிரியர் மாணவன் குடும்பம்",
-            "நல்லது கெட்டது உண்மை பொய் வெற்றி தோல்வி மகிழ்ச்சி துக்கம்",
-            "படிக்க எழுத கற்க விளையாட ஓட தூங்க எழுவது பேசுவது",
-            "நகரம் கிராமம் சாலை வாகனம் பயணம் இலக்கு கனவு வெற்றி",
-        ],
-        commonwords: [
-            "மற்றும் நான் நீ அவன் அவள் அவர்கள் நாங்கள் நீங்கள் ஆகும் இல்லை செய்ய செய்கிறேன் இருந்து வரை உடன் கோசமாக ஏனென்றால் எது என்ன ஏன் எங்கே எப்போது எப்படி அனைவரும் மனிதன்",
-            "தமிழ்நாடு சென்னை மதுரை கோயம்புத்தூர் தமிழ் மொழி கலாச்சாரம் வரலாறு மரபு கல்வி சமூகம் அரசியல் பொருளாதாரம் அறிவியல் தொழில்நுட்பம் வளர்ச்சி",
+            "veedu palli velai naal iravu thanneer unavau anbau",
+            "amma appa annan thangai nanbaan aasiriyar maanavan kudumbam",
+            "nalladu keettadu unmai poi vettri tholvi makizhchi thunpam",
+            "neram velai peyar indru naalai kaalai maalai naal iravu",
+            "thanneer thee kaatru bhoomi vaanam maram poo pazham"
         ],
         story: [
-            "அமைதியான காட்டில் பிப் என்ற சிறு அணில் மிக உயரமான மரத்தில் ஏறத் தீர்மானித்தது. குளிர் காற்று வீசினாலும் பிப் நிறுத்தவில்லை, உச்சியில் ஏறி அழகான சூரிய அஸ்தமனத்தை கண்டு மகிழ்ந்தது।",
+            "Oru amaithiyaana kaatil Pip endra oru siru annil migavum uyaramaana maraththil eruppadhu endra mudivau eduthadhu. Kulir kaatru veesiyum Pip nirgavillai, melae senru azhagiya suriyan maraivai kaanadu."
         ],
         quotes: [
-            "யாதும் ஊரே யாவரும் கேளிர்।",
-            "கல்வியே சிறந்த செல்வம்।",
-            "உழைப்பே வெற்றியின் மூலம்।",
+            "Kalvi ondrae sirandha selvam.",
+            "Uyarchi mudhalil kattraal varum.",
+            "Ariivu dhaan valiimai — Francis Bacon"
+        ],
+        commonwords: [
+            "mattrum naan nee avan aval avargal naangal neengal irukkiradhu illai seiya seigiradhu irundhu varai udan endraal yaaru enna yean engae eppoadhu eppadi ellaam makkal veedu vishayam",
+            "Tamilnadu Bharatham Chennai Madurai Tamil mozhi panpaadu varalaru marabau kalvi samugam arasiyal porulaatharam ariviyal thozhilnutpam valarchi"
         ],
         govtexam: [
-            "இந்திய அரசியலமைப்பு உலகின் மிகப்பெரிய எழுதப்பட்ட அரசியலமைப்பாகும். டாக்டர் பி ஆர் அம்பேத்கர் இதன் முக்கிய வரைஞர். ஜனவரி 26, 1950 அன்று இது நடைமுறைக்கு வந்தது। அடிப்படை உரிமைகள் மற்றும் வழிகாட்டு கொள்கைகள் இதன் முக்கிய பகுதிகளாகும்।",
-            "தமிழ்நாடு விவசாயம், தொழில்துறை மற்றும் சேவைத்துறை எல்லாவற்றிலும் முன்னேறிய மாநிலம். சென்னை தென்னிந்தியாவின் முக்கியமான பொருளாதார மையம்।",
-            "டிஜிட்டல் இந்தியா திட்டம் நாட்டின் ஒவ்வொரு மூலையிலும் தொழில்நுட்பத்தை எட்டிவருகிறது। ஆன்லைன் சேவைகள் மக்களின் வாழ்க்கையை எளிதாக்கியுள்ளன।",
-        ],
-        homerow: ["க ங ச ஞ ட ண","த ந ப ம ய ர"],
-        toprow: ["ல வ ழ ள ற ன","ஜ ஷ ஸ ஹ க்ஷ"],
-        bottomrow: ["அ ஆ இ ஈ உ ஊ","எ ஏ ஐ ஒ ஓ ஔ"],
-        homerow_toprow: ["க ங ச ல வ ழ","ஞ ட ண ள ற ன"],
-        homerow_bottomrow: ["க ங ச அ ஆ இ","ஞ ட ண ஈ உ ஊ"],
-        toprow_bottomrow: ["ல வ ழ அ ஆ இ","ள ற ன ஈ உ ஊ"],
-        allrows: ["க ங ச ல வ ழ அ ஆ இ"],
-        numbers: ["௧ ௨ ௩ ௪ ௫","௬ ௭ ௮ ௯ ௰"],
+            "Bharadha Arasiyal Amaipu ulagil migavum neetamaana ezhuthapatta arasiyal amaipu. Dr. B R Ambedkar idhan mukkiya amaipaalar. Irubaththaaru January Aaayirathuth Thollaayirathuth Aimbadhu-il idhu amalkku vandhadhu. Arasiyal amaipu-il adippadai urimaikkalum vazhikkaattum kodkai theligaaga kuripidappattulladhu.",
+            "Bharathathil velaanmai porulaadhaara mudhugezhumbu. Giraama makkalin perum pakudhi velaanmaiyai sarndhu irukkiradhu. Nel, godumai, paruthii mattrum theyilai Bharathin mukkiya payirgal. Arashu vivasaayigalin nanmaikkaaga pala thittangalai nadathukiardhu.",
+            "Bharadha Jananaayagathil moondru thoongal ulladhu — Sattamanram, Nirvaagam mattrum Neethi Mandram. Ivai moondrum serndhu aalumai amaipu-ai samanilayil vaithirukkindrana. Therdhal Aiyam ellaa therdhalgalaiyum nadathugiardhu. Ovvoru kudimagan-ukkum vaaku alikkkum urimai undu."
+        ]
     },
     telugu: {
         sentences: [
-            "కంప్యూటర్‌లో వేగంగా టైప్ చేయడం నేటి కాలంలో చాలా ముఖ్యమైన నైపుణ్యం।",
-            "నిరంతర సాధన ద్వారా మీ టైపింగ్ వేగం మరియు నిర్దుష్టత రెండూ పెరుగుతాయి।",
-            "తప్పులు చేయడానికి భయపడకండి ఎందుకంటే తప్పుల నుండే మనం సరిగ్గా నేర్చుకుంటాం।",
-            "కీబోర్డ్‌పై వేళ్ళ సరైన స్థానం వేగం యొక్క నిజమైన తాళం చెవి।",
-            "ప్రతిరోజూ పదిహేను నిమిషాలు దృష్టి కేంద్రీకరించి సాధన చేస్తే మీరు నిపుణులు కావచ్చు।",
-            "సైబర్‌పంక్ థీమ్ మరియు కీబోర్డ్ శబ్దాలు టైపింగ్ అనుభవాన్ని మరింత ఉత్తేజకరంగా చేస్తాయి।",
-            "మొదట ఖచ్చితత్వంపై దృష్టి పెట్టండి, వేగం అదే వస్తుంది।",
+            "Computer lo veganga type cheyadam nati yugamlo oka chaala mukhyamaina naipunyam.",
+            "Kramam tappakunda saadhanato mee typing vegam mariyu kachithatvam rendoo mettugulu pedathaayi.",
+            "Tappulu cheyadaaniki bhayapaddaku endukante tappulanunde manamu sarigga nerchukovachu.",
+            "Keyboard lo vreella sari sthanam vegamaina typing ki asalu taalamu.",
+            "Prathi roju padihenu nimishaalu shraddhaga saadhanaa chesthe meeru oka nipunulavachu.",
+            "Cyberpunk theme mariyu keyboard sabdhaalu typing anubhavanniki inka romanchagaa untundhi.",
+            "Modatha kachithatvam pai dhyaanam pettandi, vegam sadhanato taanuga vasthundhi."
         ],
         easy: [
-            "ఇల్లు పాఠశాల పని రోజు రాత్రి నీరు ఆహారం ప్రేమ",
-            "అమ్మ నాన్న అన్న చెల్లి మిత్రుడు ఉపాధ్యాయుడు విద్యార్థి కుటుంబం",
-            "మంచి చెడు నిజం అబద్ధం విజయం పరాజయం సంతోషం దుఃఖం",
-            "చదవడం రాయడం నేర్చుకోవడం ఆడుకోవడం పరిగెత్తడం నిద్రపోవడం లేవడం మాట్లాడడం",
-            "నగరం గ్రామం రోడ్డు వాహనం ప్రయాణం గమ్యం కల విజయం",
-        ],
-        commonwords: [
-            "మరియు నేను నువ్వు అతను ఆమె వారు మేము మీరు అవుతుంది కాదు చేయడం చేస్తున్నాను నుండి వరకు తో కోసం ఎందుకంటే ఏది ఏమిటి ఎందుకు ఎక్కడ ఎప్పుడు ఎలా అందరూ మానవుడు",
-            "తెలంగాణ ఆంధ్రప్రదేశ్ హైదరాబాద్ విజయవాడ తెలుగు భాష సంస్కృతి చరిత్ర సంప్రదాయం విద్య సమాజం రాజకీయాలు ఆర్థికం విజ్ఞానం సాంకేతికత అభివృద్ధి",
+            "illu baḍi pani roju raatri neellu aahaaram premaa",
+            "amma naanna anna chelli snehithudhu guru vidyaarthi kutumbam",
+            "manchi chedu nijam abaddham jayam apajayam santosham duhkham",
+            "samayam pani peruu ipuduu repu podhdunna saayantram roju raatri",
+            "neellu nippu gaali bhoomi aakaasham chettuu poovuu panduu"
         ],
         story: [
-            "ప్రశాంతమైన అడవిలో పిప్ అనే చిన్న అడవి పిల్లి అతి ఎత్తైన చెట్టు ఎక్కాలని నిర్ణయించింది. చల్లని గాలి వీచినా పిప్ ఆగలేదు మరియు పైకి చేరుకుని అందమైన సూర్యాస్తమయాన్ని చూసి ఆనందించింది।",
+            "Oka praanthamaina adavilo Pip ane oka chinni udatha anthaa yethththina chettuu yekkaadaniki nirdharinchindhi. Chali gaali veesthunna Pip aagaledu, paikki veelli andhamaina suryaasthamananni choosindhi."
         ],
         quotes: [
-            "జ్ఞానమే శక్తి।",
-            "శ్రమయేవ జయతే।",
-            "విద్య వినయమునిచ్చును।",
+            "Vidya anthaa goppa sampada.",
+            "Kashtam vijayaniki taalamu.",
+            "Jnaanamee shakthi — Francis Bacon"
+        ],
+        commonwords: [
+            "mariyu nenu neevu aatanu aamee vaalluu manam meeru undhi kaadhu cheyadam chesthunnaanu nundhi varaku tho kosam endukante evaru emiti enduku ekkada yeppudu yelaaga anthaa janulu illu vishayam",
+            "Telangana Andhra Pradesh Bharatam Hyderabad Vijayawada Telugu bhasha samskruti charitra sampradayam vidya samajam rajakeeyam arthashaastram shaastram saangethikam abhivruddhi"
         ],
         govtexam: [
-            "భారత రాజ్యాంగం ప్రపంచంలోనే అతి పెద్ద లిఖిత రాజ్యాంగం. డాక్టర్ బి ఆర్ అంబేద్కర్ దీని ముఖ్య రచయిత. జనవరి 26, 1950 న ఇది అమలులోకి వచ్చింది. ప్రాథమిక హక్కులు మరియు మార్గదర్శక సూత్రాలు దీని ముఖ్యమైన భాగాలు।",
-            "ఆంధ్రప్రదేశ్ మరియు తెలంగాణ రాష్ట్రాలు వ్యవసాయం, పరిశ్రమలు మరియు సేవా రంగాలలో అభివృద్ధి చెందుతున్నాయి। హైదరాబాద్ దక్షిణ భారతదేశంలో ముఖ్యమైన ఆర్థిక కేంద్రం।",
-            "డిజిటల్ ఇండియా పథకం దేశంలోని ప్రతి మూలకు సాంకేతికతను చేరవేస్తోంది। ఆన్‌లైన్ సేవలు జనజీవనాన్ని సులభతరం చేశాయి।",
-        ],
-        homerow: ["క ఖ గ ఘ ఙ","చ ఛ జ ఝ ఞ"],
-        toprow: ["ట ఠ డ ఢ ణ","త థ ద ధ న"],
-        bottomrow: ["ప ఫ బ భ మ","య ర ల వ శ"],
-        homerow_toprow: ["క ఖ గ ట ఠ డ","చ ఛ జ త థ ద"],
-        homerow_bottomrow: ["క ఖ గ ప ఫ బ","చ ఛ జ య ర ల"],
-        toprow_bottomrow: ["ట ఠ డ ప ఫ బ","త థ ద య ర ల"],
-        allrows: ["క ఖ గ ట ఠ డ ప ఫ బ"],
-        numbers: ["౧ ౨ ౩ ౪ ౫","౬ ౭ ౮ ౯ ౦"],
+            "Bharata Raajyanga Vidhanam prapanchamlo anthaa pedda likithamaina raajyanga vidhanam. Dr. B R Ambedkar danini rachana chesina pradhana vyakthi. Iravai aaru January padihenu vandala yabhai lo adhi amalloki vacchindhi. Raajyanga vidhanamlo praamanika hakkuluu mariyu aadeshaka suutraalu spashthanga perkonnabaddayi.",
+            "Bharatadeshaamlo vyavasaayam arthavyavastha vennumuuka. Grameena prajallo pedda bhagam vyavasaayam pai aadhaarapadutharu. Varidhaanyam, godhumalu, pratthhi mariyu theeyaaku Bharathadeshpu pradhana pantalu. Prabudhdhvam rythu sheyaniki aneka padhhathulanu naduputhundhi.",
+            "Bharatha Prajaaswaamyamlo moodu sthambhalu unnaayi — Shaasana Sabhaalu, Karyanirvahana Vibhaagam mariyu Nyaayavyavastha. Ee moodu kalisi paalanaa vyavasthanu samathulyamlo unchutaayi. Yennikala Sanchaalakatvam anni yennikalanu nirvahisuthundi. Prathi pourudhudiki otu hakku undhi."
+        ]
     },
     gujarati: {
         sentences: [
-            "કમ્પ્યૂટર પર ઝડપથી ટાઇપ કરવું આજના સમયમાં એક ખૂબ જ મહત્ત્વપૂર્ણ કૌશલ્ય છે.",
-            "નિયમિત સરાવ કરવાથી તમારી ટાઇપિંગ ઝડપ અને ચોકસાઈ બંનેમાં સુધારો થશે.",
-            "ભૂલ કરવાથી ડરો નહીં કારણ કે ભૂલોમાંથી જ આપણે સાચી રીતે શીખી શકીએ છીએ.",
-            "કીબોર્ડ પર આંગળીઓની સાચી સ્થિતિ ઝડપી ગતિની સાચી ચાવી છે.",
-            "દરરોજ પંદર મિનિટ ધ્યાન કેન્દ્રિત કરીને સરાવ કરો અને નિષ્ણાત બનો.",
-            "સાઇબરપંક થીમ અને કીબોર્ડ અવાજ ટાઇપિંગ અનુભવને વધુ રોમાંચક બનાવે છે.",
-            "પહેલા ચોકસાઈ પર ધ્યાન આપો, ઝડપ આપોઆપ આવશે.",
+            "Computer par vegathi type karvu aajni duniyama ek atyant mahatvapurna kaushalya chhe.",
+            "Niyamit abhyas dwara tamari typing gati ane satikta banne sudharashe.",
+            "Bhulo karavathi darvu nahi karanke bhulomaathi j aapne baribar shikhiye chhiye.",
+            "Keyboard par angalioni sachi sthiti vegili typingni khari chavi chhe.",
+            "Daroj pandaar minit dhyan kendrit karine abhyas karva thi tame ek master bani shako chho.",
+            "Cyberpunk theme ane keyboard avajno typing anubhav vadhu romanchak banave chhe.",
+            "Pahela satikta par dhyan apo, gati apodap abhyas sathe aavshe."
         ],
         easy: [
-            "ઘર શાળા કામ દિવસ રાત પાણી ખોરાક પ્રેમ",
-            "માઁ બાપ ભાઈ બહેન મિત્ર શિક્ષક વિદ્યાર્થી પરિવાર",
-            "સારું ખરાબ સત્ય જૂઠ જીત હાર આનંદ દુઃખ",
-            "વાંચવું લખવું શીખવું રમવું દોડવું સૂવું ઉઠવું બોલવું",
-            "શહેર ગામ રસ્તો વાહન પ્રવાસ ઇચ્છિત સ્વપ્ન સફળતા",
-        ],
-        commonwords: [
-            "અને હું તું તે ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ-ઓ",
-            "ગુજરાત અમદાવાદ સૂરત રાજકોટ ગુજરાતી ભાષા સંસ્કૃતિ ઇતિહાસ પ્રણાળી શિક્ષણ",
+            "ghar shala kam divas raat pani khorak prem",
+            "maa baap bhai bahen mitra shikshak vidyarthi kutumb",
+            "saru kharab sachu juthu jeet haar aanand dukh",
+            "samay kam naam aaje kal savaar saanj divas raat",
+            "pani aag pavan dharti aakash jhaad phul phal"
         ],
         story: [
-            "એક શાંત જંગલમાં પિપ નામની એક નાની ખિસ કૌતક સૌથી ઊંચા ઝાડ પર ચઢવાનું નક્કી કર્યું. ઠંડો પવન ફૂંકાય છે છતાં પિપ ન ખૂટ્યો અને ઉપર પહોંચીને એક સુંદર સૂર્યાસ્ત માણ્યો.",
+            "Ek shant jangalma Pip namni ek nani khaas sauthi unchaa jhaad par chadhavaano nirdhar karyo. Thandi hava vaheti hati pan Pip atakyo nahi ane uppar pohchi ne ek sundar suryast joyo."
         ],
         quotes: [
-            "વિદ્યા ધન સૌથી ઉત્તમ ધન છે.",
-            "પ્રેમ, ધૈર્ય અને ખંત — ત્રણ શ્રેષ્ઠ ગુણ.",
-            "ઊઠો, જાગો ને ધ્યેય ન સિદ્ધ થાય ત્યાં સુધી ન ઓ.",
+            "Vidya dhan sauthi uttam dhan chhe.",
+            "Parishram ej safalatani chavi chhe.",
+            "Gyan ej shakti chhe — Francis Bacon"
+        ],
+        commonwords: [
+            "ane hu tu te teo aame tame chhe nathi karvu karay chhe mathi sudhi sathe mate karanke je shu kem kya kyare kevi rite badha lok ghar vat",
+            "Gujarat Bharat Ahmedabad Surat Gujarati bhasha sanskriti itihaas parampara shikshan samaj rajkaran arthavyavastha vidnyan takniki vikas"
         ],
         govtexam: [
-            "ભારતીય બંધારણ વિશ્વનું સૌથી મોટું લેખિત બંધારણ છે. ડૉ. બી. આર. આંબેડકર આ બંધારણના મુખ્ય ઘડવૈયા હતા. ૨૬ જાન્યુઆરી ૧૯૫૦ ના રોજ આ અમલમાં આવ્યું. મૂળભૂત હક્કો અને નિર્દેશક સિદ્ધાંતો આ બંધારણના મહત્ત્વના ભાગ છે.",
-            "ગુજરાત ઉદ્યોગ, વ્યાપાર અને ઉત્પાદન ક્ષેત્રે ભારતનું અગ્રણી રાજ્ય છે. અમદાવાદ ભારતનું ઔદ્યોગિક અને વ્યાપારી મહત્ત્વ ધરાવતું ઐતિહાસિક શહેર છે.",
-            "ડિજિટલ ઇન્ડિયા અભિયાન દેશના દરેક ખૂણે ટેક્નોલોજી પહોંચાડી રહ્યું છે. ઓનલાઇન સેવાઓ દ્વારા નાગરિકોનું જીવન સરળ બન્યું છે.",
-        ],
-        homerow: ["ક ખ ગ ઘ ઙ","ચ છ જ ઝ ઞ"],
-        toprow: ["ટ ઠ ડ ઢ ણ","ત થ દ ધ ન"],
-        bottomrow: ["પ ફ બ ભ મ","ય ર લ વ શ"],
-        homerow_toprow: ["ક ખ ગ ટ ઠ ડ","ચ છ જ ત થ દ"],
-        homerow_bottomrow: ["ક ખ ગ પ ફ બ","ચ છ જ ય ર લ"],
-        toprow_bottomrow: ["ટ ઠ ડ પ ફ બ","ત થ દ ય ર લ"],
-        allrows: ["ક ખ ગ ટ ઠ ડ પ ફ બ"],
-        numbers: ["૧ ૨ ૩ ૪ ૫","૬ ૭ ૮ ૯ ૦"],
+            "Bhartiya Samvidhan vishwanu sauthi lambhu likhit samvidhan chhe. Dr. B R Ambedkar tena mukhya rachiyata hata. Chhavvis January Oganis so panchas ma te laagu thayu. Samvidhanma mulbhut adhikar ane nirdeshak tattvo spasht chhe.",
+            "Bharat ma kheti arthavyavasthano kaanno chhe. Gramina janata no motho bhag kheti par nirbhar chhe. Chokha, ghaun, kapas ane cha Bharat na mukhya pako chhe. Sarkar khedut kalyan mate anek yojana chalaave chhe.",
+            "Bhartiya Loktantra ma tran stambh chhe — Vidhanmandal, Karyapalika ane Nyaypalika. Aa tranney malune shashan vyavastha santulit raakhe chhe. Chunani Panch badha chunav nu sanchalan kare chhe. Darek nagarik ne matadan no adhikar chhe."
+        ]
     },
     kannada: {
         sentences: [
-            "ಕಂಪ್ಯೂಟರ್‌ನಲ್ಲಿ ವೇಗವಾಗಿ ಟೈಪ್ ಮಾಡುವುದು ಇಂದಿನ ಕಾಲದಲ್ಲಿ ಅತ್ಯಂತ ಮಹತ್ವದ ಕೌಶಲ್ಯ.",
-            "ನಿರಂತರ ಅಭ್ಯಾಸದಿಂದ ನಿಮ್ಮ ಟೈಪಿಂಗ್ ವೇಗ ಮತ್ತು ನಿಖರತೆ ಎರಡೂ ಹೆಚ್ಚಾಗುತ್ತದೆ.",
-            "ತಪ್ಪುಗಳನ್ನು ಮಾಡಲು ಹೆದರಬೇಡಿ ಏಕೆಂದರೆ ತಪ್ಪುಗಳಿಂದಲೇ ಸರಿಯಾಗಿ ಕಲಿಯಬಹುದು.",
-            "ಕೀಬೋರ್ಡ್‌ನಲ್ಲಿ ಬೆರಳುಗಳ ಸರಿಯಾದ ಸ್ಥಾನ ವೇಗದ ನಿಜವಾದ ಕೀಲಿ.",
-            "ಪ್ರತಿದಿನ ಹದಿನೈದು ನಿಮಿಷ ಗಮನ ಕೇಂದ್ರೀಕರಿಸಿ ಅಭ್ಯಾಸ ಮಾಡಿ.",
-            "ಸೈಬರ್‌ಪಂಕ್ ಥೀಮ್ ಮತ್ತು ಕೀಬೋರ್ಡ್ ಶಬ್ದಗಳು ಟೈಪಿಂಗ್ ಅನುಭವವನ್ನು ಮತ್ತಷ್ಟು ರೋಚಕವಾಗಿಸುತ್ತವೆ.",
-            "ಮೊದಲು ನಿಖರತೆಯ ಮೇಲೆ ಗಮನ ಕೊಡಿ, ವೇಗ ತನ್ನಷ್ಟಕ್ಕೆ ಬರುತ್ತದೆ.",
+            "Computer-nalli vegavaagi type maaduvudu innina kaaladalli atyanta mahatvada kaushala.",
+            "Niyamita abhyaasadinda nimma typing vegavu mattu nirdoshata eradu mettugalu herchuttade.",
+            "Tappugalu maadalu bhayapadabedi, tappuganinda navu sariyaagi kaliyutteve.",
+            "Keyboard-nalli beralugala sari sthaana vegada typing-na nija beeganalli idde.",
+            "Pratidina hadinaidhu nimishagalu gamanisu kotte abhyaasa maadidare nivu oru nipunaragabaliri.",
+            "Cyberpunk theme mattu keyboard shabdagalu typing anubhavavu innashtu romanchakaraguvudu.",
+            "Modalige nirdoshate mele gamanisu kolli, vega abhyaasadinda taaane baruttade."
         ],
         easy: [
-            "ಮನೆ ಶಾಲೆ ಕೆಲಸ ದಿನ ರಾತ್ರಿ ನೀರು ಆಹಾರ ಪ್ರೀತಿ",
-            "ಅಮ್ಮ ಅಪ್ಪ ಅಣ್ಣ ತಂಗಿ ಗೆಳೆಯ ಶಿಕ್ಷಕ ವಿದ್ಯಾರ್ಥಿ ಕುಟುಂಬ",
-            "ಒಳ್ಳೆಯ ಕೆಟ್ಟ ಸತ್ಯ ಸುಳ್ಳು ಗೆಲುವು ಸೋಲು ಸಂತೋಷ ದುಃಖ",
-            "ಓದುವ ಬರೆಯುವ ಕಲಿಯುವ ಆಡುವ ಓಡುವ ಮಲಗುವ ಎದ್ದೇಳುವ ಮಾತನಾಡುವ",
-            "ನಗರ ಹಳ್ಳಿ ರಸ್ತೆ ವಾಹನ ಪ್ರಯಾಣ ಗಮ್ಯ ಕನಸು ಯಶಸ್ಸು",
-        ],
-        commonwords: [
-            "ಮತ್ತು ನಾನು ನೀನು ಅವನು ಅವಳು ಅವರು ನಾವು ನೀವು ಆಗಿದೆ ಅಲ್ಲ ಮಾಡಲು ಮಾಡುತ್ತಿದ್ದೇನೆ ಇಂದ ವರೆಗೆ ಜೊತೆ ಕೋಸ್ಕರ ಏಕೆಂದರೆ ಏನು ಯಾಕೆ ಎಲ್ಲಿ ಯಾವಾಗ ಹೇಗೆ ಎಲ್ಲರೂ ಮನುಷ್ಯ",
-            "ಕರ್ನಾಟಕ ಬೆಂಗಳೂರು ಮೈಸೂರು ಹುಬ್ಬಳ್ಳಿ ಕನ್ನಡ ಭಾಷೆ ಸಂಸ್ಕೃತಿ ಇತಿಹಾಸ ಸಂಪ್ರದಾಯ ಶಿಕ್ಷಣ ಸಮಾಜ",
+            "mane shaale kelasa dina raathri neeru aahaara preeti",
+            "amma appa anna tangi sneehita guru vidyaarthi kutumba",
+            "olleya ketada nijaa sullu jayaa soolu santhoshaa duhkhaa",
+            "samaya kelasa hesaru ivattu naalae beligge saayankala dina raatri",
+            "neeru benkii gaali bhoomi aakaasha mara hoovu hannu"
         ],
         story: [
-            "ಒಂದು ಶಾಂತವಾದ ಕಾಡಿನಲ್ಲಿ ಪಿಪ್ ಎಂಬ ಸಣ್ಣ ಅಳಿಲು ಅತ್ಯಂತ ಎತ್ತರದ ಮರ ಹತ್ತಲು ನಿರ್ಧರಿಸಿತು. ತಂಪಾದ ಗಾಳಿ ಬಿಟ್ಟರೂ ಪಿಪ್ ನಿಲ್ಲಲಿಲ್ಲ ಮತ್ತು ಮೇಲೇರಿ ಸುಂದರ ಸೂರ್ಯಾಸ್ತವನ್ನು ಆನಂದಿಸಿತು.",
+            "Ondu shaantavaada kaaddinalli Pip emba sanna arillu atyanta ettarada marannu eralu nirdarisitu. Tannana gaali besiyuu Pip nirgatilla, melakke hogi sundara suryaastannu kaanitu."
         ],
         quotes: [
-            "ಜ್ಞಾನವೇ ಶ್ರೇಷ್ಠ ಸಂಪತ್ತು.",
-            "ಶ್ರಮವೇ ಯಶಸ್ಸಿನ ಮೂಲ.",
-            "ವಿದ್ಯೆಯಿಂದ ವಿನಯ ಬರುತ್ತದೆ.",
+            "Jnaanavae shreshta sampattu.",
+            "Parishramave yashassu. Mattu vijayada beeganalli.",
+            "Jnaana shakti — Francis Bacon"
+        ],
+        commonwords: [
+            "mattu naanu neenu avanu avalu avaru naavu neevu aagide alla maadalu maaduttiddene inda vare jote aagi kaarana yaaru yenu yaake yelli yaavaaga hege ella makkaalu mane vishaya",
+            "Karnataka Bharata Bengaluru Mysuru Kannada bhaashe samskruthi itihaasa sampradaaya shikshana samaaja raajakeeyam arthashastra vijna tantragnana belavanige"
         ],
         govtexam: [
-            "ಭಾರತೀಯ ಸಂವಿಧಾನ ಜಗತ್ತಿನ ಅತಿ ದೊಡ್ಡ ಲಿಖಿತ ಸಂವಿಧಾನ. ಡಾ. ಬಿ ಆರ್ ಅಂಬೇಡ್ಕರ್ ಇದರ ಮುಖ್ಯ ರಚನೆಕಾರ. ಜನವರಿ 26, 1950 ರಂದು ಜಾರಿಗೆ ಬಂತು. ಮೂಲಭೂತ ಹಕ್ಕುಗಳು ಮತ್ತು ನಿರ್ದೇಶಕ ತತ್ವಗಳು ಪ್ರಮುಖ ಭಾಗಗಳು.",
-            "ಕರ್ನಾಟಕ ರಾಜ್ಯ ಐಟಿ, ಕೃಷಿ ಮತ್ತು ಉದ್ಯಮ ಕ್ಷೇತ್ರಗಳಲ್ಲಿ ಭಾರತದ ಮುಂಚೂಣಿ ರಾಜ್ಯ. ಬೆಂಗಳೂರು ಭಾರತದ ಸಿಲಿಕಾನ್ ಕಣಿವೆ ಎಂದು ಪ್ರಸಿದ್ಧ.",
-            "ಡಿಜಿಟಲ್ ಇಂಡಿಯಾ ಯೋಜನೆ ದೇಶದ ಪ್ರತಿ ಮೂಲೆಗೂ ತಂತ್ರಜ್ಞಾನ ತಲುಪಿಸುತ್ತಿದೆ. ಆನ್‌ಲೈನ್ ಸೇವೆಗಳು ಜನಜೀವನವನ್ನು ಸುಲಭಗೊಳಿಸಿವೆ.",
-        ],
-        homerow: ["ಕ ಖ ಗ ಘ ಙ","ಚ ಛ ಜ ಝ ಞ"],
-        toprow: ["ಟ ಠ ಡ ಢ ಣ","ತ ಥ ದ ಧ ನ"],
-        bottomrow: ["ಪ ಫ ಬ ಭ ಮ","ಯ ರ ಲ ವ ಶ"],
-        homerow_toprow: ["ಕ ಖ ಗ ಟ ಠ ಡ","ಚ ಛ ಜ ತ ಥ ದ"],
-        homerow_bottomrow: ["ಕ ಖ ಗ ಪ ಫ ಬ","ಚ ಛ ಜ ಯ ರ ಲ"],
-        toprow_bottomrow: ["ಟ ಠ ಡ ಪ ಫ ಬ","ತ ಥ ದ ಯ ರ ಲ"],
-        allrows: ["ಕ ಖ ಗ ಟ ಠ ಡ ಪ ಫ ಬ"],
-        numbers: ["೧ ೨ ೩ ೪ ೫","೬ ೭ ೮ ೯ ೦"],
+            "Bharatiya Samvidhana jagatthina athi dodda likhita samvidhana. Dr. B R Ambedkar idara mukhya rachane gaaru. Iravattaaru January hatthombattu nooru ayivattu alli idu jaariyaayitu. Samvidhanadalli moolaboota hakuugalu mattu nirdeshaka tattvagalu spastavaagi neerpisalaagiide.",
+            "Bharatadalli krushi arthavy avastheya belleyembu aagide. Graamina janatheyalli hechchu bhaga krushi mele avalambisiruttare. Bhattha, godhi, hatthi mattu chaaha Bharatada mukhya beleegalu. Sarkaara raithara shreeyoshtigaagi aneka yojanegalannu nadestide.",
+            "Bharateeya Prajaaprabhutyadalli mooru stambhagalu iive — Shaasana Sabhegalu, Karyanirvaahaka mattu Nyaayaanga. Ee mooru seritu aadalitha vyavasthennu samatholaniyalli ittirutade. Chunavana Aayoga ella chunavanegalannu nadestide. Pratiobba paurananiguu mataadaana hakkidde."
+        ]
     },
     malayalam: {
         sentences: [
-            "കമ്പ്യൂട്ടറിൽ വേഗത്തിൽ ടൈപ്പ് ചെയ്യുന്നത് ഇന്നത്തെ കാലത്ത് വളരെ പ്രധാനപ്പെട്ട ഒരു കഴിവാണ്.",
-            "നിരന്തരമായ പ്രാക്ടീസ് ടൈപ്പിങ് വേഗതയും കൃത്യതയും വർദ്ധിപ്പിക്കും.",
-            "തെറ്റുകൾ ചെയ്യാൻ ഭയപ്പെടരുത് കാരണം തെറ്റുകളിൽ നിന്നാണ് ശരിയായി പഠിക്കുന്നത്.",
-            "കീബോർഡിൽ വിരലുകളുടെ ശരിയായ സ്ഥാനം വേഗതയുടെ യഥാർഥ താക്കോൽ ആണ്.",
-            "ദിവസവും പതിനഞ്ച് മിനിറ്റ് ശ്രദ്ധ കേന്ദ്രീകരിച്ച് പ്രാക്ടീസ് ചെയ്താൽ വിദഗ്ദ്ധനാകാം.",
-            "സൈബർ‌പങ്ക് തീം ടൈപ്പിങ് അനുഭവം കൂടുതൽ ആകർഷകമാക്കുന്നു.",
-            "ആദ്യം കൃത്യതയിൽ ശ്രദ്ധ ഊന്നൂ, വേഗത സ്വാഭാവികമായി വരും.",
+            "Computer-il vegathil type cheyyunnathu innale kaalath valare pradhaanapettathoru kaushalyam aanu.",
+            "Niranthara abhyaasam vazhiye ningalude typing vegavum thulliyathmavum rendilum valarchha undaakkum.",
+            "Thettugal cheyyaan pedhikkaruthe, karanam thettugalil ninnaanu naam shariyaayi padikkunnathu.",
+            "Keyboard-il viralugalude shari sthaanam vegatheyarikkunna typing-ude yathaartha kunniyaanam.",
+            "Divasavum pathinnanjchu minute shraddhayodu abhyasam cheythaal neengal oru master aakum.",
+            "Cyberpunk theme-um keyboard shabdavum typing anubhavam kooduthal romanchakaramaakkum.",
+            "Aadyam thulliyathmayil shraddhikkukaa, vegam abhyaasathodu thaanae varum."
         ],
         easy: [
-            "വീട് സ്കൂൾ ജോലി ദിവസം രാത്രി വെള്ളം ഭക്ഷണം സ്നേഹം",
-            "അമ്മ അച്ഛൻ ചേട്ടൻ അനിയത്തി സുഹൃത്ത് അദ്ധ്യാപകൻ വിദ്യാർഥി കുടുംബം",
-            "നല്ലത് ചീത്ത സത്യം നുണ ജയം തോൽവി സന്തോഷം ദുഃഖം",
-            "വായിക്കുക എഴുതുക പഠിക്കുക കളിക്കുക ഓടുക ഉറങ്ങുക ഉണരുക സംസാരിക്കുക",
-            "നഗരം ഗ്രാമം റോഡ് വാഹനം യാത്ര ലക്ഷ്യം സ്വപ്നം വിജയം",
-        ],
-        commonwords: [
-            "ഉം ഞാൻ നീ അവൻ അവൾ അവർ ഞങ്ങൾ നിങ്ങൾ ആണ് അല്ല ചെയ്യുക ചെയ്യുന്നു നിന്ന് വരെ ഒപ്പം വേണ്ടി കാരണം എന്ത് എന്തുകൊണ്ട് എവിടെ എപ്പോൾ എങ്ങനെ എല്ലാവരും മനുഷ്യൻ",
-            "കേരളം തിരുവനന്തപുരം കൊച്ചി കോഴിക്കോട് മലയാളം ഭാഷ സംസ്കൃതി ചരിത്രം പാരമ്പര്യം വിദ്യഭ്യാസം",
+            "veedu school joli divasam raathri vellam bhakshanam sneham",
+            "amma achan chettan chechhi koottukaaran adhyaapakan vidyaarthi kudumbam",
+            "nalla chetha sathyam kalavum jayam tholvi santhosham duhkham",
+            "samayam joli peru innu naale raavile vaikunneram divasam raathri",
+            "vellam thii kaattu bhoomi aakasham maram poovu phal"
         ],
         story: [
-            "ശാന്തമായ ഒരു വനത്തിൽ പിപ്പ് എന്ന ഒരു ചെറിയ അണ്ണാൻ ഏറ്റവും ഉയരമുള്ള മരം കയറാൻ തീരുമാനിച്ചു. തണുത്ത കാറ്റ് ഉണ്ടായിരുന്നിട്ടും പിപ്പ് നിർത്തിയില്ല, മുകളിൽ എത്തി ഒരു മനോഹരമായ അസ്തമയം ആസ്വദിച്ചു.",
+            "Shanthamaaya oru vanatthil Pip ennu oru cheriya annan ettavum uyaramulla maram kayaraan theerumaanichchu. Thannuppu kaattadichittum Pip nilachilla, mukalil ethhi oru sundhara suryaastham kaanukayum cheythu."
         ],
         quotes: [
-            "വിദ്യ ഒരു ദീപമാണ്.",
-            "അദ്ധ്വാനമാണ് വിജയത്തിന്റെ മൂലം.",
-            "ഇന്ന് ചെയ്യാൻ കഴിഞ്ഞതിനെ നാളേക്ക് മാറ്റിവക്കരുത്.",
+            "Vidya oru deepamaanam.",
+            "Adhvaana phalamae vijayam.",
+            "Jnaanam shakti aanu — Francis Bacon"
+        ],
+        commonwords: [
+            "um njaan nee avan aval avar njaangal ningal aanu alla cheyyuka cheyyunnundhu ninnu vare oppam kaarannam aaru enthu enthinau evide eppol engane ellaam manushyar veedu kaaryam",
+            "Kerala Bharatham Thiruvananthapuram Kochi Malayalam bhaasha samskaaram charithram parampaaryam vidhyaabhyaasam samooham rajakeeyam arthashaastram shaastram saamkethika vidya valarchha"
         ],
         govtexam: [
-            "ഭാരതത്തിന്റെ ഭരണഘടന ലോകത്തിലെ ഏറ്റവും നീണ്ട ലിഖിത ഭരണഘടനയാണ്. ഡോ. ബി ആർ അംബേദ്കർ ഇതിന്റെ പ്രധാന ശില്പി. ജനുവരി 26, 1950-ൽ ഇത് നടപ്പിലായി. മൗലിക അവകാശങ്ങളും നിർദ്ദേശക തത്ത്വങ്ങളും ഇതിന്റെ പ്രധാന ഭാഗങ്ങളാണ്.",
-            "കേരളം വിദ്യഭ്യാസം, ആരോഗ്യം, ഐടി മേഖലകളിൽ ഭാരതത്തിലെ മുൻനിര സംസ്ഥാനമാണ്. കൊച്ചി ദക്ഷിണേഷ്യയിലെ ഒരു പ്രധാന ബിസിനസ്സ് കേന്ദ്രം.",
-            "ഡിജിറ്റൽ ഇന്ത്യ പദ്ധതി രാജ്യത്തിന്റെ ഓരോ മൂലയിലും സാങ്കേതിക വിദ്യ എത്തിക്കുന്നു.",
-        ],
-        homerow: ["ക ഖ ഗ ഘ ങ","ച ഛ ജ ഝ ഞ"],
-        toprow: ["ട ഠ ഡ ഢ ണ","ത ഥ ദ ധ ന"],
-        bottomrow: ["പ ഫ ബ ഭ മ","യ ര ല വ ശ"],
-        homerow_toprow: ["ക ഖ ഗ ട ഠ ഡ","ച ഛ ജ ത ഥ ദ"],
-        homerow_bottomrow: ["ക ഖ ഗ പ ഫ ബ","ച ഛ ജ യ ര ല"],
-        toprow_bottomrow: ["ട ഠ ഡ പ ഫ ബ","ത ഥ ദ യ ര ല"],
-        allrows: ["ക ഖ ഗ ട ഠ ഡ പ ഫ ബ"],
-        numbers: ["൧ ൨ ൩ ൪ ൫","൬ ൭ ൮ ൯ ൦"],
+            "Bharathathinte Bharanaghadana lokathile ettavum neediya likhitha bharanaghadanayaanu. Dr. B R Ambedkar idhinthe pradhaana rachayithaavaayi. Irupatthiyaaru January Aayirathithollaayiratthiaempathu il idhu nildaththil vannu. Bharanaghadanayil moulika avakashangalum nirdeshaka tathvangalum vyakthamaayi ullathu.",
+            "Bharathathil krishi sambadhavyavasthayude naddellaaanu. Graamapradeshangalile janangalude valiya bhagam krishiyil aashritharaanu. Nellum godhoomavum parutthiyum chaayayum Bharathathinte pradhaana vilakkalaaanu. Sarkaar karshaka kshemathhinaayi pala padhthathigal nadatthunnu.",
+            "Bharatheeya Jaanadhipatyathil munndu thoonu undu — Nirmmaana Sabhakal, Kaarya Nirvaahakavum, Neethinyaaya Vyavasthayum. Ee moonnum chernnu bhaarana kramatthe samathulitham nirtthunnu. Theranjeduppu Commission ellaa theranjeduppukalum nadatthunnu. Ovvoru pouranumakkum vottu cheyyaan avakashamu undu."
+        ]
     },
     odia: {
         sentences: [
-            "କମ୍ପ୍ୟୁଟରରେ ଦ୍ରୁତ ଟାଇପ୍ କରିବା ଆଜିର ଯୁଗରେ ଏକ ଅତ୍ୟନ୍ତ ମହତ୍ୱପୂର୍ଣ୍ଣ ଦକ୍ଷତା।",
-            "ନିୟମିତ ଅଭ୍ୟାସ କରିବା ଦ୍ୱାରା ଆପଣଙ୍କ ଟାଇପିଂ ଗତି ଓ ଶୁଦ୍ଧତା ଦୁଇଟି ବଢ଼ିବ।",
-            "ଭୁଲ ଆଗ୍ରହ ନ କରନ୍ତୁ, କାରଣ ଭୁଲରୁ ହିଁ ଆମେ ସଠିକ ଭାବରେ ଶିଖି ପାରୁ।",
-            "ଅଙ୍ଗୁଳିଗୁଡ଼ିକ ସଠିକ ସ୍ଥାନରେ ରଖିବା ଦ୍ରୁତ ଗତିର ମୂଳ ଚାବି।",
-            "ପ୍ରତ୍ୟେକ ଦିନ ପନ୍ଦର ମିନିଟ ଧ୍ୟାନ ସହ ଅଭ୍ୟାସ କଲେ ବିଶେଷଜ୍ଞ ହୋଇ ପାରିବ।",
-            "ସାଇବରପଙ୍କ ଥୀମ ଟାଇପ୍ ଅଭିଜ୍ଞତାକୁ ଆହୁରି ମଜାଦାର କରି ଦିଏ।",
-            "ପ୍ରଥମେ ଶୁଦ୍ଧତା ଉପରେ ଧ୍ୟାନ ଦିଅ, ଗତି ଆପେ ଆସିବ।",
+            "Computer re druta type kariba aaji kaalare eka atyanta mahatvapoorna dakshata.",
+            "Niyamita abhyaasa dwara apananka typing gati ebam nirbhulataa ubhaya sudhariba.",
+            "Bhula karibaku darantu nahi karana bhularu hi amae sathika bhabe shikhuthau.",
+            "Keyboard re angulira sathika sthiti druta gatira sathika chhabhi aahe.",
+            "Pratidinaa pandara minute dhyana deiki abhyaasa kale aapana ekajana master heipaaribe.",
+            "Cyberpunk theme ebam keyboard shabda typing anubhaba ku aahuree romanchakara karuchhi.",
+            "Pahile nirbhulataa uparaku dhyana dia, gati abhyaasa sahita aapu aapu aasiba."
         ],
         easy: [
-            "ଘର ବିଦ୍ୟାଳୟ କାମ ଦିନ ରାତ ଜଳ ଖାଦ୍ୟ ପ୍ରେମ",
-            "ମା ବାପା ଭାଇ ଭଉଣୀ ବନ୍ଧୁ ଶିକ୍ଷକ ଛାତ୍ର ପରିବାର",
-            "ଭଲ ଖରାପ ସତ୍ୟ ମିଥ୍ୟା ଜୟ ପରାଜୟ ଆନନ୍ଦ ଦୁଃଖ",
-            "ପଢ଼ିବା ଲେଖିବା ଶିଖିବା ଖେଳିବା ଦୌଡ଼ିବା ଶୋଇବା ଉଠିବା ବୋଲିବା",
-            "ସହର ଗ୍ରାମ ରାସ୍ତା ଯାନ ଯାତ୍ରା ଲକ୍ଷ୍ୟ ସ୍ୱପ୍ନ ସଫଳତା",
-        ],
-        commonwords: [
-            "ଏବଂ ମୁଁ ତୁ ସେ ସେ ସେମାନେ ଆମେ ଆପଣ ଅଟେ ନୁହଁ କରିବା କରୁଛି ଠାରୁ ପର୍ଯ୍ୟନ୍ତ ସାଥ ପାଇଁ କାରଣ ଯାହା କ'ଣ କ୍ୟାଁ କୋଉଠି କ'ଣ ବେଳେ କିପରି ସମସ୍ତ ମଣିଷ",
-            "ଓଡ଼ିଶା ଭୁବନେଶ୍ୱର ପୁରୀ ଓଡ଼ିଆ ଭାଷା ସଂସ୍କୃତି ଇତିହାସ ପରମ୍ପରା ଶିକ୍ଷା ସମାଜ",
+            "ghara bidyaalaya kaama dina raati jala khaadya prema",
+            "maa baabaa bhaai bhauNi bandhu shikshaka chhaatraa paribaar",
+            "bhala kharap sacha mithyaa jaya paraajaya aananada dukha",
+            "samaya kaama naama aaji kaali sakala sandhyaa dina raati",
+            "jala aagni haaoyaa prithiibee aakaash gacha phula phala"
         ],
         story: [
-            "ଏକ ଶାନ୍ତ ଜଙ୍ଗଲରେ ପିପ ନାମର ଏକ ଛୋଟ କାଠ ବିଡ଼ାଳ ସବୁଠୁ ଉଚ୍ଚ ଗଛ ଉପରକୁ ଚଢ଼ିବାକୁ ଠିକ ଗଲା। ଥଣ୍ଡା ବାୟୁ ବୋହୁଥଲେ ମଧ୍ୟ ପିପ ଅଟକ ଗଲ ନାହିଁ ଓ ଉଛ ଉପରେ ପହଞ୍ଚି ସୁନ୍ଦର ସୂର୍ୟାସ୍ତ ଉପଭୋଗ କଲା।",
+            "Eka shaanta jangalare Pip naama eka sana kaatha bidaala saha theka unnata gacha upari chaadhiba ku thika gala. Thanda baatasa bahuthilaa kintu Pip thaambila nahi ebam upare pohonchi ekaa sundara surjaasta dekhilaa."
         ],
         quotes: [
-            "ଜ୍ଞାନ ହି ଶ୍ରେଷ୍ଠ ସମ୍ପଦ।",
-            "ପରିଶ୍ରମ ହି ସଫଳତାର ଚାବି।",
-            "ଶିକ୍ଷା ହି ଭବିଷ୍ୟତ।",
+            "Gyana hi shreshtha sampada.",
+            "Parishram hin safalatar chaabhi.",
+            "Gyana hi shakti — Francis Bacon"
+        ],
+        commonwords: [
+            "ebam mu tu se se semaane aame aapana aate nahin kariba karuchhi thaaru parjyanta saathire paain karana je ki kaahinki kuaade kebe kaemiti saba loka ghara kathaa",
+            "Odisha Bhaarata Bhubaneshwara Cuttack Odia bhaashaa samskruti itihaas parampara shikhshaa samaaja rajneeti arthaniti bignyana pranidhi vikaas"
         ],
         govtexam: [
-            "ଭାରତୀୟ ସଂବିଧାନ ବିଶ୍ୱର ସବୁଠୁ ଲମ୍ବା ଲିଖିତ ସଂବିଧାନ। ଡ. ବି ଆର ଆମ୍ବେଦ୍କର ଏହାର ଜଣକ। ୨୬ ଜାନୁୟାରୀ ୧୯୫୦ ରେ ଏହା ଲାଗୁ ହୋଇଥିଲା। ମୌଳିକ ଅଧିକାର ଓ ନିର୍ଦ୍ଦେଶ ସୂତ୍ର ଏଥିର ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଅଂଶ।",
-            "ଓଡ଼ିଶା ଖଣି, ଶିଳ୍ପ ଓ ପ୍ରାକୃତିକ ସୌନ୍ଦର୍ଯ୍ୟ ଦ୍ୱାରା ପ୍ରସିଦ୍ଧ। ପୁରୀ ଭଗବାନ ଜଗନ୍ନାଥଙ୍କ ଧାମ ଭାବରେ ସାରା ଦୁନିଆରେ ଜଣାଶୁଣା।",
-            "ଡିଜିଟାଲ ଇଣ୍ଡିଆ ଯୋଜନା ଦେଶର ପ୍ରତ୍ୟେକ ଅଞ୍ଚଳକୁ ପ୍ରଯୁକ୍ତି ବ୍ୟବହାର ଯୋଗ୍ୟ କରାଉଛି।",
-        ],
-        homerow: ["କ ଖ ଗ ଘ ଙ","ଚ ଛ ଜ ଝ ଞ"],
-        toprow: ["ଟ ଠ ଡ ଢ ଣ","ତ ଥ ଦ ଧ ନ"],
-        bottomrow: ["ପ ଫ ବ ଭ ମ","ଯ ର ଲ ଵ ଶ"],
-        homerow_toprow: ["କ ଖ ଗ ଟ ଠ ଡ","ଚ ଛ ଜ ତ ଥ ଦ"],
-        homerow_bottomrow: ["କ ଖ ଗ ପ ଫ ବ","ଚ ଛ ଜ ଯ ର ଲ"],
-        toprow_bottomrow: ["ଟ ଠ ଡ ପ ଫ ବ","ତ ଥ ଦ ଯ ର ଲ"],
-        allrows: ["କ ଖ ଗ ଟ ଠ ଡ ପ ଫ ବ"],
-        numbers: ["୧ ୨ ୩ ୪ ୫","୬ ୭ ୮ ୯ ୦"],
+            "Bhartiya Sambidhaan biswa ra saha theka lamba likhit sambidhaan. Dr. B R Ambedkar ehaar mukhya rachayitaa. Chhabbish January Unish Shaha Panchaash re eta laagu hela. Sambidhaan re maulik adhikaar ebam nirdeshak tattwa spashta bhabe ullekh achhi.",
+            "Bharat re krishi arthaniti ra merudanda. Gramin janata ra badaa bhaag krishi upare nirbhar. Dhaan, gahum, kapas ebam chaa Bharat ra mukhya phasal. Sarkar kisan kalyan paain aneka yojana chalauchhi.",
+            "Bhartiya Loktantra re tini stambh achhi — Bidhan Sabha, Karyapalika ebam Nyayalaya. Ye tinitiey mili shaasan byabasthaa ku santulit rakhanti. Nirbachan Aayog saboo nirbachaan ra sanchaalan kare. Pratyek nagarik ku matadaan ra adhikaar achhi."
+        ]
     },
     punjabi: {
         sentences: [
-            "ਕੰਪਿਊਟਰ 'ਤੇ ਤੇਜ਼ੀ ਨਾਲ ਟਾਈਪ ਕਰਨਾ ਅੱਜ ਦੇ ਸਮੇਂ ਵਿੱਚ ਇੱਕ ਬਹੁਤ ਮਹੱਤਵਪੂਰਨ ਹੁਨਰ ਹੈ।",
-            "ਨਿਯਮਿਤ ਅਭਿਆਸ ਕਰਨ ਨਾਲ ਤੁਹਾਡੀ ਟਾਈਪਿੰਗ ਗਤੀ ਅਤੇ ਸ਼ੁੱਧਤਾ ਦੋਵੇਂ ਵਧਣਗੇ।",
-            "ਗਲਤੀਆਂ ਕਰਨ ਤੋਂ ਨਾ ਡਰੋ ਕਿਉਂਕਿ ਗਲਤੀਆਂ ਤੋਂ ਹੀ ਅਸੀਂ ਸਹੀ ਤਰੀਕੇ ਨਾਲ ਸਿੱਖਦੇ ਹਾਂ।",
-            "ਕੀਬੋਰਡ 'ਤੇ ਉਂਗਲਾਂ ਦੀ ਸਹੀ ਸਥਿਤੀ ਹੀ ਤੇਜ਼ ਗਤੀ ਦੀ ਅਸਲੀ ਕੁੰਜੀ ਹੈ।",
-            "ਹਰ ਰੋਜ਼ ਪੰਦਰਾਂ ਮਿੰਟ ਧਿਆਨ ਲਗਾ ਕੇ ਅਭਿਆਸ ਕਰੋ ਅਤੇ ਮਾਹਿਰ ਬਣੋ।",
-            "ਸਾਈਬਰਪੰਕ ਥੀਮ ਅਤੇ ਕੀਬੋਰਡ ਆਵਾਜ਼ਾਂ ਟਾਈਪਿੰਗ ਅਨੁਭਵ ਨੂੰ ਹੋਰ ਰੋਮਾਂਚਕ ਬਣਾਉਂਦੀਆਂ ਹਨ।",
-            "ਪਹਿਲਾਂ ਸ਼ੁੱਧਤਾ 'ਤੇ ਧਿਆਨ ਦਿਓ, ਗਤੀ ਆਪਣੇ ਆਪ ਆਵੇਗੀ।",
+            "Computer te tezi naal type karna aaj de samey vich ik bahut mahatvapooran hunar hai.",
+            "Niyamit abhiaas naal tuhaadi typing gati ate shutdata doveyen vich sudhaar hoga.",
+            "Galtiaan karan ton na daro kiunkee galtiyaan ton hi aseen sahi tarike naal sikhdey haan.",
+            "Keyboard te ungalaan di sahi jagah tez typing di asli kunji hai.",
+            "Har din pandhraan minit dhyaan lagaake abhiaas karo taan tusi ek maahir ban sakde ho.",
+            "Cyberpunk theme ate keyboard avaazaan typing anubhav nu hor vi romanchak banaundiaan.",
+            "Pehilaan shutdata te dhyaan deo, gati abhiaas naal aapae aa javegi."
         ],
         easy: [
-            "ਘਰ ਸਕੂਲ ਕੰਮ ਦਿਨ ਰਾਤ ਪਾਣੀ ਖਾਣਾ ਪਿਆਰ",
-            "ਮਾਂ ਪਿਤਾ ਵੀਰ ਭੈਣ ਦੋਸਤ ਅਧਿਆਪਕ ਵਿਦਿਆਰਥੀ ਪਰਿਵਾਰ",
-            "ਚੰਗਾ ਬੁਰਾ ਸੱਚ ਝੂਠ ਜਿੱਤ ਹਾਰ ਖੁਸ਼ੀ ਦੁੱਖ",
-            "ਪੜ੍ਹਨਾ ਲਿਖਣਾ ਸਿੱਖਣਾ ਖੇਡਣਾ ਦੌੜਨਾ ਸੌਣਾ ਉੱਠਣਾ ਬੋਲਣਾ",
-            "ਸ਼ਹਿਰ ਪਿੰਡ ਸੜਕ ਗੱਡੀ ਸਫ਼ਰ ਮੰਜ਼ਿਲ ਸੁਪਨਾ ਸਫਲਤਾ",
-        ],
-        commonwords: [
-            "ਅਤੇ ਮੈਂ ਤੂੰ ਉਹ ਉਹ ਉਹ ਅਸੀਂ ਤੁਸੀਂ ਹੈ ਨਹੀਂ ਕਰਨਾ ਕਰ ਰਿਹਾ ਤੋਂ ਤੱਕ ਨਾਲ ਲਈ ਕਿਉਂਕਿ ਜੋ ਕੀ ਕਿਉਂ ਕਿੱਥੇ ਕਦੋਂ ਕਿਵੇਂ ਸਾਰੇ ਮਨੁੱਖ",
-            "ਪੰਜਾਬ ਅੰਮ੍ਰਿਤਸਰ ਲੁਧਿਆਣਾ ਚੰਡੀਗੜ੍ਹ ਪੰਜਾਬੀ ਭਾਸ਼ਾ ਸੱਭਿਆਚਾਰ ਇਤਿਹਾਸ ਪਰੰਪਰਾ ਸਿੱਖਿਆ ਸਮਾਜ",
+            "ghar school kamm din raat paani khaana piaar",
+            "maa baap bhara bhain mitr adhiaaapak vidiaarthi parivaar",
+            "changaa bura sach jhooth jit haar kushi dukh",
+            "velaa kamm naav aaj kal savere shaam din raat",
+            "paani agg hava dharti aasmaan rukkh phul phal"
         ],
         story: [
-            "ਇੱਕ ਸ਼ਾਂਤ ਜੰਗਲ ਵਿੱਚ ਪਿੱਪ ਨਾਮ ਦੀ ਇੱਕ ਛੋਟੀ ਗਿਲਹਰੀ ਨੇ ਸਭ ਤੋਂ ਉੱਚੇ ਦਰੱਖਤ 'ਤੇ ਚੜ੍ਹਨ ਦਾ ਫੈਸਲਾ ਕੀਤਾ। ਠੰਡੀ ਹਵਾ ਚੱਲਦੀ ਰਹੀ ਪਰ ਪਿੱਪ ਨਹੀਂ ਰੁਕੀ ਅਤੇ ਉੱਪਰ ਪਹੁੰਚ ਕੇ ਇੱਕ ਸੁੰਦਰ ਸੂਰਜ ਡੁੱਬਣ ਦਾ ਅਨੰਦ ਲਿਆ।",
+            "Ik shaant jangal vich Pip naam dee ik chhoti gilahri ne sab ton uchche darakhhat te chadhhan da faisla kita. Thandi hava vag rahi si par Pip rukiaa nahi ate uppar jaake ik sundar surajdhaal dekheaa."
         ],
         quotes: [
-            "ਵਿੱਦਿਆ ਵਿਚਾਰੀ ਤਾਂ ਪਰਉਪਕਾਰੀ।",
-            "ਮਿਹਨਤ ਕਰਨ ਵਾਲੇ ਕਦੇ ਨਹੀਂ ਹਾਰਦੇ।",
-            "ਸੱਚ ਬੋਲੋ ਸੱਚ ਵਿੱਚ ਰਹੋ।",
+            "Viddiaa vichaari taan parupkaari.",
+            "Mihenat karnaa hi kamyaabi di chaabi hai.",
+            "Giaan hi shakti hai — Francis Bacon"
+        ],
+        commonwords: [
+            "ate main toon oh oh oh aseen tuseen hai nahi karna kar rihaa ton takk naal layi kiunkee jo ki kyun kithe kado kiven sab lok ghar gall",
+            "Punjab Bharat Chandigarh Amritsar Punjabi bhaashaa sabhiaachaar itihaas reet sikhiaa samaaj raajneeti arthachaara vigiaan taknaaluji vikaas"
         ],
         govtexam: [
-            "ਭਾਰਤੀ ਸੰਵਿਧਾਨ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਲੰਬਾ ਲਿਖਿਤ ਸੰਵਿਧਾਨ ਹੈ। ਡਾ. ਬੀ ਆਰ ਅੰਬੇਡਕਰ ਇਸ ਦੇ ਮੁੱਖ ਨਿਰਮਾਤਾ ਸਨ। 26 ਜਨਵਰੀ 1950 ਨੂੰ ਇਹ ਲਾਗੂ ਹੋਇਆ। ਮੌਲਿਕ ਅਧਿਕਾਰ ਅਤੇ ਨਿਰਦੇਸ਼ਕ ਸਿਧਾਂਤ ਇਸ ਦੇ ਮਹੱਤਵਪੂਰਨ ਹਿੱਸੇ ਹਨ।",
-            "ਪੰਜਾਬ ਖੇਤੀਬਾੜੀ ਖੇਤਰ ਵਿੱਚ ਭਾਰਤ ਦਾ ਮਹੱਤਵਪੂਰਨ ਰਾਜ ਹੈ। ਅੰਮ੍ਰਿਤਸਰ ਵਿੱਚ ਸੋਨੇ ਦਾ ਮੰਦਿਰ ਸ੍ਰੀ ਦਰਬਾਰ ਸਾਹਿਬ ਵਿਸ਼ਵਭਰ ਵਿੱਚ ਮਸ਼ਹੂਰ ਹੈ।",
-            "ਡਿਜੀਟਲ ਇੰਡੀਆ ਯੋਜਨਾ ਦੇਸ਼ ਦੇ ਹਰ ਕੋਨੇ ਵਿੱਚ ਤਕਨਾਲੋਜੀ ਪਹੁੰਚਾ ਰਹੀ ਹੈ।",
-        ],
-        homerow: ["ਕ ਖ ਗ ਘ ਙ","ਚ ਛ ਜ ਝ ਞ"],
-        toprow: ["ਟ ਠ ਡ ਢ ਣ","ਤ ਥ ਦ ਧ ਨ"],
-        bottomrow: ["ਪ ਫ ਬ ਭ ਮ","ਯ ਰ ਲ ਵ ਸ਼"],
-        homerow_toprow: ["ਕ ਖ ਗ ਟ ਠ ਡ","ਚ ਛ ਜ ਤ ਥ ਦ"],
-        homerow_bottomrow: ["ਕ ਖ ਗ ਪ ਫ ਬ","ਚ ਛ ਜ ਯ ਰ ਲ"],
-        toprow_bottomrow: ["ਟ ਠ ਡ ਪ ਫ ਬ","ਤ ਥ ਦ ਯ ਰ ਲ"],
-        allrows: ["ਕ ਖ ਗ ਟ ਠ ਡ ਪ ਫ ਬ"],
-        numbers: ["੧ ੨ ੩ ੪ ੫","੬ ੭ ੮ ੯ ੦"],
+            "Bhartiya Samvidhan duniya da sab ton lamba likhit samvidhan hai. Dr. B R Ambedkar is de mukhh rachnaakaar san. Chhabbee January Unee sau panjaa vich eh laagoo hoiaa. Samvidhan vich mool adhikaar ate nirdeshak tatv spasht hain.",
+            "Bharat vich kheti arthachaare di reed dee haddi hai. Pendu lokan da vadda hissa kheti te nirbhar hai. Jhona, kanak, kapah ate chaa Bharat diyaan mukhh faslan hain. Sarkaar kisan bhalaai layi anek yojnaavan chalaundi hai.",
+            "Bhartiya Loktantar vich tinn thammh hain — Vidhan Mandal, Kaarjpaalika ate Niaaypaalkaa. Eh tinney mil ke shaasan vyavastha nu santulit rakhde hain. Chunav Commission saare chunaavan da sanchalan karda hai. Har naagrik nu votaan paun da adhikaar hai."
+        ]
     },
     urdu: {
         sentences: [
-            "کمپیوٹر پر تیزی سے ٹائپ کرنا آج کے دور میں ایک بہت اہم مہارت ہے۔",
-            "مستقل مشق سے آپ کی ٹائپنگ کی رفتار اور درستگی دونوں بڑھیں گے۔",
-            "غلطیاں کرنے سے مت گھبرائیں کیونکہ غلطیوں سے ہی ہم سیکھتے ہیں۔",
-            "کی بورڈ پر انگلیوں کی درست پوزیشن رفتار کی اصل چابی ہے۔",
-            "روزانہ پندرہ منٹ توجہ سے مشق کریں اور ماہر بن جائیں۔",
-            "سائبر پنک تھیم ٹائپنگ کے تجربے کو مزید دلچسپ بناتا ہے۔",
-            "پہلے درستگی پر دھیان دیں، رفتار خود بخود آ جائے گی۔",
+            "Computer par tezi se type karna aaj ke daur mein ek bahut ahem maharaat hai.",
+            "Baqaida mashq se aapki typing raftaar aur durusti dono mein behteri hogi.",
+            "Ghaltiyan karne se na dariyen kyunke ghaltiyon se hi hum sahi tariqe se seekhte hain.",
+            "Keyboard par ungliyon ki sahi jagah tez raftaar ki asli kunji hai.",
+            "Har roz pandrah minute tawajjoh se mashq karein toh aap ek mahir ban sakte hain.",
+            "Cyberpunk theme aur keyboard awaazein typing tajurbe ko aur dillchasp banati hain.",
+            "Pehle durusti par tawajjoh dein, raftaar mashq ke saath khud ba khud aa jayegi."
         ],
         easy: [
-            "گھر سکول کام دن رات پانی کھانا محبت",
-            "امی ابو بھائی بہن دوست استاد طالب علم خاندان",
-            "اچھا برا سچ جھوٹ جیت ہار خوشی دکھ",
-            "پڑھنا لکھنا سیکھنا کھیلنا دوڑنا سونا اٹھنا بولنا",
-            "شہر گاؤں سڑک گاڑی سفر منزل خواب کامیابی",
-        ],
-        commonwords: [
-            "اور میں تم وہ وہ وہ ہم آپ ہے نہیں کرنا کر رہا ہے سے تک کے ساتھ کے لیے کیونکہ جو کیا کیوں کہاں کب کیسے سب انسان",
-            "پاکستان بھارت اردو زبان ثقافت تاریخ روایت تعلیم معاشرہ سیاست معیشت سائنس ٹیکنالوجی ترقی",
+            "ghar school kaam din raat paani khaana mohabbat",
+            "ammi abbu bhai behen dost ustaad taalib ilm khandan",
+            "achha bura sach jhoot jeet haar khushi gham",
+            "waqt kaam naam aaj kal subah shaam din raat",
+            "paani aag hawa zameen aasmaan darakht phool phal"
         ],
         story: [
-            "ایک پر سکون جنگل میں پپ نامی ایک چھوٹی گلہری نے سب سے اونچے درخت پر چڑھنے کا فیصلہ کیا۔ ٹھنڈی ہوا چلتی رہی لیکن پپ نہیں رکی اور اوپر پہنچ کر ایک خوبصورت غروب آفتاب سے لطف اندوز ہوئی۔",
+            "Ek pur sukoon jungle mein Pip naami ek chhoti gilahri ne sab se oonche darakht par chadhne ka faisla kiya. Thandi hawa chal rahi thi par Pip ruka nahi aur oopar jaake ek khoobsurat ghuroob e aaftaab dekha."
         ],
         quotes: [
-            "علم روشنی ہے۔",
-            "محنت کامیابی کی کلید ہے۔",
-            "عمل سے زندگی بنتی ہے۔",
+            "Ilm roshni hai.",
+            "Mehnat kamyaabi ki kunji hai.",
+            "Ilm taqat hai — Francis Bacon"
+        ],
+        commonwords: [
+            "aur main tum woh woh woh hum aap hai nahi karna kar raha hai se tak ke saath ke liye kyunke jo kya kyun kahan kab kaise sab log ghar baat",
+            "Pakistan Bharat Lahore Delhi Urdu zubaan tehzeeb taarikh riwayaat taleem muashra siyaasat maishiat science technology taraqqee"
         ],
         govtexam: [
-            "ہندوستان کا آئین دنیا کا سب سے بڑا تحریری آئین ہے۔ ڈاکٹر بی آر امبیڈکر اس کے اہم معمار تھے۔ 26 جنوری 1950 کو یہ نافذ ہوا۔ بنیادی حقوق اور رہنما اصول اس کے اہم حصے ہیں۔",
-            "ہندوستان میں اردو کو قومی اور ثقافتی وراثت کا اہم حصہ سمجھا جاتا ہے۔ اردو ادب اور شاعری پوری دنیا میں مشہور ہے۔",
-            "ڈیجیٹل انڈیا منصوبہ ملک کے ہر کونے میں ٹیکنالوجی پہنچا رہا ہے۔",
-        ],
-        homerow: ["ا ب پ ت ٹ ث","ج چ ح خ د ڈ"],
-        toprow: ["ذ ر ڑ ز ژ س","ش ص ض ط ظ ع"],
-        bottomrow: ["غ ف ق ک گ ل","م ن و ہ ی ے"],
-        homerow_toprow: ["ا ب پ ذ ر ڑ","ج چ ح ش ص ض"],
-        homerow_bottomrow: ["ا ب پ غ ف ق","ج چ ح م ن و"],
-        toprow_bottomrow: ["ذ ر ڑ غ ف ق","ش ص ض م ن و"],
-        allrows: ["ا ب پ ذ ر ڑ غ ف ق"],
-        numbers: ["۱ ۲ ۳ ۴ ۵","۶ ۷ ۸ ۹ ۰"],
+            "Hindustan ka Aayeen duniya ka sab se bada tahreeri aayeen hai. Dr. B R Ambedkar is ke ahem banane waale the. Chhabbees January Unees Sau Pachaas mein yeh naafiz hua. Aayeen mein bunyaadi huqooq aur hidaayati usool wazeh taur par darj hain.",
+            "Bharat mein ziraat maaishiyaat ki reed ki haddi hai. Daihi abaadi ka ek bada hissa ziraat par inhisaar karta hai. Chaawal, gandum, kapas aur chai Bharat ki ahem faslen hain. Hukoomat kisaanon ki bhalaai ke liye kai mansoobe chalaati hai.",
+            "Bhartiay Jamhooriyat mein teen sutoon hain — Qaanoon Saaz Idaara, Intizaami Idaara aur Adliya. Ye teeno mil kar nizaam e hukoomat ko mutawazin rakhte hain. Chunav Commission tamaam intikhaabaat ka intizaam karta hai. Har shehri ko vote dene ka haq hai."
+        ]
     },
     assamese: {
         sentences: [
-            "কম্পিউটাৰত দ্ৰুতগতিত টাইপ কৰাটো আজিৰ যুগত এটা অত্যন্ত গুৰুত্বপূৰ্ণ দক্ষতা।",
-            "নিয়মীয়া অনুশীলনৰ দ্বাৰা আপোনাৰ টাইপিং গতি আৰু শুদ্ধতা দুয়োটা বাঢ়িব।",
-            "ভুল কৰিবলৈ নেতৰৱাব কাৰণ ভুলৰ পৰাই আমি সঠিককৈ শিকিব পাৰো।",
-            "কীবোৰ্ডত আঙুলিৰ সঠিক স্থান দ্ৰুত গতিৰ আচল চাবি।",
-            "প্ৰতিদিন পোন্ধৰ মিনিট মনোযোগেৰে অনুশীলন কৰক আৰু বিশেষজ্ঞ হওক।",
-            "চাইবাৰপাংক থিমে টাইপিং অভিজ্ঞতা আৰু আকৰ্ষণীয় কৰি তোলে।",
-            "প্ৰথমে শুদ্ধতাত গুৰুত্ব দিয়ক, গতি নিজেই আহিব।",
+            "Computer-ot drutagatit type kora aajir jugot ek atyanta gurutpurna dakshata.",
+            "Niyomito obhyasar jorioyote apunar typing gati aru nirbuhlota duyotai bridhhi paabo.",
+            "Bhul koribole bhoy napabo kaaron bhulor pora amii bhalobhabe shikhon.",
+            "Keyboard-ot aangulir sotthik othibhaan drutgatir protkhyo saabi.",
+            "Pratidine pondhoro minute monojogh diya obhyas korile apuni ekjon mohaapurush hobo pare.",
+            "Cyberpunk theme aru keyboard xobde typing onubhoboke aaroo romanchkar kore tule.",
+            "Prothmote nirbuhlota-r upor monojogh diyok, goti obhyaasor logote nijei aahibo."
         ],
         easy: [
-            "ঘৰ বিদ্যালয় কাম দিন ৰাতি পানী আহাৰ মৰম",
-            "মা দেউতা দাদা ভনী বন্ধু শিক্ষক ছাত্ৰ পৰিয়াল",
-            "ভাল বেয়া সত্য মিথ্যা জয় পৰাজয় আনন্দ দুখ",
-            "পঢ়া লিখা শিকা খেলা দৌৰা শোৱা উঠা কোৱা",
-            "চহৰ গাঁও বাট বাহন যাত্ৰা লক্ষ্য সপোন সাফল্য",
-        ],
-        commonwords: [
-            "আৰু মই তুমি সি তাই তেওঁলোক আমি আপোনালোক আছে নহয় কৰিবলৈ কৰিছো পৰা পৰ্যন্ত লগত বাবে কাৰণ যি কি কিয় ক'ত কেতিয়া কেনেকৈ সকলো মানুহ",
-            "অসম গুৱাহাটী ডিব্ৰুগড় অসমীয়া ভাষা সংস্কৃতি ইতিহাস পৰম্পৰা শিক্ষা সমাজ",
+            "ghor bidyaloy kam din raati paani aahar morom",
+            "maa deutaa bhaai bhaini bondhu sikkhok chhaatraa poribaal",
+            "bhal beya haat mithhya joy paraajoy aanondo dukh",
+            "xomoy kaam naam aaji kaali puwaa godhuli din raati",
+            "paani jui baatah prithibi aakash goch phul phal"
         ],
         story: [
-            "এখন শান্ত হাবিত পিপ নামৰ এটা সৰু কাঠমৰা আটাইতকৈ ওখ গছত উঠাৰ সিদ্ধান্ত লোৱা হৈছিল। ঠাণ্ডা বতাহ বলিছিল যদিও পিপ নৰখিল আৰু ওপৰত উপনীত হৈ এটা সুন্দৰ সূৰ্যাস্ত উপভোগ কৰিলে।",
+            "Ekhon shaanto haabeet Pip naamar eta xoroo kaathmora aataitokok ucho gosot uthaar siddhaanto lowa hoisil. Thaanda bataah bolisleo Pip thamaka naasil aru upor goi ata xundor xurjyaasta dekha paaile."
         ],
         quotes: [
-            "জ্ঞানেই শক্তি।",
-            "পৰিশ্ৰমেই সাফল্যৰ চাবিকাঠি।",
-            "শিক্ষাই ভৱিষ্যতৰ আধাৰ।",
+            "Gyaneei xokti.",
+            "Porixrom xopholotar saabi.",
+            "Gyaan xokti — Francis Bacon"
+        ],
+        commonwords: [
+            "aru moi tumi xi taai teolouk aami aponalok aase nahoy koribole korisau pora xoloi logot baabe kaaran je ki kio kot kevaa kibhabe xokoluu maanuh ghor kothaa",
+            "Assam Bharat Guwahati Jorhat Asomiya bhaaxaa xonskriti itihaas porompora xikhyaa xomaaj raajneeti orthonoiti bigyaan projukti bikaax"
         ],
         govtexam: [
-            "ভাৰতীয় সংবিধান বিশ্বৰ আটাইতকৈ দীঘল লিখিত সংবিধান। ড. বি আৰ আম্বেদকাৰ ইয়াৰ মুখ্য ৰচয়িতা। ২৬ জানুৱাৰী ১৯৫০ ত ইয়াক কাৰ্যকৰী কৰা হৈছিল। মৌলিক অধিকাৰ আৰু নিৰ্দেশমূলক নীতি ইয়াৰ গুৰুত্বপূৰ্ণ অংশ।",
-            "অসম প্ৰাকৃতিক সম্পদ, চাহ বাগান আৰু ব্ৰহ্মপুত্ৰ নদীৰ কাৰণে বিশ্ববিখ্যাত। কাজিৰঙা ৰাষ্ট্ৰীয় উদ্যান এক শিঙীয়া গঁড়ৰ বাবে আন্তৰ্জাতিকভাৱে পৰিচিত।",
-            "ডিজিটেল ইণ্ডিয়া আঁচনিয়ে দেশৰ প্ৰতিটো কোণত প্ৰযুক্তি পৌঁছাই দিছে।",
-        ],
-        homerow: ["ক খ গ ঘ ঙ","চ ছ জ ঝ ঞ"],
-        toprow: ["ট ঠ ড ঢ ণ","ত থ দ ধ ন"],
-        bottomrow: ["প ফ ব ভ ম","য ৰ ল ৱ শ"],
-        homerow_toprow: ["ক খ গ ট ঠ ড","চ ছ জ ত থ দ"],
-        homerow_bottomrow: ["ক খ গ প ফ ব","চ ছ জ য ৰ ল"],
-        toprow_bottomrow: ["ট ঠ ড প ফ ব","ত থ দ য ৰ ল"],
-        allrows: ["ক খ গ ট ঠ ড প ফ ব"],
-        numbers: ["১ ২ ৩ ৪ ৫","৬ ৭ ৮ ৯ ০"],
+            "Bhartiya Sombidhan biswor aataitokok dirgho likhit sombidhan. Dr. B R Ambedkar iyaar mukhyo rosonakarta. Sobbis January Unish Xo Ponsaas ot eta karjokor hoisil. Sombidhaanot moulik odhikaar aru nirdeshak tatbya sposhto bhabe ullekh aase.",
+            "Bharat ot krishi orthonoitir moroudondo. Graamya janta-r ek bor aawngsho krishi-r upor nirbhorshiil. Dhaan, godhum, kapaah aru saaah Bharat-r mukhyo phosol. Xorkaar krishok kolyaanor baabe onek yojanaa saalai aase.",
+            "Bhartiya Loktantra-t tini stombho aase — Bidhan Sobha, Kaarjonirbahak aru Bichaar Bivaag. Ei tiniu logolage xaashan byabasthaa samotul raakhe. Nirbachan Aayog xobu nirbachanor parishaalan kore. Pratyek nagorik-or matodaanor odhikaar aase."
+        ]
     },
     japanese: {
         sentences: [
