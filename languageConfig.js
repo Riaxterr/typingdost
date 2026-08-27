@@ -1,0 +1,262 @@
+const SUPPORTED_LANGUAGES = {
+    'hindi': {
+        code: 'hi',
+        name: 'Hindi',
+        nativeName: 'हिन्दी',
+        googleFont: 'Mukta',
+        fontFallback: 'Noto Sans Devanagari',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['remington-gail', 'kruti-dev', 'inscript', 'phonetic'],
+        seoTitle: 'Hindi Typing Test Online — SSC, RRB, High Court Exam Practice | TypingDost',
+        seoDescription: 'Free Hindi typing test online with Remington Gail, Kruti Dev & Inscript keyboard layouts. Practice for SSC CHSL, RRB NTPC, High Court LDC exams. Track WPM, accuracy & KDPH speed. No login required.',
+        seoKeywords: ['hindi typing test', 'hindi typing speed test', 'remington gail typing', 'kruti dev typing practice', 'ssc hindi typing', 'hindi typing test online free'],
+        examContext: 'SSC CHSL, SSC CGL, RRB NTPC, High Court LDC, Delhi Police',
+        pageUrl: 'hindi-typing-test.html'
+    },
+    'bengali': {
+        code: 'bn',
+        name: 'Bengali',
+        nativeName: 'বাংলা',
+        googleFont: 'Hind Siliguri',
+        fontFallback: 'Noto Sans Bengali',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Bengali Typing Test Online — WBPSC, WB Police Exam Practice | TypingDost',
+        seoDescription: 'Free Bengali typing test online for WBPSC, West Bengal Police & govt exam preparation. Practice Bangla typing speed with Inscript & phonetic layouts. Check WPM, accuracy & KDPH. No signup needed.',
+        seoKeywords: ['bengali typing test', 'bangla typing speed test', 'bangla typing test online', 'wbsc typing test', 'west bengal police typing', 'bangla typing practice free'],
+        examContext: 'WBPSC, West Bengal Police, Kolkata Courts, WB Secretariat',
+        pageUrl: 'bengali-typing-test.html'
+    },
+    'marathi': {
+        code: 'mr',
+        name: 'Marathi',
+        nativeName: 'मराठी',
+        googleFont: 'Mukta',
+        fontFallback: 'Noto Sans Devanagari',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['remington-gail', 'inscript', 'phonetic'],
+        seoTitle: 'Marathi Typing Test Online — MPSC, Talathi Exam Practice | TypingDost',
+        seoDescription: 'Free Marathi typing test online for MPSC, Talathi & Maharashtra govt exam prep. Practice Marathi typing speed with Inscript & phonetic keyboard. Track WPM & accuracy. No login required.',
+        seoKeywords: ['marathi typing test', 'marathi typing speed test', 'marathi typing test online', 'mpsc typing test', 'talathi typing practice', 'marathi typing free'],
+        examContext: 'MPSC, Talathi, Maharashtra Courts, Mumbai Court Clerk',
+        pageUrl: 'marathi-typing-test.html'
+    },
+    'tamil': {
+        code: 'ta',
+        name: 'Tamil',
+        nativeName: 'தமிழ்',
+        googleFont: 'Hind Madurai',
+        fontFallback: 'Noto Sans Tamil',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['tamil-99', 'inscript', 'phonetic'],
+        seoTitle: 'Tamil Typing Test Online — TNPSC, TN Court Exam Practice | TypingDost',
+        seoDescription: 'Free Tamil typing test online with Tamil 99 keyboard layout. Practice for TNPSC, Tamil Nadu govt exams & court typing. Check WPM speed, accuracy & KDPH. No registration needed.',
+        seoKeywords: ['tamil typing test', 'tamil typing speed test', 'tamil 99 keyboard practice', 'tnpsc typing test', 'tamil typing test online free', 'tamil nadu govt typing'],
+        examContext: 'TNPSC, Tamil Nadu Courts, TN Police, TN Secretariat',
+        pageUrl: 'tamil-typing-test.html'
+    },
+    'telugu': {
+        code: 'te',
+        name: 'Telugu',
+        nativeName: 'తెలుగు',
+        googleFont: 'Hind Guntur',
+        fontFallback: 'Noto Sans Telugu',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Telugu Typing Test Online — APPSC, TSPSC Exam Practice | TypingDost',
+        seoDescription: 'Free Telugu typing test online for APPSC, TSPSC & AP/TS govt exam preparation. Practice Telugu typing speed with Inscript & phonetic layouts. Track WPM & accuracy. Free, no login.',
+        seoKeywords: ['telugu typing test', 'telugu typing speed test', 'telugu typing test online', 'appsc typing test', 'tspc typing practice', 'telugu typing free'],
+        examContext: 'APPSC, TSPSC, AP Police, TS Police, AP High Court',
+        pageUrl: 'telugu-typing-test.html'
+    },
+    'gujarati': {
+        code: 'gu',
+        name: 'Gujarati',
+        nativeName: 'ગુજરાતી',
+        googleFont: 'Hind Vadodara',
+        fontFallback: 'Noto Sans Gujarati',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Gujarati Typing Test Online — GPSC, Bin Sachivalaya Practice | TypingDost',
+        seoDescription: 'Free Gujarati typing test online for GPSC, Bin Sachivalaya & Gujarat govt exam prep. Practice Gujarati typing speed with Inscript & phonetic keyboard. Check WPM & accuracy. No signup.',
+        seoKeywords: ['gujarati typing test', 'gujarati typing speed test', 'gujarati typing test online', 'gpsc typing test', 'gujarat govt typing', 'gujarati typing free'],
+        examContext: 'GPSC, Bin Sachivalaya, Gujarat High Court, Gujarat Police',
+        pageUrl: 'gujarati-typing-test.html'
+    },
+    'kannada': {
+        code: 'kn',
+        name: 'Kannada',
+        nativeName: 'ಕನ್ನಡ',
+        googleFont: 'Hind Mysuru',
+        fontFallback: 'Noto Sans Kannada',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Kannada Typing Test Online — KPSC, FDA/SDA Exam Practice | TypingDost',
+        seoDescription: 'Free Kannada typing test online for KPSC, FDA, SDA & Karnataka govt exams. Practice Kannada typing speed with Inscript & phonetic layouts. Track WPM, accuracy & KDPH. No login needed.',
+        seoKeywords: ['kannada typing test', 'kannada typing speed test', 'kannada typing test online', 'kpsc typing test', 'karnataka govt typing', 'kannada typing free'],
+        examContext: 'KPSC, FDA/SDA, Karnataka High Court, Karnataka Police',
+        pageUrl: 'kannada-typing-test.html'
+    },
+    'malayalam': {
+        code: 'ml',
+        name: 'Malayalam',
+        nativeName: 'മലയാളം',
+        googleFont: 'Manjari',
+        fontFallback: 'Noto Sans Malayalam',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Malayalam Typing Test Online — Kerala PSC Exam Practice | TypingDost',
+        seoDescription: 'Free Malayalam typing test online for Kerala PSC & govt exam preparation. Practice Malayalam typing speed with Inscript & phonetic keyboard. Check WPM & accuracy. No registration required.',
+        seoKeywords: ['malayalam typing test', 'malayalam typing speed test', 'malayalam typing test online', 'kerala psc typing', 'kerala govt typing test', 'malayalam typing free'],
+        examContext: 'Kerala PSC, Kerala High Court, Kerala Police, Kerala Secretariat',
+        pageUrl: 'malayalam-typing-test.html'
+    },
+    'odia': {
+        code: 'or',
+        name: 'Odia',
+        nativeName: 'ଓଡ଼ିଆ',
+        googleFont: 'Noto Sans Oriya',
+        fontFallback: 'Anek Odia',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Odia Typing Test Online — OPSC, OSSC Exam Practice | TypingDost',
+        seoDescription: 'Free Odia typing test online for OPSC, OSSC & Odisha govt exam preparation. Practice Odia typing speed with Inscript & phonetic layouts. Track WPM, accuracy & KDPH. No signup needed.',
+        seoKeywords: ['odia typing test', 'odia typing speed test', 'odia typing test online', 'opsc typing test', 'odisha govt typing', 'odia typing free'],
+        examContext: 'OPSC, OSSC, Odisha High Court, Odisha Police',
+        pageUrl: 'odia-typing-test.html'
+    },
+    'punjabi': {
+        code: 'pa',
+        name: 'Punjabi',
+        nativeName: 'ਪੰਜਾਬੀ',
+        googleFont: 'Mukta Mahee',
+        fontFallback: 'Noto Sans Gurmukhi',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Punjabi Typing Test Online — PPSC, Patwari Exam Practice | TypingDost',
+        seoDescription: 'Free Punjabi typing test online for PPSC, Patwari & Punjab govt exam preparation. Practice Punjabi typing speed with Inscript & phonetic keyboard. Check WPM & accuracy. No login required.',
+        seoKeywords: ['punjabi typing test', 'punjabi typing speed test', 'punjabi typing test online', 'ppsc typing test', 'punjab govt typing', 'punjabi typing free'],
+        examContext: 'PPSC, Patwari, Punjab High Court, Punjab Police',
+        pageUrl: 'punjabi-typing-test.html'
+    },
+    'urdu': {
+        code: 'ur',
+        name: 'Urdu',
+        nativeName: 'اردو',
+        googleFont: 'Noto Nastaliq Urdu',
+        fontFallback: 'Gulzar',
+        direction: 'rtl',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.8,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Urdu Typing Test Online — Court & Govt Exam Practice | TypingDost',
+        seoDescription: 'Free Urdu typing test online for court clerk & govt exam preparation. Practice Urdu typing speed with Nastaliq font, Inscript & phonetic layouts. RTL support. Track WPM & accuracy. No signup.',
+        seoKeywords: ['urdu typing test', 'urdu typing speed test', 'urdu typing test online', 'urdu typing practice free', 'urdu court typing', 'nastaliq typing'],
+        examContext: 'Urdu Officer Exams, Court Clerk, State Urdu Commissions',
+        pageUrl: 'urdu-typing-test.html'
+    },
+    'assamese': {
+        code: 'as',
+        name: 'Assamese',
+        nativeName: 'অসমীয়া',
+        googleFont: 'Noto Sans Bengali',
+        fontFallback: 'Tiro Bangla',
+        direction: 'ltr',
+        requiresComplexLineHeight: true,
+        lineHeight: 2.0,
+        layouts: ['inscript', 'phonetic'],
+        seoTitle: 'Assamese Typing Test Online — APSC, Assam Police Practice | TypingDost',
+        seoDescription: 'Free Assamese typing test online for APSC, Assam Police & Assam govt exam prep. Practice Assamese typing speed with Inscript & phonetic layouts. Check WPM & accuracy. No registration.',
+        seoKeywords: ['assamese typing test', 'assamese typing speed test', 'assamese typing test online', 'apsc typing test', 'assam govt typing', 'assamese typing free'],
+        examContext: 'APSC, Assam Police, Assam Secretariat, Assam Courts',
+        pageUrl: 'assamese-typing-test.html'
+    }
+};
+
+const INDIC_PASSAGES = {
+    'hindi': [
+        "भारत एक विशाल और विविधतापूर्ण देश है। यहाँ विभिन्न धर्मों, भाषाओं और संस्कृतियों के लोग मिलजुल कर रहते हैं। हमारी एकता ही हमारी सबसे बड़ी ताकत है।",
+        "समय का सदुपयोग करना सफलता की कुंजी है। जो व्यक्ति अपने समय का सही प्रबंधन करता है, वह जीवन में किसी भी लक्ष्य को प्राप्त कर सकता है।",
+        "प्रौद्योगिकी ने हमारे जीवन को बहुत आसान बना दिया है। आज के डिजिटल युग में संचार और सूचनाओं का आदान-प्रदान कुछ ही सेकंडों में हो जाता है।"
+    ],
+    'bengali': [
+        "ভারত একটি বিশাল এবং বৈচিত্র্যময় দেশ। এখানে বিভিন্ন ধর্ম, ভাষা এবং সংস্কৃতির মানুষ একসঙ্গে বাস করে। আমাদের একতাই আমাদের সবচেয়ে বড় শক্তি।",
+        "সময়ের সদ্ব্যবহার করা সাফল্যের চাবিকাঠি। যে ব্যক্তি তার সময়ের সঠিক পরিচালনা করে, সে জীবনে যেকোনো লক্ষ্য অর্জন করতে পারে।",
+        "প্রযুক্তি আমাদের জীবনকে অনেক সহজ করে তুলেছে। আজকের ডিজিটাল যুগে যোগাযোগ এবং তথ্যের আদান-প্রদান কয়েক সেকেন্ডের মধ্যেই হয়ে যায়।"
+    ],
+    'marathi': [
+        "भारत एक विशाल आणि विविधतापूर्ण देश आहे. येथे विविध धर्म, भाषा आणि संस्कृतींचे लोक एकत्र राहतात. आपली एकता हीच आपली सर्वात मोठी शक्ती आहे.",
+        "वेळेचा सदुपयोग करणे ही यशाची गुरुकिल्ली आहे. जो व्यक्ती आपल्या वेळेचे योग्य व्यवस्थापन करतो, तो जीवनात कोणतेही ध्येय साध्य करू शकतो.",
+        "तंत्रज्ञानाने आपले जीवन खूप सोपे केले आहे. आजच्या डिजिटल युगात संप्रेषण आणि माहितीची देवाणघेवाण काही सेकंदातच होते."
+    ],
+    'tamil': [
+        "இந்தியா ஒரு பரந்த மற்றும் பன்முகத்தன்மை கொண்ட நாடு. இங்கு பல்வேறு மதங்கள், மொழிகள் மற்றும் கலாச்சாரங்களைச் சேர்ந்த மக்கள் இணைந்து வாழ்கின்றனர்.",
+        "நேரத்தை சரியாகப் பயன்படுத்துவது வெற்றியின் திறவுகோலாகும். தன் நேரத்தை சரியாக நிர்வகிக்கும் ஒருவரால் வாழ்க்கையில் எந்த இலக்கையும் அடைய முடியும்.",
+        "தொழில்நுட்பம் நமது வாழ்க்கையை மிகவும் எளிதாக்கியுள்ளது. இன்றைய டிஜிட்டல் யுகத்தில் தகவல்தொடர்பு சில நொடிகளில் நடக்கிறது."
+    ],
+    'telugu': [
+        "భారతదేశం ఒక విశాలమైన మరియు వైవిధ్యమైన దేశం. ఇక్కడ వివిధ మతాలు, భాషలు మరియు సంస్కృతులకు చెందిన ప్రజలు కలిసి జీవిస్తున్నారు.",
+        "సమయాన్ని సద్వినియోగం చేసుకోవడం విజయానికి కీలకం. తన సమయాన్ని సరిగ్గా నిర్వహించుకునే వ్యక్తి జీవితంలో ఏ లక్ష్యాన్నైనా సాధించగలడు.",
+        "సాంకేతికత మన జీవితాలను చాలా సులభతరం చేసింది. నేటి డిజిటల్ యుగంలో కమ్యూనికేషన్ మరియు సమాచార మార్పిడి క్షణాల్లో జరుగుతుంది."
+    ],
+    'gujarati': [
+        "ભારત એક વિશાળ અને વિવિધતાપૂર્ણ દેશ છે. અહીં વિવિધ ધર્મો, ભાષાઓ અને સંસ્કૃતિઓના લોકો હળીમળીને રહે છે. આપણી એકતા જ આપણી સૌથી મોટી તાકાત છે.",
+        "સમયનો સદુપયોગ કરવો એ સફળતાની ચાવી છે. જે વ્યક્તિ પોતાના સમયનું સાચું સંચાલન કરે છે, તે જીવનમાં કોઈપણ લક્ષ્ય પ્રાપ્ત કરી શકે છે.",
+        "ટેક્નોલોજીએ આપણું જીવન ખૂબ જ સરળ બનાવી દીધું છે. આજના ડિજિટલ યુગમાં સંદેશાવ્યવહાર અને માહિતીની આપ-લે ગણતરીની સેકન્ડોમાં થઈ જાય છે."
+    ],
+    'kannada': [
+        "ಭಾರತವು ವಿಶಾಲವಾದ ಮತ್ತು ವೈವಿಧ್ಯಮಯ ದೇಶವಾಗಿದೆ. ಇಲ್ಲಿ ವಿವಿಧ ಧರ್ಮಗಳು, ಭಾಷೆಗಳು ಮತ್ತು ಸಂಸ್ಕೃತಿಗಳ ಜನರು ಒಟ್ಟಿಗೆ ವಾಸಿಸುತ್ತಾರೆ.",
+        "ಸಮಯದ ಸದ್ಬಳಕೆ ಯಶಸ್ಸಿನ ಕೀಲಿಯಾಗಿದೆ. ತನ್ನ ಸಮಯವನ್ನು ಸರಿಯಾಗಿ ನಿರ್ವಹಿಸುವ ವ್ಯಕ್ತಿಯು ಜೀವನದಲ್ಲಿ ಯಾವುದೇ ಗುರಿಯನ್ನು ಸಾಧಿಸಬಹುದು.",
+        "ತಂತ್ರಜ್ಞಾನವು ನಮ್ಮ ಜೀವನವನ್ನು ತುಂಬಾ ಸುಲಭಗೊಳಿಸಿದೆ. ಇಂದಿನ ಡಿಜಿಟಲ್ ಯುಗದಲ್ಲಿ ಸಂವಹನ ಮತ್ತು ಮಾಹಿತಿ ವಿನಿಮಯವು ಸೆಕೆಂಡುಗಳಲ್ಲಿ ನಡೆಯುತ್ತದೆ."
+    ],
+    'malayalam': [
+        "ഇന്ത്യ വിശാലവും വൈവിധ്യപൂർണ്ണവുമായ ഒരു രാജ്യമാണ്. വിവിധ മതങ്ങളിലും ഭാഷകളിലും സംസ്കാരങ്ങളിലും പെട്ട ആളുകൾ ഇവിടെ ഒരുമിച്ച് ജീവിക്കുന്നു.",
+        "സമയത്തിന്റെ ശരിയായ ഉപയോഗമാണ് വിജയത്തിന്റെ താക്കോൽ. സമയം ശരിയായി കൈകാര്യം ചെയ്യുന്ന ഒരാൾക്ക് ജീവിതത്തിൽ ഏത് ലക്ഷ്യവും നേടാൻ കഴിയും.",
+        "സാങ്കേതികവിദ്യ നമ്മുടെ ജീവിതം വളരെ എളുപ്പമാക്കിയിരിക്കുന്നു. ഇന്നത്തെ ഡിജിറ്റൽ യുഗത്തിൽ ആശയവിനിമയവും വിവര കൈമാറ്റവും നിമിഷങ്ങൾക്കുള്ളിൽ നടക്കുന്നു."
+    ],
+    'odia': [
+        "ଭାରତ ଏକ ବିଶାଳ ଏବଂ ବିବିଧତାପୂର୍ଣ୍ଣ ଦେଶ ଅଟେ। ଏଠାରେ ବିଭିନ୍ନ ଧର୍ମ, ଭାଷା ଏବଂ ସଂସ୍କୃତିର ଲୋକମାନେ ଏକାଠି ବାସ କରନ୍ତି। ଆମର ଏକତା ହିଁ ଆମର ସବୁଠାରୁ ବଡ ଶକ୍ତି।",
+        "ସମୟର ସଦୁପଯୋଗ ହେଉଛି ସଫଳତାର ଚାବିକାଠି। ଯିଏ ନିଜ ସମୟର ସଠିକ୍ ପରିଚାଳନା କରେ, ସେ ଜୀବନରେ ଯେକୌଣସି ଲକ୍ଷ୍ୟ ହାସଲ କରିପାରିବ।",
+        "ପ୍ରଯୁକ୍ତିବିଦ୍ୟା ଆମ ଜୀବନକୁ ବହୁତ ସହଜ କରିଦେଇଛି। ଆଜିର ଡିଜିଟାଲ୍ ଯୁଗରେ ଯୋଗାଯୋଗ ଏବଂ ସୂଚନା ଆଦାନପ୍ରଦାନ କିଛି ସେକେଣ୍ଡରେ ହୋଇଯାଏ।"
+    ],
+    'punjabi': [
+        "ਭਾਰਤ ਇੱਕ ਵਿਸ਼ਾਲ ਅਤੇ ਵਿਭਿੰਨਤਾ ਵਾਲਾ ਦੇਸ਼ ਹੈ। ਇੱਥੇ ਵੱਖ-ਵੱਖ ਧਰਮਾਂ, ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਸੱਭਿਆਚਾਰਾਂ ਦੇ ਲੋਕ ਮਿਲ-ਜੁਲ ਕੇ ਰਹਿੰਦੇ ਹਨ। ਸਾਡੀ ਏਕਤਾ ਹੀ ਸਾਡੀ ਸਭ ਤੋਂ ਵੱਡੀ ਤਾਕਤ ਹੈ।",
+        "ਸਮੇਂ ਦੀ ਸਹੀ ਵਰਤੋਂ ਸਫਲਤਾ ਦੀ ਕੁੰਜੀ ਹੈ। ਜਿਹੜਾ ਵਿਅਕਤੀ ਆਪਣੇ ਸਮੇਂ ਦਾ ਸਹੀ ਪ੍ਰਬੰਧਨ ਕਰਦਾ ਹੈ, ਉਹ ਜੀਵਨ ਵਿੱਚ ਕਿਸੇ ਵੀ ਟੀਚੇ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰ ਸਕਦਾ ਹੈ।",
+        "ਤਕਨਾਲੋਜੀ ਨੇ ਸਾਡੀ ਜ਼ਿੰਦਗੀ ਨੂੰ ਬਹੁਤ ਆਸਾਨ ਬਣਾ ਦਿੱਤਾ ਹੈ। ਅੱਜ ਦੇ ਡਿਜੀਟਲ ਯੁੱਗ ਵਿੱਚ ਸੰਚਾਰ ਅਤੇ ਜਾਣਕਾਰੀ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ ਕੁਝ ਹੀ ਸਕਿੰਟਾਂ ਵਿੱਚ ਹੋ ਜਾਂਦਾ ਹੈ।"
+    ],
+    'urdu': [
+        "بھارت ایک وسیع اور متنوع ملک ہے۔ یہاں مختلف مذاہب، زبانوں اور ثقافتوں کے لوگ مل جل کر رہتے ہیں۔ ہماری اتحاد ہی ہماری سب سے بڑی طاقت ہے۔",
+        "وقت کا صحیح استعمال کامیابی کی کنجی ہے۔ جو شخص اپنے وقت کا صحیح انتظام کرتا ہے، وہ زندگی میں کسی بھی مقصد کو حاصل کر سکتا ہے۔",
+        "ٹیکنالوجی نے ہماری زندگی کو بہت آسان بنا دیا ہے۔ آج کے ڈیجیٹل دور میں مواصلات اور معلومات کا تبادلہ چند سیکنڈوں میں ہو جاتا ہے۔"
+    ],
+    'assamese': [
+        "ভাৰত এখন বিশাল আৰু বৈচিত্ৰ্যপূৰ্ণ দেশ। ইয়াত বিভিন্ন ধৰ্ম, ভাষা আৰু সংস্কৃতিৰ লোকসকলে একেলগে বাস কৰে। আমাৰ একতাই আমাৰ আটাইতকৈ ডাঙৰ শক্তি।",
+        "সময়ৰ সৎ ব্যৱহাৰ কৰাটোৱেই হৈছে সফলতাৰ চাবিকাঠি। যি ব্যক্তিয়ে নিজৰ সময়ৰ সঠিক ব্যৱস্থাপনা কৰে, তেওঁ জীৱনত যিকোনো লক্ষ্যত উপনীত হ'ব পাৰে।",
+        "প্ৰযুক্তিয়ে আমাৰ জীৱন বহুত সহজ কৰি তুলিছে। আজিৰ ডিজিটেল যুগত যোগাযোগ আৰু তথ্যৰ আদান-প্ৰদান মাত্ৰ কেইছেকেণ্ডমানৰ ভিতৰতে হৈ যায়।"
+    ]
+};
+
+// Make sure to export this if loaded as a module or keep as global variables if included via script tag.
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { SUPPORTED_LANGUAGES, INDIC_PASSAGES };
+}

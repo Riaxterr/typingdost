@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main Homepage — Highest Priority -->
+  <url>
+    <loc>https://typingdost.com/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://typingdost.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://typingdost.com/english-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://typingdost.com/"/>
+    <xhtml:link rel="alternate" hreflang="hi-Latn" href="https://typingdost.com/hinglish-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://typingdost.com/hindi-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://typingdost.com/bengali-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://typingdost.com/marathi-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="ta" href="https://typingdost.com/tamil-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="te" href="https://typingdost.com/telugu-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="gu" href="https://typingdost.com/gujarati-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="kn" href="https://typingdost.com/kannada-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://typingdost.com/malayalam-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="or" href="https://typingdost.com/odia-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="pa" href="https://typingdost.com/punjabi-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://typingdost.com/urdu-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="as" href="https://typingdost.com/assamese-typing-test.html"/>
+  </url>
+
+  <!-- English Typing Test Dedicated Page -->
+  <url>
+    <loc>https://typingdost.com/english-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://typingdost.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://typingdost.com/english-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://typingdost.com/hindi-typing-test.html"/>
+  </url>
+
+  <!-- Hinglish Typing Test Dedicated Page -->
+  <url>
+    <loc>https://typingdost.com/hinglish-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://typingdost.com/"/>
+    <xhtml:link rel="alternate" hreflang="hi-Latn" href="https://typingdost.com/hinglish-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://typingdost.com/hindi-typing-test.html"/>
+  </url>
+
+  <!-- Hindi Typing Test Page (Kruti Dev / Remington Gail / Inscript) -->
+  <url>
+    <loc>https://typingdost.com/hindi-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://typingdost.com/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://typingdost.com/hindi-typing-test.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://typingdost.com/english-typing-test.html"/>
+  </url>
+
+  <!-- Bengali Typing Test -->
+  <url>
+    <loc>https://typingdost.com/bengali-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://typingdost.com/bengali-typing-test.html"/>
+  </url>
+
+  <!-- Marathi Typing Test -->
+  <url>
+    <loc>https://typingdost.com/marathi-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="mr" href="https://typingdost.com/marathi-typing-test.html"/>
+  </url>
+
+  <!-- Tamil Typing Test -->
+  <url>
+    <loc>https://typingdost.com/tamil-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ta" href="https://typingdost.com/tamil-typing-test.html"/>
+  </url>
+
+  <!-- Telugu Typing Test -->
+  <url>
+    <loc>https://typingdost.com/telugu-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="te" href="https://typingdost.com/telugu-typing-test.html"/>
+  </url>
+
+  <!-- Gujarati Typing Test -->
+  <url>
+    <loc>https://typingdost.com/gujarati-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="gu" href="https://typingdost.com/gujarati-typing-test.html"/>
+  </url>
+
+  <!-- Kannada Typing Test -->
+  <url>
+    <loc>https://typingdost.com/kannada-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kn" href="https://typingdost.com/kannada-typing-test.html"/>
+  </url>
+
+  <!-- Malayalam Typing Test -->
+  <url>
+    <loc>https://typingdost.com/malayalam-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://typingdost.com/malayalam-typing-test.html"/>
+  </url>
+
+  <!-- Odia Typing Test -->
+  <url>
+    <loc>https://typingdost.com/odia-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="or" href="https://typingdost.com/odia-typing-test.html"/>
+  </url>
+
+  <!-- Punjabi Typing Test (Raavi / Asees) -->
+  <url>
+    <loc>https://typingdost.com/punjabi-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pa" href="https://typingdost.com/punjabi-typing-test.html"/>
+  </url>
+
+  <!-- Urdu Typing Test -->
+  <url>
+    <loc>https://typingdost.com/urdu-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ur" href="https://typingdost.com/urdu-typing-test.html"/>
+  </url>
+
+  <!-- Assamese Typing Test -->
+  <url>
+    <loc>https://typingdost.com/assamese-typing-test.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="as" href="https://typingdost.com/assamese-typing-test.html"/>
+  </url>
+
+  <!-- Free Typing Certificate Page -->
+  <url>
+    <loc>https://typingdost.com/certificate.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog Hub & Content Articles -->
+  <url>
+    <loc>https://typingdost.com/blog/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/ssc-chsl-typing-test-guide.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/hindi-typing-kaise-sikhe.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/typing-speed-kaise-badhaye.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/rrb-ntpc-typing-test-guide.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/court-clerk-typing-test-guide.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+</urlset>

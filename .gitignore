@@ -1,0 +1,22 @@
+# System & IDE Files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Node & Package Managers
+node_modules/
+
+# Temp patch scripts
+test_build.js
+test_output.txt
+fix_*.js
+inject_*.js
+patch_*.js
+restore_*.js
+cleanup_*.js
+generate_pages.js
+update_font_call.js
+safe_inject.js
+test_logic.js
