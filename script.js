@@ -12131,7 +12131,24 @@ function triggerScreenShake() {
     }
 }
 
+let cachedSparkColor = null;
+let activeSparksCount = 0;
+const MAX_CONCURRENT_SPARKS = 12;
+
+function getCachedSparkColor() {
+    if (!cachedSparkColor) {
+        try {
+            cachedSparkColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#00ffff';
+        } catch(e) {
+            cachedSparkColor = '#00ffff';
+        }
+    }
+    return cachedSparkColor;
+}
+
 function createSparks(spanOrIdx) {
+    if (activeSparksCount >= MAX_CONCURRENT_SPARKS) return;
+
     let x, y;
     if (typeof spanOrIdx === 'number') {
         const cached = getSpanCoords(spanOrIdx);
@@ -12147,33 +12164,39 @@ function createSparks(spanOrIdx) {
         y = rect.top - displayRect.top + rect.height / 2 + textDisplay.scrollTop;
     }
     
-    // Resolve primary color dynamically only once per sparks trigger
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary') || '#00ffff';
+    const primaryColor = getCachedSparkColor();
     const boxShadowVal = `0 0 6px ${primaryColor}`;
 
-    // Create 3-5 tiny sparks
-    const count = 3 + Math.floor(Math.random() * 3);
+    // Create 2-3 lightweight sparks
+    const count = 2 + Math.floor(Math.random() * 2);
+    const fragment = document.createDocumentFragment();
+
     for (let i = 0; i < count; i++) {
+        if (activeSparksCount >= MAX_CONCURRENT_SPARKS) break;
+        activeSparksCount++;
+
         const spark = document.createElement('div');
         spark.className = 'cyber-spark';
         spark.style.left = `${x}px`;
         spark.style.top = `${y}px`;
         
-        // Random destination offset
         const angle = Math.random() * Math.PI * 2;
-        const dist = 15 + Math.random() * 35;
+        const dist = 12 + Math.random() * 24;
         const dx = Math.cos(angle) * dist;
         const dy = Math.sin(angle) * dist;
         
         spark.style.setProperty('--dx', `${dx}px`);
         spark.style.setProperty('--dy', `${dy}px`);
-        
         spark.style.backgroundColor = primaryColor;
         spark.style.boxShadow = boxShadowVal;
         
-        textDisplay.appendChild(spark);
-        setTimeout(() => spark.remove(), 600);
+        fragment.appendChild(spark);
+        setTimeout(() => {
+            spark.remove();
+            activeSparksCount = Math.max(0, activeSparksCount - 1);
+        }, 450);
     }
+    textDisplay.appendChild(fragment);
 }
 
 // Invalidate coordinate cache and reposition caret when web fonts load asynchronously
