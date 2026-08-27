@@ -2407,17 +2407,60 @@ let wordQueue = [];              // Full word list for current test
 let chunkStartWordIndex = 0;     // How many words from queue are already in DOM
 
 // Build the complete word list for the test (called once per test start)
+// Build the complete word list for the test (called once per test start)
 function buildWordQueue() {
     if (currentLesson === 'game' || currentLesson === 'bubble-shooter') return;
+
+    // --- 1. Dedicated Custom Text Handler ---
+    if (currentLesson === 'customtext') {
+        const rawCustom = (lessons.customtext && lessons.customtext[0]) ? lessons.customtext[0] : customUserText;
+        if (!rawCustom || rawCustom.trim().length === 0) {
+            wordQueue = ['Please', 'enter', 'or', 'paste', 'your', 'custom', 'text', 'in', 'the', 'Custom', 'Text', 'window.'];
+            return;
+        }
+        const customWords = rawCustom.trim().split(/\s+/).filter(w => w.length > 0);
+        if (customWords.length === 0) {
+            wordQueue = ['Please', 'enter', 'or', 'paste', 'your', 'custom', 'text.'];
+            return;
+        }
+        // In words testMode, if user has fewer words than wordLimit, repeat to fulfill limit, otherwise use exact words
+        if (testMode === 'words' && customWords.length < wordLimit) {
+            let expanded = [];
+            while (expanded.length < wordLimit + 10) {
+                expanded.push(...customWords);
+            }
+            wordQueue = expanded.slice(0, wordLimit + 10);
+        } else if (testMode === 'time') {
+            const needed = Math.min(2000, Math.ceil((maxTime / 60) * 160 * 1.2));
+            if (customWords.length < needed) {
+                let expanded = [];
+                while (expanded.length < needed) {
+                    expanded.push(...customWords);
+                }
+                wordQueue = expanded.slice(0, needed);
+            } else {
+                wordQueue = customWords;
+            }
+        } else {
+            wordQueue = customWords;
+        }
+        return;
+    }
+
     const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang) 
         ? currentLearningLang.toLowerCase() 
         : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
     let currentBank = lessons[currentLesson];
     const langLessons = multilingualLessons[activeLang] || multilingualLessons.english;
+    
+    // Check if the current language has a dedicated bank for this lesson
     if (langLessons && langLessons[currentLesson] && Array.isArray(langLessons[currentLesson]) && langLessons[currentLesson].length > 0) {
         currentBank = langLessons[currentLesson];
-    } else if (langLessons && langLessons.sentences && Array.isArray(langLessons.sentences) && langLessons.sentences.length > 0) {
-        currentBank = langLessons.sentences;
+    } else if (!currentBank || currentBank.length === 0) {
+        // Only fallback to sentences if currentBank in global lessons does not exist
+        if (langLessons && langLessons.sentences && Array.isArray(langLessons.sentences) && langLessons.sentences.length > 0) {
+            currentBank = langLessons.sentences;
+        }
     }
 
     // For weakspot mode, generate words differently
