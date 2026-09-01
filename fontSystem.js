@@ -656,7 +656,7 @@ function injectIndianFonts() {
  */
 function applyTypingFont(fontFamily, lang) {
     if (typeof document === 'undefined') return;
-    const isRTL = (lang === 'arabic');
+    const isRTL = (lang === 'arabic' || lang === 'urdu');
     const targets = [
         document.getElementById('text-display'),
         document.getElementById('text-input'),
@@ -731,7 +731,7 @@ function initFontSelector(lang) {
 
     if (!layoutControl || !layoutMenu || !layoutTrigger) return;
 
-    layoutControl.style.display = 'inline-flex';
+    // layoutControl.style.display = 'inline-flex'; (Removed as requested)
     layoutControl.style.alignItems = 'center';
 
     const currentLang = lang || (typeof localStorage !== 'undefined' ? localStorage.getItem('typingDostLang') : 'english') || 'english';

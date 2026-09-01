@@ -53,6 +53,34 @@ const lessons = {
         "There are two ways to write error-free code; only the third way works perfectly under pressure.",
         "A fast typist does not look at the keys, they let their fingers dance freely across the cybernetic board."
     ],
+    homerow: [
+        "asdf jkl; asdf jkl; aadd ssff ddgg jjhh kkll ;; aa ss dd ff gg hh jj kk ll ;;",
+        "dad sad lad fall glad flask salad sash calf slash half hall fall shall dash gala flag flash flask alfalfa sash dallas",
+        "all lads fall as a glad dad had a flask and a sash to flash at a gala",
+        "dad asks a lad to add half a salad and a flask as all lads fall glad",
+        "sad lads had a fall as glad dads had a gala and flash a glass flask"
+    ],
+    toprow: [
+        "qwer tyui op qwer tyui op qq ww ee rr tt yy uu ii oo pp qw er ty ui op",
+        "tree root poet tyre pour wire trip rope type wipe peer pour writer quiet power tower quote equip route error rupee trip pour write pretty",
+        "quiet writer wrote pretty poetry to equip power tower with pure route",
+        "you write pure poetry while we pour out our trip report for power tower",
+        "try to write out your true power to equip your route with pretty quote"
+    ],
+    bottomrow: [
+        "zxcv bnm, ./ zxcv bnm, ./ zz xx cc vv bb nn mm ,, .. // zx cv bn m,",
+        "cab van ban man can box mix vex zinc zip zoom band camp back calm pack",
+        "man can ban van as zinc box mix can calm camp with back pack",
+        "mix zinc in box as man can scan van on camp with calm pack",
+        "back can ban cab as man zoom in van to pack zinc box in camp"
+    ],
+    numbers: [
+        "123 456 789 012 345 678 901 234 567 890 102 304 506 708 910",
+        "1984 2026 100 500 750 1024 2048 999 404 8080 365 247 12345 67890",
+        "room 101 code 404 year 2026 score 995 speed 120 level 48 port 8080",
+        "order 5824 item 902 quantity 15 price 499 total 7485 invoice 2026",
+        "call 100 or 108 pin 560001 date 25 08 2026 test 99 accuracy 100"
+    ],
     homerow_toprow: [
         "the red forest was here to tell you that he had high power",
         "she said that they should look for the gold that was left here",
@@ -1650,6 +1678,42 @@ const startGameDesc = document.getElementById('start-game-desc');
 const gameStartBtn = document.getElementById('game-start-btn');
 
 // Variables
+// ---- MONKEYTYPE-STYLE VISUAL FX & ANIMATIONS STATE ----
+let typingFxSettings = {
+    letterAnim: 'pop',       // 'pop' | 'fade' | 'off'
+    caretStyle: 'line',      // 'line' | 'block' | 'outline' | 'underline' | 'hidden'
+    caretSmooth: 'snappy',   // 'snappy' | 'extra' | 'off'
+    sparks: 'streak',        // 'streak' | 'always' | 'off'
+    errorShake: true         // boolean
+};
+
+try {
+    const savedFx = localStorage.getItem('typingdost-fx-settings');
+    if (savedFx) {
+        const parsedFx = JSON.parse(savedFx);
+        typingFxSettings = Object.assign({}, typingFxSettings, parsedFx);
+    }
+} catch (e) {}
+
+function getTypingFxSettings() {
+    return typingFxSettings;
+}
+
+function applyCaretFxStyles() {
+    if (!caret) return;
+    caret.classList.remove(
+        'caret-style-line', 'caret-style-block', 'caret-style-outline', 'caret-style-underline', 'caret-style-hidden',
+        'caret-smooth-snappy', 'caret-smooth-extra', 'caret-smooth-off'
+    );
+    caret.classList.add(`caret-style-${typingFxSettings.caretStyle}`);
+    caret.classList.add(`caret-smooth-${typingFxSettings.caretSmooth}`);
+    
+    activeSpansCoords = [];
+    if (typeof updateCaretPosition === 'function') {
+        updateCaretPosition();
+    }
+}
+
 let maxTime = 60;
 let timeLeft = maxTime;
 let charIndex = 0;
@@ -2607,6 +2671,19 @@ function renderNewText() {
     currentText = wordQueue.join(' ');
 
     const htmlContent = wordsToHtml(firstChunkWords);
+    
+    // Automatically set text direction based on actual text script (RTL for Arabic/Urdu Nastaliq, LTR for Roman/Latin/Indic)
+    const hasRTL = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/.test(currentText);
+    if (hasRTL) {
+        textDisplay.style.direction = 'rtl';
+        textDisplay.style.textAlign = 'right';
+        if (typingInput) typingInput.style.direction = 'rtl';
+    } else {
+        textDisplay.style.direction = 'ltr';
+        textDisplay.style.textAlign = 'left';
+        if (typingInput) typingInput.style.direction = 'ltr';
+    }
+    
     textDisplay.innerHTML = htmlContent;
 
     if (caret) {
@@ -2722,12 +2799,28 @@ function updateCaretPosition() {
     const cachedSpan = getSpanCoords(activeSpanIdx);
     if (!cachedSpan) return;
 
-    // Position caret at the left side of the active span (LTR), or right side (RTL for Urdu/Arabic)
-    const isRTL = ['urdu', 'arabic'].includes(localStorage.getItem('typingDostLang') || '');
+    // Position caret at the left side of the active span (LTR), or right side (RTL for Nastaliq/Arabic)
+    const isRTL = (textDisplay && window.getComputedStyle)
+        ? (getComputedStyle(textDisplay).direction === 'rtl')
+        : (textDisplay && textDisplay.style.direction === 'rtl');
     const x = isRTL 
         ? (isAtEnd ? cachedSpan.left : cachedSpan.right)
         : (isAtEnd ? cachedSpan.right : cachedSpan.left);
     const y = cachedSpan.top;
+
+    const fxConfig = (typeof getTypingFxSettings === 'function') ? getTypingFxSettings() : null;
+    const isBoxStyle = fxConfig && (fxConfig.caretStyle === 'block' || fxConfig.caretStyle === 'outline' || fxConfig.caretStyle === 'underline');
+
+    let caretPosX = x;
+    if (isBoxStyle && !isAtEnd) {
+        const charW = Math.max(10, cachedSpan.width || 14);
+        caret.style.width = `${charW}px`;
+        caretPosX = isRTL ? (cachedSpan.right - charW) : cachedSpan.left;
+    } else {
+        if (!isBoxStyle) {
+            caret.style.width = '';
+        }
+    }
 
     // Detect line wrap / jump (y coordinate changed significantly)
     const lastY = caret.dataset.lastY ? parseFloat(caret.dataset.lastY) : null;
@@ -2737,7 +2830,7 @@ function updateCaretPosition() {
         caret.classList.add('no-transition');
     }
 
-    caret.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    caret.style.transform = `translate3d(${caretPosX}px, ${y}px, 0)`;
 
     if (yChanged) {
         // Force reflow to apply translate immediately without transition
@@ -2909,6 +3002,10 @@ function initTyping(e) {
         }
 
         // Full Declarative State Synchronization across all text spans
+        const fxConfig = (typeof getTypingFxSettings === 'function') ? getTypingFxSettings() : { letterAnim: 'pop', errorShake: true, sparks: 'streak' };
+        const isNewKeystroke = (inputChars.length > prevCharIndex);
+        const lastTypedIdx = inputChars.length - 1;
+
         let currentMistakes = 0;
         let wordsCounted = 0;
         let streak = 0;
@@ -2920,7 +3017,17 @@ function initTyping(e) {
                 const targetChar = span.textContent;
                 if (typedChar === targetChar) {
                     if (!isBlindMode) {
-                        span.className = 'correct';
+                        if (k === lastTypedIdx && isNewKeystroke) {
+                            if (fxConfig.letterAnim === 'pop') {
+                                span.className = 'correct letter-pop';
+                            } else if (fxConfig.letterAnim === 'fade') {
+                                span.className = 'correct letter-fade';
+                            } else {
+                                span.className = 'correct';
+                            }
+                        } else if (!span.classList.contains('letter-pop') && !span.classList.contains('letter-fade')) {
+                            span.className = 'correct';
+                        }
                     }
                     streak++;
                     if (typedChar === ' ' || k === chars.length - 1) {
@@ -2928,7 +3035,11 @@ function initTyping(e) {
                     }
                 } else {
                     if (!isBlindMode) {
-                        span.className = 'wrong';
+                        if (k === lastTypedIdx && isNewKeystroke && fxConfig.errorShake) {
+                            span.className = 'wrong error-shake';
+                        } else if (!span.classList.contains('error-shake')) {
+                            span.className = 'wrong';
+                        }
                     }
                     currentMistakes++;
                     streak = 0;
@@ -2955,7 +3066,12 @@ function initTyping(e) {
             const lastTarget = chars[lastIdx] ? chars[lastIdx].textContent : '';
             if (lastTyped === lastTarget) {
                 playClick();
-                createSparks(lastIdx);
+                
+                // Configurable Sparks (Streak vs Always vs Off)
+                const shouldSpark = fxConfig.sparks === 'always' || (fxConfig.sparks === 'streak' && streak >= 15);
+                if (shouldSpark) {
+                    createSparks(lastIdx);
+                }
 
                 // Word-done burst animation
                 if (lastTyped === ' ' || lastIdx === chars.length - 1) {
@@ -4802,6 +4918,7 @@ lessonBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         if (btn.classList.contains('practice-trigger')) return;
         if (btn.id === 'drawer-toggle-btn') return; // Exclude Options toggle button from lesson logic
+        if (btn.id === 'learning-btn') return; // Exclude Learning button from regular lesson selection
         
         const tempLesson = btn.getAttribute('data-lesson');
         if (tempLesson === 'weakspot' && Object.keys(weakspots).length === 0) {
@@ -7883,6 +8000,105 @@ if (cursorCanvas && cursorCtx) {
     applyStyle(savedStyle);
 })();
 
+// ---- MONKEYTYPE-STYLE VISUAL FX & ANIMATIONS MANAGER ----
+(function initVisualFxManager() {
+    const fxBtn = document.getElementById('textbox-fx-btn');
+    const fxDropdown = document.getElementById('textbox-fx-dropdown');
+    const activeFxName = document.getElementById('active-fx-name');
+    const errorShakeToggle = document.getElementById('fx-error-shake-toggle');
+
+    // Load from localStorage
+    try {
+        const saved = localStorage.getItem('typingdost-fx-settings');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            typingFxSettings = Object.assign({}, typingFxSettings, parsed);
+        }
+    } catch (e) {
+        console.error('Error loading FX settings:', e);
+    }
+
+    // Apply caret classes initially
+    applyCaretFxStyles();
+
+    if (errorShakeToggle) {
+        errorShakeToggle.checked = !!typingFxSettings.errorShake;
+        errorShakeToggle.addEventListener('change', () => {
+            typingFxSettings.errorShake = errorShakeToggle.checked;
+            saveFxSettings();
+        });
+    }
+
+    function updateActiveFxUI() {
+        if (!fxDropdown) return;
+        const groups = fxDropdown.querySelectorAll('.fx-option-group');
+        groups.forEach(group => {
+            const groupKey = group.getAttribute('data-group');
+            const currentVal = typingFxSettings[groupKey];
+            const btns = group.querySelectorAll('.fx-option');
+            btns.forEach(btn => {
+                if (btn.getAttribute('data-val') === currentVal) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        });
+
+        if (activeFxName) {
+            const animLabel = typingFxSettings.letterAnim === 'pop' ? 'Pop' : (typingFxSettings.letterAnim === 'fade' ? 'Fade' : 'Off');
+            activeFxName.innerText = `FX: ${animLabel}`;
+        }
+    }
+
+    function saveFxSettings() {
+        try {
+            localStorage.setItem('typingdost-fx-settings', JSON.stringify(typingFxSettings));
+        } catch (e) {}
+    }
+
+    if (fxDropdown) {
+        fxDropdown.addEventListener('click', (e) => {
+            const target = e.target.closest('.fx-option');
+            if (!target) return;
+            const group = target.closest('.fx-option-group');
+            if (!group) return;
+            const groupKey = group.getAttribute('data-group');
+            const val = target.getAttribute('data-val');
+            
+            typingFxSettings[groupKey] = val;
+            saveFxSettings();
+            updateActiveFxUI();
+            applyCaretFxStyles();
+        });
+    }
+
+    if (fxBtn && fxDropdown) {
+        fxBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Close other dropdowns if open
+            const styleDropdown = document.getElementById('textbox-style-dropdown');
+            if (styleDropdown) styleDropdown.classList.add('hidden');
+            const styleBtn = document.getElementById('textbox-style-btn');
+            if (styleBtn) styleBtn.classList.remove('active');
+
+            fxDropdown.classList.toggle('hidden');
+            fxBtn.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!fxDropdown.classList.contains('hidden')) {
+                if (!fxDropdown.contains(e.target) && !fxBtn.contains(e.target)) {
+                    fxDropdown.classList.add('hidden');
+                    fxBtn.classList.remove('active');
+                }
+            }
+        });
+    }
+
+    updateActiveFxUI();
+})();
+
 // ---- CRYPTO DONATE MODAL LOGIC ----
 function copyAddress(elementId, btn) {
     const el = document.getElementById(elementId);
@@ -10687,10 +10903,15 @@ if (cryptoDonateModal) {
         translateWholeSite(currentLearningLang);
     }
 
+    // Robust Learning Academy Event Engine
     if (learningBtn) {
-        learningBtn.addEventListener('click', () => {
-            learningModal.classList.remove('hidden');
-            // Redraw content with global active language
+        learningBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (learningModal) {
+                learningModal.classList.remove('hidden');
+                learningModal.style.display = 'flex';
+            }
             const activeTab = document.querySelector('.learning-tab.active');
             const activeChapterId = activeTab ? activeTab.getAttribute('data-chapter') : "1";
             renderChapter(activeChapterId);
@@ -10698,10 +10919,102 @@ if (cryptoDonateModal) {
     }
 
     if (closeLearningBtn) {
-        closeLearningBtn.addEventListener('click', () => {
-            learningModal.classList.add('hidden');
+        closeLearningBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (learningModal) {
+                learningModal.classList.add('hidden');
+                learningModal.style.display = 'none';
+            }
         });
     }
+
+    // Global backdrop click to close learning modal
+    if (learningModal) {
+        learningModal.addEventListener('click', (e) => {
+            if (e.target === learningModal) {
+                learningModal.classList.add('hidden');
+                learningModal.style.display = 'none';
+            }
+        });
+    }
+
+    // Escape key to close learning modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && learningModal && !learningModal.classList.contains('hidden')) {
+            learningModal.classList.add('hidden');
+            learningModal.style.display = 'none';
+        }
+    });
+
+    // Delegated Chapter Tab Switching (works seamlessly even when translations re-render tabs)
+    document.addEventListener('click', (e) => {
+        const tab = e.target.closest('.learning-tab');
+        if (tab) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.querySelectorAll('.learning-tab').forEach(t => {
+                t.classList.remove('active');
+                t.style.background = 'transparent';
+                t.style.borderColor = 'transparent';
+                t.style.color = 'var(--text-sub)';
+            });
+            tab.classList.add('active');
+            tab.style.background = 'rgba(0, 255, 255, 0.08)';
+            tab.style.borderColor = 'var(--primary)';
+            tab.style.color = '#fff';
+
+            const chapterId = tab.getAttribute('data-chapter') || "1";
+            renderChapter(chapterId);
+        }
+    });
+
+    // Delegated 'Practice Now! 🚀' Button inside Learning Modal
+    document.addEventListener('click', (e) => {
+        const practiceBtn = e.target.closest('.start-practice-btn');
+        if (practiceBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const lessonTarget = practiceBtn.getAttribute('data-target');
+            if (lessonTarget) {
+                if (learningModal) {
+                    learningModal.classList.add('hidden');
+                    learningModal.style.display = 'none';
+                }
+                
+                // Clear active from lesson buttons
+                lessonBtns.forEach(b => b.classList.remove('active'));
+                dropdowns.forEach(d => {
+                    if (d.trigger) d.trigger.classList.remove('active-sub');
+                });
+                document.querySelectorAll('.practice-item').forEach(i => i.classList.remove('selected'));
+                
+                const targetItem = document.querySelector(`.practice-item[data-lesson="${lessonTarget}"]`);
+                if (targetItem) {
+                    targetItem.classList.add('selected');
+                    const parentDropdown = targetItem.closest('.practice-dropdown');
+                    if (parentDropdown) {
+                        const triggerBtn = parentDropdown.querySelector('.practice-trigger');
+                        if (triggerBtn) triggerBtn.classList.add('active-sub');
+                    }
+                }
+                
+                currentLesson = lessonTarget;
+                document.body.classList.remove('game-mode-active');
+                const gmContainer = document.getElementById('game-mode-container');
+                const bsContainer = document.getElementById('bubble-shooter-container');
+                const stdContainer = document.getElementById('standard-mode-container');
+                if (gmContainer) gmContainer.classList.add('hidden');
+                if (bsContainer) bsContainer.classList.add('hidden');
+                if (stdContainer) stdContainer.classList.remove('hidden');
+                
+                resetGame();
+                
+                const trans = siteTranslations[currentLearningLang] || siteTranslations.english;
+                showToast(`🚀 ${trans.navLearning.replace('🎓', '').trim()}: ${lessonTarget.replace('_', ' ').toUpperCase()}!`);
+            }
+        }
+    });
 
 
     function translateWholeSite(lang) {

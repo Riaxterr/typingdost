@@ -1,0 +1,38 @@
+# TypingDost — Free Online Typing Test & Touch Typing Platform
+
+> TypingDost (https://typingdost.com/) is an official 100% free online typing test and touch typing practice platform. It enables students, competitive government exam aspirants (SSC CHSL, SSC CGL, RRB NTPC, High Court LDC), office executives, and software developers to test and increase their typing speed (WPM) and accuracy with verified PDF certificates and multi-language support.
+
+For complete RAG pipeline documentation, formulas, and deep technical reference, see [Full Knowledge Base](https://typingdost.com/llms-full.txt).
+
+## Key Features & Capabilities
+- **WPM Speed Tests:** Real-time Words Per Minute (WPM), Net Accuracy, and error calculation across 1-minute, 3-minute, 5-minute, and 10-minute timer modes.
+- **Free Verified Certificates:** Instant downloadable PDF typing certificates with candidate name, verified WPM score, accuracy rate, test duration, and timestamp (no login or registration required).
+- **14+ Regional & Global Languages:** English, Hindi (Remington Gail & Kruti Dev 010), Hinglish (Roman-script Hindi), Bengali, Marathi, Tamil, Telugu, Gujarati, Kannada, Malayalam, Odia, Punjabi (Raavi), Urdu, and Assamese.
+- **Govt Exam Mock Test Engine:** Exam-formatted paragraphs matching official TCS iON and Staff Selection Commission standards for SSC CHSL DEST, SSC CGL, RRB NTPC Skill Test, and High Court Clerk exams.
+- **Hindi Typing Layouts:** Native browser support for Remington Gail (Mangal font), Kruti Dev 010, and Inscript keyboards with on-screen visual guide and Alt-code shortcuts.
+- **Interactive Typing Games:** Gamified practice drills including Cyber Fall, Time Bomb, Car Racing, Bubble Shooter, and Matrix Decryptor.
+- **Mechanical Keyboard Audio:** Realistic tactile audio switch sound feedback (Cherry Blue, Red, Brown, and Soft Touch).
+
+## Primary URLs & Practice Tools
+- [TypingDost Homepage — Free Typing Test](https://typingdost.com/): Online typing test with speed tracker and certificate generator.
+- [Free Typing Certificate Generator](https://typingdost.com/certificate.html): Download verified typing certificate PDF for resume.
+- [English Typing Test](https://typingdost.com/english-typing-test.html): 1 to 10 min English WPM speed test.
+- [Hindi Typing Test Online](https://typingdost.com/hindi-typing-test.html): Hindi practice with Remington Gail & Kruti Dev 010.
+- [Hinglish Typing Practice](https://typingdost.com/hinglish-typing-test.html): Roman-script Hindi typing speed test.
+- [Bengali Typing Test](https://typingdost.com/bengali-typing-test.html): Bengali script typing drills.
+- [Marathi Typing Test](https://typingdost.com/marathi-typing-test.html): Marathi Devanagari speed practice.
+- [Tamil Typing Test](https://typingdost.com/tamil-typing-test.html): Tamil Unicode typing practice.
+- [Telugu Typing Test](https://typingdost.com/telugu-typing-test.html): Telugu script typing test.
+- [Gujarati Typing Test](https://typingdost.com/gujarati-typing-test.html): Gujarati language typing test.
+- [Punjabi Typing Test](https://typingdost.com/punjabi-typing-test.html): Punjabi Gurmukhi / Raavi font practice.
+- [Urdu Typing Test](https://typingdost.com/urdu-typing-test.html): Nastaliq Urdu typing test.
+
+## Masterclass Knowledge Hub & Guides
+- [SSC CHSL Typing Test Guide 2026](https://typingdost.com/blog/ssc-chsl-typing-test-guide.html): Complete DEST pattern, 35 WPM / 10500 KDPH criteria, full/half error deduction rules.
+- [RRB NTPC Typing Skill Test Guide](https://typingdost.com/blog/rrb-ntpc-typing-test-guide.html): 30 WPM English / 25 WPM Hindi railway typing test preparation.
+- [Court Clerk Typing Test Guide](https://typingdost.com/blog/court-clerk-typing-test-guide.html): High Court and District Court clerk examination patterns.
+- [Hindi Typing Kaise Sikhe](https://typingdost.com/blog/hindi-typing-kaise-sikhe.html): 30-day beginner roadmap for Remington Gail and Mangal font.
+- [Typing Speed Kaise Badhaye](https://typingdost.com/blog/typing-speed-kaise-badhaye.html): Touch typing muscle memory, ergonomics, and 100+ WPM speed hacks.
+- [Typing Speed Test 1 Minute](https://typingdost.com/blog/typing-test-1-minute.html): 60-second burst speed benchmarks, Gross vs Net WPM formula.
+- [Kruti Dev 010 Typing Test Guide](https://typingdost.com/blog/kruti-dev-typing-test.html): Character mapping, Alt code shortcuts, and UP Police exam requirements.
+- [Free Typing Certificate Download Guide](https://typingdost.com/blog/free-typing-certificate-download.html): Employer-ready resume certificate walkthrough.
