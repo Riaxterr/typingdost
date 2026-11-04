@@ -1,15 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="bn">
 <head>
     <script>try{localStorage.setItem('typingDostLang','bengali');}catch(e){}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bengali Typing Test Online — WBPSC, WB Police Exam Practice | TypingDost</title>
+    <title>Bengali Typing Test Online Free — বাংলা টাইপিং টেস্ট | TypingDost</title>
     
     <!-- SEO Meta Tags -->
     <meta name="google-site-verification" content="a3bE6zqdURTBOIPd9k5qUBjOpv4I8jGfa7l3DeJVsu4" />
-    <meta name="description" content="Free Bengali typing test online for WBPSC, West Bengal Police & govt exams. Practice Bangla Inscript & Probhat keyboard layouts. Test your WPM speed!">
-    <meta name="keywords" content="bengali typing test, bangla typing test online, bangla typing speed test, ssc bengali typing test, bangla inscript typing, probhat typing test, bangla typing certificate">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D4G84PZ15K"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D4G84PZ15K');</script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1661683734652344"
+     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-1661683734652344">
+    <meta name="description" content="Free Bengali typing test online. বাংলা টাইপিং প্র্যাক্টিস with instant WPM & accuracy. Practice for WBPSC, WB Police & govt jobs. Download free certificate.">
+    <meta name="keywords" content="typingtest, typing test keyboard, typing speed test keyboard, computer keyboard typing test, keyboard typing practice, bengali typing test, bangla typing test online, bangla typing speed test, ssc bengali typing test, bangla inscript typing, probhat typing test, bangla typing certificate">
     <meta name="author" content="TypingDost">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="rating" content="General">
@@ -52,6 +59,13 @@
     <meta property="twitter:image" content="https://typingdost.com/typingdost_brand.png">
     <meta name="twitter:creator" content="@TypingDost">
     
+        <!-- AI Search & LLM Discovery (GEO / Generative Engine Optimization) -->
+    <link rel="alternate" type="text/plain" href="https://typingdost.com/llms.txt" title="LLM Knowledge Base (llms.txt)" />
+    <link rel="alternate" type="text/plain" href="https://typingdost.com/llms-full.txt" title="Full LLM Knowledge Base (llms-full.txt)" />
+    <link rel="help" type="application/json" href="https://typingdost.com/ai-context.json" title="AI Machine-Readable Context" />
+    <meta name="ai-content-declaration" content="human-crafted educational platform" />
+    <meta name="chatgpt-fts" content="allow" />
+
     <!-- Favicons & Brand Logo Tab Icon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -71,14 +85,14 @@
     <!-- DNS Preconnect and Preload for Performance -->
     
     
-    <link rel="preload" href="style.css?v=3.0" as="style">
-    <link rel="preload" href="languageConfig.js" as="script">
-    <link rel="preload" href="script.js?v=3.8" as="script">
+    <link rel="preload" href="style.min.css?v=4.6" as="style">
+    <link rel="preload" href="languageConfig.min.js?v=4.1" as="script">
+    <link rel="preload" href="script.min.js?v=4.6" as="script">
     
     <link rel="manifest" href="manifest.json">
-        <link rel="stylesheet" href="style.css?v=3.0">
+        <link rel="stylesheet" href="style.min.css?v=4.6">
     <!-- Inline Mobile UI/UX Overrides to bypass Aggressive Mobile Browser Caching -->
-    <style id="mobile-viewport-overrides">
+        <style id="mobile-viewport-overrides">
         @media (max-width: 768px) {
             /* 1. Stacking Context & Stacking fix for Header */
             header {
@@ -94,27 +108,27 @@
             .header-controls {
                 display: flex !important;
                 flex-direction: row !important;
-                flex-wrap: wrap !important; /* Force wrap */
+                flex-wrap: wrap !important;
                 justify-content: center !important;
-                overflow-x: visible !important; /* No horizontal scroll clipping */
+                overflow-x: visible !important;
                 overflow-y: visible !important;
                 width: 100% !important;
                 padding: 0.4rem 0.2rem !important;
                 gap: 0.5rem !important;
             }
             .header-controls .control-group {
-                position: relative !important;
+                position: static !important;
                 margin: 0 !important;
                 gap: 0 !important;
             }
             .control-label {
-                display: none !important; /* Hide labels */
+                display: none !important;
             }
 
             .lesson-tabs {
                 display: flex !important;
                 flex-direction: row !important;
-                flex-wrap: wrap !important; /* Wrap instead of scroll */
+                flex-wrap: wrap !important;
                 justify-content: center !important;
                 overflow-x: visible !important;
                 overflow-y: visible !important;
@@ -131,31 +145,65 @@
             .theme-menu,
             .sound-menu,
             #lang-menu,
-            .practice-menu {
+            .practice-menu,
+            #test-menu,
+            #govt-menu,
+            #game-menu {
                 position: fixed !important;
                 top: 50% !important;
                 left: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
                 transform: translate(-50%, -50%) !important;
-                width: 90% !important;
+                margin: 0 !important;
+                width: 88vw !important;
                 max-width: 310px !important;
-                z-index: 9999999 !important;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 255, 255, 0.3) !important;
+                max-height: 65vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                z-index: 10000000 !important;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.3) !important;
                 background: rgba(10, 16, 30, 0.98) !important;
                 backdrop-filter: blur(25px) !important;
                 -webkit-backdrop-filter: blur(25px) !important;
-                border: 1px solid rgba(0, 255, 255, 0.25) !important;
-                max-height: 60vh !important;
-                overflow-y: auto !important;
+                border: 1px solid rgba(0, 240, 255, 0.3) !important;
                 border-radius: 16px !important;
                 padding: 0.8rem !important;
+                box-sizing: border-box !important;
             }
             
+            /* Strict Override for Open State: Enforce translate(-50%, -50%) */
+            .theme-menu:not(.hidden),
+            .sound-menu:not(.hidden),
+            #lang-menu:not(.hidden),
+            .practice-menu:not(.hidden),
+            #test-menu:not(.hidden),
+            #govt-menu:not(.hidden),
+            #game-menu:not(.hidden) {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(-50%, -50%) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
             /* Keep hidden state functional */
             .theme-menu.hidden,
             .sound-menu.hidden,
             #lang-menu.hidden,
-            .practice-menu.hidden {
+            .practice-menu.hidden,
+            #test-menu.hidden,
+            #govt-menu.hidden,
+            #game-menu.hidden {
                 display: none !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+                visibility: hidden !important;
             }
 
             /* Backdrop overlay for mobile dropdowns */
@@ -167,7 +215,7 @@
                 width: 100vw;
                 height: 100vh;
                 background: rgba(0, 0, 0, 0.45);
-                z-index: 999999;
+                z-index: 99999;
                 pointer-events: none;
                 opacity: 0;
                 transition: opacity 0.3s ease;
@@ -175,7 +223,10 @@
             body:has(.theme-menu:not(.hidden))::before,
             body:has(.sound-menu:not(.hidden))::before,
             body:has(#lang-menu:not(.hidden))::before,
-            body:has(.practice-menu:not(.hidden))::before {
+            body:has(.practice-menu:not(.hidden))::before,
+            body:has(#test-menu:not(.hidden))::before,
+            body:has(#govt-menu:not(.hidden))::before,
+            body:has(#game-menu:not(.hidden))::before {
                 pointer-events: auto;
                 opacity: 1;
             }
@@ -184,10 +235,13 @@
             body:has(.theme-menu:not(.hidden)) header,
             body:has(.sound-menu:not(.hidden)) header,
             body:has(#lang-menu:not(.hidden)) header {
-                z-index: 9999999 !important;
+                z-index: 999999 !important;
             }
-            body:has(.practice-menu:not(.hidden)) .container {
-                z-index: 9999999 !important;
+            body:has(.practice-menu:not(.hidden)) .container,
+            body:has(#test-menu:not(.hidden)) .container,
+            body:has(#govt-menu:not(.hidden)) .container,
+            body:has(#game-menu:not(.hidden)) .container {
+                z-index: 999999 !important;
             }
 
             /* Modal content adjustments for small mobile screens */
@@ -229,13 +283,6 @@
       "applicationSubCategory": "Typing Test, WPM Speed Test, Typing Practice",
       "operatingSystem": "Windows, macOS, Linux, Android, iOS",
       "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "14850",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -259,22 +306,6 @@
       "author": {
         "@type": "Person",
         "name": "Rizwan Khan"
-      }
-    }
-    </script>
-
-    <!-- Schema 2: WebSite with SearchAction -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "TypingDost",
-      "url": "https://typingdost.com/",
-      "description": "Free typing test online — measure your WPM speed and accuracy. Get a free typing certificate, play typing games, and practice in multiple languages.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://typingdost.com/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
       }
     }
     </script>
@@ -370,14 +401,15 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "TypingDost — Free Typing Test",
+          "name": "Home",
           "item": "https://typingdost.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Typing Certificate",
-          "item": "https://typingdost.com/certificate.html"
+          "name": "Bengali Typing Test",
+
+          "item": "https://typingdost.com/bengali-typing-test.html"
         }
       ]
     }
@@ -489,6 +521,12 @@
                 <button id="eye-comfort-btn" class="eye-comfort-btn" title="Toggle Eye Comfort (Blue Light Filter)">🌙 Off</button>
             </div>
 
+            <!-- About TypingDost Button -->
+            <div class="control-group">
+                <span class="control-label">About</span>
+                <a href="about.html" id="header-about-btn" class="header-about-btn" title="About TypingDost">ℹ️ About</a>
+            </div>
+
             <!-- Support / Donate Button -->
             <div class="control-group">
                 <span class="control-label">Support Dost</span>
@@ -502,7 +540,7 @@
     <main class="container">
         <!-- SEO H1 - Visible, styled to blend naturally with UI -->
                 <!-- SEO H1 - Visible, styled to blend naturally with UI -->
-        <h1 id="seo-main-heading" style="text-align:center; font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 700; letter-spacing: 0.05em; margin: 0.4rem auto 0.8rem; color: var(--primary, #00f0ff); text-shadow: 0 0 12px rgba(0,240,255,0.4); font-family: var(--font-display, 'Orbitron', sans-serif); text-transform: uppercase; max-width: 700px;">বাংলা টাইপিং টেস্ট অনলাইন — WPM স্পিড চেক করুন | TypingDost</h1>
+        <h1 id="seo-main-heading" style="text-align:center; font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 700; letter-spacing: 0.05em; margin: 0.4rem auto 0.8rem; color: var(--primary, #00f0ff); text-shadow: 0 0 12px rgba(0,240,255,0.4); font-family: var(--font-display, 'Orbitron', sans-serif); text-transform: uppercase; max-width: 750px;">Bengali Typing Test Online — বাংলা টাইপিং স্পিড টেস্ট Free</h1>
         <!-- Lesson Selector -->
         
 
@@ -1170,6 +1208,19 @@
         </div>
         </div> <!-- End of standard-mode-container -->
 
+        <!-- Advertisement Slot 1: Below Typing Arena (Responsive Leaderboard) -->
+        <div class="td-ad-wrapper td-ad-leaderboard" id="ad-slot-leaderboard">
+            <span class="td-ad-label">Advertisement</span>
+            <div class="td-ad-placeholder">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1661683734652344"
+                     data-ad-slot=""
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
         <!-- Game Mode Container -->
         <div id="game-mode-container" class="hidden">
             <h3 style="text-align:center; font-family:'Orbitron',sans-serif; color:var(--primary,#00f0ff); font-size:1.2rem; margin:0.5rem 0; text-transform:uppercase; letter-spacing:0.05em;">Play Cyberpunk Word Defend & Typing Arcade Games</h3>
@@ -1383,10 +1434,13 @@
                 <div class="footer-col">
                     <div class="footer-col-title">Company</div>
                     <ul>
-                        <li><a href="#" id="open-policy-btn" title="Privacy Policy — TypingDost">Privacy Policy</a></li>
+                        <li><a href="privacy-policy.html" title="Privacy Policy — TypingDost">Privacy Policy</a></li>
+                        <li><a href="terms.html" title="Terms of Service — TypingDost">Terms of Service</a></li>
                         <li><a href="#" id="open-contact-btn" title="Contact Us — TypingDost">Contact Us</a></li>
                         <li><a href="blog/index.html" title="TypingDost Official Blog">Official Blog</a></li>
                         <li><a href="sitemap.xml" title="TypingDost Sitemap">Sitemap</a></li>
+                        <li><a href="about.html" style="color: #94a3b8; text-decoration: none;">About TypingDost</a></li>
+                        <li><a href="contact.html" style="color: #94a3b8; text-decoration: none;">Contact Us</a></li>
                         <li><a href="https://medium.com/@typingdost" target="_blank" rel="noopener noreferrer" title="TypingDost Blog — Typing Tips & Tricks">Blog & Tips</a></li>
                     </ul>
                 </div>
@@ -1676,6 +1730,18 @@
                     <div id="result-heatmap-section" class="result-heatmap-section hidden">
                         <p class="heatmap-label">Key Error Heatmap</p>
                         <div id="result-keyboard-heatmap" class="result-keyboard-heatmap"></div>
+                    </div>
+                    <!-- Advertisement Slot 2: Post-Test Results Screen (High CTR) -->
+                    <div class="td-ad-wrapper td-ad-result" id="ad-slot-result">
+                        <span class="td-ad-label">Advertisement</span>
+                        <div class="td-ad-placeholder">
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-1661683734652344"
+                                 data-ad-slot=""
+                                 data-ad-format="rectangle,horizontal"
+                                 data-full-width-responsive="true"></ins>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2091,6 +2157,11 @@
                 <p style="color: var(--text-sub, #8b9bb4); font-size: 0.9rem; max-width: 600px; margin: 0 auto; line-height: 1.5;">
                     Optimize your speed & accuracy with these high-performance keyboards, mouse, and typing setups handpicked for candidates and professional typists.
                 </p>
+                <div style="margin-top: 0.8rem;">
+                    <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFSkERnvD90fxv3tk6yOB7CjaUEWSIfMtDFOsFaMzwSfUE2ghby6JDl6Z6a4sv6CPeIUw8wZRuJV/pubhtml?gid=0&single=true" target="_blank" rel="noopener noreferrer" class="gears-sheet-btn">
+                        📊 Open Live Google Sheet Catalog ↗
+                    </a>
+                </div>
             </div>
 
             <!-- Loader / Loading State -->
@@ -2172,154 +2243,81 @@
     </div>
 
         <!-- Core Application & Multilingual Engine Scripts (Strict Load Order) -->
-    <script src="languageConfig.js"></script>
-    <script src="indicTransliteration.js"></script>
-    <script src="fontSystem.js?v=3.8"></script>
-    <script src="script.js?v=3.8"></script>
+    <script defer src="languageConfig.min.js?v=4.1"></script>
+    <script defer src="indicTransliteration.js"></script>
+    <script defer src="fontSystem.min.js?v=4.1"></script>
+    <script defer src="script.min.js?v=4.6"></script>
 
     <!-- =====================================================
          SEO CONTENT SECTION — Crawlable text for Google
          (Theme-aware: uses CSS variables from style.css)
          ===================================================== -->
-    <section id="seo-about-section" aria-label="About TypingDost">
-
-        <!-- Main SEO Heading -->
+        <section id="seo-about-section" aria-label="About Bengali Typing Test">
         <div class="seo-main-heading">
-            <h2>Free Online Typing Test — Boost WPM Speed for Government Exams</h2>
+            <h2>Bengali Typing Test Online — বাংলা টাইপিং স্পিড টেস্ট এবং সরকারি চাকরির পরীক্ষা প্রস্তুতি</h2>
             <p class="seo-subtitle">
-                TypingDost is the ultimate <strong>free typing test</strong> and keyboard practice platform designed to help candidates prepare for government typing exams, improve everyday touch typing, and achieve <strong>100+ WPM typing speed</strong> with absolute accuracy. No login, signup, or registration required!
+                TypingDost-এ সম্পূর্ণ বিনামূল্যে <strong>অনলাইন বাংলা টাইপিং টেস্ট (Online Bengali Typing Test)</strong> দিন। WBPSC Clerkship, পশ্চিমবঙ্গ পুলিশ (WBP), কোর্ট ক্লার্ক ও ডেটা এন্ট্রি পরীক্ষার জন্য আপনার WPM স্পিড এবং নির্ভুলতা (Accuracy) পরিমাপ করুন।
             </p>
         </div>
 
-        <!-- Section: Government Exam Prep -->
         <div class="seo-text-block" style="margin-bottom: 2rem; text-align: left;">
-            <h3 style="font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 0.5rem;">SSC CHSL, SSC CGL &amp; RRB NTPC Typing Test Online Prep</h3>
-            <p style="color: var(--text-sub); line-height: 1.6; margin-bottom: 0.8rem;">
-                Government exam typing tests in India (like **SSC CHSL, SSC CGL, RRB NTPC, High Court LDC, Delhi Police**, and state-level exams) require candidates to type with specific speed thresholds and error constraints. On TypingDost, you can practice under realistic exam conditions. Selecting our **10-minute typing test** mimics the exact duration of official tests. 
-            </p>
-            <p style="color: var(--text-sub); line-height: 1.6; margin-bottom: 0.8rem;">
-                For exams like **SSC CHSL**, candidates are required to type a paragraph of approximately **1750 key depressions (KDPH)** in 10 minutes, which translates to a typing speed of **35 Words Per Minute (WPM)**. The evaluation system checks both full mistakes (like omitting words or replacing characters) and half mistakes (like spelling errors or capitalization issues). Practicing daily on TypingDost builds the muscle memory needed to achieve high accuracy under actual exam pressure.
+            <h3 style="font-family: 'Orbitron', sans-serif; color: #00f0ff; margin-bottom: 0.5rem;">সহজ ফোনেটিক বাংলা টাইপিং — ইংরেজি কীবোর্ড দিয়ে নিখুঁত বাংলা টাইপ করুন</h3>
+            <p style="color: var(--text-sub); line-height: 1.7; margin-bottom: 0.8rem;">
+                জটিল বাংলা কীবোর্ড লেআউট মুখস্থ করার দিন শেষ! TypingDost-এর আধুনিক <em>Phonetic Engine</em>-এর সাহায্যে আপনি যেকোনো সাধারণ QWERTY ইংরেজি কীবোর্ড দিয়ে সরাসরি বাংলা টাইপ করতে পারেন (যেমন <code>bangla</code> টাইপ করলে স্ক্রিনে <code>বাংলা</code> এবং <code>amar sonar bangla</code> টাইপ করলে <code>আমার সোনার বাংলা</code> তৈরি হবে)।
             </p>
         </div>
 
-        <!-- Section: Hindi Layouts & Fonts -->
         <div class="seo-text-block" style="margin-bottom: 2rem; text-align: left;">
-            <h3 style="font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 0.5rem;">Hindi Typing Test Online — Remington Gail (Mangal Font) &amp; Kruti Dev</h3>
-            <p style="color: var(--text-sub); line-height: 1.6; margin-bottom: 0.8rem;">
-                Hindi typing is a mandatory requirement for several state and central government clerk positions in India. TypingDost offers comprehensive **Hindi typing test** and **Hinglish typing practice** layouts. We target Hindi keyboard layouts including **Remington Gail (Mangal Font)**, Inscript, and **Kruti Dev 010**. 
+            <h3 style="font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 0.5rem;">পশ্চিমবঙ্গ সরকারি পরীক্ষার বাংলা টাইপিং মানদণ্ড (WB Exam Criteria)</h3>
+            <div style="overflow-x: auto; margin: 1rem 0;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; color: #cbd5e1; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,240,255,0.2); border-radius: 8px; overflow: hidden;">
+                    <thead>
+                        <tr style="background: rgba(0, 240, 255, 0.15); color: #00f0ff; font-family: 'Space Grotesk', sans-serif;">
+                            <th style="padding: 0.75rem 1rem;">পরীক্ষার নাম (Examination)</th>
+                            <th style="padding: 0.75rem 1rem;">প্রয়োজনীয় স্পিড (Required WPM)</th>
+                            <th style="padding: 0.75rem 1rem;">সময় (Duration)</th>
+                            <th style="padding: 0.75rem 1rem;">কীবোর্ড লেআউট</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 0.7rem 1rem; font-weight: 600; color: #fff;">WBPSC Clerkship Typing Test</td>
+                            <td style="padding: 0.7rem 1rem; color: #39ff14; font-weight: 600;">20 WPM (Bengali) / 30 WPM (English)</td>
+                            <td style="padding: 0.7rem 1rem;">10 মিনিট</td>
+                            <td style="padding: 0.7rem 1rem;">Unicode InScript / Phonetic</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 0.7rem 1rem; font-weight: 600; color: #fff;">West Bengal Police (Computer Operator)</td>
+                            <td style="padding: 0.7rem 1rem; color: #39ff14; font-weight: 600;">25 WPM</td>
+                            <td style="padding: 0.7rem 1rem;">10 মিনিট</td>
+                            <td style="padding: 0.7rem 1rem;">Standard Bengali</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.7rem 1rem; font-weight: 600; color: #fff;">District Court LDC / Copyist</td>
+                            <td style="padding: 0.7rem 1rem; color: #39ff14; font-weight: 600;">20-25 WPM</td>
+                            <td style="padding: 0.7rem 1rem;">10 মিনিট</td>
+                            <td style="padding: 0.7rem 1rem;">Unicode Layout</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="color: var(--text-sub); line-height: 1.6;">
+                টেস্ট সম্পন্ন করার পর অবিলম্বে আপনার রেজাল্ট যাচাই করুন এবং সম্পূর্ণ বিনামূল্যে আপনার <a href="certificate.html" style="color: #00f0ff; text-decoration: underline; font-weight: 600;">Verified Typing Certificate</a> ডাউনলোড করুন।
             </p>
-            <p style="color: var(--text-sub); line-height: 1.6; margin-bottom: 0.8rem;">
-                Type using our sound-guided mechanical keyboard switches to make Hindi typing drills engaging and rhythmic. Whether you are typing formal Hindi passages or practicing Hinglish (Roman-script Hindi) to chat faster, our system tracks your mistakes and accuracy in real-time, helping you identify and train your weak spots.
-            </p>
         </div>
 
-        <!-- Feature Cards Grid -->
-        <div class="seo-feature-grid">
-            <div class="seo-feature-card">
-                <span class="seo-icon">⌨️</span>
-                <h3>WPM Speed Test Online</h3>
-                <p>Track your WPM, accuracy, and raw characters typed. Use the 1-minute, 2-minute, 5-minute, or 10-minute options to test your limits.</p>
-            </div>
-            <div class="seo-feature-card">
-                <span class="seo-icon">🏆</span>
-                <h3>Free Typing Certificate</h3>
-                <p>Complete any typing test and download a free verified typing certificate PDF showing your WPM score and accuracy for resumes and job profiles.</p>
-            </div>
-            <div class="seo-feature-card">
-                <span class="seo-icon">🎮</span>
-                <h3>Fun Typing Games</h3>
-                <p>Master keyboard rows playing games like Cyber Fall, Time Bomb, Car Racing, Bubble Shooter, Ghost Word, and Matrix Decryptor.</p>
-            </div>
-            <div class="seo-feature-card">
-                <span class="seo-icon">🏛️</span>
-                <h3>Govt Exam Mock Test</h3>
-                <p>Practice with exam-formatted paragraphs tailored to meet SSC CHSL, SSC CGL, RRB NTPC, LDC, and State High Court typing formats.</p>
-            </div>
-            <div class="seo-feature-card">
-                <span class="seo-icon">🌐</span>
-                <h3>Multilingual Support</h3>
-                <p>Train in English, Hinglish, Hindi, Spanish, French, German, Arabic, Japanese, and Portuguese using custom layouts.</p>
-            </div>
-            <div class="seo-feature-card">
-                <span class="seo-icon">💻</span>
-                <h3>Coder Mode Practice</h3>
-                <p>Practice real programming syntax (Python, JavaScript, C++, HTML) with brackets, colons, and indentation rules.</p>
-            </div>
-        </div>
-
-        <!-- WPM Speed Scale -->
-        <div class="seo-wpm-scale">
-            <h3>Typing Speed Scale — Where Do You Stand?</h3>
-            <div class="seo-wpm-badges">
-                <span class="seo-wpm-badge badge-beginner">🐢 Beginner: &lt;20 WPM</span>
-                <span class="seo-wpm-badge badge-learner">🐾 Learner: 20–40 WPM</span>
-                <span class="seo-wpm-badge badge-average">⚡ Average: 40–60 WPM</span>
-                <span class="seo-wpm-badge badge-proficient">🚀 Proficient: 60–80 WPM</span>
-                <span class="seo-wpm-badge badge-expert">🏆 Expert: 80–100 WPM</span>
-                <span class="seo-wpm-badge badge-ninja">🔥 Ninja: 100+ WPM</span>
-            </div>
-        </div>
-
-        <!-- FAQ Section -->
         <div class="seo-faq-section">
-            <h2>Frequently Asked Questions — Typing Test &amp; WPM</h2>
-
+            <h2>বাংলা টাইপিং টেস্ট সম্পর্কিত সাধারণ প্রশ্ন ও উত্তর (Bengali Typing FAQs)</h2>
             <details class="seo-faq-item">
-                <summary>How can I prepare for government typing tests like SSC CHSL/CGL? <span class="faq-icon">+</span></summary>
+                <summary>Q1. WBPSC Clerkship পরীক্ষায় বাংলা টাইপিংয়ে কত স্পিড দরকার? <span class="faq-icon">+</span></summary>
                 <div class="faq-answer">
-                    To prepare for government exams like **SSC CHSL, SSC CGL, or RRB NTPC**:
-                    1. Focus on touch typing using all ten fingers, keeping your eyes on the screen, not the keyboard.
-                    2. Use a standard mechanical keyboard for practice, as laptop keyboards have low travel distances.
-                    3. Practice on TypingDost using the **10-minute timer** and selection of **Govt Exam Mode** paragraphs.
-                    4. Keep your accuracy above 97% to minimize speed penalties due to mistakes.
+                    WBPSC Clerkship পরীক্ষায় বাংলা মাধ্যম প্রার্থীদের জন্য প্রতি মিনিটে ন্যূনতম <strong>20 WPM (শব্দ প্রতি মিনিট)</strong> স্পিড প্রয়োজন। TypingDost-এ আপনি ১০ মিনিটের রিয়েল টাইম টাইমার সেট করে এই পরীক্ষার হুবহু প্রস্তুতি নিতে পারেন।
                 </div>
             </details>
-
             <details class="seo-faq-item">
-                <summary>What is Key Depressions Per Hour (KDPH) and WPM conversion? <span class="faq-icon">+</span></summary>
+                <summary>Q2. আমি কি সাধারণ ইংরেজি কীবোর্ড দিয়ে বাংলা টাইপ করতে পারব? <span class="faq-icon">+</span></summary>
                 <div class="faq-answer">
-                    **KDPH** stands for Key Depressions Per Hour, which counts every character and space typed in an hour.
-                    To convert WPM to KDPH: WPM is calculated assuming 5 key depressions equal 1 word.
-                    * **Formula:** KDPH = WPM × 5 × 60.
-                    * **Example:** 35 WPM = 35 × 300 = **10500 KDPH** (the minimum speed requirement for SSC CHSL typing exam).
-                </div>
-            </details>
-
-            <details class="seo-faq-item">
-                <summary>Does TypingDost support Hindi Remington Gail and Mangal Font layouts? <span class="faq-icon">+</span></summary>
-                <div class="faq-answer">
-                    Yes! TypingDost fully supports Hindi typing practice. Hindi government exams commonly use the **Remington Gail keyboard layout** under the **Mangal Font** or the traditional **Kruti Dev** layouts. You can practice all of these on our site in the Hindi language settings, with matching sounds and real-time accuracy telemetry.
-                </div>
-            </details>
-
-            <details class="seo-faq-item">
-                <summary>What is a good typing speed in WPM? <span class="faq-icon">+</span></summary>
-                <div class="faq-answer">
-                    A good typing speed is <strong>50–70 WPM</strong> with 95%+ accuracy. Beginners typically type at 30–40 WPM. Professional typists average 70–100 WPM. Competitive typists can exceed 120 WPM.
-                    Test your speed for free on TypingDost right now!
-                </div>
-            </details>
-
-            <details class="seo-faq-item">
-                <summary>What is the average typing speed in words per minute? <span class="faq-icon">+</span></summary>
-                <div class="faq-answer">
-                    The average typing speed for adults is <strong>40 WPM</strong>. For professional office workers, it's 50–60 WPM. Data entry professionals and secretaries are typically required to type at 60–80 WPM.
-                </div>
-            </details>
-
-            <details class="seo-faq-item">
-                <summary>Is TypingDost free to use? <span class="faq-icon">+</span></summary>
-                <div class="faq-answer">
-                    Yes — TypingDost is <strong>100% free</strong>. No registration, no login, no subscription.
-                    All features including typing tests, typing games, multilingual practice, and typing certificate download are completely free for everyone.
-                </div>
-            </details>
-
-            <details class="seo-faq-item">
-                <summary>Does TypingDost support Hinglish typing? <span class="faq-icon">+</span></summary>
-                <div class="faq-answer">
-                    Yes! TypingDost uniquely supports <strong>Hinglish typing practice</strong> (Roman-script Hindi) — making it one of the very few platforms worldwide to offer this.
-                    It also supports Hindi, English, Spanish, French, German, Arabic, Japanese, and Portuguese.
+                    হ্যাঁ! TypingDost-এর ফোনেটিক মোডে আলাদা কোনো কীবোর্ড কেনার বা সফটওয়্যার ইন্সটল করার প্রয়োজন নেই। সাধারণ ইংরেজি অক্ষর লিখলেই তা স্বয়ংক্রিয়ভাবে বাংলায় পরিবর্তিত হবে।
                 </div>
             </details>
         </div>
@@ -2346,3 +2344,5 @@
 </body>
 
 </html>
+
+

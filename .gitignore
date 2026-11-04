@@ -9,6 +9,8 @@ Thumbs.db
 node_modules/
 
 # Temp patch scripts
+_dev/
+*.zip
 test_build.js
 test_output.txt
 fix_*.js

@@ -1,15 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ta">
 <head>
     <script>try{localStorage.setItem('typingDostLang','tamil');}catch(e){}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tamil Typing Test Online — TNPSC, TN Court Exam Practice | TypingDost</title>
+    <title>Tamil Typing Test Online Free — தமிழ் தட்டச்சு பயிற்சி | TypingDost</title>
     
     <!-- SEO Meta Tags -->
     <meta name="google-site-verification" content="a3bE6zqdURTBOIPd9k5qUBjOpv4I8jGfa7l3DeJVsu4" />
-    <meta name="description" content="Free Tamil typing test online with Tamil 99 & Inscript layouts. Practice for TNPSC, TN Court & government exams. Test your Tamil typing speed in WPM!">
-    <meta name="keywords" content="tamil typing test, tamil typing test online, tamil typing speed test, tamil inscript typing, tamil 99 typing test, tamil font typing, tamil typing certificate">
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D4G84PZ15K"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D4G84PZ15K');</script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1661683734652344"
+     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-1661683734652344">
+    <meta name="description" content="Free Tamil typing test online for TNPSC and court exams. Practice Tamil typing speed with phonetic and Tamil 99 layouts. Get your free certificate.">
+    <meta name="keywords" content="typingtest, typing test keyboard, typing speed test keyboard, computer keyboard typing test, keyboard typing practice, tamil typing test, tamil typing test online, tamil typing speed test, tamil inscript typing, tamil 99 typing test, tamil font typing, tamil typing certificate">
     <meta name="author" content="TypingDost">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="rating" content="General">
@@ -52,6 +59,13 @@
     <meta property="twitter:image" content="https://typingdost.com/typingdost_brand.png">
     <meta name="twitter:creator" content="@TypingDost">
     
+        <!-- AI Search & LLM Discovery (GEO / Generative Engine Optimization) -->
+    <link rel="alternate" type="text/plain" href="https://typingdost.com/llms.txt" title="LLM Knowledge Base (llms.txt)" />
+    <link rel="alternate" type="text/plain" href="https://typingdost.com/llms-full.txt" title="Full LLM Knowledge Base (llms-full.txt)" />
+    <link rel="help" type="application/json" href="https://typingdost.com/ai-context.json" title="AI Machine-Readable Context" />
+    <meta name="ai-content-declaration" content="human-crafted educational platform" />
+    <meta name="chatgpt-fts" content="allow" />
+
     <!-- Favicons & Brand Logo Tab Icon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -71,14 +85,14 @@
     <!-- DNS Preconnect and Preload for Performance -->
     
     
-    <link rel="preload" href="style.css?v=3.0" as="style">
-    <link rel="preload" href="languageConfig.js" as="script">
-    <link rel="preload" href="script.js?v=3.8" as="script">
+    <link rel="preload" href="style.min.css?v=4.6" as="style">
+    <link rel="preload" href="languageConfig.min.js?v=4.1" as="script">
+    <link rel="preload" href="script.min.js?v=4.6" as="script">
     
     <link rel="manifest" href="manifest.json">
-        <link rel="stylesheet" href="style.css?v=3.0">
+        <link rel="stylesheet" href="style.min.css?v=4.6">
     <!-- Inline Mobile UI/UX Overrides to bypass Aggressive Mobile Browser Caching -->
-    <style id="mobile-viewport-overrides">
+        <style id="mobile-viewport-overrides">
         @media (max-width: 768px) {
             /* 1. Stacking Context & Stacking fix for Header */
             header {
@@ -94,27 +108,27 @@
             .header-controls {
                 display: flex !important;
                 flex-direction: row !important;
-                flex-wrap: wrap !important; /* Force wrap */
+                flex-wrap: wrap !important;
                 justify-content: center !important;
-                overflow-x: visible !important; /* No horizontal scroll clipping */
+                overflow-x: visible !important;
                 overflow-y: visible !important;
                 width: 100% !important;
                 padding: 0.4rem 0.2rem !important;
                 gap: 0.5rem !important;
             }
             .header-controls .control-group {
-                position: relative !important;
+                position: static !important;
                 margin: 0 !important;
                 gap: 0 !important;
             }
             .control-label {
-                display: none !important; /* Hide labels */
+                display: none !important;
             }
 
             .lesson-tabs {
                 display: flex !important;
                 flex-direction: row !important;
-                flex-wrap: wrap !important; /* Wrap instead of scroll */
+                flex-wrap: wrap !important;
                 justify-content: center !important;
                 overflow-x: visible !important;
                 overflow-y: visible !important;
@@ -131,31 +145,65 @@
             .theme-menu,
             .sound-menu,
             #lang-menu,
-            .practice-menu {
+            .practice-menu,
+            #test-menu,
+            #govt-menu,
+            #game-menu {
                 position: fixed !important;
                 top: 50% !important;
                 left: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
                 transform: translate(-50%, -50%) !important;
-                width: 90% !important;
+                margin: 0 !important;
+                width: 88vw !important;
                 max-width: 310px !important;
-                z-index: 9999999 !important;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 255, 255, 0.3) !important;
+                max-height: 65vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                z-index: 10000000 !important;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.3) !important;
                 background: rgba(10, 16, 30, 0.98) !important;
                 backdrop-filter: blur(25px) !important;
                 -webkit-backdrop-filter: blur(25px) !important;
-                border: 1px solid rgba(0, 255, 255, 0.25) !important;
-                max-height: 60vh !important;
-                overflow-y: auto !important;
+                border: 1px solid rgba(0, 240, 255, 0.3) !important;
                 border-radius: 16px !important;
                 padding: 0.8rem !important;
+                box-sizing: border-box !important;
             }
             
+            /* Strict Override for Open State: Enforce translate(-50%, -50%) */
+            .theme-menu:not(.hidden),
+            .sound-menu:not(.hidden),
+            #lang-menu:not(.hidden),
+            .practice-menu:not(.hidden),
+            #test-menu:not(.hidden),
+            #govt-menu:not(.hidden),
+            #game-menu:not(.hidden) {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(-50%, -50%) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
             /* Keep hidden state functional */
             .theme-menu.hidden,
             .sound-menu.hidden,
             #lang-menu.hidden,
-            .practice-menu.hidden {
+            .practice-menu.hidden,
+            #test-menu.hidden,
+            #govt-menu.hidden,
+            #game-menu.hidden {
                 display: none !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+                visibility: hidden !important;
             }
 
             /* Backdrop overlay for mobile dropdowns */
@@ -167,7 +215,7 @@
                 width: 100vw;
                 height: 100vh;
                 background: rgba(0, 0, 0, 0.45);
-                z-index: 999999;
+                z-index: 99999;
                 pointer-events: none;
                 opacity: 0;
                 transition: opacity 0.3s ease;
@@ -175,7 +223,10 @@
             body:has(.theme-menu:not(.hidden))::before,
             body:has(.sound-menu:not(.hidden))::before,
             body:has(#lang-menu:not(.hidden))::before,
-            body:has(.practice-menu:not(.hidden))::before {
+            body:has(.practice-menu:not(.hidden))::before,
+            body:has(#test-menu:not(.hidden))::before,
+            body:has(#govt-menu:not(.hidden))::before,
+            body:has(#game-menu:not(.hidden))::before {
                 pointer-events: auto;
                 opacity: 1;
             }
@@ -184,10 +235,13 @@
             body:has(.theme-menu:not(.hidden)) header,
             body:has(.sound-menu:not(.hidden)) header,
             body:has(#lang-menu:not(.hidden)) header {
-                z-index: 9999999 !important;
+                z-index: 999999 !important;
             }
-            body:has(.practice-menu:not(.hidden)) .container {
-                z-index: 9999999 !important;
+            body:has(.practice-menu:not(.hidden)) .container,
+            body:has(#test-menu:not(.hidden)) .container,
+            body:has(#govt-menu:not(.hidden)) .container,
+            body:has(#game-menu:not(.hidden)) .container {
+                z-index: 999999 !important;
             }
 
             /* Modal content adjustments for small mobile screens */
@@ -229,13 +283,6 @@
       "applicationSubCategory": "Typing Test, WPM Speed Test, Typing Practice",
       "operatingSystem": "Windows, macOS, Linux, Android, iOS",
       "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "14850",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -259,22 +306,6 @@
       "author": {
         "@type": "Person",
         "name": "Rizwan Khan"
-      }
-    }
-    </script>
-
-    <!-- Schema 2: WebSite with SearchAction -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "TypingDost",
-      "url": "https://typingdost.com/",
-      "description": "Free typing test online — measure your WPM speed and accuracy. Get a free typing certificate, play typing games, and practice in multiple languages.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://typingdost.com/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
       }
     }
     </script>
@@ -370,14 +401,14 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "TypingDost — Free Typing Test",
+          "name": "Home",
           "item": "https://typingdost.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Typing Certificate",
-          "item": "https://typingdost.com/certificate.html"
+          "name": "Tamil Typing Test",
+          "item": "https://typingdost.com/tamil-typing-test.html"
         }
       ]
     }
@@ -489,10 +520,16 @@
                     <button id="eye-comfort-btn" class="eye-comfort-btn" title="Toggle Eye Comfort (Blue Light Filter)">🌙 Off</button>
                 </div>
 
-                <!-- Support / Donate Button -->
-                <div class="control-group">
-                    <span class="control-label">Support Dost</span>
-                    <button id="header-donate-btn" class="header-donate-btn" title="Support TypingDost" onclick="document.getElementById('crypto-donate-modal').classList.remove('hidden')">💙 Support</button>
+                <!-- About TypingDost Button -->
+            <div class="control-group">
+                <span class="control-label">About</span>
+                <a href="about.html" id="header-about-btn" class="header-about-btn" title="About TypingDost">ℹ️ About</a>
+            </div>
+
+            <!-- Support / Donate Button -->
+            <div class="control-group">
+                <span class="control-label">Support Dost</span>
+                <button id="header-donate-btn" class="header-donate-btn" title="Support TypingDost" onclick="document.getElementById('crypto-donate-modal').classList.remove('hidden')">💙 Support</button>
                 </div>
             </div>
         </nav>
@@ -1170,6 +1207,19 @@
         </div>
         </div> <!-- End of standard-mode-container -->
 
+        <!-- Advertisement Slot 1: Below Typing Arena (Responsive Leaderboard) -->
+        <div class="td-ad-wrapper td-ad-leaderboard" id="ad-slot-leaderboard">
+            <span class="td-ad-label">Advertisement</span>
+            <div class="td-ad-placeholder">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1661683734652344"
+                     data-ad-slot=""
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
         <!-- Game Mode Container -->
         <div id="game-mode-container" class="hidden">
             <h3 style="text-align:center; font-family:'Orbitron',sans-serif; color:var(--primary,#00f0ff); font-size:1.2rem; margin:0.5rem 0; text-transform:uppercase; letter-spacing:0.05em;">Play Cyberpunk Word Defend & Typing Arcade Games</h3>
@@ -1383,10 +1433,13 @@
                 <div class="footer-col">
                     <div class="footer-col-title">Company</div>
                     <ul>
-                        <li><a href="#" id="open-policy-btn" title="Privacy Policy — TypingDost">Privacy Policy</a></li>
+                        <li><a href="privacy-policy.html" title="Privacy Policy — TypingDost">Privacy Policy</a></li>
+                        <li><a href="terms.html" title="Terms of Service — TypingDost">Terms of Service</a></li>
                         <li><a href="#" id="open-contact-btn" title="Contact Us — TypingDost">Contact Us</a></li>
                         <li><a href="blog/index.html" title="TypingDost Official Blog">Official Blog</a></li>
                         <li><a href="sitemap.xml" title="TypingDost Sitemap">Sitemap</a></li>
+                        <li><a href="about.html" style="color: #94a3b8; text-decoration: none;">About TypingDost</a></li>
+                        <li><a href="contact.html" style="color: #94a3b8; text-decoration: none;">Contact Us</a></li>
                         <li><a href="https://medium.com/@typingdost" target="_blank" rel="noopener noreferrer" title="TypingDost Blog — Typing Tips & Tricks">Blog & Tips</a></li>
                     </ul>
                 </div>
@@ -1676,6 +1729,18 @@
                     <div id="result-heatmap-section" class="result-heatmap-section hidden">
                         <p class="heatmap-label">Key Error Heatmap</p>
                         <div id="result-keyboard-heatmap" class="result-keyboard-heatmap"></div>
+                    </div>
+                    <!-- Advertisement Slot 2: Post-Test Results Screen (High CTR) -->
+                    <div class="td-ad-wrapper td-ad-result" id="ad-slot-result">
+                        <span class="td-ad-label">Advertisement</span>
+                        <div class="td-ad-placeholder">
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-1661683734652344"
+                                 data-ad-slot=""
+                                 data-ad-format="rectangle,horizontal"
+                                 data-full-width-responsive="true"></ins>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2091,6 +2156,11 @@
                 <p style="color: var(--text-sub, #8b9bb4); font-size: 0.9rem; max-width: 600px; margin: 0 auto; line-height: 1.5;">
                     Optimize your speed & accuracy with these high-performance keyboards, mouse, and typing setups handpicked for candidates and professional typists.
                 </p>
+                <div style="margin-top: 0.8rem;">
+                    <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFSkERnvD90fxv3tk6yOB7CjaUEWSIfMtDFOsFaMzwSfUE2ghby6JDl6Z6a4sv6CPeIUw8wZRuJV/pubhtml?gid=0&single=true" target="_blank" rel="noopener noreferrer" class="gears-sheet-btn">
+                        📊 Open Live Google Sheet Catalog ↗
+                    </a>
+                </div>
             </div>
 
             <!-- Loader / Loading State -->
@@ -2172,10 +2242,10 @@
     </div>
 
         <!-- Core Application & Multilingual Engine Scripts (Strict Load Order) -->
-    <script src="languageConfig.js"></script>
-    <script src="indicTransliteration.js"></script>
-    <script src="fontSystem.js?v=3.8"></script>
-    <script src="script.js?v=3.8"></script>
+    <script defer src="languageConfig.min.js?v=4.1"></script>
+    <script defer src="indicTransliteration.js"></script>
+    <script defer src="fontSystem.min.js?v=4.1"></script>
+    <script defer src="script.min.js?v=4.6"></script>
 
     <!-- =====================================================
          SEO CONTENT SECTION — Crawlable text for Google
@@ -2204,9 +2274,9 @@
 
         <!-- Section: Hindi Layouts & Fonts -->
         <div class="seo-text-block" style="margin-bottom: 2rem; text-align: left;">
-            <h3 style="font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 0.5rem;">Hindi Typing Test Online — Remington Gail (Mangal Font) &amp; Kruti Dev</h3>
+            <h3 style="font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 0.5rem;">Hindi Typing Test Online — Easy Phonetic Typing (Type English to Hindi)</h3>
             <p style="color: var(--text-sub); line-height: 1.6; margin-bottom: 0.8rem;">
-                Hindi typing is a mandatory requirement for several state and central government clerk positions in India. TypingDost offers comprehensive **Hindi typing test** and **Hinglish typing practice** layouts. We target Hindi keyboard layouts including **Remington Gail (Mangal Font)**, Inscript, and **Kruti Dev 010**. 
+                Hindi typing is a mandatory requirement for several state and central government clerk positions in India. TypingDost offers comprehensive **Hindi typing test** and **Hinglish typing practice** layouts. With our smart Phonetic transliteration, you can simply type words phonetically using your regular QWERTY keyboard (e.g. typing "bharat" gives "भारत"). 
             </p>
             <p style="color: var(--text-sub); line-height: 1.6; margin-bottom: 0.8rem;">
                 Type using our sound-guided mechanical keyboard switches to make Hindi typing drills engaging and rhythmic. Whether you are typing formal Hindi passages or practicing Hinglish (Roman-script Hindi) to chat faster, our system tracks your mistakes and accuracy in real-time, helping you identify and train your weak spots.
@@ -2286,9 +2356,9 @@
             </details>
 
             <details class="seo-faq-item">
-                <summary>Does TypingDost support Hindi Remington Gail and Mangal Font layouts? <span class="faq-icon">+</span></summary>
+                <summary>Does TypingDost support Phonetic Hindi typing? <span class="faq-icon">+</span></summary>
                 <div class="faq-answer">
-                    Yes! TypingDost fully supports Hindi typing practice. Hindi government exams commonly use the **Remington Gail keyboard layout** under the **Mangal Font** or the traditional **Kruti Dev** layouts. You can practice all of these on our site in the Hindi language settings, with matching sounds and real-time accuracy telemetry.
+                    Yes! TypingDost fully supports Hindi typing practice. Yes! TypingDost fully supports smart Phonetic typing. You can type seamlessly using standard English keyboard letters, and it instantly converts to pure Hindi (Devanagari) script with matching sounds and real-time accuracy telemetry.
                 </div>
             </details>
 
@@ -2346,3 +2416,5 @@
 </body>
 
 </html>
+
+

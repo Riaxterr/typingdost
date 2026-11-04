@@ -48,9 +48,8 @@ const LANG_FONTS = {
         { id: 'f-orbitron', name: 'Orbitron', family: "'Orbitron', sans-serif", icon: '🚀', badge: 'Cyber' }
     ],
     hindi: [
-        { id: 'f-noto-hi', name: 'Noto Sans Devanagari (Mangal)', family: "'Noto Sans Devanagari', sans-serif", icon: '✨', badge: 'Govt Standard' },
+        { id: 'f-noto-hi', name: 'Noto Sans Devanagari (Mangal)', family: "'Noto Sans Devanagari', sans-serif", icon: '✨', badge: 'Standard' },
         { id: 'f-mukta-hi', name: 'Mukta', family: "'Mukta', sans-serif", icon: '📝', badge: 'Fast' },
-        { id: 'f-kruti-hi', name: 'Kruti Dev 010', family: "'Kruti Dev 010', 'Noto Sans Devanagari', sans-serif", icon: '⌨️', badge: 'Exam Special' },
         { id: 'f-poppins-hi', name: 'Poppins Devanagari', family: "'Poppins', sans-serif", icon: '🔤', badge: 'Clean' },
         { id: 'f-rozha-hi', name: 'Rozha One', family: "'Rozha One', serif", icon: '🏛️', badge: 'Classic' }
     ],
@@ -737,15 +736,9 @@ function initFontSelector(lang) {
     const currentLang = lang || (typeof localStorage !== 'undefined' ? localStorage.getItem('typingDostLang') : 'english') || 'english';
     const fonts = LANG_FONTS[currentLang] || LANG_FONTS.english;
     
-    // Determine supported layouts for this language
-    let supportedLayouts = ['phonetic'];
-    if (currentLang === 'tamil') supportedLayouts = ['phonetic', 'tamil-99', 'inscript', 'direct'];
-    else if (currentLang === 'hindi') supportedLayouts = ['phonetic', 'kruti-dev', 'remington-gail', 'inscript', 'direct'];
-    else if (currentLang === 'marathi') supportedLayouts = ['phonetic', 'remington-gail', 'inscript', 'direct'];
-    else if (currentLang === 'urdu') supportedLayouts = ['urdu-phonetic', 'urdu-standard', 'direct'];
-    else if (['bengali', 'telugu', 'gujarati', 'kannada', 'malayalam', 'odia', 'punjabi', 'assamese'].includes(currentLang)) {
-        supportedLayouts = ['phonetic', 'inscript', 'direct'];
-    }
+    // Determine supported layouts for this language - 100% Phonetic-driven
+    let supportedLayouts = ['phonetic', 'direct'];
+    if (currentLang === 'urdu') supportedLayouts = ['urdu-phonetic', 'direct'];
 
     layoutMenu.innerHTML = '';
 

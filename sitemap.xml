@@ -48,10 +48,10 @@
     <xhtml:link rel="alternate" hreflang="hi" href="https://typingdost.com/hindi-typing-test.html"/>
   </url>
 
-  <!-- Hindi Typing Test Page (Kruti Dev / Remington Gail / Inscript) -->
+  <!-- Hindi Typing Test Page (Phonetic Transliteration) -->
   <url>
     <loc>https://typingdost.com/hindi-typing-test.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://typingdost.com/"/>
@@ -227,5 +227,73 @@
     <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/mangal-font-typing-test.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/ssc-cgl-typing-test-guide.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/cpct-typing-test-guide.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://typingdost.com/blog/typing-speed-test-5-minute.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://typingdost.com/about.html</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://typingdost.com/contact.html</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <!-- Privacy Policy Page (Mandatory for AdSense & GDPR Compliance) -->
+  <url>
+    <loc>https://typingdost.com/privacy-policy.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Terms of Service Page -->
+  <url>
+    <loc>https://typingdost.com/terms.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+
+  <!-- AI Context JSON -->
+  <url>
+    <loc>https://typingdost.com/ai-context.json</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

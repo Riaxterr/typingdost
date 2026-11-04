@@ -1,3 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap');
+
+:root {
+  --bg-primary: #18181b;
+  --bg-elevated: #27272a;
+  --bg-glass: rgba(39, 39, 42, 0.65);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-focus: rgba(245, 158, 11, 0.45);
+  --text-untyped: #a1a1aa;
+  --text-typed: #f4f4f5;
+  --text-muted: #52525b;
+  --accent-primary: #f59e0b;
+  --accent-glow: rgba(245, 158, 11, 0.22);
+  --char-correct: #f4f4f5;
+  --char-error: #ef4444;
+  --char-error-bg: rgba(239, 68, 68, 0.18);
+  --char-extra: #dc2626;
+  --streak-combo: #10b981;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace, 'Noto Sans Devanagari';
+  --typing-font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  --typing-line-height: 1.65;
+  --max-width-arena: 1080px;
+  --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --caret-speed: 65ms;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-elevated: #f1f5f9;
+  --bg-glass: rgba(241, 245, 249, 0.8);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --text-untyped: #64748b;
+  --text-typed: #0f172a;
+  --text-muted: #94a3b8;
+  --accent-primary: #d97706;
+  --char-correct: #0f172a;
+  --char-error: #dc2626;
+  --char-error-bg: rgba(220, 38, 38, 0.12);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-untyped);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+body.is-typing .chrome-dimmable,
+body.is-typing header,
+body.is-typing nav,
+body.is-typing footer,
+body.is-typing .language-selector,
+body.is-typing .lesson-selector,
+body.is-typing .blog-preview,
+body.is-typing .seo-content,
+body.is-typing .info-section {
+  opacity: 0.18 !important;
+  pointer-events: none !important;
+  filter: blur(0.5px);
+  transition: opacity 0.35s var(--ease-snappy), filter 0.35s var(--ease-snappy);
+}
+
+.config-pill {
+  padding: 0.375rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-untyped);
+  background: transparent;
+  border: none;
+  transition: all 0.18s var(--ease-snappy);
+  cursor: pointer;
+}
+.config-pill:hover {
+  color: var(--text-typed);
+  background: rgba(255, 255, 255, 0.04);
+}
+.config-pill.active {
+  color: #18181b;
+  background: var(--accent-primary);
+  font-weight: 600;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.word-stream {
+  font-family: var(--font-mono);
+  font-size: var(--typing-font-size);
+  line-height: var(--typing-line-height);
+  letter-spacing: 0.015em;
+  max-height: calc(var(--typing-font-size) * var(--typing-line-height) * 3);
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55em;
+  position: relative;
+  user-select: none;
+}
+
+.word {
+  display: inline-flex;
+  position: relative;
+  border-bottom: 2px solid transparent;
+}
+.word.has-error {
+  border-bottom-color: rgba(239, 68, 68, 0.5);
+}
+
+.char {
+  color: var(--text-untyped);
+  transition: color 50ms ease, background-color 80ms ease;
+  border-radius: 3px;
+}
+.char.correct { color: var(--char-correct); }
+.char.incorrect, .char.error {
+  color: var(--char-error);
+  background-color: var(--char-error-bg);
+  animation: keyErrorShake 160ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.typing-caret {
+  position: absolute;
+  width: 2.5px;
+  height: calc(var(--typing-font-size) * 1.25);
+  background-color: var(--accent-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--accent-primary);
+  pointer-events: none;
+  z-index: 10;
+  transition: transform var(--caret-speed) var(--ease-snappy);
+  animation: caretPulse 1.1s infinite ease-in-out;
+}
+body.is-typing .typing-caret { animation: none; }
+
+.sr-only-focusable-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: text;
+  z-index: 20;
+}
+
+.sound-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sound-wave-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+.sound-wave-bars i {
+  width: 2px;
+  height: 100%;
+  background-color: var(--accent-primary);
+  border-radius: 1px;
+}
+
+.kbd-chip {
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.375rem;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-typed);
+  font-size: 0.7rem;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.4);
+}
+
+@keyframes caretPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.15; } }
+@keyframes keyErrorShake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  30%, 70% { transform: translate3d(2px, 0, 0); }
+  50% { transform: translate3d(-2px, 0, 0); }
+}
+
 /* ============================================================
    Kruti Dev 010 & Indic Font Embeds
    ============================================================ */
@@ -517,6 +704,49 @@ header {
     border-color: rgba(255,140,0,0.5);
     color: hsl(36,100%,65%);
     animation: td-warm-pulse 2.5s ease-in-out infinite;
+}
+
+/* ── About TypingDost Button ── */
+#header-about-btn,
+.header-about-btn {
+    background: rgba(0, 240, 255, 0.08);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    color: var(--primary, #00f0ff);
+    padding: 0.5rem 1.1rem;
+    border-radius: 12px;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-decoration: none !important;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                filter 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+#header-about-btn:hover,
+.header-about-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    background: rgba(0, 240, 255, 0.2);
+    border-color: var(--primary, #00f0ff);
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.45);
+}
+
+#header-about-btn:active,
+.header-about-btn:active {
+    transform: translateY(0) scale(0.97);
 }
 
 /* ── Donate / Support Button — HERO CTA ── */
@@ -2617,47 +2847,94 @@ body.eye-comfort-active::after {
    DISPLAY MODES OVERRIDES (GRAY MODE ONLY)
    ============================================================ */
 
-/* 2. Gray Mode Styles */
-body.gray-mode {
-    --bg-color: #1e2022;
-    --grid-color: rgba(255, 255, 255, 0.02);
+/* 2. Gray Mode Styles (Standardized Clean Theme Architecture) */
+body.gray-mode,
+[data-theme="grayminimal"] {
+    --bg-color: #14171a;
+    --grid-color: rgba(255, 255, 255, 0.03);
     --primary: #94a3b8;
-    --primary-glow: 0 0 10px rgba(148, 163, 184, 0.3);
+    --primary-glow: 0 0 12px rgba(148, 163, 184, 0.35);
     --secondary: #64748b;
     --accent: #cbd5e1;
-    --glass-bg: rgba(30, 32, 34, 0.75);
+    --correct: #94a3b8;
+    --correct-glow: 0 0 8px rgba(148, 163, 184, 0.4);
+    --wrong: #f87171;
+    --wrong-glow: 0 0 8px rgba(248, 113, 113, 0.4);
+    --glass-bg: rgba(20, 23, 26, 0.85);
     --glass-border: rgba(148, 163, 184, 0.2);
-    --dropdown-bg: #2d3135;
-    background-color: #1e2022;
-    color: #94a3b8;
-    filter: grayscale(1) contrast(1.05) !important; /* Instantly gray-scales all visuals beautifully! */
+    --dropdown-bg: #1e2227;
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+    --text-untyped: rgba(148, 163, 184, 0.4);
+    --surface-card: rgba(30, 34, 40, 0.7);
+    --card-border: rgba(148, 163, 184, 0.15);
+    --btn-bg: rgba(148, 163, 184, 0.1);
+    --btn-border: rgba(148, 163, 184, 0.3);
+    --key-bg: #1e2227;
+    --key-border: #334155;
+    --key-active: #475569;
+    --caret-color: #cbd5e1;
+    background-color: #14171a;
+    color: #f8fafc;
 }
 
 /* 3. Display Mode Capsule Button Styles */
 .control-group .display-mode-btn {
-    background: rgba(0, 240, 255, 0.03) !important;
-    border: 1px solid rgba(0, 240, 255, 0.2) !important;
-    box-shadow: 0 0 5px rgba(0, 240, 255, 0.05) !important;
-    padding: 0.35rem 0.85rem !important;
+    background: rgba(148, 163, 184, 0.05) !important;
+    border: 1px solid rgba(148, 163, 184, 0.25) !important;
+    box-shadow: 0 0 5px rgba(148, 163, 184, 0.05) !important;
+    padding: 0 0.8rem !important;
+    height: 28px !important;
     border-radius: 30px !important;
-    color: #fff !important;
+    color: #e2e8f0 !important;
     margin: 0 !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     cursor: pointer;
-    font-family: var(--font-sans);
+    font-family: 'Space Grotesk', sans-serif !important;
     font-size: 0.78rem !important;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.35rem;
     letter-spacing: 0.2px;
 }
 
 .control-group .display-mode-btn:hover {
-    background: rgba(0, 240, 255, 0.1) !important;
-    border-color: rgba(0, 240, 255, 0.7) !important;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.1) !important;
+    background: rgba(148, 163, 184, 0.15) !important;
+    border-color: rgba(148, 163, 184, 0.6) !important;
+    box-shadow: 0 0 12px rgba(148, 163, 184, 0.3), inset 0 0 6px rgba(148, 163, 184, 0.1) !important;
+    transform: translateY(-1px);
+}
+
+.control-group .display-mode-btn.active {
+    background: rgba(148, 163, 184, 0.25) !important;
+    border-color: rgba(203, 213, 225, 0.8) !important;
+    box-shadow: 0 0 12px rgba(148, 163, 184, 0.45), inset 0 0 8px rgba(148, 163, 184, 0.2) !important;
+    color: #ffffff !important;
+}
+
+.gears-sheet-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--primary, #00f0ff);
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.gears-sheet-btn:hover {
+    background: rgba(0, 240, 255, 0.12);
+    border-color: var(--primary, #00f0ff);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
     transform: translateY(-1px);
 }
 
@@ -7121,7 +7398,8 @@ body.focused-typing .textbox-header {
 .control-group #lang-trigger,
 .control-group .eye-comfort-btn,
 .control-group .display-mode-btn,
-.control-group .header-donate-btn {
+.control-group .header-donate-btn,
+.control-group .header-about-btn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -7245,6 +7523,32 @@ body.focused-typing .textbox-header {
     transform: translateY(-1px);
 }
 
+.control-group .display-mode-btn {
+    background: rgba(148, 163, 184, 0.05) !important;
+    border: 1px solid rgba(148, 163, 184, 0.25) !important;
+    box-shadow: 0 0 5px rgba(148, 163, 184, 0.05) !important;
+    padding: 0.35rem 0.85rem !important;
+    border-radius: 30px !important;
+    color: #e2e8f0 !important;
+    font-size: 0.78rem !important;
+    margin: 0 !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.control-group .display-mode-btn:hover {
+    background: rgba(148, 163, 184, 0.15) !important;
+    border-color: rgba(148, 163, 184, 0.7) !important;
+    box-shadow: 0 0 15px rgba(148, 163, 184, 0.4), inset 0 0 8px rgba(148, 163, 184, 0.1) !important;
+    transform: translateY(-1px);
+}
+
+.control-group .display-mode-btn.active {
+    background: rgba(148, 163, 184, 0.25) !important;
+    border-color: rgba(203, 213, 225, 0.85) !important;
+    box-shadow: 0 0 15px rgba(148, 163, 184, 0.5) !important;
+    color: #fff !important;
+}
+
 .control-group .header-donate-btn {
     background: linear-gradient(135deg, var(--accent), #ff00aa) !important;
     border: none !important;
@@ -7269,6 +7573,35 @@ body.focused-typing .textbox-header {
     transform: translateY(-1.5px) scale(1.03);
     box-shadow: 0 0 18px var(--accent) !important;
     background: linear-gradient(135deg, #ff0055, #ff33aa) !important;
+}
+
+.control-group .header-about-btn {
+    background: rgba(0, 240, 255, 0.08) !important;
+    border: 1px solid rgba(0, 240, 255, 0.3) !important;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15) !important;
+    padding: 0.38rem 0.95rem !important;
+    border-radius: 30px !important;
+    color: #00f0ff !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    margin: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.3rem !important;
+}
+
+.control-group .header-about-btn:hover {
+    transform: translateY(-1.5px) scale(1.03);
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.5) !important;
+    background: rgba(0, 240, 255, 0.22) !important;
+    border-color: #00f0ff !important;
+    color: #ffffff !important;
 }
 
 .eye-comfort-btn {
@@ -9960,6 +10293,75 @@ body.focused-typing .mascot-greeting-widget {
     .live-keyboard-guide {
         display: none !important;
     }
+
+    .header-controls .control-group {
+        position: static !important;
+    }
+
+    /* Unified Centered App-Dialog Modal for ALL Dropdowns on Mobile */
+    .theme-menu,
+    .sound-menu,
+    #lang-menu,
+    .practice-menu,
+    #test-menu,
+    #govt-menu,
+    #game-menu {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        margin: 0 !important;
+        width: 88vw !important;
+        max-width: 310px !important;
+        max-height: 65vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        z-index: 10000000 !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.3) !important;
+        background: rgba(10, 16, 30, 0.98) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        border: 1px solid rgba(0, 240, 255, 0.3) !important;
+        border-radius: 16px !important;
+        padding: 0.8rem !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Strict Override for Open State: Enforce translate(-50%, -50%) */
+    .theme-menu:not(.hidden),
+    .sound-menu:not(.hidden),
+    #lang-menu:not(.hidden),
+    .practice-menu:not(.hidden),
+    #test-menu:not(.hidden),
+    #govt-menu:not(.hidden),
+    #game-menu:not(.hidden) {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Hidden State */
+    .theme-menu.hidden,
+    .sound-menu.hidden,
+    #lang-menu.hidden,
+    .practice-menu.hidden,
+    #test-menu.hidden,
+    #govt-menu.hidden,
+    #game-menu.hidden {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        visibility: hidden !important;
+    }
 }
 
 @media (max-width: 600px) {
@@ -10064,12 +10466,13 @@ body.focused-typing .mascot-greeting-widget {
         flex-shrink: 0 !important;
         margin: 0 !important;
         gap: 0 !important;
-        position: relative !important;
+        position: static !important;
     }
 
     .header-controls button,
     .header-controls .sound-trigger,
-    .header-controls .theme-trigger {
+    .header-controls .theme-trigger,
+    .header-controls .header-about-btn {
         padding: 0.4rem 0.75rem !important;
         font-size: 0.75rem !important;
         height: auto !important;
@@ -10080,44 +10483,66 @@ body.focused-typing .mascot-greeting-widget {
     }
 
     /* 5. Dropdown Menu Overlay Dialogs on Mobile (Centers menus like native app dialogs) */
-    .practice-menu {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 90% !important;
-        max-width: 320px !important;
-        z-index: 999999 !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 255, 255, 0.25) !important;
-        background: rgba(10, 16, 30, 0.98) !important;
-        backdrop-filter: blur(25px) !important;
-        -webkit-backdrop-filter: blur(25px) !important;
-        border: 1px solid rgba(0, 255, 255, 0.2) !important;
-        max-height: 70vh !important;
-        overflow-y: auto !important;
-        border-radius: 16px !important;
-        padding: 0.8rem !important;
-    }
-
+    .practice-menu,
     .theme-menu,
     .sound-menu,
-    #lang-menu {
+    #lang-menu,
+    #test-menu,
+    #govt-menu,
+    #game-menu {
         position: fixed !important;
         top: 50% !important;
         left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
         transform: translate(-50%, -50%) !important;
-        width: 90% !important;
-        max-width: 300px !important;
-        z-index: 999999 !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 255, 255, 0.25) !important;
+        margin: 0 !important;
+        width: 88vw !important;
+        max-width: 310px !important;
+        max-height: 65vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        z-index: 10000000 !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.3) !important;
         background: rgba(10, 16, 30, 0.98) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
-        border: 1px solid rgba(0, 255, 255, 0.2) !important;
-        max-height: 60vh !important;
-        overflow-y: auto !important;
+        border: 1px solid rgba(0, 240, 255, 0.3) !important;
         border-radius: 16px !important;
         padding: 0.8rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .theme-menu:not(.hidden),
+    .sound-menu:not(.hidden),
+    #lang-menu:not(.hidden),
+    .practice-menu:not(.hidden),
+    #test-menu:not(.hidden),
+    #govt-menu:not(.hidden),
+    #game-menu:not(.hidden) {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .theme-menu.hidden,
+    .sound-menu.hidden,
+    #lang-menu.hidden,
+    .practice-menu.hidden,
+    #test-menu.hidden,
+    #govt-menu.hidden,
+    #game-menu.hidden {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        visibility: hidden !important;
     }
 
     /* Backdrop dim effect when any menu is open */
@@ -11547,3 +11972,534 @@ body.focused-typing .mascot-greeting-widget {
 
 /* Textbox Controls Clean Layout */
 #layout-control-group, #layout-trigger, #layout-menu { display: none !important; }
+
+/* ==========================================================================
+   1. PREMIUM OBSIDIAN THEME & GLASSMORPHISM UPGRADE
+   ========================================================================== */
+:root {
+  --td-bg-obsidian: #0B0F19;
+  --td-glass-bg: rgba(17, 24, 39, 0.65);
+  --td-glass-border: rgba(255, 255, 255, 0.08);
+  --td-glass-highlight: rgba(255, 255, 255, 0.14);
+  --td-accent-neon: #38bdf8;
+  --td-accent-combo: #a855f7;
+  --td-error-coral: #f43f5e;
+  --td-success-mint: #10b981;
+}
+
+body.td-premium-dark {
+  background-color: var(--td-bg-obsidian) !important;
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 45%) !important;
+  color: #e2e8f0;
+  transition: background-color 0.3s ease;
+}
+
+/* Frosted Glass Cards for Stats & Typing Container */
+.td-glass-card,
+.stats-container,
+.stats-board,
+.typing-container,
+.typing-section,
+#typing-area,
+#typing-section-wrapper {
+  background: var(--td-glass-bg) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--td-glass-border) !important;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 var(--td-glass-highlight) !important;
+  border-radius: 16px !important;
+}
+
+/* Indic Script Matra-Safe Typography */
+.typing-words,
+#words,
+#word-display,
+.text-display,
+#text-display {
+  line-height: 2.15 !important;
+  letter-spacing: 0.02em;
+  font-variant-ligatures: normal;
+  position: relative;
+}
+
+.text-display,
+#text-display {
+  height: calc(2.15em * 3) !important;
+}
+
+/* ==========================================================================
+   ENHANCED OBSIDIAN GLIDING CARET & FX CARET STYLES
+   ========================================================================== */
+body.td-premium-dark #ghost-caret {
+  display: none !important;
+}
+
+#caret {
+  position: absolute;
+  width: 2.5px;
+  height: 1.25em;
+  background-color: var(--td-accent-neon, var(--primary, #38bdf8));
+  border-radius: 3px;
+  box-shadow: 0 0 10px var(--td-accent-neon, var(--primary, #38bdf8));
+  pointer-events: none;
+  z-index: 20;
+  will-change: transform, width, height;
+  transition: transform 75ms cubic-bezier(0.16, 1, 0.3, 1), width 90ms ease, height 90ms ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  animation: tdCaretPulse 1.2s infinite ease-in-out;
+}
+
+#caret.caret-smooth-snappy {
+  transition: transform 75ms cubic-bezier(0.16, 1, 0.3, 1), width 90ms ease, height 90ms ease !important;
+}
+#caret.caret-smooth-extra {
+  transition: transform 135ms cubic-bezier(0.16, 1, 0.3, 1), width 120ms ease, height 120ms ease !important;
+}
+#caret.caret-smooth-off {
+  transition: none !important;
+}
+
+#caret.caret-style-line {
+  width: 2.5px !important;
+  height: 1.25em !important;
+  background-color: var(--td-accent-neon, var(--primary, #38bdf8)) !important;
+  box-shadow: 0 0 10px var(--td-accent-neon, var(--primary, #38bdf8)) !important;
+  border-radius: 3px !important;
+}
+
+#caret.caret-style-block {
+  height: 1.25em !important;
+  background: color-mix(in srgb, var(--td-accent-neon, #38bdf8) 28%, transparent) !important;
+  border-bottom: 2.5px solid var(--td-accent-neon, #38bdf8) !important;
+  border-radius: 3px !important;
+  box-shadow: inset 0 0 6px color-mix(in srgb, var(--td-accent-neon, #38bdf8) 35%, transparent), 0 0 10px color-mix(in srgb, var(--td-accent-neon, #38bdf8) 25%, transparent) !important;
+}
+
+#caret.caret-style-outline {
+  height: 1.25em !important;
+  background: transparent !important;
+  border: 1.5px solid var(--td-accent-neon, #38bdf8) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--td-accent-neon, #38bdf8) 40%, transparent), inset 0 0 4px color-mix(in srgb, var(--td-accent-neon, #38bdf8) 25%, transparent) !important;
+}
+
+#caret.caret-style-underline {
+  height: 3.5px !important;
+  top: 1.18em !important;
+  background-color: var(--td-accent-neon, #38bdf8) !important;
+  box-shadow: 0 0 8px var(--td-accent-neon, #38bdf8) !important;
+  border-radius: 2px !important;
+}
+
+#caret.caret-style-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+/* Dropdowns Z-Index & Elevation */
+.textbox-controls-container {
+  position: relative !important;
+  z-index: 50 !important;
+}
+
+.textbox-style-container,
+.textbox-fx-container {
+  position: relative !important;
+  z-index: 51 !important;
+}
+
+.textbox-style-dropdown,
+.textbox-fx-dropdown {
+  z-index: 99999 !important;
+}
+
+/* Text Display Font Sizing Hierarchy */
+.text-display.style-normal {
+  font-size: 1.6rem !important;
+  line-height: 1.85 !important;
+  height: calc(1.85em * 3) !important;
+}
+
+.text-display.style-medium {
+  font-size: 2.2rem !important;
+  line-height: 1.75 !important;
+  letter-spacing: 2px !important;
+  height: calc(1.75em * 3) !important;
+}
+
+.text-display.style-large {
+  font-size: 2.8rem !important;
+  line-height: 1.65 !important;
+  letter-spacing: 2px !important;
+  height: calc(1.65em * 3) !important;
+}
+
+.text-display.style-meganitro {
+  font-size: 3.6rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: 3px !important;
+  height: calc(1.5em * 3) !important;
+}
+
+/* ==========================================================================
+   2. SMOOTH GLIDING CARET & ZEN FOCUS MODE
+   ========================================================================== */
+#td-smooth-caret {
+  position: absolute;
+  width: 2.5px;
+  height: 1.4em;
+  background-color: var(--td-accent-neon);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--td-accent-neon);
+  pointer-events: none;
+  z-index: 20;
+  transition: transform 0.075s cubic-bezier(0.22, 1, 0.36, 1), height 0.1s ease;
+  animation: tdCaretPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes tdCaretPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* Zen Focus Mode: Auto-dim distractions while actively typing */
+body.td-zen-active header,
+body.td-zen-active nav,
+body.td-zen-active footer,
+body.td-zen-active .language-selector,
+body.td-zen-active .lesson-selector,
+body.td-zen-active .blog-preview,
+body.td-zen-active .seo-content,
+body.td-zen-active .info-section,
+body.td-zen-active .features-grid,
+body.td-zen-active .faq-section {
+  opacity: 0.12 !important;
+  filter: blur(1px);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   3. DESI MEME SURVIVAL & BOSS HUD STYLES
+   ========================================================================== */
+.td-arcade-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  margin-bottom: 18px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--td-glass-border);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: system-ui, -apple-system, sans-serif;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.td-hud-left, .td-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.td-avatar-frame {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--td-accent-neon);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+  background: #1e293b;
+  flex-shrink: 0;
+}
+
+.td-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.td-avatar-frame.level-up img {
+  transform: scale(1.18) rotate(4deg);
+}
+
+.td-rank-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.td-rank-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  line-height: 1.2;
+}
+
+.td-rank-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.3;
+}
+
+/* Hearts & Combo Badge */
+.td-hearts {
+  display: flex;
+  gap: 6px;
+  font-size: 1.25rem;
+  user-select: none;
+}
+
+.td-heart {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+  display: inline-block;
+}
+
+.td-heart.lost {
+  opacity: 0.2;
+  transform: scale(0.75);
+  filter: grayscale(1);
+}
+
+.td-combo-badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #d8b4fe;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.td-combo-badge.on-fire {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.5);
+  transform: scale(1.08);
+}
+
+/* Toggle Buttons */
+.td-arcade-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--td-glass-border);
+  color: #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.td-arcade-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.td-arcade-btn.active {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: var(--td-accent-neon);
+  color: var(--td-accent-neon);
+}
+
+/* Responsive HUD */
+@media (max-width: 768px) {
+  .td-arcade-hud {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 10px 14px;
+  }
+  .td-hud-left {
+    justify-content: flex-start;
+  }
+  .td-hud-right {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .td-arcade-btn {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+}
+
+/* Error Shake & Combo Glow Effects */
+@keyframes tdErrorShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.td-shake {
+  animation: tdErrorShake 0.28s ease-in-out;
+  border-color: var(--td-error-coral) !important;
+}
+
+
+/* ==========================================================================
+   AD CONTAINERS & ADSENSE RESPONSIVE PLACEHOLDERS
+   ========================================================================== */
+.td-ad-wrapper {
+  margin: 1.5rem auto;
+  width: 100%;
+  max-width: 728px;
+  min-height: 90px;
+  background: var(--td-glass-bg, rgba(17, 24, 39, 0.65));
+  border: 1px dashed var(--td-glass-border, rgba(255, 255, 255, 0.12));
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.35s ease, border-color 0.3s ease;
+}
+
+.td-ad-wrapper:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.td-ad-label {
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-untyped, #64748b);
+  opacity: 0.65;
+  pointer-events: none;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-weight: 600;
+}
+
+.td-ad-placeholder {
+  width: 100%;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.td-ad-placeholder ins.adsbygoogle {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Post-Test Result Modal Ad */
+.td-ad-result {
+  max-width: 100%;
+  min-height: 250px;
+  margin: 1.25rem 0 0;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.td-ad-result .td-ad-placeholder {
+  min-height: 250px;
+}
+
+/* In-Content Blog Ad */
+.td-ad-incontent {
+  max-width: 760px;
+  min-height: 100px;
+  margin: 2.2rem auto;
+}
+
+/* Mobile Responsive Optimization */
+@media (max-width: 768px) {
+  .td-ad-wrapper {
+    max-width: 100%;
+    min-height: 60px;
+    margin: 1rem auto;
+  }
+  .td-ad-placeholder {
+    min-height: 60px;
+  }
+  .td-ad-result {
+    min-height: 200px;
+  }
+}
+
+/* Zen Focus Mode & Active Typing Auto-Dimming: Eliminates visual distraction */
+body.td-zen-active .td-ad-wrapper,
+body.is-typing .td-ad-wrapper {
+  opacity: 0.05 !important;
+  filter: blur(1.5px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+
+/* ==========================================================================
+   ADSTERRA AD UNITS & ULTRA-WIDE RESPONSIVE SKYSCRAPERS
+   ========================================================================== */
+.ad-unit-desktop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.ad-unit-mobile {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .ad-unit-desktop {
+    display: none !important;
+  }
+  .ad-unit-mobile {
+    display: flex !important;
+  }
+}
+
+
+/* Adsterra Direct Partner Link CTA Button */
+.td-sponsored-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 153, 0, 0.15) 0%, rgba(255, 102, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 153, 0, 0.4);
+  color: #ffb703;
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(255, 153, 0, 0.15);
+}
+
+.td-sponsored-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 153, 0, 0.3) 0%, rgba(255, 102, 0, 0.15) 100%);
+  border-color: rgba(255, 153, 0, 0.8);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 153, 0, 0.25);
+}

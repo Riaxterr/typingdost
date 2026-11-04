@@ -74,6 +74,9 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
+User-agent: Mediapartners-Google
+Allow: /
+
 User-agent: Googlebot-Image
 Allow: /
 
@@ -109,3 +112,4 @@ Sitemap: https://typingdost.com/sitemap.xml
 # LLM Direct Context Feeds:
 # LLMs-Txt: https://typingdost.com/llms.txt
 # LLMs-Full: https://typingdost.com/llms-full.txt
+# AI-Context: https://typingdost.com/ai-context.json

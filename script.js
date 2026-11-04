@@ -1036,6 +1036,7 @@ const THEMES_LIST = [
     { id: "mojavedesert", name: "Mojave Desert", icon: "🌵" },
     { id: "himalayanmist", name: "Himalayan Mist", icon: "⛰️" },
     { id: "goldenmeadow", name: "Golden Meadow", icon: "🌾" },
+    { id: "grayminimal", name: "Gray Minimal", icon: "💿" },
     { id: "cyberpunk", name: "Cyberpunk", icon: "🌌" },
     { id: "matrix", name: "Matrix", icon: "🟩" },
     { id: "synthwave", name: "Synthwave", icon: "🌇" },
@@ -1707,6 +1708,11 @@ function applyCaretFxStyles() {
     );
     caret.classList.add(`caret-style-${typingFxSettings.caretStyle}`);
     caret.classList.add(`caret-smooth-${typingFxSettings.caretSmooth}`);
+
+    const smoothCaret = document.getElementById('td-smooth-caret');
+    if (smoothCaret) {
+        smoothCaret.className = caret.className;
+    }
     
     activeSpansCoords = [];
     if (typeof updateCaretPosition === 'function') {
@@ -2126,6 +2132,28 @@ function playClick() {
             break;
         case 'mechanical':
             synthSquare(150, 0.02, 0.2, 50);
+            break;
+        case 'deep_thock':
+            synthSine(80, 0.05, 0.35, 40);
+            synthTriangle(150, 0.025, 0.2, 70);
+            playNoise(900, 350, 0.06, 0.012);
+            break;
+        case 'laptop_chiclet':
+            playNoise(7500, 4200, 0.1, 0.008);
+            synthSine(280, 0.018, 0.18, 120);
+            break;
+        case 'office_membrane':
+            synthSine(110, 0.038, 0.24, 50);
+            playNoise(2200, 800, 0.08, 0.015);
+            break;
+        case 'buckling_spring':
+            synthSine(2400, 0.025, 0.09, 1800);
+            playNoise(6000, 3200, 0.15, 0.012);
+            synthSquare(170, 0.03, 0.18, 70);
+            break;
+        case 'silent_linear':
+            synthSine(88, 0.025, 0.18, 48);
+            playNoise(1100, 450, 0.04, 0.009);
             break;
         case 'typewriter':
             synthTriangle(800, 0.03, 0.3, 200);
@@ -4788,6 +4816,21 @@ customTimeApply.addEventListener('click', (e) => {
 // Unified Dropdown Config
 const dropdowns = [
     {
+        dropdown: document.getElementById('sound-dropdown'),
+        trigger: document.getElementById('sound-trigger'),
+        menu: document.getElementById('sound-menu')
+    },
+    {
+        dropdown: document.getElementById('theme-dropdown'),
+        trigger: document.getElementById('theme-trigger'),
+        menu: document.getElementById('theme-menu')
+    },
+    {
+        dropdown: document.getElementById('lang-dropdown'),
+        trigger: document.getElementById('lang-trigger'),
+        menu: document.getElementById('lang-menu')
+    },
+    {
         dropdown: document.getElementById('practice-dropdown'),
         trigger: document.getElementById('practice-trigger'),
         menu: document.getElementById('practice-menu')
@@ -4806,11 +4849,6 @@ const dropdowns = [
         dropdown: document.getElementById('game-dropdown'),
         trigger: document.getElementById('game-trigger'),
         menu: document.getElementById('game-menu')
-    },
-    {
-        dropdown: document.getElementById('theme-dropdown'),
-        trigger: document.getElementById('theme-trigger'),
-        menu: document.getElementById('theme-menu')
     }
 ];
 
@@ -4822,8 +4860,8 @@ document.addEventListener('click', (e) => {
     // Close dropdowns if clicked outside
     dropdowns.forEach(({ dropdown, trigger, menu }) => {
         if (dropdown && !dropdown.contains(e.target)) {
-            menu.classList.add('hidden');
-            trigger.classList.remove('open');
+            if (menu) menu.classList.add('hidden');
+            if (trigger) trigger.classList.remove('open');
         }
     });
 });
@@ -5078,36 +5116,60 @@ if (currentDisplayMode === 'light' || currentDisplayMode === 'dark') currentDisp
 
 function applyDisplayMode(mode) {
     document.body.classList.remove('gray-mode');
+    const btn = document.getElementById('display-mode-btn') || displayModeBtn;
     
     if (mode === 'gray') {
         document.body.classList.add('gray-mode');
-        if (displayModeBtn) displayModeBtn.innerHTML = '💿 Gray';
+        if (btn) {
+            btn.innerHTML = '💿 Gray';
+            btn.classList.add('active');
+        }
     } else {
         // default normal mode
-        if (displayModeBtn) displayModeBtn.innerHTML = '🎨 Normal';
+        if (btn) {
+            btn.innerHTML = '🎨 Normal';
+            btn.classList.remove('active');
+        }
         mode = 'normal';
     }
     
     localStorage.setItem('typingDostDisplayMode', mode);
+    if (typeof updateTrailColor === 'function') {
+        updateTrailColor();
+    }
 }
 
 // Initialize on page load
 applyDisplayMode(currentDisplayMode);
 
-if (displayModeBtn) {
-    displayModeBtn.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('#display-mode-btn, .display-mode-btn');
+    if (btn) {
+        e.preventDefault();
         e.stopPropagation();
-        initAudio();
-        if (currentDisplayMode === 'normal') {
-            currentDisplayMode = 'gray';
-        } else {
-            currentDisplayMode = 'normal';
+        if (typeof initAudio === 'function') { try { initAudio(); } catch(err){} }
+        
+        currentDisplayMode = (currentDisplayMode === 'normal') ? 'gray' : 'normal';
+        
+        // Trigger theme switching scale-fade transition
+        document.body.classList.remove('theme-switching');
+        void document.body.offsetWidth; // force reflow
+        document.body.classList.add('theme-switching');
+        setTimeout(() => document.body.classList.remove('theme-switching'), 400);
+
+        const clickX = e.clientX || window.innerWidth / 2;
+        const clickY = e.clientY || window.innerHeight / 2;
+        if (typeof window.triggerThemeSwitchAnimation === 'function') {
+            try { window.triggerThemeSwitchAnimation(clickX, clickY); } catch(err){}
         }
+
         applyDisplayMode(currentDisplayMode);
-        playClick();
-        showToast(`🖥️ Display Mode: ${currentDisplayMode.toUpperCase()}!`);
-    });
-}
+        if (typeof playClick === 'function') { try { playClick(); } catch(err){} }
+        if (typeof showToast === 'function') {
+            showToast(currentDisplayMode === 'gray' ? '💿 Gray Minimal Theme Active!' : '🎨 Standard Color Theme Active!');
+        }
+    }
+});
 
 // Eye Comfort Logic
 const eyeComfortBtn = document.getElementById('eye-comfort-btn');
@@ -5141,10 +5203,13 @@ if (eyeComfortBtn) {
 
 // Keyboard Sound Data (50 sounds + mute)
 const keyboardSounds = [
-    // --- MECHANICAL SECTION ---
-    { id: 'cyber', name: 'Cyber Blaster', icon: '🚀' },
+    // --- MECHANICAL & COMPUTER KEYBOARD SECTION ---
     { id: 'mechanical', name: 'Standard Mech', icon: '⌨️' },
-    { id: 'typewriter', name: 'Typewriter', icon: '📜' },
+    { id: 'deep_thock', name: 'Deep Thock Mech', icon: '🎧' },
+    { id: 'laptop_chiclet', name: 'Laptop Scissor Key', icon: '💻' },
+    { id: 'office_membrane', name: 'Office Membrane PC', icon: '🖥️' },
+    { id: 'buckling_spring', name: 'Buckling Spring Classic', icon: '⚙️' },
+    { id: 'silent_linear', name: 'Silent Linear Switch', icon: '🤫' },
     { id: 'blue_switch', name: 'MX Blue (Clicky)', icon: '🔵' },
     { id: 'red_switch', name: 'MX Red (Linear)', icon: '🔴' },
     { id: 'brown_switch', name: 'MX Brown (Tactile)', icon: '🟤' },
@@ -5152,6 +5217,8 @@ const keyboardSounds = [
     { id: 'holy_panda', name: 'Holy Panda Thock', icon: '🐼' },
     { id: 'cream_linear', name: 'NovelKeys Cream', icon: '🍦' },
     { id: 'topre_electro', name: 'Topre Electro', icon: '🔋' },
+    { id: 'typewriter', name: 'Typewriter', icon: '📜' },
+    { id: 'cyber', name: 'Cyber Blaster', icon: '🚀' },
 
     // --- RETRO SECTION ---
     { id: 'ibm_model_m', name: 'IBM Model M', icon: '⚙️' },
@@ -5323,46 +5390,7 @@ function toggleMute() {
 // Set initial saved sound
 selectSoundProfile(savedSound);
 
-// Open/Close Sound Dropdown Trigger
-if (soundTrigger) {
-    soundTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        // Close other menus to prevent overlapping
-        const themeMenu = document.getElementById('theme-menu');
-        const themeTrigger = document.getElementById('theme-trigger');
-        if (themeMenu) themeMenu.classList.add('hidden');
-        if (themeTrigger) themeTrigger.classList.remove('open');
-        
-        const testMenu = document.getElementById('test-menu');
-        const testTrigger = document.getElementById('test-trigger');
-        if (testMenu) testMenu.classList.add('hidden');
-        if (testTrigger) testTrigger.classList.remove('open');
-
-        const govtMenu = document.getElementById('govt-menu');
-        const govtTrigger = document.getElementById('govt-trigger');
-        if (govtMenu) govtMenu.classList.add('hidden');
-        if (govtTrigger) govtTrigger.classList.remove('open');
-
-        const activeMenu = document.getElementById('practice-menu');
-        const activeTrigger = document.getElementById('practice-trigger');
-        if (activeMenu) activeMenu.classList.add('hidden');
-        if (activeTrigger) activeTrigger.classList.remove('open');
-        
-        if (soundMenu) {
-            soundMenu.classList.toggle('hidden');
-            soundTrigger.classList.toggle('open');
-        }
-    });
-}
-
-// Close sound menu on outer clicks
-document.addEventListener('click', (e) => {
-    if (soundMenu && !soundMenu.classList.contains('hidden') && !e.target.closest('#sound-dropdown')) {
-        soundMenu.classList.add('hidden');
-        if (soundTrigger) soundTrigger.classList.remove('open');
-    }
-});
+// Sound Dropdown Trigger & click outside are managed unified in dropdowns config
 
 // Sound Items Click Handling
 if (soundMenu) {
@@ -7935,6 +7963,11 @@ if (cursorCanvas && cursorCtx) {
     // Toggle dropdown
     textboxStyleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        const fxDropdown = document.getElementById('textbox-fx-dropdown');
+        if (fxDropdown) fxDropdown.classList.add('hidden');
+        const fxBtn = document.getElementById('textbox-fx-btn');
+        if (fxBtn) fxBtn.classList.remove('active');
+
         textboxStyleDropdown.classList.toggle('hidden');
         textboxStyleBtn.classList.toggle('active');
     });
@@ -7987,7 +8020,8 @@ if (cursorCanvas && cursorCtx) {
 
     // Bind option click events
     styleOptions.forEach(opt => {
-        opt.addEventListener('click', () => {
+        opt.addEventListener('click', (e) => {
+            e.stopPropagation();
             const selectedStyle = opt.getAttribute('data-style');
             applyStyle(selectedStyle);
             textboxStyleDropdown.classList.add('hidden');
@@ -10796,37 +10830,7 @@ if (cryptoDonateModal) {
         });
     }
 
-    // Bind Global Language Selection Events
-    if (langTrigger && langMenu) {
-        langTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            langMenu.classList.toggle('hidden');
-            langTrigger.classList.toggle('open');
-            
-            // Close other dropdown menus
-            const themeMenu = document.getElementById('theme-menu');
-            const themeTrigger = document.getElementById('theme-trigger');
-            const soundMenu = document.getElementById('sound-menu');
-            const soundTrigger = document.getElementById('sound-trigger');
-            const govtMenu = document.getElementById('govt-menu');
-            const govtTrigger = document.getElementById('govt-trigger');
-            
-            if (themeMenu) themeMenu.classList.add('hidden');
-            if (themeTrigger) themeTrigger.classList.remove('open');
-            if (soundMenu) soundMenu.classList.add('hidden');
-            if (soundTrigger) soundTrigger.classList.remove('open');
-            if (govtMenu) govtMenu.classList.add('hidden');
-            if (govtTrigger) govtTrigger.classList.remove('open');
-        });
-    }
-
-    // Close language menu when clicking outside
-    document.addEventListener('click', () => {
-        if (langMenu && langTrigger) {
-            langMenu.classList.add('hidden');
-            langTrigger.classList.remove('open');
-        }
-    });
+    // Global Language Selection - Dropdown trigger & outside click are unified in dropdowns config
 
     langItems.forEach(item => {
         item.addEventListener('click', (e) => {
@@ -11527,15 +11531,56 @@ if (cryptoDonateModal) {
     }
 
     // --- DYNAMIC TYPING GEARS FOOTER CLICK ACTION (GOOGLE SHEETS CMS) ---
-    const gearsBtn = document.getElementById('typing-gears-btn');
-    const gearsModal = document.getElementById('typing-gears-modal');
-    const gearsLoader = document.getElementById('gears-loader');
-    const gearsError = document.getElementById('gears-error');
-    const gearsGrid = document.getElementById('gears-products-grid');
-    const gearsRetryBtn = document.getElementById('gears-retry-btn');
-    
-    let cachedGears = null;
     const sheetsCSVUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFSkERnvD90fxv3tk6yOB7CjaUEWSIfMtDFOsFaMzwSfUE2ghby6JDl6Z6a4sv6CPeIUw8wZRuJV/pub?gid=0&single=true&output=csv';
+    const sheetsWebUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFSkERnvD90fxv3tk6yOB7CjaUEWSIfMtDFOsFaMzwSfUE2ghby6JDl6Z6a4sv6CPeIUw8wZRuJV/pubhtml?gid=0&single=true';
+    let cachedGears = null;
+
+    function ensureGearsModal() {
+        let gearsModal = document.getElementById('typing-gears-modal');
+        if (!gearsModal) {
+            gearsModal = document.createElement('div');
+            gearsModal.id = 'typing-gears-modal';
+            gearsModal.className = 'modal hidden';
+            gearsModal.innerHTML = `
+                <div class="modal-content glass-card" style="max-width: 800px; padding: 2rem;">
+                    <button class="crypto-modal-close" onclick="document.getElementById('typing-gears-modal').classList.add('hidden')" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h2 style="font-family: 'Orbitron', sans-serif; color: var(--primary, #00f0ff); text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); margin-bottom: 0.5rem; text-transform: uppercase; font-size: 1.8rem; letter-spacing: 1px;">Premium Typing Gears ⌨️</h2>
+                        <p style="color: var(--text-sub, #8b9bb4); font-size: 0.9rem; max-width: 600px; margin: 0 auto; line-height: 1.5;">
+                            Optimize your speed & accuracy with these high-performance keyboards, mouse, and typing setups handpicked for candidates and professional typists.
+                        </p>
+                        <div style="margin-top: 0.8rem;">
+                            <a href="${sheetsWebUrl}" target="_blank" rel="noopener noreferrer" class="gears-sheet-btn">
+                                📊 Open Live Google Sheet Catalog ↗
+                            </a>
+                        </div>
+                    </div>
+                    <div id="gears-loader" class="gears-loader-container">
+                        <div class="gears-spinner"></div>
+                        <p style="color: var(--primary, #00f0ff); margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">Syncing products with database...</p>
+                    </div>
+                    <div id="gears-error" class="hidden" style="text-align: center; padding: 2rem 0;">
+                        <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">⚠️</span>
+                        <p style="color: #ff4757; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 1rem;">Failed to fetch live gear products. Please try again later.</p>
+                        <div style="display: flex; gap: 0.8rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+                            <button id="gears-retry-btn" class="cyber-btn" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">🔄 Retry Fetch</button>
+                            <a href="${sheetsWebUrl}" target="_blank" rel="noopener noreferrer" class="gears-sheet-btn">📊 View Google Sheet Directly</a>
+                        </div>
+                    </div>
+                    <div id="gears-products-grid" class="gears-grid hidden"></div>
+                    <div class="gears-disclaimer" style="margin-top: 2rem; border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 1rem; text-align: center;">
+                        <p style="font-size: 0.75rem; color: var(--text-sub, #8b9bb4); line-height: 1.4; max-width: 650px; margin: 0 auto; font-family: var(--font-sans, 'Inter', sans-serif);">
+                            ℹ️ <strong>Disclosure:</strong> As an Amazon Associate, TypingDost earns from qualifying purchases. When you buy through our links, we may earn an affiliate commission at no extra cost to you. Thank you for supporting us!
+                        </p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(gearsModal);
+        }
+        return gearsModal;
+    }
 
     function parseCSVLine(line) {
         const result = [];
@@ -11557,11 +11602,14 @@ if (cryptoDonateModal) {
     }
 
     async function fetchGearProducts() {
-        if (!gearsLoader || !gearsError || !gearsGrid) return;
-        
-        gearsLoader.classList.remove('hidden');
-        gearsError.classList.add('hidden');
-        gearsGrid.classList.add('hidden');
+        const gearsModal = ensureGearsModal();
+        const gearsLoader = gearsModal.querySelector('#gears-loader') || document.getElementById('gears-loader');
+        const gearsError = gearsModal.querySelector('#gears-error') || document.getElementById('gears-error');
+        const gearsGrid = gearsModal.querySelector('#gears-products-grid') || document.getElementById('gears-products-grid');
+
+        if (gearsLoader) gearsLoader.classList.remove('hidden');
+        if (gearsError) gearsError.classList.add('hidden');
+        if (gearsGrid) gearsGrid.classList.add('hidden');
         
         try {
             const response = await fetch(sheetsCSVUrl);
@@ -11597,24 +11645,36 @@ if (cryptoDonateModal) {
             
         } catch (error) {
             console.error('[Typing Gears] Error fetching products:', error);
-            gearsLoader.classList.add('hidden');
-            gearsError.classList.remove('hidden');
+            if (gearsLoader) gearsLoader.classList.add('hidden');
+            if (gearsError) gearsError.classList.remove('hidden');
         }
     }
 
     function renderGears(products) {
-        if (!gearsGrid || !gearsLoader) return;
+        const gearsModal = ensureGearsModal();
+        const gearsLoader = gearsModal.querySelector('#gears-loader') || document.getElementById('gears-loader');
+        const gearsGrid = gearsModal.querySelector('#gears-products-grid') || document.getElementById('gears-products-grid');
+        if (!gearsGrid) return;
         
         gearsGrid.innerHTML = '';
         products.forEach(prod => {
             const card = document.createElement('div');
             card.className = 'gear-card';
             
-            const nameClean = prod.name.replace(/^"(.*)"$/, '$1');
-            const descClean = prod.description.replace(/^"(.*)"$/, '$1');
-            const priceClean = prod.price.replace(/^"(.*)"$/, '$1');
-            const imageClean = prod.image.replace(/^"(.*)"$/, '$1');
-            const linkClean = prod.link.replace(/^"(.*)"$/, '$1');
+            const nameClean = prod.name.replace(/^"(.*)"$/, '$1').trim();
+            const descClean = prod.description.replace(/^"(.*)"$/, '$1').trim();
+            const priceClean = prod.price.replace(/^"(.*)"$/, '$1').trim();
+            const imageClean = prod.image.replace(/^"(.*)"$/, '$1').trim();
+            let linkClean = prod.link.replace(/^"(.*)"$/, '$1').trim();
+
+            // Sanitize Link so it NEVER 404s or navigates locally
+            if (!linkClean.startsWith('http://') && !linkClean.startsWith('https://')) {
+                if (linkClean.toLowerCase().startsWith('www.')) {
+                    linkClean = 'https://' + linkClean;
+                } else {
+                    linkClean = 'https://www.amazon.in/s?k=' + encodeURIComponent(linkClean) + '&tag=ubermench-21';
+                }
+            }
             
             card.innerHTML = `
                 <div class="gear-img-wrap">
@@ -11637,56 +11697,59 @@ if (cryptoDonateModal) {
             gearsGrid.appendChild(card);
         });
         
-        gearsLoader.classList.add('hidden');
+        if (gearsLoader) gearsLoader.classList.add('hidden');
         gearsGrid.classList.remove('hidden');
     }
 
-    if (gearsBtn && gearsModal) {
-        gearsBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (typeof initAudio === 'function') initAudio();
-            if (typeof playClick === 'function') playClick();
-            
-            gearsModal.classList.remove('hidden');
-            
-            if (!cachedGears) {
-                fetchGearProducts();
-            } else {
-                renderGears(cachedGears);
-            }
-        });
+    function openTypingGearsModal() {
+        if (typeof initAudio === 'function') { try { initAudio(); } catch(e){} }
+        if (typeof playClick === 'function') { try { playClick(); } catch(e){} }
         
-        gearsModal.addEventListener('click', (e) => {
-            if (e.target === gearsModal) {
-                gearsModal.classList.add('hidden');
-            }
-        });
-    }
-
-    if (gearsRetryBtn) {
-        gearsRetryBtn.addEventListener('click', () => {
+        const modal = ensureGearsModal();
+        modal.classList.remove('hidden');
+        
+        if (!cachedGears) {
             fetchGearProducts();
-        });
+        } else {
+            renderGears(cachedGears);
+        }
     }
 
-    const resultGearBanner = document.getElementById('result-gear-banner');
-    const resultModal = document.getElementById('result-modal');
-    if (resultGearBanner && resultModal && gearsModal) {
-        resultGearBanner.addEventListener('click', (e) => {
+    // Unified Document-Level Event Delegation for Gears Button & Modal
+    document.addEventListener('click', (e) => {
+        const gearsBtn = e.target.closest('#typing-gears-btn, .typing-gears-btn');
+        if (gearsBtn) {
+            e.preventDefault();
             e.stopPropagation();
-            if (typeof initAudio === 'function') initAudio();
-            if (typeof playClick === 'function') playClick();
-            
-            resultModal.classList.add('hidden');
-            gearsModal.classList.remove('hidden');
-            
-            if (!cachedGears) {
-                fetchGearProducts();
-            } else {
-                renderGears(cachedGears);
+            openTypingGearsModal();
+            return;
+        }
+
+        const banner = e.target.closest('#result-gear-banner');
+        if (banner) {
+            e.preventDefault();
+            e.stopPropagation();
+            const resultModal = document.getElementById('result-modal');
+            if (resultModal) resultModal.classList.add('hidden');
+            openTypingGearsModal();
+            return;
+        }
+
+        const retryBtn = e.target.closest('#gears-retry-btn');
+        if (retryBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            fetchGearProducts();
+            return;
+        }
+
+        const modal = document.getElementById('typing-gears-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            if (e.target === modal || e.target.closest('.crypto-modal-close')) {
+                modal.classList.add('hidden');
             }
-        });
-    }
+        }
+    });
 
     /* ==========================================================================
        ⚡ MASCOT CORNER GREETING POPUP SYSTEM (MULTILINGUAL WELCOME & 15-MIN)
@@ -12614,4 +12677,486 @@ if (openContactBtn && closeContactBtn && contactModal) {
         contactModal.classList.add('hidden');
     });
 }
+
+/**
+ * TypingDost - Premium UI & Desi Meme Survival Engine
+ * Non-destructive add-on module
+ */
+(function () {
+  if (window.__TD_ARCADE_INITIALIZED__) return;
+  window.__TD_ARCADE_INITIALIZED__ = true;
+
+  const TD_ARCADE = {
+    enabled: false,
+    memeAudioEnabled: true,
+    zenModeEnabled: true,
+    maxLives: 3,
+    lives: 3,
+    streak: 0,
+    bestStreak: 0,
+    zenTimeout: null,
+    currentAudio: null,
+    lastErrorSoundTime: 0,
+    unlocked: false,
+
+    // Existing WebP Mascots mapped to Streak/Progression tiers
+    tiers: [
+      { minStreak: 0,   name: "Noob Typist",   img: "typingdost_noob.webp" },
+      { minStreak: 15,  name: "Caffeinating",  img: "typingdost_coffee.webp" },
+      { minStreak: 35,  name: "Pro Gamer",     img: "typingdost_gamer.webp" },
+      { minStreak: 60,  name: "Shadow Ninja",  img: "typingdost_ninja.webp" },
+      { minStreak: 90,  name: "10x Hacker",    img: "typingdost_hacker.webp" },
+      { minStreak: 130, name: "Cosmic God",   img: "typingdost_cosmic.webp" }
+    ],
+
+    // Existing Meme Audio Pool
+    sounds: {
+      error: [
+        "memes/aayein-meme.mp3",
+        "memes/duck-toy-sound.mp3",
+        "memes/error_CDOxCYm.mp3",
+        "memes/slap.mp3"
+      ],
+      milestone: [
+        "memes/chaloo.mp3",
+        "memes/maro-jump-sound-effect_1.mp3",
+        "memes/comedy.mp3"
+      ],
+      gameOver: [
+        "memes/faaah.mp3",
+        "memes/man-screaming-aaaah.mp3"
+      ]
+    },
+
+    audioCache: {},
+
+    resolvePath(relPath) {
+      const isBlog = window.location.pathname.includes('/blog/');
+      return (isBlog ? '../' : '') + relPath.replace(/^(\.\.\/|\/)/, '');
+    },
+
+    init() {
+      // Restore persisted Meme SFX preference if available
+      try {
+        const savedSFX = localStorage.getItem("typingDostMemeSFX");
+        if (savedSFX === "off") {
+          this.memeAudioEnabled = false;
+        }
+      } catch (e) {}
+
+      document.body.classList.add("td-premium-dark");
+      this.preloadAudio();
+      this.injectHUD();
+      this.initSmoothCaret();
+      this.bindTypingListeners();
+    },
+
+    unlockAudio() {
+      if (this.unlocked) return;
+      this.unlocked = true;
+      Object.values(this.audioCache).forEach((audio) => {
+        try {
+          audio.load();
+        } catch (e) {}
+      });
+    },
+
+    preloadAudio() {
+      Object.values(this.sounds).flat().forEach((src) => {
+        try {
+          const audio = new Audio(this.resolvePath(src));
+          audio.preload = "auto";
+          audio.volume = 0.65;
+          this.audioCache[src] = audio;
+        } catch (e) {}
+      });
+
+      const unlock = () => {
+        this.unlockAudio();
+        window.removeEventListener("keydown", unlock);
+        window.removeEventListener("click", unlock);
+        window.removeEventListener("touchstart", unlock);
+      };
+      window.addEventListener("keydown", unlock, { once: true });
+      window.addEventListener("click", unlock, { once: true });
+      window.addEventListener("touchstart", unlock, { once: true });
+    },
+
+    stopAllSounds() {
+      if (this.currentAudio) {
+        try {
+          this.currentAudio.pause();
+          this.currentAudio.currentTime = 0;
+        } catch (e) {}
+        this.currentAudio = null;
+      }
+      Object.values(this.audioCache).forEach((audio) => {
+        try {
+          audio.pause();
+          audio.currentTime = 0;
+        } catch (e) {}
+      });
+    },
+
+    playRandomSound(category) {
+      // Crucial fix: ONLY depends on memeAudioEnabled!
+      if (!this.memeAudioEnabled) return;
+
+      const pool = this.sounds[category];
+      if (!pool || !pool.length) return;
+
+      const now = Date.now();
+      // Throttle rapid repeated error sounds so audio doesn't stutter or overlap chaotically
+      if (category === "error" && now - this.lastErrorSoundTime < 320) {
+        return;
+      }
+      if (category === "error") {
+        this.lastErrorSoundTime = now;
+      }
+
+      const randomSrc = pool[Math.floor(Math.random() * pool.length)];
+      const resolvedSrc = this.resolvePath(randomSrc);
+
+      try {
+        if (this.currentAudio) {
+          try {
+            this.currentAudio.pause();
+            this.currentAudio.currentTime = 0;
+          } catch (e) {}
+        }
+
+        let sound = this.audioCache[randomSrc];
+        if (!sound) {
+          sound = new Audio(resolvedSrc);
+          sound.volume = 0.65;
+          this.audioCache[randomSrc] = sound;
+        } else {
+          sound.currentTime = 0;
+        }
+
+        this.currentAudio = sound;
+        const playPromise = sound.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
+      } catch (err) {}
+    },
+
+    injectHUD() {
+      if (document.querySelector(".td-arcade-hud")) return;
+
+      const targetContainer =
+        document.querySelector("#typing-section-wrapper") ||
+        document.querySelector(".typing-section") ||
+        document.querySelector(".typing-container") ||
+        document.querySelector("#typing-area") ||
+        document.querySelector("#standard-mode-container") ||
+        document.querySelector("main") ||
+        document.body;
+
+      if (!targetContainer || !targetContainer.parentNode) return;
+
+      const hud = document.createElement("div");
+      hud.className = "td-arcade-hud";
+      hud.innerHTML = `
+        <div class="td-hud-left">
+          <div class="td-avatar-frame" id="td-avatar-box">
+            <img src="${this.resolvePath('typingdost_welcome.webp')}" alt="TypingDost Avatar" id="td-live-avatar" />
+          </div>
+          <div class="td-rank-info">
+            <span class="td-rank-title" id="td-mode-status">Standard Mode</span>
+            <span class="td-rank-name" id="td-rank-label">Welcome Dost!</span>
+          </div>
+        </div>
+
+        <div class="td-hud-right">
+          <div class="td-hearts" id="td-hearts-box" style="display: none;">
+            <span class="td-heart">❤️</span>
+            <span class="td-heart">❤️</span>
+            <span class="td-heart">❤️</span>
+          </div>
+          <div class="td-combo-badge" id="td-combo-display">0x Streak</div>
+          <button type="button" class="td-arcade-btn" id="td-toggle-arcade">🎮 Survival Mode: OFF</button>
+          <button type="button" class="td-arcade-btn ${this.memeAudioEnabled ? 'active' : ''}" id="td-toggle-memes">
+            ${this.memeAudioEnabled ? '🔊 Meme SFX: ON' : '🔇 Meme SFX: OFF'}
+          </button>
+        </div>
+      `;
+
+      targetContainer.parentNode.insertBefore(hud, targetContainer);
+
+      // Event Listeners for HUD Controls
+      const toggleArcadeBtn = document.getElementById("td-toggle-arcade");
+      if (toggleArcadeBtn) {
+        toggleArcadeBtn.addEventListener("click", (e) => {
+          this.enabled = !this.enabled;
+          e.currentTarget.classList.toggle("active", this.enabled);
+          e.currentTarget.textContent = this.enabled ? "🎮 Survival Mode: ON" : "🎮 Survival Mode: OFF";
+          const heartsBox = document.getElementById("td-hearts-box");
+          if (heartsBox) heartsBox.style.display = this.enabled ? "flex" : "none";
+          const modeStatus = document.getElementById("td-mode-status");
+          if (modeStatus) modeStatus.textContent = this.enabled ? "Desi Meme Survival" : "Standard Mode";
+          this.resetGame();
+        });
+      }
+
+      const toggleMemesBtn = document.getElementById("td-toggle-memes");
+      if (toggleMemesBtn) {
+        toggleMemesBtn.addEventListener("click", (e) => {
+          this.memeAudioEnabled = !this.memeAudioEnabled;
+          try {
+            localStorage.setItem("typingDostMemeSFX", this.memeAudioEnabled ? "on" : "off");
+          } catch (err) {}
+          e.currentTarget.classList.toggle("active", this.memeAudioEnabled);
+          e.currentTarget.textContent = this.memeAudioEnabled ? "🔊 Meme SFX: ON" : "🔇 Meme SFX: OFF";
+
+          if (!this.memeAudioEnabled) {
+            // Instantly stop all playing meme sounds
+            this.stopAllSounds();
+          } else {
+            // Instant feedback sound to confirm Meme SFX is working
+            this.playRandomSound("milestone");
+          }
+        });
+      }
+    },
+
+    resetGame() {
+      this.lives = this.maxLives;
+      this.streak = 0;
+      this.updateHUD();
+    },
+
+    handleCorrectKey() {
+      this.streak++;
+      if (this.streak > this.bestStreak) this.bestStreak = this.streak;
+
+      // Play milestone sound every 25 streak whenever Meme SFX is enabled
+      if (this.streak > 0 && this.streak % 25 === 0) {
+        this.playRandomSound("milestone");
+      }
+      this.updateHUD();
+    },
+
+    handleMistake() {
+      this.streak = 0;
+      const typingBox =
+        document.querySelector(".typing-container") ||
+        document.querySelector("#typing-section-wrapper") ||
+        document.querySelector(".typing-section") ||
+        document.querySelector("#typing-area") ||
+        document.body;
+
+      typingBox.classList.remove("td-shake");
+      void typingBox.offsetWidth; // Trigger reflow
+      typingBox.classList.add("td-shake");
+
+      if (this.enabled) {
+        // Survival Mode
+        if (this.lives > 0) {
+          this.lives--;
+          if (this.lives === 0) {
+            this.triggerGameOver();
+          } else {
+            this.playRandomSound("error");
+            this.setAvatar("typingdost_determined.webp", "Watch Out!");
+          }
+        }
+      } else {
+        // Standard Mode: always play meme error sound if Meme SFX is ON
+        this.playRandomSound("error");
+        this.setAvatar("typingdost_determined.webp", "Watch Out!");
+      }
+      this.updateHUD();
+    },
+
+    triggerGameOver() {
+      this.playRandomSound("gameOver");
+      this.setAvatar("typingdost_rage.webp", "Game Over! (Press Esc/Restart)");
+      setTimeout(() => {
+        if (this.lives === 0) {
+          this.resetGame();
+        }
+      }, 3200);
+    },
+
+    setAvatar(src, label) {
+      const avatarImg = document.getElementById("td-live-avatar");
+      const rankLabel = document.getElementById("td-rank-label");
+      const frame = document.getElementById("td-avatar-box");
+      const cleanSrc = src.replace(/^(\.\.\/|\/)/, '');
+
+      if (avatarImg && !avatarImg.src.endsWith(cleanSrc)) {
+        avatarImg.src = this.resolvePath(cleanSrc);
+        if (frame) {
+          frame.classList.add("level-up");
+          setTimeout(() => frame.classList.remove("level-up"), 300);
+        }
+      }
+      if (rankLabel && label) rankLabel.textContent = label;
+    },
+
+    updateHUD() {
+      // Update Combo Streak
+      const comboEl = document.getElementById("td-combo-display");
+      if (comboEl) {
+        comboEl.textContent = `${this.streak}x Streak`;
+        comboEl.classList.toggle("on-fire", this.streak >= 25);
+      }
+
+      // Update Hearts
+      const hearts = document.querySelectorAll("#td-hearts-box .td-heart");
+      hearts.forEach((h, idx) => {
+        h.classList.toggle("lost", idx >= this.lives);
+      });
+
+      // Update Mascot Tier based on streak
+      if (this.lives > 0) {
+        let currentTier = this.tiers[0];
+        for (const tier of this.tiers) {
+          if (this.streak >= tier.minStreak) currentTier = tier;
+        }
+        this.setAvatar(currentTier.img, currentTier.name);
+      }
+    },
+
+    initSmoothCaret() {
+      const wordsBox =
+        document.querySelector("#words") ||
+        document.querySelector(".typing-words") ||
+        document.querySelector("#text-display") ||
+        document.querySelector(".text-display");
+      if (!wordsBox) return;
+
+      const mainCaret = document.getElementById("caret");
+      if (mainCaret) {
+        // Main caret handles motion and full FX styles seamlessly
+        const duplicate = document.getElementById("td-smooth-caret");
+        if (duplicate) duplicate.remove();
+        return;
+      }
+
+      let caret = document.getElementById("td-smooth-caret");
+      if (!caret) {
+        caret = document.createElement("div");
+        caret.id = "td-smooth-caret";
+        wordsBox.appendChild(caret);
+      }
+
+      const updateCaretPosition = () => {
+        if (!wordsBox.contains(caret)) {
+          wordsBox.appendChild(caret);
+        }
+        const activeChar =
+          wordsBox.querySelector(".char.current") ||
+          wordsBox.querySelector(".letter.active") ||
+          wordsBox.querySelector(".word.active") ||
+          wordsBox.querySelector("span.active") ||
+          wordsBox.querySelector(".active");
+
+        if (activeChar) {
+          const boxRect = wordsBox.getBoundingClientRect();
+          const charRect = activeChar.getBoundingClientRect();
+          const isRTL = (getComputedStyle(wordsBox).direction === 'rtl');
+          const x = isRTL ? (charRect.right - boxRect.left) : (charRect.left - boxRect.left);
+          const y = (charRect.top - boxRect.top) + wordsBox.scrollTop;
+          caret.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          caret.style.height = `${Math.max(18, charRect.height * 0.85)}px`;
+          caret.style.display = "block";
+        }
+      };
+
+      // Update on typing, resizing and scrolling
+      const queueCaretUpdate = () => (window.requestAnimationFrame || setTimeout)(updateCaretPosition);
+      window.addEventListener("keydown", queueCaretUpdate);
+      window.addEventListener("keyup", queueCaretUpdate);
+      window.addEventListener("input", queueCaretUpdate);
+      window.addEventListener("resize", queueCaretUpdate);
+      wordsBox.addEventListener("scroll", queueCaretUpdate);
+
+      try {
+        const obs = new MutationObserver(queueCaretUpdate);
+        obs.observe(wordsBox, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
+      } catch (e) {}
+
+      queueCaretUpdate();
+    },
+
+    bindTypingListeners() {
+      // Zen Focus Mode triggers on typing and exits on mouse movement
+      window.addEventListener("keydown", (e) => {
+        if (e.key.length === 1 || e.key === "Backspace" || e.key === " ") {
+          if (this.zenModeEnabled) {
+            document.body.classList.add("td-zen-active", "is-typing");
+            clearTimeout(this.zenTimeout);
+            this.zenTimeout = setTimeout(() => {
+              document.body.classList.remove("td-zen-active", "is-typing");
+            }, 4000);
+          }
+        }
+        if (e.key === "Escape") {
+          this.resetGame();
+        }
+      });
+
+      window.addEventListener("mousemove", () => {
+        document.body.classList.remove("td-zen-active", "is-typing");
+      });
+
+      // Observe typing errors / hits
+      let lastErrorCount = 0;
+      let prevInputLength = 0;
+
+      const handleInput = (e) => {
+        const inputEl = e.target || document.getElementById("typing-input");
+        const currentLen = (inputEl && typeof inputEl.value === 'string') ? inputEl.value.length : 0;
+        const currentErrors = document.querySelectorAll(".incorrect, .error, .wrong").length;
+
+        if (currentLen === 0 && prevInputLength > 0) {
+          lastErrorCount = 0;
+          prevInputLength = 0;
+          this.streak = 0;
+          this.updateHUD();
+          return;
+        }
+
+        if (currentErrors > lastErrorCount) {
+          this.handleMistake();
+        } else if (currentErrors < lastErrorCount) {
+          // Error undone via backspace - keep streak as is
+        } else if (currentLen > prevInputLength) {
+          this.handleCorrectKey();
+        }
+
+        lastErrorCount = currentErrors;
+        prevInputLength = currentLen;
+      };
+
+      window.addEventListener("input", handleInput);
+
+      const typingInput = document.getElementById("typing-input");
+      if (typingInput) {
+        typingInput.addEventListener("input", handleInput);
+      }
+
+      // Hook restart buttons to reset game state
+      const restartBtns = document.querySelectorAll("#restart-btn, .restart-btn");
+      restartBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          lastErrorCount = 0;
+          prevInputLength = 0;
+          this.resetGame();
+        });
+      });
+    }
+  };
+
+  window.TD_ARCADE = TD_ARCADE;
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => TD_ARCADE.init());
+  } else {
+    TD_ARCADE.init();
+  }
+})();
 
