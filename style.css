@@ -13177,14 +13177,14 @@ body.is-typing .td-ad-wrapper {
 }
 
 
-/* Compact dynamic names to guarantee single-row header fit */
+/* Full dynamic names for header controls (no truncation/ellipsis) */
 #current-sound-name,
 #current-theme-name,
 #current-lang-name {
     display: inline-block !important;
-    max-width: 70px !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
     white-space: nowrap !important;
     vertical-align: middle !important;
 }
