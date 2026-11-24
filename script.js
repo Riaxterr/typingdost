@@ -5465,7 +5465,7 @@ const initActiveTheme = () => {
                 }
                 if (currentThemeNameEl) {
                     const name = btn.innerText.replace(iconSpan.innerText, '').trim();
-                    currentThemeNameEl.innerText = name;
+                    currentThemeNameEl.innerText = 'Theme Mode';
                 }
             } else {
                 btn.classList.remove('active');
@@ -5521,7 +5521,7 @@ if (themeMenu) {
         }
         if (currentThemeNameEl) {
             const name = btn.innerText.replace(iconSpan.innerText, '').trim();
-            currentThemeNameEl.innerText = name;
+            currentThemeNameEl.innerText = 'Theme Mode';
         }
         
         // Close theme dropdown when theme selected
@@ -5544,14 +5544,14 @@ function applyDisplayMode(mode) {
     if (mode === 'gray') {
         document.body.classList.add('gray-mode');
         if (btn) {
-            btn.innerHTML = '💿 Gray';
+            btn.innerHTML = '💿 Display Mode';
             btn.classList.add('active');
         }
         if (modeTextEl) modeTextEl.textContent = 'Gray';
     } else {
         // default normal mode
         if (btn) {
-            btn.innerHTML = '🎨 Normal';
+            btn.innerHTML = '🖥️ Display Mode';
             btn.classList.remove('active');
         }
         if (modeTextEl) modeTextEl.textContent = 'Normal';
@@ -5603,11 +5603,11 @@ if (eyeComfortBtn) {
     if (savedEyeComfort) {
         document.body.classList.add('eye-comfort-active');
         eyeComfortBtn.classList.add('active');
-        eyeComfortBtn.innerHTML = '☀️ On'; const t1 = document.getElementById('eye-comfort-text'); if (t1) { t1.textContent = 'On'; }
+        eyeComfortBtn.innerHTML = '🌙 Eye Comfort Mode'; const t1 = document.getElementById('eye-comfort-text'); if (t1) { t1.textContent = 'On'; }
     } else {
         document.body.classList.remove('eye-comfort-active');
         eyeComfortBtn.classList.remove('active');
-        eyeComfortBtn.innerHTML = '🌙 Off'; const t2 = document.getElementById('eye-comfort-text'); if (t2) { t2.textContent = 'Off'; }
+        eyeComfortBtn.innerHTML = '🌙 Eye Comfort Mode'; const t2 = document.getElementById('eye-comfort-text'); if (t2) { t2.textContent = 'Off'; }
     }
     
     eyeComfortBtn.addEventListener('click', (e) => {
@@ -5616,10 +5616,10 @@ if (eyeComfortBtn) {
         const isActive = document.body.classList.toggle('eye-comfort-active');
         eyeComfortBtn.classList.toggle('active', isActive);
         if (isActive) {
-            eyeComfortBtn.innerHTML = '☀️ On'; const t1 = document.getElementById('eye-comfort-text'); if (t1) { t1.textContent = 'On'; }
+            eyeComfortBtn.innerHTML = '🌙 Eye Comfort Mode'; const t1 = document.getElementById('eye-comfort-text'); if (t1) { t1.textContent = 'On'; }
             localStorage.setItem('typingDostEyeComfort', 'enabled');
         } else {
-            eyeComfortBtn.innerHTML = '🌙 Off'; const t2 = document.getElementById('eye-comfort-text'); if (t2) { t2.textContent = 'Off'; }
+            eyeComfortBtn.innerHTML = '🌙 Eye Comfort Mode'; const t2 = document.getElementById('eye-comfort-text'); if (t2) { t2.textContent = 'Off'; }
             localStorage.setItem('typingDostEyeComfort', 'disabled');
         }
         playClick();
@@ -5766,7 +5766,7 @@ function selectSoundProfile(soundId) {
     const soundDef = keyboardSounds.find(s => s.id === soundId);
     if (soundDef) {
         if (currentSoundIcon) currentSoundIcon.innerText = soundDef.icon;
-        if (currentSoundName) currentSoundName.innerText = soundDef.name;
+        if (currentSoundName) currentSoundName.innerText = 'Sound Mode'; if (soundTrigger) soundTrigger.title = 'Sound Mode: ' + soundDef.name;
     }
     
     const items = document.querySelectorAll('.sound-item');
@@ -11386,7 +11386,7 @@ if (cursorCanvas && cursorCtx) {
             const icon = btn.querySelector('.lang-item-icon').textContent;
             const name = btn.textContent.replace(icon, '').trim();
             if (currentLangIcon) currentLangIcon.textContent = icon;
-            if (currentLangName) currentLangName.textContent = name;
+            if (currentLangName) currentLangName.textContent = 'Language Mode'; if (langTrigger) langTrigger.title = 'Language: ' + name;
             
             // Save selection and forcefully reload the page to ensure completely clean rendering
             localStorage.setItem('typingDostLang', chosenLang);
@@ -11446,7 +11446,7 @@ if (cursorCanvas && cursorCtx) {
                 const icon = iconSpan.textContent;
                 const name = activeLangItem.textContent.replace(icon, '').trim();
                 if (currentLangIcon) currentLangIcon.textContent = icon;
-                if (currentLangName) currentLangName.textContent = name;
+                if (currentLangName) currentLangName.textContent = 'Language Mode'; if (langTrigger) langTrigger.title = 'Language: ' + name;
             }
         }
         
