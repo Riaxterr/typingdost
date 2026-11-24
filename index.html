@@ -468,17 +468,35 @@
 
     <!-- DNS Preconnect and Preload for Performance -->
 
-    <link rel="preload" href="style.min.css?v=4.6" as="style">
+    <link rel="preload" href="style.min.css?v=12.0" as="style">
 
-    <link rel="preload" href="languageConfig.min.js?v=4.2" as="script">
+    <link rel="preload" href="languageConfig.min.js?v=12.0" as="script">
 
-    <link rel="preload" href="script.min.js?v=4.6" as="script">
+    <link rel="preload" href="script.min.js?v=12.0" as="script">
 
-    <link rel="preload" href="fontSystem.min.js?v=4.2" as="script">
+    <link rel="preload" href="fontSystem.min.js?v=12.0" as="script">
 
     <link rel="manifest" href="manifest.json">
 
-        <link rel="stylesheet" href="style.min.css?v=4.6">
+        <link rel="stylesheet" href="style.min.css?v=12.0">
+
+    <!-- Inline Guaranteed Header Button Full Names Override (bypasses browser cache) -->
+    <style id="header-button-fullnames">
+        #current-sound-name,
+        #current-theme-name,
+        #current-lang-name,
+        .header-controls .sound-trigger span,
+        .header-controls .theme-trigger span,
+        .header-controls #lang-trigger span,
+        .header-btn .btn-text {
+            display: inline-block !important;
+            max-width: none !important;
+            width: auto !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            white-space: nowrap !important;
+        }
+    </style>
 
     <!-- Inline Mobile UI/UX Overrides to bypass Aggressive Mobile Browser Caching -->
 
@@ -5135,13 +5153,13 @@
 
     <!-- Core Application & Multilingual Engine Scripts (Strict Load Order) -->
 
-    <script defer src="languageConfig.min.js?v=4.2"></script>
+    <script defer src="languageConfig.min.js?v=12.0"></script>
 
     <script defer src="indicTransliteration.js"></script>
 
-    <script defer src="fontSystem.min.js?v=4.2"></script>
+    <script defer src="fontSystem.min.js?v=12.0"></script>
 
-    <script defer src="script.min.js?v=4.6"></script>
+    <script defer src="script.min.js?v=12.0"></script>
 
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"583a1f2fffa34cd5a61a0a873ff056d0","r":1}' crossorigin="anonymous"></script>
 

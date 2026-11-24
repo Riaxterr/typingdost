@@ -46,9 +46,26 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="../style.min.css?v=8.0" as="style">
-    <link rel="preload" href="../script.min.js?v=8.0" as="script">
-    <link rel="stylesheet" href="../style.min.css?v=8.0">
+    <link rel="preload" href="../style.min.css?v=12.0" as="style">
+    <link rel="preload" href="../script.min.js?v=12.0" as="script">
+    <link rel="stylesheet" href="../style.min.css?v=12.0">
+    <!-- Inline Guaranteed Header Button Full Names Override (bypasses browser cache) -->
+    <style id="header-button-fullnames">
+        #current-sound-name,
+        #current-theme-name,
+        #current-lang-name,
+        .header-controls .sound-trigger span,
+        .header-controls .theme-trigger span,
+        .header-controls #lang-trigger span,
+        .header-btn .btn-text {
+            display: inline-block !important;
+            max-width: none !important;
+            width: auto !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            white-space: nowrap !important;
+        }
+    </style>
 
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">
@@ -306,9 +323,9 @@
 
     <!-- Core Engine Scripts -->
     <script>window.TYPINGDOST_PAGE_CONFIG = {"lang":"hindi","testMode":"time","maxTime":300,"layout":"phonetic","scriptMode":"devanagari","lesson":"sentences","examBadge":"Kruti Dev 010 & Remington Gail Hindi Arena"};</script>
-    <script defer src="../languageConfig.min.js?v=8.0"></script>
+    <script defer src="../languageConfig.min.js?v=12.0"></script>
     <script defer src="../indicTransliteration.min.js?v=6.2"></script>
-    <script defer src="../fontSystem.min.js?v=8.0"></script>
-    <script defer src="../script.min.js?v=8.0"></script>
+    <script defer src="../fontSystem.min.js?v=12.0"></script>
+    <script defer src="../script.min.js?v=12.0"></script>
 </body>
 </html>

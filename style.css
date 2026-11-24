@@ -13352,9 +13352,9 @@ header:hover {
 }
 
 .header-btn .btn-text {
-    max-width: 85px !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
     white-space: nowrap !important;
 }
 
@@ -14177,4 +14177,20 @@ header nav[aria-label="Site Controls"] {
         gap: 0.4rem !important;
         width: 100% !important;
     }
+}
+
+/* 100% Guaranteed Full Visibility for Header Control Buttons & Labels */
+#current-sound-name,
+#current-theme-name,
+#current-lang-name,
+.header-controls .sound-trigger span,
+.header-controls .theme-trigger span,
+.header-controls #lang-trigger span,
+.header-btn .btn-text {
+    display: inline-block !important;
+    max-width: none !important;
+    width: auto !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
 }
