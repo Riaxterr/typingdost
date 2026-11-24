@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- TypingDost Dynamic Theme Synchronization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('typingDostTheme') || 'matrix';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } catch(e) {}
+        })();
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify TypingDost Certificate — Official ID Verification Portal</title>
+    <meta name="description" content="Verify any official TypingDost WPM typing speed certificate ID (TD-[HASH]) instantaneously online. View candidate name, verified net WPM speed, accuracy, and exam date.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://typingdost.com/verify/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TypingDost">
+    <meta property="og:title" content="Verify Official TypingDost Certificate">
+    <meta property="og:description" content="Instant cryptographic verification portal for TypingDost typing speed certificates.">
+    <meta property="og:url" content="https://typingdost.com/verify/">
+    <meta property="og:image" content="https://typingdost.com/typingdost_brand.webp">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <meta name="theme-color" content="#00f0ff">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D4G84PZ15K"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D4G84PZ15K');</script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1661683734652344" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-1661683734652344">
+    <link rel="stylesheet" href="../blog/blog.css?v=6.0">
+    <style>
+        .verify-box {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1.5px solid rgba(0, 240, 255, 0.28);
+            border-radius: 20px;
+            padding: 2rem clamp(1.2rem, 3vw, 2.4rem);
+        }
+        .lookup-form {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.25rem;
+        }
+        .lookup-input {
+            flex: 1;
+            min-width: 220px;
+            padding: 0.78rem 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            background: rgba(8, 12, 22, 0.9);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92rem;
+        }
+        .verify-status {
+            margin-top: 1.8rem;
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: none;
+        }
+        .verify-status.valid {
+            display: block;
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(0, 240, 255, 0.06));
+            border: 1.5px solid #2ecc71;
+        }
+        .verify-status.invalid {
+            display: block;
+            background: rgba(255, 60, 100, 0.1);
+            border: 1.5px solid #ff3c64;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.85rem;
+        }
+        .verify-status.valid .status-badge {
+            background: rgba(46, 204, 113, 0.2);
+            color: #4ade80;
+            border: 1px solid #2ecc71;
+        }
+        .verify-status.invalid .status-badge {
+            background: rgba(255, 60, 100, 0.2);
+            color: #ff6b81;
+            border: 1px solid #ff3c64;
+        }
+        .cert-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.9rem;
+            margin: 1.25rem 0;
+        }
+        .cert-metric-cell {
+            background: rgba(8, 12, 24, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 0.85rem;
+            text-align: center;
+        }
+        .cert-metric-val {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .cert-metric-lbl {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+        .share-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 1.25rem;
+        }
+        .share-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.55rem 0.95rem;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            cursor: pointer;
+        }
+        .share-pill.li { border-color: #0A66C2; color: #70b5f9; }
+        .share-pill.wa { border-color: #25D366; color: #6ee7b7; }
+        .share-pill.tg { border-color: #229ED9; color: #7dd3fc; }
+        .recent-list {
+            margin-top: 1.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 1.25rem;
+        }
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.6rem 0.8rem;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.03);
+            margin-top: 0.5rem;
+            font-size: 0.88rem;
+        }
+        .recent-item a { color: var(--primary); font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <a href="../" class="logo" style="text-decoration:none; color:inherit;">
+            <img src="../typingdost_brand.webp" alt="TypingDost Mascot" class="brand-logo-img" width="38" height="38">
+            <span class="logo-text-typing">Typing</span><span class="dost logo-text-dost">Dost</span>
+        </a>
+
+        <nav class="header-quick-nav" aria-label="Primary Navigation">
+            <a href="../" class="quick-nav-link">Arena</a>
+            <a href="../touch-typing-lessons/" class="quick-nav-link">Lessons</a>
+            <a href="../ssc-chsl-typing-test/" class="quick-nav-link">Govt Exams</a>
+            <a href="../blog/" class="quick-nav-link">Guides</a>
+        </nav>
+
+        <div class="header-controls" id="header-controls">
+            <!-- 1. Sound Dropdown -->
+            <div class="header-control-item sound-dropdown" id="sound-dropdown">
+                <button class="header-btn sound-trigger" id="sound-trigger" title="Select Keyboard Sound" type="button">
+                    <span id="current-sound-icon">🔊</span>
+                    <span id="current-sound-name" class="btn-text">Sound</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="sound-menu hidden" id="sound-menu"></div>
+            </div>
+
+            <!-- 2. Theme Dropdown -->
+            <div class="header-control-item theme-dropdown" id="theme-dropdown">
+                <button class="header-btn theme-trigger" id="theme-trigger" title="Select Visual Theme" type="button">
+                    <span id="current-theme-icon">🎨</span>
+                    <span id="current-theme-name" class="btn-text">Theme</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="theme-menu hidden" id="theme-menu" role="listbox" aria-label="Visual Theme Options"></div>
+            </div>
+
+            <!-- 3. Language Dropdown -->
+            <div class="header-control-item theme-dropdown" id="lang-dropdown">
+                <button class="header-btn theme-trigger" id="lang-trigger" title="Select Site Language" type="button">
+                    <span id="current-lang-icon">🌐</span>
+                    <span id="current-lang-name" class="btn-text">Lang</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="theme-menu hidden" id="lang-menu" style="max-height: 250px;" role="listbox" aria-label="Language Selector"></div>
+            </div>
+
+            <!-- 4. Display Mode -->
+            <div class="header-control-item">
+                <button id="display-mode-btn" class="header-btn display-mode-btn" title="Toggle Display Mode" type="button">
+                    🎨 Mode
+                </button>
+            </div>
+
+            <!-- 5. Eye Comfort -->
+            <div class="header-control-item">
+                <button id="eye-comfort-btn" class="header-btn eye-comfort-btn" title="Toggle Eye Comfort (Blue Light Filter)" type="button">
+                    🌙 Off
+                </button>
+            </div>
+
+            <div class="header-separator"></div>
+
+            <!-- 6. Guides Link -->
+            <a href="../blog/" id="header-blog-btn" class="header-nav-btn" title="Typing Guides &amp; Blog">Guides</a>
+
+            <!-- 7. Support Button -->
+            <a href="../support/" id="header-donate-btn" class="header-cta-btn" title="Support TypingDost">☕ Support</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <span class="hero-badge">Tamper-Evident Authenticity Check</span>
+            <h1 class="hero-title">Verify TypingDost <span>Certificate</span></h1>
+            <p class="hero-sub">Enter any official TypingDost Certificate ID (<code>TD-[HASH]</code>) or open a verification URL to audit candidate speed, accuracy, test mode, and date.</p>
+        </section>
+
+        <!-- Advertisement: Leaderboard Ad -->
+        <div class="td-ad-wrapper td-ad-leaderboard" id="ad-slot-leaderboard" style="max-width: 728px; min-height: 90px; margin: 1.5rem auto;">
+            <span class="td-ad-label">Advertisement</span>
+            <div class="td-ad-placeholder">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1661683734652344"
+                     data-ad-slot=""
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </div>
+
+        <section class="verify-box">
+            <h2 style="font-family:'Outfit',sans-serif;color:#fff;font-size:1.25rem;">Certificate ID Lookup</h2>
+            <form class="lookup-form" id="verify-form">
+                <input type="text" id="cert-id-input" class="lookup-input" placeholder="Paste ID: TD-XXXXXXXX-..." aria-label="Certificate ID" required>
+                <button type="submit" class="td-cta-btn" style="border:none;cursor:pointer;">Verify Now</button>
+            </form>
+
+            <div id="verify-result" class="verify-status" aria-live="polite"></div>
+
+            <div id="recent-local-wrap" class="recent-list" style="display:none;">
+                <h3 style="font-size:0.95rem;color:#cbd5e1;">Certificates Generated on This Browser</h3>
+                <div id="recent-local-items"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 TypingDost by Rizwan Khan &mdash; <a href="../">Home</a> | <a href="../certificate.html">Claim Certificate</a> | <a href="../1-minute-typing-test/">1-Min Test</a> | <a href="../ssc-chsl-typing-test/">SSC CHSL Mock</a> | <a href="../blog/">Blog</a></p>
+    </footer>
+
+    <script src="../certVerify.min.js?v=6.2"></script>
+    <script>
+        (function () {
+            var inputEl = document.getElementById('cert-id-input');
+            var formEl = document.getElementById('verify-form');
+            var resultEl = document.getElementById('verify-result');
+            var recentWrap = document.getElementById('recent-local-wrap');
+            var recentItems = document.getElementById('recent-local-items');
+
+            function escapeHtml(str) {
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function renderResult(rawId) {
+                if (!rawId) {
+                    resultEl.className = 'verify-status';
+                    resultEl.innerHTML = '';
+                    return;
+                }
+                var res = window.TypingDostCert.verifyCertificateId(rawId);
+                if (!res.valid) {
+                    resultEl.className = 'verify-status invalid';
+                    resultEl.innerHTML =
+                        '<span class="status-badge">Verification Failed</span>' +
+                        '<h3 style="color:#fff;margin-bottom:0.4rem;">Invalid or Tampered Certificate ID</h3>' +
+                        '<p style="color:#fecdd3;font-size:0.94rem;">' + escapeHtml(res.reason) + '</p>' +
+                        '<p style="color:#94a3b8;font-size:0.86rem;margin-top:0.6rem;">Take an official free speed test on <a href="../" style="color:#00f0ff;">TypingDost</a> to earn a valid signed certificate.</p>';
+                    return;
+                }
+
+                var rec = res.record;
+                var rank = window.TypingDostCert.getRankLabel(rec.w);
+                var canonicalUrl = window.TypingDostCert.buildVerifyUrl(res.id);
+                var shareMsg = 'Verified TypingDost Certificate: ' + rec.n + ' scored ' + rec.w + ' WPM (' + rec.a + '% accuracy) on ' + rec.m + '!';
+
+                resultEl.className = 'verify-status valid';
+                resultEl.innerHTML =
+                    '<span class="status-badge">&#10003; Authentic Certificate Verified</span>' +
+                    '<h3 style="color:#fff;font-size:1.45rem;margin-bottom:0.25rem;">' + escapeHtml(rec.n) + '</h3>' +
+                    '<p style="color:#a7f3d0;font-size:0.9rem;">Issued Date: <strong>' + escapeHtml(rec.d) + '</strong> &bull; Mode: <strong>' + escapeHtml(rec.m) + '</strong> &bull; Language: <strong>' + escapeHtml(rec.l.toUpperCase()) + '</strong></p>' +
+                    '<div class="cert-metrics-grid">' +
+                        '<div class="cert-metric-cell"><div class="cert-metric-val">' + rec.w + '</div><div class="cert-metric-lbl">Net WPM</div></div>' +
+                        '<div class="cert-metric-cell"><div class="cert-metric-val">' + rec.a + '%</div><div class="cert-metric-lbl">Accuracy</div></div>' +
+                        '<div class="cert-metric-cell"><div class="cert-metric-val">' + rec.r + '</div><div class="cert-metric-lbl">Raw WPM</div></div>' +
+                        '<div class="cert-metric-cell"><div class="cert-metric-val" style="font-size:1rem;">' + escapeHtml(rank) + '</div><div class="cert-metric-lbl">Rank Tier</div></div>' +
+                    '</div>' +
+                    '<div style="font-family:\'JetBrains Mono\',monospace;font-size:0.78rem;color:#94a3b8;word-break:break-all;">Certificate ID: ' + escapeHtml(res.id) + '</div>' +
+                    '<div class="share-row">' +
+                        '<a class="share-pill li" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(canonicalUrl) + '">Share on LinkedIn</a>' +
+                        '<a class="share-pill wa" target="_blank" rel="noopener noreferrer" href="https://api.whatsapp.com/send?text=' + encodeURIComponent(shareMsg + ' ' + canonicalUrl) + '">Share on WhatsApp</a>' +
+                        '<a class="share-pill tg" target="_blank" rel="noopener noreferrer" href="https://t.me/share/url?url=' + encodeURIComponent(canonicalUrl) + '&text=' + encodeURIComponent(shareMsg) + '">Share on Telegram</a>' +
+                        '<button type="button" class="share-pill" id="copy-verify-link">Copy Verification URL</button>' +
+                    '</div>';
+
+                var copyBtn = document.getElementById('copy-verify-link');
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', function () {
+                        navigator.clipboard.writeText(canonicalUrl).then(function () {
+                            copyBtn.textContent = 'Copied!';
+                            setTimeout(function () { copyBtn.textContent = 'Copy Verification URL'; }, 2000);
+                        }).catch(function () {});
+                    });
+                }
+            }
+
+            formEl.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var idVal = inputEl.value.trim();
+                if (!idVal) return;
+                try {
+                    var nextUrl = new URL(window.location.href);
+                    nextUrl.searchParams.set('id', idVal);
+                    window.history.replaceState({}, '', nextUrl.toString());
+                } catch (err) {}
+                renderResult(idVal);
+            });
+
+            var params = new URLSearchParams(window.location.search);
+            var initialId = params.get('id');
+            if (initialId) {
+                inputEl.value = initialId;
+                renderResult(initialId);
+            }
+
+            var locals = window.TypingDostCert.listLocalCertificates();
+            if (locals.length > 0) {
+                recentWrap.style.display = 'block';
+                recentItems.innerHTML = locals.slice(-5).reverse().map(function (entry) {
+                    var targetHref = (window.location.protocol === 'file:' ? 'index.html?id=' : '?id=') + encodeURIComponent(entry.id);
+                    return '<div class="recent-item">' +
+                        '<span><strong>' + escapeHtml(entry.record.n) + '</strong> &mdash; ' + entry.record.w + ' WPM (' + entry.record.a + '%)</span>' +
+                        '<a href="' + targetHref + '">' + escapeHtml(entry.id.slice(0, 20)) + '...</a>' +
+                        '</div>';
+                }).join('');
+            }
+        })();
+    </script>
+</body>
+</html>

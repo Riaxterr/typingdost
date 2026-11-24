@@ -17,7 +17,7 @@
     "Obsidian glassmorphism aesthetic with Zen Focus Mode (auto-dims peripheral chrome during typing to maximize flow state)",
     "Desi Meme Survival Arcade Engine with live comic mascot ranks, 3-heart survival mode, combo streaks, and funny desi sound effects (Aayein, Slap, Duck Toy)",
     "Matra-safe Indic typography (2.15 line-height headroom preventing clipping of complex Hindi, Bengali, Tamil, Telugu sub/superscript matras)",
-    "Dual Hindi exam engine supporting both Kruti Dev 010 legacy typewriter font and Mangal InScript Unicode font"
+    "Universal Smart Phonetic typing engine supporting Hindi & 14 Indic languages on standard English QWERTY keyboard"
   ],
   "target_audience": [
     "SSC CHSL and SSC CGL exam aspirants preparing for DEST (Data Entry Skill Test)",
@@ -58,9 +58,23 @@
   },
   "primary_urls": {
     "homepage": "https://typingdost.com/",
-    "english_test": "https://typingdost.com/english-typing-test.html",
-    "hindi_test": "https://typingdost.com/hindi-typing-test.html",
+    "1_minute_test": "https://typingdost.com/1-minute-typing-test/",
+    "2_minute_test": "https://typingdost.com/2-minute-typing-test/",
+    "5_minute_test": "https://typingdost.com/5-minute-typing-test/",
+    "10_minute_test": "https://typingdost.com/10-minute-typing-test/",
+    "ssc_chsl_test": "https://typingdost.com/ssc-chsl-typing-test/",
+    "ssc_cgl_test": "https://typingdost.com/ssc-cgl-typing-test/",
+    "rrb_ntpc_test": "https://typingdost.com/rrb-ntpc-typing-test/",
+    "bsf_hcm_test": "https://typingdost.com/bsf-hcm-typing-test/",
+    "high_court_test": "https://typingdost.com/high-court-typing-test/",
+    "hindi_test": "https://typingdost.com/hindi-typing-test/",
+    "hinglish_test": "https://typingdost.com/hinglish-typing-test/",
+    "marathi_test": "https://typingdost.com/marathi-typing-test/",
+    "coding_test": "https://typingdost.com/coding-typing-test/",
+    "data_entry_test": "https://typingdost.com/data-entry-typing-test/",
+    "touch_typing_lessons": "https://typingdost.com/touch-typing-lessons/",
     "certificate": "https://typingdost.com/certificate.html",
+    "verify": "https://typingdost.com/verify/",
     "blog": "https://typingdost.com/blog/",
     "about": "https://typingdost.com/about.html",
     "contact": "https://typingdost.com/contact.html"
@@ -88,8 +102,6 @@
     "typing test certificate free",
     "hindi typing test",
     "hinglish typing test",
-    "hindi typing test kruti dev 010",
-    "mangal font typing test",
     "zen mode typing test",
     "obsidian dark mode typing",
     "desi meme typing test",

@@ -1,15 +1,26 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- TypingDost Dynamic Theme Synchronization -->
+    <script src="blog/blogTheme.js"></script>
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('typingDostTheme') || 'matrix';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } catch(e) {}
+        })();
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About TypingDost — Free Typing Practice Platform</title>
+    <title>About TypingDost — Free Typing Practice Platform &amp; Knowledge Hub</title>
     
     <!-- SEO Meta Tags -->
     <meta name="google-site-verification" content="a3bE6zqdURTBOIPd9k5qUBjOpv4I8jGfa7l3DeJVsu4" />
     <meta name="msvalidate.01" content="402899C00929C4B2FD67611ECD29A7D6" />
-    <meta name="description" content="Learn about TypingDost — free online typing test platform. Built to help students, job aspirants & professionals master touch typing with accuracy.">
-    <meta name="keywords" content="typingtest, typing test keyboard, typing speed test keyboard, computer keyboard typing test, keyboard typing practice, about typingdost, free typing test, rizwan khan typing, ssc typing platform, touch typing practice">
+    <meta name="description" content="Learn about TypingDost — free online typing test platform. Built to help students, job aspirants &amp; professionals master touch typing with accuracy, speed, and official certificates.">
     <meta name="author" content="Rizwan Khan">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://typingdost.com/about.html">
@@ -19,7 +30,7 @@
     <meta property="og:url" content="https://typingdost.com/about.html">
     <meta property="og:title" content="About TypingDost — India's Free Typing Practice Platform">
     <meta property="og:description" content="Learn about TypingDost — a 100% free online typing test platform built by Rizwan Khan.">
-    <meta property="og:image" content="https://typingdost.com/typingdost_brand.png">
+    <meta property="og:image" content="https://typingdost.com/typingdost_brand.webp">
     <meta property="og:site_name" content="TypingDost">
     
     <!-- Twitter -->
@@ -27,14 +38,12 @@
     <meta name="twitter:url" content="https://typingdost.com/about.html">
     <meta name="twitter:title" content="About TypingDost | Free Typing Practice Platform">
     <meta name="twitter:description" content="Learn about TypingDost — a 100% free online typing test platform built by Rizwan Khan.">
-    <meta name="twitter:image" content="https://typingdost.com/typingdost_brand.png">
+    <meta name="twitter:image" content="https://typingdost.com/typingdost_brand.webp">
     
-        <!-- AI Search & LLM Discovery (GEO / Generative Engine Optimization) -->
+    <!-- AI Search & LLM Discovery (GEO / Generative Engine Optimization) -->
     <link rel="alternate" type="text/plain" href="https://typingdost.com/llms.txt" title="LLM Knowledge Base (llms.txt)" />
     <link rel="alternate" type="text/plain" href="https://typingdost.com/llms-full.txt" title="Full LLM Knowledge Base (llms-full.txt)" />
     <link rel="help" type="application/json" href="https://typingdost.com/ai-context.json" title="AI Machine-Readable Context" />
-    <meta name="ai-content-declaration" content="human-crafted educational platform" />
-    <meta name="chatgpt-fts" content="allow" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -45,147 +54,239 @@
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D4G84PZ15K"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D4G84PZ15K');</script>
+
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1661683734652344"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1661683734652344" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-1661683734652344">
 
-    <!-- Fonts (Same as blog pages) -->
-    <style type="text/css">
-        @font-face {font-family:'Outfit';font-style:normal;font-weight:400;src:url(/cf-fonts/v/outfit/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Outfit';font-style:normal;font-weight:600;src:url(/cf-fonts/v/outfit/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Outfit';font-style:normal;font-weight:700;src:url(/cf-fonts/v/outfit/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Outfit';font-style:normal;font-weight:800;src:url(/cf-fonts/v/outfit/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-        @font-face {font-family:'Orbitron';font-style:normal;font-weight:700;src:url(/cf-fonts/v/orbitron/5.2.8/latin/wght/normal.woff2);font-display:swap;}
-    </style>
-    
-    <!-- Styles -->
+    <!-- Unified Theme Stylesheet (Same as Blog & Sub-Portals) -->
+    <link rel="stylesheet" href="blog/blog.css?v=8.6">
+
+    <!-- Inline Fallbacks & Page Specific Styles -->
     <style>
         :root {
             --bg-primary: #080c14;
-            --bg-card: rgba(13, 20, 36, 0.9);
+            --bg-card: rgba(13, 20, 36, 0.88);
+            --bg-card-hover: rgba(18, 28, 52, 0.96);
             --primary: #00f0ff;
             --primary-glow: rgba(0, 240, 255, 0.35);
             --accent: #ff3c64;
             --text: #e2e8f0;
             --text-sub: #94a3b8;
-            --border: rgba(0, 240, 255, 0.15);
-            --border-hover: rgba(0, 240, 255, 0.35);
+            --border: rgba(0, 240, 255, 0.16);
+            --border-hover: rgba(0, 240, 255, 0.45);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: var(--bg-primary);
             color: var(--text);
             line-height: 1.85;
             min-height: 100vh;
-            background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 240, 255, 0.1), transparent);
+            background-image: radial-gradient(ellipse 80% 50% at 50% -20%, var(--primary-glow), transparent);
         }
-        .blog-header {
-            background: rgba(8, 12, 20, 0.85);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
+
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 5rem;
         }
-        .blog-header a { text-decoration: none; }
-        .blog-logo { display: flex; align-items: center; gap: 0.6rem; }
-        .blog-logo img { width: 38px; height: 38px; }
-        .blog-logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: 800; color: #fff; }
-        .blog-logo-text span { color: var(--primary); }
-        .blog-nav { display: flex; gap: 1.5rem; align-items: center; }
-        .blog-nav a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-        .blog-nav a:hover { color: var(--primary); }
-        
-        .blog-container { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
-        
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 2.8rem;
+        }
+
+        .about-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
         .blog-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(2rem, 4.5vw, 2.7rem);
+            font-family: 'Orbitron', 'Outfit', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3rem);
             font-weight: 800;
             color: #fff;
-            line-height: 1.25;
-            margin-bottom: 1rem;
-            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
         }
-        
+
+        .blog-title span {
+            color: var(--primary);
+        }
+
+        .about-tagline {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
         .blog-content h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.65rem;
+            font-family: 'Orbitron', 'Outfit', sans-serif;
+            font-size: 1.55rem;
             font-weight: 700;
             color: #fff;
             margin: 2.8rem 0 1rem;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.6rem;
             border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
         }
+
         .blog-content h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-family: 'Space Grotesk', 'Outfit', sans-serif;
+            font-size: 1.22rem;
+            font-weight: 700;
             color: var(--primary);
             margin: 1.8rem 0 0.8rem;
         }
-        .blog-content p { margin-bottom: 1.3rem; font-size: 1.02rem; }
-        .blog-content ul { margin: 1rem 0 1.5rem 1.4rem; }
-        .blog-content li { margin-bottom: 0.6rem; }
-        .blog-content a { color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary); }
-        .blog-content a:hover { border-bottom-style: solid; }
-        
+
+        .blog-content p {
+            margin-bottom: 1.3rem;
+            font-size: 1.02rem;
+            color: var(--text);
+        }
+
+        .blog-content ul {
+            margin: 1rem 0 1.5rem 1.4rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.8rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .blog-content a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--primary);
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .blog-content a:hover {
+            color: #fff;
+            border-bottom-style: solid;
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+
         .info-box {
             background: rgba(0, 240, 255, 0.05);
             border: 1px solid var(--border);
             border-left: 4px solid var(--primary);
-            padding: 1.2rem 1.4rem;
-            border-radius: 8px;
+            padding: 1.3rem 1.6rem;
+            border-radius: 12px;
             margin: 1.8rem 0;
+            backdrop-filter: blur(12px);
         }
-        
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.1rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .feature-item-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-item-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--primary-glow);
+        }
+
+        .feature-item-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-item-desc {
+            font-size: 0.92rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
-        
+
         .social-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
+            border-radius: 12px;
+            padding: 1.1rem 0.9rem;
             text-align: center;
             text-decoration: none !important;
             border-bottom: 1px solid var(--border) !important;
-            transition: all 0.2s;
+            color: var(--text);
+            font-weight: 600;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(10px);
         }
-        
+
         .social-card:hover {
             border-color: var(--primary) !important;
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 240, 255, 0.15);
+            box-shadow: 0 6px 20px var(--primary-glow);
+            color: #fff;
         }
-        
+
         .blog-footer {
             background: var(--bg-card);
             border-top: 1px solid var(--border);
-            padding: 2.5rem 1.5rem;
+            padding: 2.8rem 1.5rem;
             text-align: center;
             color: var(--text-sub);
-            font-size: 0.9rem;
+            font-size: 0.92rem;
         }
-        .blog-footer a { color: var(--primary); text-decoration: none; margin: 0 0.5rem; }
-        
+
+        .blog-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .blog-footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
-            .blog-header { padding: 0.8rem 1.2rem; }
-            .blog-nav { gap: 0.9rem; }
+            .blog-container { padding: 2rem 1.1rem 4rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .social-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
     
@@ -201,7 +302,7 @@
         "@type": "Organization",
         "name": "TypingDost",
         "url": "https://typingdost.com",
-        "logo": "https://typingdost.com/typingdost_brand.png",
+        "logo": "https://typingdost.com/typingdost_brand.webp",
         "founder": {
           "@type": "Person",
           "name": "Rizwan Khan"
@@ -228,57 +329,102 @@
     </script>
 </head>
 <body>
-    <header class="blog-header">
-        <a href="index.html" class="blog-logo">
-            <img src="typingdost_brand.webp" alt="TypingDost" width="38" height="38">
-            <span class="blog-logo-text">Typing<span>Dost</span></span>
+    <!-- Theme-Aligned Header Bar (Matches Guides & Sub-Pages) -->
+    <header class="header">
+        <a href="./" class="logo" title="TypingDost Home">
+            <img src="./typingdost_brand.webp" alt="TypingDost Mascot" width="38" height="38">
+            <span class="logo-text">Typing<span>Dost</span></span>
         </a>
-        <nav class="blog-nav" aria-label="Main Navigation">
-            <a href="blog/index.html">Guides</a>
-            <a href="hindi-typing-test.html">Hindi Test</a>
-            <a href="certificate.html">Certificate</a>
-            <a href="about.html" style="color: var(--primary);">About</a>
-        </nav>
+
+        <div class="header-right">
+            <nav class="nav-links" aria-label="Main Navigation">
+                <a href="./">Typing Arena</a>
+                <a href="./touch-typing-lessons/">Lessons</a>
+                <a href="./ssc-chsl-typing-test/">Govt Exams</a>
+                <a href="./blog/">Guides</a>
+                <a href="./about.html" class="active" style="color:var(--primary); font-weight:700;">About</a>
+                <a href="./certificate.html">Certificate</a>
+            </nav>
+            <div class="theme-dropdown" id="theme-dropdown">
+                <button class="theme-trigger" id="theme-trigger" title="Select Visual Theme" type="button" aria-haspopup="listbox" aria-expanded="false">
+                    <span id="current-theme-icon">🎨</span>
+                    <span id="current-theme-name" class="btn-text">Theme</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="theme-menu hidden" id="theme-menu" role="listbox" aria-label="Visual Theme Options"></div>
+            </div>
+            <a href="./support/" style="text-decoration:none; padding:0.45rem 0.95rem; border-radius:8px; font-weight:700; font-size:0.85rem; background:rgba(255,0,85,0.12); color:#ff3c64; border:1px solid rgba(255,0,85,0.35); transition:all 0.2s;" title="Support TypingDost">☕ Support</a>
+            <a href="./" class="btn-test">Launch Test ⚡</a>
+        </div>
     </header>
 
     <main class="blog-container">
         <article class="blog-content">
-            <h1 class="blog-title">About TypingDost</h1>
+            <div class="about-hero">
+                <span class="about-badge">Origin &amp; Mission</span>
+                <h1 class="blog-title">About <span>TypingDost</span></h1>
+                <p class="about-tagline">Building India's fastest, zero-login, student-first touch typing practice arena and examination training hub.</p>
+            </div>
             
-            <h2>Our Mission</h2>
+            <h2>🎯 Our Mission</h2>
             <div class="info-box">
                 <p style="margin:0;">TypingDost ka ek hi mission hai: <strong>India ke har student aur professional ko touch typing master karne mein help karna, bilkul FREE.</strong> Humara focus un aspirants par hai jo SSC, RRB, aur Court exams ki tayari kar rahe hain aur jinhe high-quality typing resources chahiye.</p>
             </div>
 
-            <h2>Who Built TypingDost?</h2>
-            <p>Hi! Main <strong>Rizwan Khan</strong> hoon, TypingDost ka Lead Developer & Founder. Mujhe coding aur education technology mein deep interest hai.</p>
-            <p>Maine dekha ki market mein bahot se typing tools either paid hain, unme intrusive ads hote hain, ya phir woh India ke specific competitive exams (jaise SSC CHSL/CGL Mangal font) ko target nahi karte. Is problem ko solve karne ke liye maine TypingDost banaya. Mera vision hai ki education har kisi ke liye accessible ho, regardless of unka background kya hai.</p>
+            <h2>👨‍💻 Who Built TypingDost?</h2>
+            <p>Hi! Main <strong>Rizwan Khan</strong> hoon, TypingDost ka Lead Developer &amp; Founder. Mujhe coding aur education technology mein deep interest hai.</p>
+            <p>Maine dekha ki market mein bahot se typing tools either paid hain, unme intrusive ads hote hain, ya phir woh India ke specific competitive exams (jaise SSC CHSL/CGL, RRB NTPC typing exams) ko target nahi karte. Is problem ko solve karne ke liye maine TypingDost banaya. Mera vision hai ki education har kisi ke liye accessible ho, regardless of unka background kya hai.</p>
 
-            <h2>What We Offer</h2>
-            <p>Humare platform par aapko milenge kaafi saare unique features:</p>
-            <ul>
-                <li><strong>14+ Languages:</strong> English aur Hindi samet 14 languages me smart Phonetic transliteration typing practice (English type karke regional script generate karein).</li>
-                <li><strong>Free Certificates:</strong> Apni speed verify karein aur free me typing certificate generate karein jo aap apne resume me add kar sakte hain.</li>
-                <li><strong>Govt Exam Mock Tests:</strong> SSC CHSL, CGL, aur RRB exams ke liye exact exam-like UI/UX aur timer based mock tests.</li>
-                <li><strong>Mechanical Keyboard Sounds:</strong> ASMR experience aur rhythm building ke liye mechanical keyboard SFX.</li>
-                <li><strong>Typing Games:</strong> Practice ko fun banane ke liye engaging typing mini-games.</li>
-            </ul>
+            <h2>🚀 What We Offer</h2>
+            <p>Humare platform par aapko milenge kaafi saare unique features jo aapki speed aur accuracy ko accelerate karenge:</p>
+            
+            <div class="features-grid">
+                <div class="feature-item-card">
+                    <div class="feature-item-title">🌐 14+ Languages</div>
+                    <div class="feature-item-desc">English aur Hindi samet 14 languages me smart Phonetic transliteration typing practice. Check out our dedicated <a href="./hindi-typing-test/">Hindi Typing Practice</a> and <a href="./">Regional Language Arena</a>.</div>
+                </div>
 
-            <h2>Our Impact</h2>
-            <p>TypingDost par aaj rozana hazaaron students aate hain. Kashmir se Kanyakumari tak, aspirants apni speed improve kar rahe hain. Har roz naye typing tests pass kiye jate hain aur certificates issue hote hain. Ye dekhna bahut rewarding hai ki kaise ek simple idea itne logo ki career journey me madad kar raha hai.</p>
+                <div class="feature-item-card">
+                    <div class="feature-item-title">📜 Free Verified Certificates</div>
+                    <div class="feature-item-desc">Apni typing speed verify karein aur cryptographic verification ID ke saath official <a href="./certificate.html">Free Typing Certificate</a> generate karein jo aap apne resume me add kar sakte hain.</div>
+                </div>
 
-            <h2>Why TypingDost is Different</h2>
+                <div class="feature-item-card">
+                    <div class="feature-item-title">🏛️ Govt Exam Mock Tests</div>
+                    <div class="feature-item-desc"><a href="./ssc-chsl-typing-test/">SSC CHSL Typing Test</a>, SSC CGL DEST, aur RRB NTPC exams ke exact official pattern aur live timer par practice karein.</div>
+                </div>
+
+                <div class="feature-item-card">
+                    <div class="feature-item-title">⌨️ Touch Typing Lessons</div>
+                    <div class="feature-item-desc">Home row se lekar number row tak step-by-step touch typing sikhne ke liye hamari structured <a href="./touch-typing-lessons/">Touch Typing Lessons</a> complete karein.</div>
+                </div>
+
+                <div class="feature-item-card">
+                    <div class="feature-item-title">📚 Speed &amp; Exam Guides</div>
+                    <div class="feature-item-desc">30 se 60+ WPM speed badhane, KDPH calculate karne aur posture optimize karne ke liye hamare comprehensive <a href="./blog/">Typing Guides &amp; Tutorials</a> padhein.</div>
+                </div>
+
+                <div class="feature-item-card">
+                    <div class="feature-item-title">🔊 Mechanical Switch SFX</div>
+                    <div class="feature-item-desc">Blue, Red, Brown, aur Thock sound effects ke saath mechanical keyboard sound simulator jo aapke typing rhythm aur focus ko build karta hai.</div>
+                </div>
+            </div>
+
+            <h2>📈 Our Impact</h2>
+            <p>TypingDost par aaj rozana hazaaron students aate hain. Kashmir se Kanyakumari tak, aspirants apni speed improve kar rahe hain. Har roz naye typing tests pass kiye jate hain aur <a href="./verify/">Verified Certificates</a> issue hote hain. Ye dekhna bahut rewarding hai ki kaise ek simple idea itne logo ki career journey me madad kar raha hai.</p>
+
+            <h2>✨ Why TypingDost is Different</h2>
             <ul>
                 <li><strong>100% Free Forever:</strong> Koi hidden charges ya premium tiers nahi.</li>
                 <li><strong>No Login Required:</strong> Bina account banaye direct practice start karein.</li>
                 <li><strong>Privacy-First:</strong> Client-side processing ka matlab hai ki aapka data aapke browser tak hi limited rehta hai.</li>
-                <li><strong>Modern Cyberpunk UI:</strong> Dark mode by default aur ek immersive typing experience.</li>
+                <li><strong>Modern Cyberpunk UI:</strong> 30+ aesthetic themes ke saath dark mode by default aur ek immersive typing experience.</li>
             </ul>
 
-            <h2>Our Expertise (E-E-A-T)</h2>
-            <p>TypingDost sirf ek tool nahi hai. Hum typing education ke field me constant research karte hain. SSC, RRB, aur State Govt exams ke latest notification, error deduction formulas (full mistake / half mistake criteria) aur KDPH requirements ko deeply study karke hum platform ko update karte hain taaki aapko sabse accurate practice environment mile.</p>
+            <h2>🔬 Our Expertise (E-E-A-T)</h2>
+            <p>TypingDost sirf ek tool nahi hai. Hum typing education ke field me constant research karte hain. SSC, RRB, aur State Govt exams ke latest notification, error deduction formulas (full mistake / half mistake criteria) aur KDPH requirements ko deeply study karke hum platform ko update karte hain taaki aapko sabse accurate practice environment mile. Aap hamare comprehensive <a href="./blog/">Knowledge Hub</a> par exam blueprints aur speed conversion formulas padh sakte hain.</p>
 
-            <h2>Connect With Us</h2>
+            <h2>🌐 Connect With Us</h2>
             <p>Humse judne ke liye ya updates paane ke liye niche diye gaye platforms par hume follow karein:</p>
             <div class="social-grid">
                 <a href="https://x.com/typingdost" target="_blank" rel="noopener noreferrer" class="social-card">X (Twitter)<br><span style="color:var(--primary); font-size:0.8rem;">@typingdost</span></a>
@@ -292,17 +438,32 @@
     </main>
 
     <footer class="blog-footer">
-        <p>© 2026 <a href="index.html">TypingDost</a> — Free Online Typing Test & Learning Platform.</p>
+        <p>© 2026 <a href="./">TypingDost</a> — Free Online Typing Test &amp; Learning Platform.</p>
         <p style="margin-top: 0.5rem;">
-            <a href="index.html">Home</a> | 
-            <a href="blog/index.html">Blog</a> | 
-            <a href="about.html">About</a> | 
-            <a href="contact.html">Contact</a> | 
-            <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="terms.html">Terms</a> | 
-            <a href="sitemap.xml">Sitemap</a>
+            <a href="./">Home</a> | 
+            <a href="./blog/">Guides</a> | 
+            <a href="./about.html">About</a> | 
+            <a href="./touch-typing-lessons/">Lessons</a> |
+            <a href="./ssc-chsl-typing-test/">Govt Exams</a> |
+            <a href="./certificate.html">Certificate</a> |
+            <a href="./contact.html">Contact</a> | 
+            <a href="./privacy-policy.html">Privacy Policy</a> | 
+            <a href="./terms.html">Terms</a> | 
+            <a href="./sitemap.xml">Sitemap</a>
         </p>
+        
+        <!-- Advertisement Slot: Responsive Leaderboard (ad-slot-page-bottom) -->
+        <div class="td-ad-wrapper td-ad-leaderboard" id="ad-slot-page-bottom" style="max-width: 728px; min-height: 90px; margin: 2rem auto;">
+            <span class="td-ad-label">Advertisement</span>
+            <div class="td-ad-placeholder">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1661683734652344"
+                     data-ad-slot=""
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
-

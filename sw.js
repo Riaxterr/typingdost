@@ -1,24 +1,26 @@
-const CACHE_NAME = "typingdost-v39";
+const CACHE_NAME = "typingdost-v49";
 const ASSETS_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./about.html",
-  "./contact.html",
-  "./certificate.html",
-  "./privacy-policy.html",
-  "./terms.html",
-  "./hindi-typing-test.html",
-  "./english-typing-test.html",
-  "./style.min.css",
-  "./script.min.js",
-  "./languageConfig.min.js",
-  "./indicTransliteration.js",
-  "./fontSystem.min.js",
-  "./manifest.json",
-  "./favicon.ico",
-  "./favicon-32x32.png",
-  "./typingdost_brand.webp",
-  "./typingdost_brand.png"
+  "/",
+  "/1-minute-typing-test/",
+  "/5-minute-typing-test/",
+  "/10-minute-typing-test/",
+  "/ssc-chsl-typing-test/",
+  "/hindi-typing-test/",
+  "/certificate.html",
+  "/verify/",
+  "/about.html",
+  "/contact.html",
+  "/privacy-policy.html",
+  "/terms.html",
+  "/style.min.css?v=8.0",
+  "/script.min.js?v=8.0",
+  "/languageConfig.min.js?v=8.0",
+  "/fontSystem.min.js?v=8.0",
+  "/certVerify.min.js?v=8.0",
+  "/manifest.json",
+  "/favicon.ico",
+  "/favicon-32x32.png",
+  "/typingdost_brand.webp"
 ];
 
 // Service Worker Install Lifecycle
@@ -47,18 +49,16 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-// Service Worker Fetch Event Interception (Network First for Code, Cache First for Static Images)
+// Service Worker Fetch Event Interception (Network First for HTML/Code, Cache First for Images/Audio)
 self.addEventListener("fetch", (e) => {
-  // Only handle standard local requests
   if (!e.request.url.startsWith(self.location.origin)) {
     return;
   }
 
   const url = new URL(e.request.url);
-  const isStaticImage = url.pathname.endsWith('.png') || url.pathname.endsWith('.jpg') || url.pathname.endsWith('.jpeg') || url.pathname.endsWith('.ico') || url.pathname.endsWith('.webp');
+  const isStaticMedia = url.pathname.endsWith('.png') || url.pathname.endsWith('.jpg') || url.pathname.endsWith('.jpeg') || url.pathname.endsWith('.ico') || url.pathname.endsWith('.webp') || url.pathname.endsWith('.woff2');
 
-  if (isStaticImage) {
-    // Cache First strategy for images/icons
+  if (isStaticMedia) {
     e.respondWith(
       caches.match(e.request).then((cachedResponse) => {
         if (cachedResponse) {
@@ -76,7 +76,6 @@ self.addEventListener("fetch", (e) => {
       })
     );
   } else {
-    // Network First strategy for HTML, CSS, JS, manifest, sitemap
     e.respondWith(
       fetch(e.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200 && networkResponse.type === "basic") {

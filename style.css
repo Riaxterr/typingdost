@@ -185,15 +185,11 @@ body.is-typing .typing-caret { animation: none; }
   50% { transform: translate3d(-2px, 0, 0); }
 }
 
-/* ============================================================
-   Kruti Dev 010 & Indic Font Embeds
-   ============================================================ */
+/* Universal Clean Typography Embeds */
+
 @font-face {
-    font-family: 'Kruti Dev 010';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-krutidev-010/1.0.0/krutidev-010.woff2') format('woff2'),
-         url('https://cdn.jsdelivr.net/gh/webfonts/kruti-dev-010@master/fonts/kruti-dev-010.woff') format('woff'),
-         url('https://cdn.jsdelivr.net/gh/webfonts/kruti-dev-010@master/fonts/kruti-dev-010.ttf') format('truetype'),
-         local('Kruti Dev 010'), local('Krutidev010'), local('KrutiDev-010');
+    font-family: 'Jameel Noori Nastaleeq';
+    src: local('Jameel Noori Nastaleeq'), local('JameelNooriNastaleeq'), local('Alvi Nastaleeq'), local('Urdu Typesetting');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -535,12 +531,13 @@ header {
 
 /* ── Header Controls Upgrade ── */
 .header-controls {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    width: auto !important;
+    gap: 0.65rem !important;
+    flex-wrap: nowrap !important;
 }
 
 .control-group {
@@ -1097,14 +1094,13 @@ header {
    ============================================================ */
 
 .practice-menu {
-    background: var(--glass-premium-bg, hsla(228,20%,10%,0.92));
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--glass-premium-border, hsla(255,100%,100%,0.1));
-    border-radius: 16px;
-    box-shadow: 0 16px 48px hsla(0,0%,0%,0.65), 0 0 20px var(--primary-glow);
+    background: var(--dropdown-bg, #0c1427) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 20px rgba(0, 240, 255, 0.15) !important;
 }
-
 .practice-item {
     border-radius: 10px;
     transition: var(--t-smooth);
@@ -1122,15 +1118,15 @@ header {
 
 /* Theme/Sound dropdown menu upgrade */
 .theme-menu,
-.sound-menu {
-    background: var(--glass-premium-bg, hsla(228,20%,10%,0.92)) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    border: 1px solid var(--glass-premium-border, hsla(255,100%,100%,0.1)) !important;
+.sound-menu,
+#lang-menu {
+    background: var(--dropdown-bg, #0c1427) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 14px !important;
-    box-shadow: 0 16px 48px hsla(0,0%,0%,0.65), 0 0 20px var(--primary-glow) !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 20px rgba(0, 240, 255, 0.15) !important;
 }
-
 .theme-item:hover,
 .lang-item:hover,
 .sound-item:hover {
@@ -2467,12 +2463,13 @@ header {
 }
 
 .header-controls {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    width: auto !important;
+    gap: 0.65rem !important;
+    flex-wrap: nowrap !important;
 }
 
 .control-group {
@@ -6395,7 +6392,7 @@ body.focused-typing .textbox-header {
     position: absolute;
     top: calc(100% + 5px);
     right: 0;
-    background: rgba(8, 14, 26, 0.95);
+    background: var(--dropdown-bg, #0c1427) !important;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     padding: 0.4rem;
@@ -6446,7 +6443,7 @@ body.focused-typing .textbox-header {
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
-    background: rgba(8, 14, 26, 0.96);
+    background: var(--dropdown-bg, #0c1427) !important;
     border: 1px solid rgba(0, 240, 255, 0.25);
     border-radius: 14px;
     padding: 0.85rem;
@@ -7387,158 +7384,302 @@ body.focused-typing .textbox-header {
    ⚡ REDESIGNED UI/UX: WORLD-CLASS CYBERPUNK ALIGNMENT & SYSTEM
    ============================================================ */
 
-/* 1. Header Capsule Controls */
+/* 1. Header & Full-Width Nav Distribution */
+header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 0.75rem 1.25rem !important;
+    width: 96% !important;
+    max-width: 1440px !important;
+    margin: 1.1rem auto 1rem auto !important;
+    padding-bottom: 0.8rem !important;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+header nav,
+header nav, header nav[aria-label="Site Controls"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    margin-left: auto !important;
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
 .header-controls {
-    gap: 0.5rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    width: auto !important;
+    gap: 0.65rem !important;
     flex-wrap: nowrap !important;
 }
 
-.control-group .sound-trigger,
-.control-group .theme-trigger,
-.control-group #lang-trigger,
-.control-group .eye-comfort-btn,
-.control-group .display-mode-btn,
-.control-group .header-donate-btn,
-.control-group .header-about-btn {
+/* 2. Unified Dual-Tone Control Capsules */
+.header-controls .control-group {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    height: 34px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    border-radius: 20px !important;
+    padding: 0 0.15rem 0 0.55rem !important;
+    gap: 0.25rem !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02) !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    flex-shrink: 0 !important;
+}
+
+.header-controls .control-group:hover {
+    border-color: rgba(0, 240, 255, 0.4) !important;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    transform: translateY(-1px);
+}
+
+.header-controls .control-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 16px !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.5px !important;
+    color: var(--secondary, #00f0ff) !important;
+    opacity: 0.85 !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    padding: 0 0.35rem 0 0 !important;
+    text-transform: uppercase !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    user-select: none !important;
+}
+
+/* Category Icons via CSS ::before */
+#sound-control-label::before { content: ""; margin: 0; }
+#theme-control-label::before { content: ""; margin: 0; }
+#header-lang-label::before { content: ""; margin: 0; }
+#display-mode-label::before {
+    content: "🖥️ ";
+    margin-right: 0.15rem;
+    font-size: 0.78rem;
+}
+.control-group:has(#eye-comfort-btn) .control-label::before,
+#eye-comfort-label::before {
+    content: "🌙 ";
+    margin-right: 0.15rem;
+    font-size: 0.78rem;
+}
+
+/* Trigger Buttons inside Capsule */
+.header-controls .sound-trigger,
+.header-controls .theme-trigger,
+.header-controls #lang-trigger,
+.header-controls .eye-comfort-btn,
+.header-controls .display-mode-btn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     height: 28px !important;
-    padding: 0 0.8rem !important;
-    box-sizing: border-box !important;
-    font-size: 0.78rem !important;
+    padding: 0 0.5rem !important;
+    border-radius: 14px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    font-size: 0.76rem !important;
     font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 600 !important;
     line-height: 1 !important;
     margin: 0 !important;
+    gap: 0.28rem !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
 }
 
-.control-group {
-    display: flex;
-    flex-direction: row !important;
-    align-items: center !important;
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 12px !important;
-    padding: 0.2rem 0.2rem 0.2rem 0.6rem !important;
-    gap: 0.35rem !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
-    font-family: 'Space Grotesk', sans-serif !important;
+.header-controls .sound-trigger:hover,
+.header-controls .theme-trigger:hover,
+.header-controls #lang-trigger:hover,
+.header-controls .eye-comfort-btn:hover,
+.header-controls .display-mode-btn:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
 }
 
-.control-group:hover {
-    border-color: rgba(0, 255, 255, 0.35) !important;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.02) !important;
-}
-
-.control-label {
-    font-size: 0.6rem !important;
-    letter-spacing: 0.5px !important;
-    color: var(--secondary) !important;
-    opacity: 0.65 !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
+/* Standalone Single Action Pills (Guides, About, Support) */
+.header-controls .control-group.no-sub {
     padding: 0 !important;
-    text-transform: uppercase;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    padding-right: 0.4rem !important;
-    white-space: nowrap;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.header-controls .header-about-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 34px !important;
+    padding: 0 0.85rem !important;
+    border-radius: 20px !important;
+    background: rgba(0, 240, 255, 0.08) !important;
+    border: 1px solid rgba(0, 240, 255, 0.3) !important;
+    color: #00f0ff !important;
+    font-size: 0.76rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    gap: 0.35rem !important;
+    white-space: nowrap !important;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15) !important;
+    transition: all 0.25s ease !important;
+}
+
+.header-controls .header-about-btn:hover {
+    background: rgba(0, 240, 255, 0.22) !important;
+    border-color: #00f0ff !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.5) !important;
+    transform: translateY(-1.5px) scale(1.02);
+}
+
+.header-controls .header-donate-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 34px !important;
+    padding: 0 0.95rem !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, var(--accent, #ff0055), #ff00aa) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 0.76rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    gap: 0.35rem !important;
+    white-space: nowrap !important;
+    box-shadow: 0 0 12px rgba(255, 0, 85, 0.4) !important;
+    transition: all 0.25s ease !important;
+}
+
+.header-controls .header-donate-btn:hover {
+    background: linear-gradient(135deg, #ff0055, #ff33aa) !important;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.7) !important;
+    transform: translateY(-1.5px) scale(1.02);
+}
+
+#current-sound-icon,
+#current-theme-icon,
+#current-lang-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.92rem !important;
+    line-height: 1 !important;
+    margin-right: 0.1rem !important;
+    transform: translateY(-0.5px) !important;
+}
+
+.header-controls .dropdown-arrow {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.65rem !important;
+    line-height: 1 !important;
+    margin-left: 0.2rem !important;
+    opacity: 0.75 !important;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.control-group .open .dropdown-arrow,
+.sound-trigger.open .dropdown-arrow,
+.theme-trigger.open .dropdown-arrow {
+    transform: rotate(180deg) !important;
 }
 
 .control-group .sound-trigger {
-    background: rgba(0, 240, 255, 0.03) !important;
-    border: 1px solid rgba(0, 240, 255, 0.2) !important;
-    box-shadow: 0 0 5px rgba(0, 240, 255, 0.05) !important;
-    padding: 0.35rem 0.75rem !important;
-    border-radius: 30px !important;
+    background: rgba(0, 240, 255, 0.04) !important;
+    border: 1px solid rgba(0, 240, 255, 0.25) !important;
+    box-shadow: 0 0 6px rgba(0, 240, 255, 0.08) !important;
     color: #fff !important;
-    min-width: auto !important;
-    font-size: 0.78rem !important;
-    margin: 0 !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .control-group .sound-trigger:hover,
 .control-group .sound-trigger.open {
-    background: rgba(0, 240, 255, 0.1) !important;
-    border-color: rgba(0, 240, 255, 0.7) !important;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.1) !important;
+    background: rgba(0, 240, 255, 0.12) !important;
+    border-color: rgba(0, 240, 255, 0.75) !important;
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.12) !important;
     transform: translateY(-1px);
 }
 
 .control-group .theme-trigger {
-    background: rgba(181, 95, 230, 0.03) !important;
-    border: 1px solid rgba(181, 95, 230, 0.2) !important;
-    box-shadow: 0 0 5px rgba(181, 95, 230, 0.05) !important;
-    padding: 0.35rem 0.75rem !important;
-    border-radius: 30px !important;
+    background: rgba(181, 95, 230, 0.04) !important;
+    border: 1px solid rgba(181, 95, 230, 0.25) !important;
+    box-shadow: 0 0 6px rgba(181, 95, 230, 0.08) !important;
     color: #fff !important;
-    min-width: auto !important;
-    font-size: 0.78rem !important;
-    margin: 0 !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .control-group .theme-trigger:hover,
 .control-group .theme-trigger.open {
-    background: rgba(181, 95, 230, 0.1) !important;
-    border-color: rgba(181, 95, 230, 0.7) !important;
-    box-shadow: 0 0 15px rgba(181, 95, 230, 0.4), inset 0 0 8px rgba(181, 95, 230, 0.1) !important;
+    background: rgba(181, 95, 230, 0.12) !important;
+    border-color: rgba(181, 95, 230, 0.75) !important;
+    box-shadow: 0 0 16px rgba(181, 95, 230, 0.4), inset 0 0 8px rgba(181, 95, 230, 0.12) !important;
     transform: translateY(-1px);
 }
 
 .control-group #lang-trigger {
-    background: rgba(46, 204, 113, 0.03) !important;
-    border: 1px solid rgba(46, 204, 113, 0.2) !important;
-    box-shadow: 0 0 5px rgba(46, 204, 113, 0.05) !important;
-    padding: 0.35rem 0.75rem !important;
-    min-width: auto !important;
-    font-size: 0.78rem !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    background: rgba(46, 204, 113, 0.04) !important;
+    border: 1px solid rgba(46, 204, 113, 0.25) !important;
+    box-shadow: 0 0 6px rgba(46, 204, 113, 0.08) !important;
+    color: #fff !important;
 }
 
 .control-group #lang-trigger:hover,
 .control-group #lang-trigger.open {
-    background: rgba(46, 204, 113, 0.1) !important;
-    border-color: rgba(46, 204, 113, 0.7) !important;
-    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4), inset 0 0 8px rgba(46, 204, 113, 0.1) !important;
+    background: rgba(46, 204, 113, 0.12) !important;
+    border-color: rgba(46, 204, 113, 0.75) !important;
+    box-shadow: 0 0 16px rgba(46, 204, 113, 0.4), inset 0 0 8px rgba(46, 204, 113, 0.12) !important;
+    transform: translateY(-1px);
 }
 
 .control-group .eye-comfort-btn {
-    background: rgba(255, 140, 0, 0.03) !important;
-    border: 1px solid rgba(255, 140, 0, 0.2) !important;
-    box-shadow: 0 0 5px rgba(255, 140, 0, 0.05) !important;
-    padding: 0.35rem 0.85rem !important;
-    border-radius: 30px !important;
+    background: rgba(255, 140, 0, 0.04) !important;
+    border: 1px solid rgba(255, 140, 0, 0.25) !important;
+    box-shadow: 0 0 6px rgba(255, 140, 0, 0.08) !important;
     color: #fff !important;
-    font-size: 0.78rem !important;
-    margin: 0 !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .control-group .eye-comfort-btn:hover {
-    background: rgba(255, 140, 0, 0.1) !important;
-    border-color: rgba(255, 140, 0, 0.7) !important;
-    box-shadow: 0 0 15px rgba(255, 140, 0, 0.4), inset 0 0 8px rgba(255, 140, 0, 0.1) !important;
+    background: rgba(255, 140, 0, 0.12) !important;
+    border-color: rgba(255, 140, 0, 0.75) !important;
+    box-shadow: 0 0 16px rgba(255, 140, 0, 0.4), inset 0 0 8px rgba(255, 140, 0, 0.12) !important;
     transform: translateY(-1px);
 }
 
 .control-group .display-mode-btn {
-    background: rgba(148, 163, 184, 0.05) !important;
+    background: rgba(148, 163, 184, 0.06) !important;
     border: 1px solid rgba(148, 163, 184, 0.25) !important;
-    box-shadow: 0 0 5px rgba(148, 163, 184, 0.05) !important;
-    padding: 0.35rem 0.85rem !important;
-    border-radius: 30px !important;
+    box-shadow: 0 0 6px rgba(148, 163, 184, 0.08) !important;
     color: #e2e8f0 !important;
-    font-size: 0.78rem !important;
-    margin: 0 !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .control-group .display-mode-btn:hover {
-    background: rgba(148, 163, 184, 0.15) !important;
-    border-color: rgba(148, 163, 184, 0.7) !important;
-    box-shadow: 0 0 15px rgba(148, 163, 184, 0.4), inset 0 0 8px rgba(148, 163, 184, 0.1) !important;
+    background: rgba(148, 163, 184, 0.16) !important;
+    border-color: rgba(148, 163, 184, 0.75) !important;
+    box-shadow: 0 0 16px rgba(148, 163, 184, 0.4), inset 0 0 8px rgba(148, 163, 184, 0.12) !important;
     transform: translateY(-1px);
 }
 
@@ -7553,20 +7694,10 @@ body.focused-typing .textbox-header {
     background: linear-gradient(135deg, var(--accent), #ff00aa) !important;
     border: none !important;
     box-shadow: 0 0 10px rgba(255, 0, 85, 0.35) !important;
-    padding: 0.38rem 1rem !important;
-    border-radius: 30px !important;
+    padding: 0 0.95rem !important;
     color: #fff !important;
-    font-size: 0.78rem !important;
-    font-weight: 700 !important;
-    cursor: pointer;
-    margin: 0 !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.3rem !important;
 }
 
 .control-group .header-donate-btn:hover {
@@ -7579,21 +7710,11 @@ body.focused-typing .textbox-header {
     background: rgba(0, 240, 255, 0.08) !important;
     border: 1px solid rgba(0, 240, 255, 0.3) !important;
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.15) !important;
-    padding: 0.38rem 0.95rem !important;
-    border-radius: 30px !important;
+    padding: 0 0.85rem !important;
     color: #00f0ff !important;
-    font-size: 0.78rem !important;
-    font-weight: 700 !important;
-    cursor: pointer;
-    margin: 0 !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     text-decoration: none !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.3rem !important;
 }
 
 .control-group .header-about-btn:hover {
@@ -8336,25 +8457,31 @@ body.focused-typing #typing-section-wrapper {
     transform: scale(0.95);
 }
 
-/* Next key hint - Glowing primary pulsing state */
-.live-keyboard-guide .key.next-key {
-    border-color: var(--primary) !important;
-    color: var(--primary) !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15) !important;
-    animation: keyPulse 1.4s infinite ease-in-out;
+/* Next key hint - Glowing live pulse-swing state across all scripts */
+.live-keyboard-guide .key.next-key,
+#mobile-virtual-keyboard .v-key.next-key {
+    border-color: var(--primary, #00f0ff) !important;
+    color: var(--primary, #00f0ff) !important;
+    background: rgba(0, 240, 255, 0.14) !important;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.38), inset 0 0 8px rgba(0, 240, 255, 0.18) !important;
+    animation: keyPulseSwing 1.25s infinite ease-in-out;
 }
 
-@keyframes keyPulse {
+@keyframes keyPulseSwing {
     0%, 100% {
-        opacity: 0.8;
-        transform: scale(1);
+        opacity: 0.88;
+        transform: translateY(0) scale(1) rotate(0deg);
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.25) !important;
     }
-    50% {
+    30% {
         opacity: 1;
-        transform: scale(1.02);
-        box-shadow: 0 0 14px var(--primary) !important;
-        border-color: var(--primary) !important;
+        transform: translateY(-2px) scale(1.06) rotate(-1.5deg);
+        box-shadow: 0 0 18px var(--primary, #00f0ff) !important;
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-1px) scale(1.04) rotate(1.5deg);
+        box-shadow: 0 0 16px var(--primary, #00f0ff) !important;
     }
 }
 
@@ -9640,23 +9767,32 @@ body.focused-typing .mascot-greeting-widget {
         margin-bottom: 0.25rem !important;
     }
 
-    .header-controls {
-        justify-content: flex-start !important;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
+    header nav {
         width: 100% !important;
-        padding: 0.4rem 0.2rem 0.6rem 0.2rem !important;
-        gap: 0.6rem !important;
-        flex-wrap: nowrap !important;
-        scrollbar-width: none; /* Firefox */
+        display: flex !important;
+        justify-content: center !important;
     }
 
-    .header-controls::-webkit-scrollbar {
-        display: none !important; /* Safari and Chrome */
+    .header-controls {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        width: 100% !important;
+        padding: 0.2rem 0 !important;
+        gap: 0.4rem !important;
     }
 
     .header-controls .control-group {
         flex-shrink: 0 !important;
+    }
+
+    .header-controls .control-label,
+    .control-label {
+        display: none !important;
     }
 
     /* 2. Swipe-Scrollable Lesson Selection Navigation */
@@ -10320,7 +10456,9 @@ body.focused-typing .mascot-greeting-widget {
         -webkit-overflow-scrolling: touch !important;
         z-index: 10000000 !important;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.3) !important;
-        background: rgba(10, 16, 30, 0.98) !important;
+        background: var(--dropdown-bg, #0c1427) !important;
+        backdrop-filter: blur(25px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
         border: 1px solid rgba(0, 240, 255, 0.3) !important;
@@ -10504,7 +10642,9 @@ body.focused-typing .mascot-greeting-widget {
         -webkit-overflow-scrolling: touch !important;
         z-index: 10000000 !important;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.3) !important;
-        background: rgba(10, 16, 30, 0.98) !important;
+        background: var(--dropdown-bg, #0c1427) !important;
+        backdrop-filter: blur(25px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
         border: 1px solid rgba(0, 240, 255, 0.3) !important;
@@ -11971,7 +12111,6 @@ body.focused-typing .mascot-greeting-widget {
 
 
 /* Textbox Controls Clean Layout */
-#layout-control-group, #layout-trigger, #layout-menu { display: none !important; }
 
 /* ==========================================================================
    1. PREMIUM OBSIDIAN THEME & GLASSMORPHISM UPGRADE
@@ -12502,4 +12641,1540 @@ body.is-typing .td-ad-wrapper {
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(255, 153, 0, 0.25);
+}
+
+/* ==========================================================================
+   CLEAN URL LANDING BANNERS, EXAM BAR, INDIC KEYCAPS & SEMANTIC GUIDES
+   ========================================================================== */
+.arena-page-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  max-width: 1120px;
+  margin: 0 auto 0.85rem;
+  padding: 0.7rem 1.15rem;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+}
+
+.arena-banner-title {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.28rem);
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.01em;
+}
+
+.arena-banner-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--primary, #00f0ff);
+  opacity: 0.92;
+}
+
+.arena-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.arena-quick-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.arena-quick-pill:hover,
+.arena-quick-pill.active {
+  color: #00f0ff;
+  border-color: rgba(0, 240, 255, 0.55);
+  background: rgba(0, 240, 255, 0.1);
+}
+
+.exam-rule-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.55rem 0.95rem;
+  margin-bottom: 0.75rem;
+  border-radius: 10px;
+  background: rgba(0, 240, 255, 0.07);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.exam-rule-pill {
+  color: #00f0ff;
+  font-weight: 700;
+}
+
+.exam-live-metrics {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #cbd5e1;
+}
+
+.exam-live-metrics strong {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.layout-switch-bar {
+  position: relative;
+  z-index: 26;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  margin-bottom: 0.75rem;
+  border-radius: 10px;
+  background: rgba(11, 15, 25, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.exam-rule-bar {
+  position: relative;
+  z-index: 26;
+}
+
+.word-group {
+  display: inline-block;
+}
+
+[data-lang="hindi"] #text-display span,
+[data-lang="marathi"] #text-display span,
+[data-lang="bengali"] #text-display span,
+[data-lang="tamil"] #text-display span,
+[data-lang="telugu"] #text-display span,
+[data-lang="gujarati"] #text-display span,
+[data-lang="kannada"] #text-display span,
+[data-lang="malayalam"] #text-display span,
+[data-lang="odia"] #text-display span,
+[data-lang="punjabi"] #text-display span,
+[data-lang="assamese"] #text-display span,
+[data-lang="urdu"] #text-display span,
+[data-lang="arabic"] #text-display span,
+[data-lang="japanese"] #text-display span {
+  letter-spacing: 0 !important;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+.layout-switch-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-right: 0.25rem;
+}
+
+.layout-switch-pill {
+  background: rgba(15, 23, 42, 0.7);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 0.28rem 0.72rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.layout-switch-pill:hover,
+.layout-switch-pill.active {
+  color: #0b0c10;
+  background: var(--primary, #00f0ff);
+  border-color: var(--primary, #00f0ff);
+}
+
+/* Indic keycap sub-label overlay on Live Keyboard Guide */
+#live-keyboard-guide .key {
+  position: relative;
+}
+
+#live-keyboard-guide .key .key-indic {
+  display: inline-block;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #00f0ff;
+  line-height: 1;
+}
+
+#live-keyboard-guide .key .key-latin-hint {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  font-size: 0.58rem;
+  opacity: 0.55;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Below-the-fold Landing Guide, Benchmark Tables, Action Boxes & Interactive FAQ */
+.landing-guide-section {
+  max-width: 1060px;
+  margin: 2.8rem auto 2rem;
+  padding: 2.2rem clamp(1.2rem, 3vw, 2.5rem);
+  background: rgba(11, 15, 25, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: #cbd5e1;
+  line-height: 1.72;
+}
+
+.landing-guide-section h1 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(1.65rem, 3.2vw, 2.3rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.22;
+  margin-bottom: 1rem;
+}
+
+.landing-guide-section h2 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(1.25rem, 2.3vw, 1.6rem);
+  font-weight: 700;
+  color: var(--primary, #00f0ff);
+  margin: 1.85rem 0 0.75rem;
+}
+
+.landing-guide-section h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 1.35rem 0 0.55rem;
+}
+
+.landing-guide-section p {
+  margin-bottom: 0.95rem;
+  color: #cbd5e1;
+}
+
+.landing-guide-section a {
+  color: var(--primary, #00f0ff);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.landing-guide-section ul,
+.landing-guide-section ol {
+  margin: 0.65rem 0 1.1rem 1.4rem;
+}
+
+.landing-guide-section li {
+  margin-bottom: 0.45rem;
+}
+
+.td-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.25rem 0 1.65rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.td-benchmark-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.td-benchmark-table th {
+  text-align: left;
+  padding: 0.78rem 1rem;
+  background: rgba(0, 240, 255, 0.08);
+  color: #00f0ff;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.td-benchmark-table td {
+  padding: 0.72rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+}
+
+.td-benchmark-table tr:last-child td {
+  border-bottom: none;
+}
+
+.td-action-box {
+  margin: 1.35rem 0;
+  padding: 1.15rem 1.35rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.08), rgba(16, 185, 129, 0.05));
+  border-left: 4px solid var(--primary, #00f0ff);
+}
+
+.td-action-box h3 {
+  margin-top: 0;
+  color: #ffffff;
+}
+
+.td-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.td-faq-list details.seo-faq-item {
+  background: rgba(15, 23, 42, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.95rem 1.15rem;
+}
+
+.td-faq-list summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #f8fafc;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.td-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.td-faq-list summary::after {
+  content: '+';
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--primary, #00f0ff);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.td-faq-list details[open] summary::after {
+  content: '−';
+}
+
+.td-faq-list details p {
+  margin: 0.75rem 0 0;
+  color: #cbd5e1;
+  font-size: 0.94rem;
+}
+
+/* CLS-0 Explicit Image Containment */
+.brand-logo-img {
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+.focus-mascot-img {
+  width: 120px;
+  height: 120px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+#live-mascot-avatar,
+.live-mascot-avatar {
+  width: 45px;
+  height: 45px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* Multi-Language Native Keycap Overlay, Heatmap & Pulse Polish */
+#live-keyboard-guide .key.mapped-key,
+.learning-visualizer .key.mapped-key {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+#live-keyboard-guide .key .key-qwerty,
+.learning-visualizer .key .key-qwerty {
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  font-size: 0.56rem;
+  line-height: 1;
+  opacity: 0.58;
+  font-family: 'JetBrains Mono', monospace;
+  color: rgba(226, 232, 240, 0.78);
+  pointer-events: none;
+}
+
+#live-keyboard-guide .key .key-indic,
+.learning-visualizer .key .key-indic {
+  font-family: var(--td-typing-font, 'Noto Sans Devanagari', sans-serif);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--primary, #00f0ff);
+  pointer-events: none;
+}
+
+#live-keyboard-guide .key.next-key .key-indic,
+.learning-visualizer .key.next-key .key-indic {
+  color: #ffffff;
+  text-shadow: 0 0 8px var(--primary, #00f0ff);
+}
+
+#mobile-virtual-keyboard .v-key {
+  font-family: var(--td-typing-font, var(--font-mono));
+}
+
+#result-keyboard-heatmap .heatmap-key.heat-mapped {
+  width: 34px;
+  height: 34px;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+#result-keyboard-heatmap .heatmap-key .heat-qwerty {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 0.48rem;
+  opacity: 0.65;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+#result-keyboard-heatmap .heatmap-key .heat-native {
+  font-size: 0.85rem;
+  line-height: 1.1;
+}
+
+/* Native Blink/HarfBuzz Cursive Highlight API (Per-Alphabet Urdu & Arabic Coloring) */
+::highlight(td-correct) {
+  color: var(--correct, #00e676);
+}
+
+::highlight(td-wrong) {
+  color: #ff4757;
+  background-color: rgba(255, 71, 87, 0.24);
+}
+
+::highlight(td-active) {
+  color: #ffffff;
+  background-color: rgba(0, 240, 255, 0.24);
+}
+
+#text-display span.active-cursive {
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 240, 255, 0.45);
+  text-underline-offset: 6px;
+}
+
+
+
+/* ==========================================================================
+   TypingDost Header Menu & Quick Settings Drawer (v7.0)
+   ========================================================================== */
+.header-controls .header-menu-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 28px !important;
+    padding: 0 0.65rem !important;
+    border-radius: 14px !important;
+    background: rgba(0, 240, 255, 0.06) !important;
+    border: 1px solid rgba(0, 240, 255, 0.25) !important;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.1) !important;
+    color: #ffffff !important;
+    font-size: 0.76rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    gap: 0.3rem !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.header-controls .header-menu-btn:hover,
+.header-controls .header-menu-btn.open {
+    background: rgba(0, 240, 255, 0.16) !important;
+    border-color: #00f0ff !important;
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.4) !important;
+    transform: translateY(-1px);
+}
+
+.header-settings-drawer {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    min-width: 250px !important;
+    background: rgba(10, 16, 30, 0.96) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(0, 240, 255, 0.3) !important;
+    border-radius: 14px !important;
+    padding: 0.6rem !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 240, 255, 0.15) !important;
+    z-index: 100000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.35rem !important;
+}
+
+.header-settings-drawer.hidden {
+    display: none !important;
+}
+
+.header-drawer-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    padding: 0.55rem 0.8rem !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 0.8rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-align: left !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.header-drawer-item:hover {
+    background: rgba(0, 240, 255, 0.14) !important;
+    border-color: rgba(0, 240, 255, 0.45) !important;
+    color: #00f0ff !important;
+    transform: translateX(3px) !important;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2) !important;
+}
+
+.header-drawer-item strong {
+    color: #00f0ff !important;
+    font-weight: 700 !important;
+}
+
+.drawer-divider {
+    height: 1px !important;
+    background: rgba(255, 255, 255, 0.09) !important;
+    margin: 0.25rem 0 !important;
+}
+
+
+/* Compact dynamic names to guarantee single-row header fit */
+#current-sound-name,
+#current-theme-name,
+#current-lang-name {
+    display: inline-block !important;
+    max-width: 70px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+}
+
+.header-controls .header-donate-btn {
+    padding: 0 0.75rem !important;
+    height: 32px !important;
+}
+
+.header-controls .header-menu-btn {
+    padding: 0 0.65rem !important;
+    height: 28px !important;
+}
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   TypingDost Professional Modern Navbar (Sleek Glassmorphic & Accessible)
+   ========================================================================== */
+header,
+header.main-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 96% !important;
+    max-width: 1440px !important;
+    margin: 0.8rem auto 1.2rem auto !important;
+    padding: 0.6rem 1.2rem !important;
+    position: relative !important;
+    z-index: 1000 !important;
+    box-sizing: border-box !important;
+    background: rgba(15, 23, 42, 0.65) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 18px !important;
+    transition: all 0.3s ease !important;
+}
+
+header:hover {
+    border-color: rgba(0, 240, 255, 0.25) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    user-select: none !important;
+    flex-shrink: 0 !important;
+}
+
+.brand-logo-img {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    object-fit: contain !important;
+    transition: transform 0.25s ease !important;
+}
+
+.logo:hover .brand-logo-img {
+    transform: rotate(-5deg) scale(1.05) !important;
+}
+
+.logo-text-typing {
+    font-family: 'Outfit', 'Space Grotesk', sans-serif !important;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+    color: #ffffff !important;
+}
+
+.logo-text-dost {
+    font-family: 'Outfit', 'Space Grotesk', sans-serif !important;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+    color: var(--primary, #00f0ff) !important;
+    margin-left: 2px !important;
+}
+
+/* Quick Navigation Links */
+.header-quick-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    margin-left: 1.5rem !important;
+}
+
+.quick-nav-link {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    text-decoration: none !important;
+    padding: 0.4rem 0.75rem !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+}
+
+.quick-nav-link:hover,
+.quick-nav-link.active {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.quick-nav-link.active {
+    color: var(--primary, #00f0ff) !important;
+    background: rgba(0, 240, 255, 0.08) !important;
+}
+
+/* Controls Toolbar */
+.header-controls {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.5rem !important;
+    margin-left: auto !important;
+    flex-wrap: nowrap !important;
+}
+
+.header-control-item {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* Base Header Button */
+.header-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 34px !important;
+    padding: 0 0.75rem !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    gap: 0.4rem !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    user-select: none !important;
+}
+
+.header-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(0, 240, 255, 0.4) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.15) !important;
+    transform: translateY(-1px) !important;
+}
+
+.header-btn .btn-text {
+    max-width: 85px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.header-btn .dropdown-arrow {
+    font-size: 0.65rem !important;
+    opacity: 0.7 !important;
+    margin-left: 2px !important;
+    transition: transform 0.2s ease !important;
+}
+
+.header-btn.open .dropdown-arrow {
+    transform: rotate(180deg) !important;
+}
+
+/* Vertical Separator */
+.header-separator {
+    width: 1px !important;
+    height: 20px !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    margin: 0 0.25rem !important;
+}
+
+/* Guides Nav Button */
+.header-nav-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 34px !important;
+    padding: 0 0.85rem !important;
+    border-radius: 10px !important;
+    background: rgba(0, 240, 255, 0.06) !important;
+    border: 1px solid rgba(0, 240, 255, 0.2) !important;
+    color: var(--primary, #00f0ff) !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: all 0.2s ease !important;
+}
+
+.header-nav-btn:hover {
+    background: rgba(0, 240, 255, 0.16) !important;
+    border-color: var(--primary, #00f0ff) !important;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.3) !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Support CTA Button */
+.header-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 34px !important;
+    padding: 0 0.95rem !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #ff0055, #ff0088) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 10px rgba(255, 0, 85, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+
+.header-cta-btn:hover {
+    background: linear-gradient(135deg, #ff1a6b, #ff1a99) !important;
+    box-shadow: 0 4px 18px rgba(255, 0, 85, 0.6) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Mobile Responsiveness for Header */
+@media (max-width: 992px) {
+    .header-quick-nav {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    header,
+    header.main-header {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        padding: 0.65rem 0.75rem !important;
+        margin: 0.5rem auto 1rem auto !important;
+        border-radius: 14px !important;
+    }
+
+    .header-controls {
+        width: 100% !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+    }
+
+    .header-btn,
+    .header-nav-btn,
+    .header-cta-btn {
+        height: 32px !important;
+        font-size: 0.74rem !important;
+        padding: 0 0.6rem !important;
+    }
+
+    .header-separator {
+        display: none !important;
+    }
+}
+
+
+
+
+/* ==========================================================================
+   Universal Dropdown & Mode Selector System — Sleek, Compact & Theme-Adaptive
+   ========================================================================== */
+
+/* 1. Theme-Adaptive Fallback Variables */
+:root {
+    --dropdown-bg: #111827;
+    --dropdown-border: rgba(255, 255, 255, 0.12);
+    --dropdown-text: #f8fafc;
+    --dropdown-sub: #94a3b8;
+}
+
+[data-theme="light"],
+[data-theme="solarizedlight"],
+[data-theme="cyberpastel"] {
+    --dropdown-bg: #f8fafc !important;
+    --dropdown-border: rgba(15, 23, 42, 0.12) !important;
+    --dropdown-text: #0f172a !important;
+    --dropdown-sub: #64748b !important;
+}
+
+/* 2. Dropdown Trigger Buttons — Professional Compact Size, Zero Bloat */
+.lesson-btn.practice-trigger,
+.practice-trigger,
+.header-menu-btn,
+.theme-trigger,
+.sound-trigger,
+#lang-trigger,
+.lang-btn,
+#textbox-style-btn,
+#textbox-fx-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.35rem !important;
+    padding: 0.35rem 0.8rem !important;
+    min-height: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+    background: var(--dropdown-bg, #111827) !important;
+    background-color: var(--dropdown-bg, #111827) !important;
+    border: 1px solid var(--dropdown-border, var(--glass-border, rgba(255, 255, 255, 0.12))) !important;
+    color: var(--dropdown-text, var(--text-main, #f8fafc)) !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.2px !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+/* Dropdown Arrow Indicator */
+.lesson-btn .dropdown-arrow,
+.practice-trigger .dropdown-arrow,
+.header-menu-btn .dropdown-arrow,
+.theme-trigger .dropdown-arrow {
+    display: inline-block !important;
+    font-size: 0.65rem !important;
+    margin-left: 0.15rem !important;
+    line-height: 1 !important;
+    opacity: 0.75 !important;
+    transition: transform 0.2s ease !important;
+}
+
+.lesson-btn.open .dropdown-arrow,
+.practice-trigger.open .dropdown-arrow,
+.header-menu-btn.open .dropdown-arrow,
+.theme-trigger[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg) !important;
+}
+
+/* Button Hover State */
+.lesson-btn.practice-trigger:hover,
+.practice-trigger:hover,
+.header-menu-btn:hover,
+.theme-trigger:hover,
+.sound-trigger:hover,
+#lang-trigger:hover {
+    background: var(--dropdown-bg, #162032) !important;
+    border-color: var(--primary, #00f0ff) !important;
+    color: var(--primary, #00f0ff) !important;
+    box-shadow: 0 0 10px var(--primary-glow, rgba(0, 240, 255, 0.3)) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Button Active / Selected State */
+.lesson-btn.practice-trigger.active-sub,
+.lesson-btn.practice-trigger.active,
+.practice-trigger.active-sub,
+.practice-trigger.active,
+.header-menu-btn.open,
+.theme-trigger.open,
+.sound-trigger.open {
+    background: var(--primary, #00f0ff) !important;
+    background-color: var(--primary, #00f0ff) !important;
+    color: var(--bg-color, #080c14) !important;
+    border-color: var(--primary, #00f0ff) !important;
+    box-shadow: 0 0 14px var(--primary-glow, rgba(0, 240, 255, 0.45)) !important;
+    font-weight: 700 !important;
+}
+
+/* 3. Dropdown Menu Containers — 100% Theme Matched, Compact & Perfect Alignment */
+.practice-dropdown {
+    position: relative !important;
+    display: inline-flex !important;
+}
+
+.header-control-item {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.header-control-item:has(.theme-menu:not(.hidden)),
+.header-control-item:has(.sound-menu:not(.hidden)),
+.header-control-item:has(#lang-menu:not(.hidden)) {
+    z-index: 10005 !important;
+}
+
+/* Universal Dropdown Popover Box Styles */
+.practice-menu,
+#practice-menu,
+#test-menu,
+#govt-menu,
+#game-menu,
+#layout-menu,
+#font-menu,
+.theme-menu,
+.sound-menu,
+#lang-menu,
+.textbox-style-dropdown,
+.textbox-fx-dropdown {
+    position: absolute !important;
+    top: calc(100% + 5px) !important;
+    background: var(--dropdown-bg, #111827) !important;
+    background-color: var(--dropdown-bg, #111827) !important;
+    border: 1px solid var(--dropdown-border, var(--glass-border, rgba(255, 255, 255, 0.12))) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.7), 0 0 16px var(--primary-glow, rgba(0, 240, 255, 0.15)) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    opacity: 1 !important;
+    z-index: 10005 !important;
+    box-sizing: border-box !important;
+}
+
+/* Mode Menus: Compact Width & Professional Alignment */
+.practice-menu,
+#test-menu,
+#govt-menu,
+#game-menu {
+    width: 250px !important;
+    max-height: 340px !important;
+    overflow-y: auto !important;
+    padding: 0.35rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.2rem !important;
+}
+
+/* Alignment per button position in dock */
+#test-dropdown .practice-menu {
+    left: 0 !important;
+    right: auto !important;
+    transform: none !important;
+}
+
+#govt-dropdown .practice-menu,
+#practice-dropdown .practice-menu {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+}
+
+#game-dropdown .practice-menu {
+    right: 0 !important;
+    left: auto !important;
+    transform: none !important;
+}
+
+/* Header Dropdowns (Theme, Sound, Lang, Layout): Right-Aligned & Compact */
+.header-controls .theme-menu,
+.header-controls .sound-menu,
+.header-controls #lang-menu,
+.header-control-item .theme-menu,
+.header-control-item .sound-menu,
+.header-control-item #lang-menu,
+.theme-dropdown .theme-menu,
+.sound-dropdown .sound-menu,
+#lang-dropdown #lang-menu,
+#layout-dropdown #layout-menu,
+#font-dropdown #font-menu {
+    right: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    width: 200px !important;
+    max-height: 290px !important;
+    overflow-y: auto !important;
+    padding: 0.32rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.2rem !important;
+}
+
+/* Mobile Center-Anchored Overlay for Dropdowns */
+@media (max-width: 768px) {
+    #test-menu,
+    #govt-menu,
+    #game-menu,
+    .practice-menu {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        margin: 0 !important;
+        width: 285px !important;
+        max-width: calc(100vw - 32px) !important;
+        max-height: 70vh !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 25px var(--primary-glow) !important;
+    }
+}
+
+/* Hidden States */
+.practice-menu.hidden,
+#practice-menu.hidden,
+#test-menu.hidden,
+#govt-menu.hidden,
+#game-menu.hidden,
+#layout-menu.hidden,
+#font-menu.hidden,
+.theme-menu.hidden,
+.sound-menu.hidden,
+#lang-menu.hidden,
+.textbox-style-dropdown.hidden,
+.textbox-fx-dropdown.hidden {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+/* Open States */
+.practice-menu:not(.hidden),
+#practice-menu:not(.hidden),
+#test-menu:not(.hidden),
+#govt-menu:not(.hidden),
+#game-menu:not(.hidden),
+#layout-menu:not(.hidden),
+#font-menu:not(.hidden),
+.theme-menu:not(.hidden),
+.sound-menu:not(.hidden),
+#lang-menu:not(.hidden),
+.textbox-style-dropdown:not(.hidden),
+.textbox-fx-dropdown:not(.hidden) {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+}
+
+/* 4. Dropdown Items & Sub-items — Clean Word Alignment, No Awkward Wrapping */
+.practice-menu .practice-item {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 0.55rem !important;
+    padding: 0.42rem 0.65rem !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    color: var(--dropdown-text, var(--text-main, #f8fafc)) !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: all 0.15s ease !important;
+}
+
+.practice-menu .practice-icon {
+    font-size: 1.1rem !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.practice-menu .practice-item-title {
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    color: var(--dropdown-text, var(--text-main, #f8fafc)) !important;
+}
+
+.practice-menu .practice-item-sub {
+    font-size: 0.68rem !important;
+    line-height: 1.25 !important;
+    margin-top: 1px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 180px !important;
+    color: var(--dropdown-sub, var(--text-sub, #94a3b8)) !important;
+}
+
+/* Sub-items in Header & Simple Menus */
+.theme-menu .theme-item,
+.sound-menu .sound-item,
+#lang-menu .lang-item,
+.theme-menu button,
+
+#lang-menu button,
+#layout-menu button,
+#font-menu button {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 0.55rem !important;
+    padding: 0.42rem 0.65rem !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    color: var(--dropdown-text, var(--text-main, #f8fafc)) !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    transition: all 0.15s ease !important;
+}
+
+/* Item Hover State */
+.practice-menu .practice-item:hover,
+.theme-menu .theme-item:hover,
+.sound-menu .sound-item:hover,
+#lang-menu .lang-item:hover,
+.theme-menu button:hover,
+.sound-menu button:hover,
+#lang-menu button:hover,
+#layout-menu button:hover,
+#font-menu button:hover {
+    background: color-mix(in srgb, var(--primary, #00f0ff) 12%, transparent) !important;
+    border-color: color-mix(in srgb, var(--primary, #00f0ff) 35%, transparent) !important;
+    color: var(--primary, #00f0ff) !important;
+    transform: translateX(2px) !important;
+}
+
+.practice-menu .practice-item:hover .practice-item-title {
+    color: var(--primary, #00f0ff) !important;
+}
+
+/* Item Selected / Active State */
+.practice-menu .practice-item.selected,
+.practice-menu .practice-item.active,
+.theme-menu .theme-item.selected,
+.sound-menu .sound-item.selected,
+#lang-menu .lang-item.selected,
+.theme-menu .theme-item.active,
+.sound-menu .sound-item.active,
+#lang-menu .lang-item.active {
+    background: color-mix(in srgb, var(--primary, #00f0ff) 18%, transparent) !important;
+    border-color: var(--primary, #00f0ff) !important;
+    color: var(--primary, #00f0ff) !important;
+    font-weight: 700 !important;
+}
+
+.practice-menu .practice-item.selected .practice-item-title,
+.practice-menu .practice-item.active .practice-item-title {
+    color: var(--primary, #00f0ff) !important;
+}
+
+/* 5. Custom Sleek Thin Scrollbar */
+.practice-menu::-webkit-scrollbar,
+#test-menu::-webkit-scrollbar,
+#govt-menu::-webkit-scrollbar,
+#game-menu::-webkit-scrollbar,
+.theme-menu::-webkit-scrollbar,
+.sound-menu::-webkit-scrollbar,
+#lang-menu::-webkit-scrollbar,
+#layout-menu::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+.practice-menu::-webkit-scrollbar-track,
+.theme-menu::-webkit-scrollbar-track,
+.sound-menu::-webkit-scrollbar-track,
+#lang-menu::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.practice-menu::-webkit-scrollbar-thumb,
+.theme-menu::-webkit-scrollbar-thumb,
+.sound-menu::-webkit-scrollbar-thumb,
+#lang-menu::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--primary, #00f0ff) 45%, transparent) !important;
+    border-radius: 4px !important;
+}
+
+.practice-menu::-webkit-scrollbar-thumb:hover,
+.theme-menu::-webkit-scrollbar-thumb:hover,
+.sound-menu::-webkit-scrollbar-thumb:hover,
+#lang-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--primary, #00f0ff) !important;
+}
+
+
+
+/* Dedicated Sound Dropdown Menu & Preview Speaker Layout */
+.header-controls .sound-menu,
+.header-control-item .sound-menu,
+.sound-dropdown .sound-menu,
+#sound-menu {
+    width: 245px !important;
+    max-height: 310px !important;
+    overflow-y: auto !important;
+    padding: 0.35rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.15rem !important;
+    right: 0 !important;
+    left: auto !important;
+    top: calc(100% + 5px) !important;
+}
+
+.sound-item-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 0.35rem !important;
+    padding: 0.15rem 0.3rem !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    transition: background 0.15s ease !important;
+}
+
+.sound-item-row:hover {
+    background: color-mix(in srgb, var(--primary, #00f0ff) 12%, transparent) !important;
+}
+
+.sound-item-row .sound-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: calc(100% - 30px) !important;
+    padding: 0.32rem 0.45rem !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 4px !important;
+    color: var(--dropdown-text, var(--text-main, #f8fafc)) !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: all 0.15s ease !important;
+}
+
+.sound-item-row .sound-item-icon {
+    font-size: 0.95rem !important;
+    flex-shrink: 0 !important;
+}
+
+.sound-item-row .sound-item.active,
+.sound-item-row .sound-item.selected {
+    color: var(--primary, #00f0ff) !important;
+    font-weight: 700 !important;
+}
+
+/* Speaker Testing Button — Neatly aligned next to sound name */
+.sound-item-row .sound-preview-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 24px !important;
+    width: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: 0.82rem !important;
+    cursor: pointer !important;
+    opacity: 0.75 !important;
+    line-height: 1 !important;
+    color: var(--dropdown-text, var(--text-main, #f8fafc)) !important;
+    transition: all 0.15s ease !important;
+    box-sizing: border-box !important;
+}
+
+.sound-item-row .sound-preview-btn:hover {
+    opacity: 1 !important;
+    transform: scale(1.15) !important;
+    background: color-mix(in srgb, var(--primary, #00f0ff) 25%, transparent) !important;
+    color: var(--primary, #00f0ff) !important;
+}
+
+/* Ensure social buttons in cyber-footer are 100% clickable and topmost */
+.cyber-footer .social-links {
+    position: relative !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+}
+
+.cyber-footer .social-btn {
+    position: relative !important;
+    z-index: 101 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+.cyber-footer .social-btn svg,
+.cyber-footer .social-btn svg * {
+    pointer-events: none !important;
+}
+
+/* ==========================================================================
+   PERFECT HEADER ALIGNMENT & SLEEK CYBER PILL CONTROLS (v8.2)
+   Fixes label overflow, disalignment, and ensures single-row alignment
+   ========================================================================== */
+header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    width: 94% !important;
+    max-width: 1400px !important;
+    margin: 1.2rem auto 1rem auto !important;
+    padding: 0.65rem 1.25rem !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+header .logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+}
+
+header nav,
+header nav[aria-label="Site Controls"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    margin-left: auto !important;
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+}
+
+.header-controls {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.45rem !important;
+    flex-wrap: nowrap !important;
+    width: auto !important;
+}
+
+/* Strict elimination of all redundant duplicate header labels */
+.header-controls .control-label,
+.control-label {
+    display: none !important;
+}
+
+/* Transparent control-group wrappers */
+.header-controls .control-group {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    height: auto !important;
+}
+
+/* Unified Pill Button Styles across ALL header items */
+.header-controls .sound-trigger,
+.header-controls .theme-trigger,
+.header-controls #lang-trigger,
+.header-controls .eye-comfort-btn,
+.header-controls .display-mode-btn,
+.header-controls .header-about-btn,
+.header-controls .header-donate-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 34px !important;
+    padding: 0 0.72rem !important;
+    border-radius: 18px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #e2e8f0 !important;
+    font-size: 0.78rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    gap: 0.32rem !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.header-controls .sound-trigger:hover,
+.header-controls .theme-trigger:hover,
+.header-controls #lang-trigger:hover,
+.header-controls .eye-comfort-btn:hover,
+.header-controls .display-mode-btn:hover,
+.header-controls .header-about-btn:hover {
+    background: rgba(255, 255, 255, 0.09) !important;
+    border-color: var(--primary, #00f0ff) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.25) !important;
+    transform: translateY(-1px) !important;
+}
+
+.header-controls .sound-trigger.open,
+.header-controls .theme-trigger.open,
+.header-controls #lang-trigger.open {
+    border-color: var(--primary, #00f0ff) !important;
+    background: rgba(0, 240, 255, 0.12) !important;
+    color: var(--primary, #00f0ff) !important;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.3) !important;
+}
+
+/* Distinct Eye Comfort active state */
+.header-controls .eye-comfort-btn.active {
+    background: rgba(255, 140, 0, 0.15) !important;
+    border-color: #ff8c00 !important;
+    color: #ff8c00 !important;
+    box-shadow: 0 0 12px rgba(255, 140, 0, 0.35) !important;
+}
+
+/* Distinct Support Button */
+.header-controls .header-donate-btn {
+    background: linear-gradient(135deg, #ff0055, #ff00aa) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(255, 0, 85, 0.35) !important;
+}
+
+.header-controls .header-donate-btn:hover {
+    background: linear-gradient(135deg, #ff1a6b, #ff1ab3) !important;
+    box-shadow: 0 0 18px rgba(255, 0, 85, 0.55) !important;
+    transform: translateY(-1px) scale(1.02) !important;
+}
+
+/* Responsive breakpoint for smaller laptops and tablets */
+@media (max-width: 1080px) {
+    header {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.75rem !important;
+        padding: 0.6rem 0.5rem !important;
+    }
+    
+    header .logo {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    header nav,
+    header nav[aria-label="Site Controls"] {
+        width: 100% !important;
+        justify-content: center !important;
+        margin: 0 auto !important;
+    }
+    
+    .header-controls {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+        width: 100% !important;
+    }
 }

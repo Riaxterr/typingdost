@@ -1,0 +1,232 @@
+{
+  "trailingSlash": true,
+  "cleanUrls": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.typingdost.com"
+        }
+      ],
+      "destination": "https://typingdost.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/assamese-typing-test.html",
+      "destination": "/assamese-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/bengali-typing-test.html",
+      "destination": "/bengali-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/english-typing-test.html",
+      "destination": "/english-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/gujarati-typing-test.html",
+      "destination": "/gujarati-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/hindi-typing-test.html",
+      "destination": "/hindi-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/hinglish-typing-test.html",
+      "destination": "/hinglish-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/kannada-typing-test.html",
+      "destination": "/kannada-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/malayalam-typing-test.html",
+      "destination": "/malayalam-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/marathi-typing-test.html",
+      "destination": "/marathi-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/odia-typing-test.html",
+      "destination": "/odia-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/punjabi-typing-test.html",
+      "destination": "/punjabi-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/tamil-typing-test.html",
+      "destination": "/tamil-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/telugu-typing-test.html",
+      "destination": "/telugu-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/urdu-typing-test.html",
+      "destination": "/urdu-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/1-minute-typing-test.html",
+      "destination": "/1-minute-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/2-minute-typing-test.html",
+      "destination": "/2-minute-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/5-minute-typing-test.html",
+      "destination": "/5-minute-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/10-minute-typing-test.html",
+      "destination": "/10-minute-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/ssc-chsl-typing-test.html",
+      "destination": "/ssc-chsl-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/ssc-cgl-typing-test.html",
+      "destination": "/ssc-cgl-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/rrb-ntpc-typing-test.html",
+      "destination": "/rrb-ntpc-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/bsf-hcm-typing-test.html",
+      "destination": "/bsf-hcm-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/high-court-typing-test.html",
+      "destination": "/high-court-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/kruti-dev-typing-test.html",
+      "destination": "/kruti-dev-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/mangal-inscript-typing-test.html",
+      "destination": "/mangal-inscript-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/coding-typing-test.html",
+      "destination": "/coding-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/data-entry-typing-test.html",
+      "destination": "/data-entry-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/touch-typing-lessons.html",
+      "destination": "/touch-typing-lessons/",
+      "permanent": true
+    },
+    {
+      "source": "/verify.html",
+      "destination": "/verify/",
+      "permanent": true
+    },
+    {
+      "source": "/support.html",
+      "destination": "/support/",
+      "permanent": true
+    },
+    {
+      "source": "/gear.html",
+      "destination": "/gear/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/court-clerk-typing-test-guide.html",
+      "destination": "/blog/rrb-ntpc-high-court-typing-test-strategy/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cpct-typing-test-guide.html",
+      "destination": "/blog/hindi-typing-kaise-sikhe-phonetic-qwerty/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/free-typing-certificate-download.html",
+      "destination": "/certificate.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hindi-typing-kaise-sikhe.html",
+      "destination": "/blog/hindi-typing-kaise-sikhe-phonetic-qwerty/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kruti-dev-typing-test.html",
+      "destination": "/hindi-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mangal-font-typing-test.html",
+      "destination": "/hindi-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/rrb-ntpc-typing-test-guide.html",
+      "destination": "/blog/rrb-ntpc-high-court-typing-test-strategy/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ssc-cgl-typing-test-guide.html",
+      "destination": "/blog/ssc-chsl-cgl-typing-test-rules-error-formula/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ssc-chsl-typing-test-guide.html",
+      "destination": "/blog/ssc-chsl-cgl-typing-test-rules-error-formula/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/typing-speed-kaise-badhaye.html",
+      "destination": "/blog/how-to-increase-typing-speed/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/typing-speed-test-5-minute.html",
+      "destination": "/5-minute-typing-test/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/typing-test-1-minute.html",
+      "destination": "/1-minute-typing-test/",
+      "permanent": true
+    }
+  ]
+}

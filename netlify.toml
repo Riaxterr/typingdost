@@ -1,0 +1,241 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "http://typingdost.com/*"
+  to = "https://typingdost.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.typingdost.com/*"
+  to = "https://typingdost.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.typingdost.com/*"
+  to = "https://typingdost.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/assamese-typing-test.html"
+  to = "/assamese-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/bengali-typing-test.html"
+  to = "/bengali-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/english-typing-test.html"
+  to = "/english-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/gujarati-typing-test.html"
+  to = "/gujarati-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/hindi-typing-test.html"
+  to = "/hindi-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/hinglish-typing-test.html"
+  to = "/hinglish-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/kannada-typing-test.html"
+  to = "/kannada-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/malayalam-typing-test.html"
+  to = "/malayalam-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/marathi-typing-test.html"
+  to = "/marathi-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/odia-typing-test.html"
+  to = "/odia-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/punjabi-typing-test.html"
+  to = "/punjabi-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/tamil-typing-test.html"
+  to = "/tamil-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/telugu-typing-test.html"
+  to = "/telugu-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/urdu-typing-test.html"
+  to = "/urdu-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/1-minute-typing-test.html"
+  to = "/1-minute-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/2-minute-typing-test.html"
+  to = "/2-minute-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/5-minute-typing-test.html"
+  to = "/5-minute-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/10-minute-typing-test.html"
+  to = "/10-minute-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/ssc-chsl-typing-test.html"
+  to = "/ssc-chsl-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/ssc-cgl-typing-test.html"
+  to = "/ssc-cgl-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/rrb-ntpc-typing-test.html"
+  to = "/rrb-ntpc-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/bsf-hcm-typing-test.html"
+  to = "/bsf-hcm-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/high-court-typing-test.html"
+  to = "/high-court-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/kruti-dev-typing-test.html"
+  to = "/kruti-dev-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/mangal-inscript-typing-test.html"
+  to = "/mangal-inscript-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/coding-typing-test.html"
+  to = "/coding-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/data-entry-typing-test.html"
+  to = "/data-entry-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/touch-typing-lessons.html"
+  to = "/touch-typing-lessons/"
+  status = 301
+
+[[redirects]]
+  from = "/verify.html"
+  to = "/verify/"
+  status = 301
+
+[[redirects]]
+  from = "/support.html"
+  to = "/support/"
+  status = 301
+
+[[redirects]]
+  from = "/gear.html"
+  to = "/gear/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/court-clerk-typing-test-guide.html"
+  to = "/blog/rrb-ntpc-high-court-typing-test-strategy/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/cpct-typing-test-guide.html"
+  to = "/blog/hindi-typing-kaise-sikhe-phonetic-qwerty/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/free-typing-certificate-download.html"
+  to = "/certificate.html"
+  status = 301
+
+[[redirects]]
+  from = "/blog/hindi-typing-kaise-sikhe.html"
+  to = "/blog/hindi-typing-kaise-sikhe-phonetic-qwerty/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/kruti-dev-typing-test.html"
+  to = "/hindi-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/mangal-font-typing-test.html"
+  to = "/hindi-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/rrb-ntpc-typing-test-guide.html"
+  to = "/blog/rrb-ntpc-high-court-typing-test-strategy/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/ssc-cgl-typing-test-guide.html"
+  to = "/blog/ssc-chsl-cgl-typing-test-rules-error-formula/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/ssc-chsl-typing-test-guide.html"
+  to = "/blog/ssc-chsl-cgl-typing-test-rules-error-formula/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/typing-speed-kaise-badhaye.html"
+  to = "/blog/how-to-increase-typing-speed/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/typing-speed-test-5-minute.html"
+  to = "/5-minute-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/typing-test-1-minute.html"
+  to = "/1-minute-typing-test/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/hindi-typing-kaise-sikhe-mangal-kruti-dev/*"
+  to = "/blog/hindi-typing-kaise-sikhe-phonetic-qwerty/"
+  status = 301
+  force = true

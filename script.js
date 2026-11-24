@@ -1,22 +1,55 @@
-// Immediate early URL-based Language Detection (Synchronous before any render)
+// Depth-aware asset resolver (works seamlessly on https://typingdost.com/, http://127.0.0.1, AND file:/// desktop openings)
+function tdGetSitePrefix() {
+    if (typeof window === 'undefined') return '/';
+    if (window.location && window.location.protocol !== 'file:') return '/';
+    if (typeof document !== 'undefined') {
+        const refEl = document.querySelector('link[href*="style.min.css"], script[src*="script.min.js"], script[src*="script.js"]');
+        if (refEl) {
+            const raw = refEl.getAttribute('href') || refEl.getAttribute('src') || '';
+            const idx = raw.search(/(?:style(?:\.min)?\.css|script(?:\.min)?\.js)/);
+            if (idx > 0) return raw.slice(0, idx);
+            if (idx === 0) return './';
+        }
+    }
+    return './';
+}
+
+function tdResolveRootAsset(relPath) {
+    if (!relPath) return relPath;
+    if (/^(https?:|data:|blob:|mailto:|tel:|#)/i.test(relPath)) return relPath;
+    const clean = relPath.replace(/^(\.\.\/)+/, '').replace(/^\/+/, '');
+    if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
+        return tdGetSitePrefix() + clean;
+    }
+    return '/' + clean;
+}
+if (typeof window !== 'undefined') {
+    window.tdResolveRootAsset = tdResolveRootAsset;
+    window.tdGetSitePrefix = tdGetSitePrefix;
+}
+
+// Immediate early URL & Page-Config Language Detection (Synchronous before any render)
 (function() {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+        const cfg = window.TYPINGDOST_PAGE_CONFIG || null;
         const pathname = window.location.pathname.toLowerCase();
-        let detected = null;
-        if (pathname.includes('tamil-typing-test')) detected = 'tamil';
-        else if (pathname.includes('hindi-typing-test')) detected = 'hindi';
-        else if (pathname.includes('marathi-typing-test')) detected = 'marathi';
-        else if (pathname.includes('bengali-typing-test')) detected = 'bengali';
-        else if (pathname.includes('telugu-typing-test')) detected = 'telugu';
-        else if (pathname.includes('gujarati-typing-test')) detected = 'gujarati';
-        else if (pathname.includes('kannada-typing-test')) detected = 'kannada';
-        else if (pathname.includes('malayalam-typing-test')) detected = 'malayalam';
-        else if (pathname.includes('odia-typing-test')) detected = 'odia';
-        else if (pathname.includes('punjabi-typing-test')) detected = 'punjabi';
-        else if (pathname.includes('assamese-typing-test')) detected = 'assamese';
-        else if (pathname.includes('urdu-typing-test')) detected = 'urdu';
-        else if (pathname.includes('hinglish-typing-test')) detected = 'hinglish';
-        else if (pathname.includes('english-typing-test')) detected = 'english';
+        let detected = (cfg && cfg.lang) ? String(cfg.lang).toLowerCase() : null;
+        if (!detected) {
+            if (pathname.includes('tamil-typing-test')) detected = 'tamil';
+            else if (pathname.includes('hindi-typing-test')) detected = 'hindi';
+            else if (pathname.includes('marathi-typing-test')) detected = 'marathi';
+            else if (pathname.includes('bengali-typing-test')) detected = 'bengali';
+            else if (pathname.includes('telugu-typing-test')) detected = 'telugu';
+            else if (pathname.includes('gujarati-typing-test')) detected = 'gujarati';
+            else if (pathname.includes('kannada-typing-test')) detected = 'kannada';
+            else if (pathname.includes('malayalam-typing-test')) detected = 'malayalam';
+            else if (pathname.includes('odia-typing-test')) detected = 'odia';
+            else if (pathname.includes('punjabi-typing-test')) detected = 'punjabi';
+            else if (pathname.includes('assamese-typing-test')) detected = 'assamese';
+            else if (pathname.includes('urdu-typing-test')) detected = 'urdu';
+            else if (pathname.includes('hinglish-typing-test')) detected = 'hinglish';
+            else if (pathname.includes('english-typing-test')) detected = 'english';
+        }
         
         const urlParams = new URLSearchParams(window.location.search);
         const urlLang = urlParams.get('lang');
@@ -25,6 +58,13 @@
         if (detected) {
             try { localStorage.setItem('typingDostLang', detected); } catch(e){}
         }
+        if (cfg && cfg.layout && detected) {
+            try { localStorage.setItem('typingDostLayout_' + detected, cfg.layout); } catch(e){}
+        }
+        window.__TD_NATIVE_INDIC_SCRIPT__ = Boolean(
+            (detected && !['english', 'hinglish', 'spanish', 'french', 'german', 'portuguese'].includes(detected)) &&
+            (!cfg || !cfg.layout || cfg.layout !== 'direct')
+        );
     }
 })();
 
@@ -1720,7 +1760,8 @@ function applyCaretFxStyles() {
     }
 }
 
-let maxTime = 60;
+const __TD_CFG__ = (typeof window !== 'undefined' && window.TYPINGDOST_PAGE_CONFIG) ? window.TYPINGDOST_PAGE_CONFIG : null;
+let maxTime = (__TD_CFG__ && Number(__TD_CFG__.maxTime)) ? Number(__TD_CFG__.maxTime) : 60;
 let timeLeft = maxTime;
 let charIndex = 0;
 let mistakes = 0;
@@ -1731,7 +1772,7 @@ let isComposing = false;
 let correctStreak = 0; // Combo streak counter for caret color
 let interval;
 let currentText = "";
-let currentLesson = 'sentences';
+let currentLesson = (__TD_CFG__ && __TD_CFG__.lesson) ? __TD_CFG__.lesson : 'sentences';
 let bestWpm = localStorage.getItem('typingDostBestWpm') || 0;
 let currentSoundProfile = 'water_drop';
 let lastWpm = 0;
@@ -1749,6 +1790,19 @@ function detectCurrentLanguage() {
         'urdu', 'assamese', 'spanish', 'french', 'german', 'arabic',
         'japanese', 'portuguese'
     ];
+    const urlParams = (typeof window !== 'undefined') ? new URLSearchParams(window.location.search) : null;
+    const urlLang = urlParams ? urlParams.get('lang') : null;
+    if (urlLang && validLangs.includes(urlLang.toLowerCase())) {
+        const langClean = urlLang.toLowerCase();
+        try { localStorage.setItem('typingDostLang', langClean); } catch(e){}
+        return langClean;
+    }
+    const cfg = (typeof window !== 'undefined' && window.TYPINGDOST_PAGE_CONFIG) ? window.TYPINGDOST_PAGE_CONFIG : null;
+    if (cfg && cfg.lang && validLangs.includes(String(cfg.lang).toLowerCase())) {
+        const cfgLang = String(cfg.lang).toLowerCase();
+        try { localStorage.setItem('typingDostLang', cfgLang); } catch(e){}
+        return cfgLang;
+    }
     const pathname = (typeof window !== 'undefined' ? window.location.pathname.toLowerCase() : '');
     let pageLang = null;
     if (pathname.includes('tamil-typing-test')) pageLang = 'tamil';
@@ -1769,13 +1823,6 @@ function detectCurrentLanguage() {
     if (pageLang) {
         try { localStorage.setItem('typingDostLang', pageLang); } catch(e){}
         return pageLang;
-    }
-    const urlParams = (typeof window !== 'undefined') ? new URLSearchParams(window.location.search) : null;
-    const urlLang = urlParams ? urlParams.get('lang') : null;
-    if (urlLang && validLangs.includes(urlLang.toLowerCase())) {
-        const langClean = urlLang.toLowerCase();
-        try { localStorage.setItem('typingDostLang', langClean); } catch(e){}
-        return langClean;
     }
     const lsLang = (typeof localStorage !== 'undefined') ? localStorage.getItem('typingDostLang') : null;
     return (lsLang && validLangs.includes(lsLang)) ? lsLang : 'english';
@@ -1866,8 +1913,8 @@ let metronomeInterval = null;
 let isBlindMode = false;
 let isStopOnError = false;
 let isZenMode = false;
-let testMode = 'time'; // 'time' or 'words'
-let wordLimit = 50;    // used when testMode === 'words'
+let testMode = (__TD_CFG__ && __TD_CFG__.testMode) ? __TD_CFG__.testMode : 'time'; // 'time' or 'words'
+let wordLimit = (__TD_CFG__ && Number(__TD_CFG__.wordLimit)) ? Number(__TD_CFG__.wordLimit) : 50;    // used when testMode === 'words'
 let wordsTyped = 0;    // word count for words mode
 let sessionHistory = safeGetLocalStorage('typingDostHistory', []);
 let userXP = safeGetLocalStorage('typing_dost_xp', 0);
@@ -2004,7 +2051,7 @@ const loadedMemes = {};
 function playMeme(filename) {
     try {
         if (!loadedMemes[filename]) {
-            loadedMemes[filename] = new Audio(`memes/${filename}`);
+            loadedMemes[filename] = new Audio(tdResolveRootAsset(`memes/${filename}`));
         }
         loadedMemes[filename].cloneNode(true).play();
     } catch(e) {}
@@ -2506,6 +2553,22 @@ typingInput.addEventListener('copy', e => e.preventDefault());
 // Caches for highly-optimized, lag-free typing performance (Google Flow Model style)
 let activeSpansList = [];
 let cachedLineHeight = null;
+let tdPrevInputCodeLen = 0;
+let tdActiveSubOffset = 0;
+let tdActivePartialTyped = '';
+let tdCurrentTypedCodeCount = 0;
+const _tdSegmenterCache = {};
+
+function tdGetActiveLangSafe() {
+    return (typeof currentLearningLang !== 'undefined' && currentLearningLang)
+        ? currentLearningLang.toLowerCase()
+        : (typeof localStorage !== 'undefined' ? (localStorage.getItem('typingDostLang') || 'english') : 'english').toLowerCase();
+}
+
+function tdSegmentUnits(str, langOverride, lessonOverride) {
+    if (!str) return [];
+    return [...str];
+}
 
 // ---- CHUNKED RENDERING SYSTEM ----
 // Always keep the DOM small (~150 words) regardless of test duration.
@@ -2556,17 +2619,32 @@ function buildWordQueue() {
         return;
     }
 
-    const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang) 
-        ? currentLearningLang.toLowerCase() 
-        : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
+    const activeLang = tdGetActiveLangSafe();
+    const cfg = (typeof window !== 'undefined' && window.TYPINGDOST_PAGE_CONFIG) ? window.TYPINGDOST_PAGE_CONFIG : null;
+    const defaultLayout = (activeLang === 'urdu' ? 'urdu-phonetic' : activeLang === 'arabic' ? 'arabic-101' : activeLang === 'tamil' ? 'tamil-99' : activeLang === 'japanese' ? 'romaji' : 'phonetic');
+    const manualChoice = (typeof window !== 'undefined' && window.__tdManualLayoutLangs) ? window.__tdManualLayoutLangs[activeLang] : null;
+    const activeLayout = manualChoice || (typeof localStorage !== 'undefined' ? localStorage.getItem('typingDostLayout_' + activeLang) : null) || (cfg && cfg.lang === activeLang && cfg.layout) || defaultLayout;
+    const isLatinLang = ['english', 'hinglish', 'spanish', 'french', 'german', 'portuguese'].includes(activeLang);
+    const hasIndicPassages = (typeof INDIC_PASSAGES !== 'undefined' && INDIC_PASSAGES[activeLang] && INDIC_PASSAGES[activeLang].length > 0);
+    const useNativeIndicScript = Boolean(
+        !isLatinLang &&
+        hasIndicPassages &&
+        !['coder', 'dataentry', 'weakspot', 'custom'].includes(currentLesson)
+    );
+    if (typeof window !== 'undefined') {
+        window.__TD_NATIVE_INDIC_SCRIPT__ = useNativeIndicScript && activeLayout !== 'direct';
+    }
+
     let currentBank = lessons[currentLesson];
     const langLessons = multilingualLessons[activeLang] || multilingualLessons.english;
     
-    // Check if the current language has a dedicated bank for this lesson
-    if (langLessons && langLessons[currentLesson] && Array.isArray(langLessons[currentLesson]) && langLessons[currentLesson].length > 0) {
+    if (useNativeIndicScript) {
+        currentBank = INDIC_PASSAGES[activeLang];
+    } else if (['coder', 'dataentry', 'govtexam', 'homerow', 'toprow', 'bottomrow', 'numbers', 'homerow_toprow', 'homerow_bottomrow', 'toprow_bottomrow', 'allrows'].includes(currentLesson) && lessons[currentLesson]) {
+        currentBank = lessons[currentLesson];
+    } else if (langLessons && langLessons[currentLesson] && Array.isArray(langLessons[currentLesson]) && langLessons[currentLesson].length > 0) {
         currentBank = langLessons[currentLesson];
     } else if (!currentBank || currentBank.length === 0) {
-        // Only fallback to sentences if currentBank in global lessons does not exist
         if (langLessons && langLessons.sentences && Array.isArray(langLessons.sentences) && langLessons.sentences.length > 0) {
             currentBank = langLessons.sentences;
         }
@@ -2632,13 +2710,15 @@ function buildWordQueue() {
     });
 }
 
-// Convert an array of words into an HTML string of spans with 100% Unicode codepoint accuracy
+// Convert an array of words into akshar/syllable-safe spans (prevents broken Indic matra dotted circles)
 function wordsToHtml(words) {
     let html = '';
+    const activeLang = tdGetActiveLangSafe();
     words.forEach((word, wordIdx) => {
         html += '<span class="word-group">';
-        [...word].forEach(char => {
-            const e = char === '&' ? '&amp;' : char === '<' ? '&lt;' : char === '>' ? '&gt;' : char;
+        const units = tdSegmentUnits(word, activeLang, currentLesson);
+        units.forEach(unit => {
+            const e = unit.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             html += `<span>${e}</span>`;
         });
         html += '</span>';
@@ -2734,11 +2814,22 @@ function renderNewText() {
     let firstSpan = activeSpansList[0];
     if(firstSpan) firstSpan.classList.add('active');
     
-    // Smooth reset of inputs
+    // Smooth reset of inputs & multi-codepoint tracking
     typingInput.value = "";
     charIndex = 0;
     mistakes = 0;
-    
+    tdPrevInputCodeLen = 0;
+    tdActiveSubOffset = 0;
+    tdActivePartialTyped = '';
+    tdCurrentTypedCodeCount = 0;
+    pendingPreBaseMatra = null;
+    pendingRomajiBuffer = '';
+    if (typeof CSS !== 'undefined' && CSS.highlights) {
+        CSS.highlights.delete('td-correct');
+        CSS.highlights.delete('td-wrong');
+        CSS.highlights.delete('td-active');
+    }
+
     updateCaretPosition();
     if (typeof updateKeyboardGuideNextKey === 'function') {
         updateKeyboardGuideNextKey();
@@ -2805,6 +2896,12 @@ function loadNewText() {
     wpmEl.innerText = 0;
     mistakesEl.innerText = 0;
     accuracyEl.innerText = "100%";
+    const kdphEl = document.getElementById('exam-kdph-live');
+    const keysEl = document.getElementById('exam-keystrokes-live');
+    const errRateEl = document.getElementById('exam-error-rate-live');
+    if (kdphEl) kdphEl.textContent = '0';
+    if (keysEl) keysEl.textContent = '0';
+    if (errRateEl) errRateEl.textContent = '0.00%';
     if (typeof updateKeyboardGuideNextKey === 'function') {
         updateKeyboardGuideNextKey();
     }
@@ -2831,19 +2928,47 @@ function updateCaretPosition() {
     const isRTL = (textDisplay && window.getComputedStyle)
         ? (getComputedStyle(textDisplay).direction === 'rtl')
         : (textDisplay && textDisplay.style.direction === 'rtl');
+
+    let spanLeft = cachedSpan.left;
+    let spanRight = cachedSpan.right;
+    let spanTop = cachedSpan.top;
+    let spanWidth = cachedSpan.width;
+
+    // Per-alphabet exact caret placement inside unbroken Urdu/Arabic words & multi-codepoint Indic akshars
+    const activeDomSpan = chars[activeSpanIdx];
+    if (!isAtEnd && activeDomSpan && activeDomSpan.firstChild && activeDomSpan.firstChild.nodeType === 3) {
+        const tn = activeDomSpan.firstChild;
+        const subOff = Math.min(tdActiveSubOffset || 0, Math.max(0, tn.length - 1));
+        if (tn.length > 1 && (tdActiveSubOffset > 0 || isRTL)) {
+            try {
+                const rng = document.createRange();
+                rng.setStart(tn, subOff);
+                rng.setEnd(tn, Math.min(tn.length, subOff + 1));
+                const rRect = rng.getBoundingClientRect();
+                const tdRect = textDisplay.getBoundingClientRect();
+                if (rRect && rRect.width > 0) {
+                    spanLeft = rRect.left - tdRect.left + textDisplay.scrollLeft;
+                    spanRight = rRect.right - tdRect.left + textDisplay.scrollLeft;
+                    spanTop = rRect.top - tdRect.top + textDisplay.scrollTop;
+                    spanWidth = rRect.width;
+                }
+            } catch (e) {}
+        }
+    }
+
     const x = isRTL 
-        ? (isAtEnd ? cachedSpan.left : cachedSpan.right)
-        : (isAtEnd ? cachedSpan.right : cachedSpan.left);
-    const y = cachedSpan.top;
+        ? (isAtEnd ? spanLeft : spanRight)
+        : (isAtEnd ? spanRight : spanLeft);
+    const y = spanTop;
 
     const fxConfig = (typeof getTypingFxSettings === 'function') ? getTypingFxSettings() : null;
     const isBoxStyle = fxConfig && (fxConfig.caretStyle === 'block' || fxConfig.caretStyle === 'outline' || fxConfig.caretStyle === 'underline');
 
     let caretPosX = x;
     if (isBoxStyle && !isAtEnd) {
-        const charW = Math.max(10, cachedSpan.width || 14);
+        const charW = Math.max(10, spanWidth || 14);
         caret.style.width = `${charW}px`;
-        caretPosX = isRTL ? (cachedSpan.right - charW) : cachedSpan.left;
+        caretPosX = isRTL ? (spanRight - charW) : spanLeft;
     } else {
         if (!isBoxStyle) {
             caret.style.width = '';
@@ -3020,90 +3145,229 @@ function initTyping(e) {
         }
 
         const currentInputVal = typingInput.value;
-        const inputChars = [...currentInputVal];
-        const prevCharIndex = charIndex;
-        const newCharIndex = Math.min(inputChars.length, chars.length);
+        const inputCodeLen = [...currentInputVal].length;
+        const prevCodeLen = tdPrevInputCodeLen;
 
-        if (inputChars.length < prevCharIndex) {
+        if (inputCodeLen < prevCodeLen) {
             playClick();
-            backspaceCount += (prevCharIndex - inputChars.length);
+            backspaceCount += (prevCodeLen - inputCodeLen);
         }
 
-        // Full Declarative State Synchronization across all text spans
         const fxConfig = (typeof getTypingFxSettings === 'function') ? getTypingFxSettings() : { letterAnim: 'pop', errorShake: true, sparks: 'streak' };
-        const isNewKeystroke = (inputChars.length > prevCharIndex);
-        const lastTypedIdx = inputChars.length - 1;
+        const isNewKeystroke = (inputCodeLen > prevCodeLen);
+        const activeLang = tdGetActiveLangSafe();
+        const defaultLayout = (activeLang === 'urdu' ? 'urdu-phonetic' : activeLang === 'arabic' ? 'arabic-101' : activeLang === 'tamil' ? 'tamil-99' : activeLang === 'japanese' ? 'romaji' : 'phonetic');
+        const manualChoice = (typeof window !== 'undefined' && window.__tdManualLayoutLangs) ? window.__tdManualLayoutLangs[activeLang] : null;
+        const activeLayout = manualChoice || localStorage.getItem('typingDostLayout_' + activeLang) || defaultLayout;
+        const isRemingtonOrKruti = false;
 
+        const typedTokens = currentInputVal.split(' ');
         let currentMistakes = 0;
         let wordsCounted = 0;
         let streak = 0;
+        let cursorSpanIdx = -1;
+        let nextSubOffset = 0;
+        let nextPartialTyped = '';
+        let latestStepMatched = true;
+        let latestCompletedSpanIdx = -1;
+        let latestWrongCharTarget = '';
 
-        for (let k = 0; k < chars.length; k++) {
-            const span = chars[k];
-            if (k < inputChars.length) {
-                const typedChar = inputChars[k];
-                const targetChar = span.textContent;
-                if (typedChar === targetChar) {
-                    if (!isBlindMode) {
-                        if (k === lastTypedIdx && isNewKeystroke) {
-                            if (fxConfig.letterAnim === 'pop') {
-                                span.className = 'correct letter-pop';
-                            } else if (fxConfig.letterAnim === 'fade') {
-                                span.className = 'correct letter-fade';
-                            } else {
-                                span.className = 'correct';
-                            }
-                        } else if (!span.classList.contains('letter-pop') && !span.classList.contains('letter-fade')) {
-                            span.className = 'correct';
-                        }
-                    }
-                    streak++;
-                    if (typedChar === ' ' || k === chars.length - 1) {
-                        wordsCounted++;
-                    }
-                } else {
-                    if (!isBlindMode) {
-                        if (k === lastTypedIdx && isNewKeystroke && fxConfig.errorShake) {
-                            span.className = 'wrong error-shake';
-                        } else if (!span.classList.contains('error-shake')) {
-                            span.className = 'wrong';
-                        }
-                    }
-                    currentMistakes++;
-                    streak = 0;
-                    if (k === inputChars.length - 1) {
-                        weakspots[targetChar] = (weakspots[targetChar] || 0) + 1;
+        const isCursiveWordLang = (activeLang === 'urdu' || activeLang === 'arabic');
+        const hasCssHighlights = isCursiveWordLang && typeof window.Highlight === 'function' && typeof CSS !== 'undefined' && Boolean(CSS.highlights);
+        const hlCorrectRanges = [];
+        const hlWrongRanges = [];
+        const hlActiveRanges = [];
+
+        const isValidIntermediateCombo = (targetUnit, typedUnit) => {
+            if (!typedUnit || !targetUnit) return false;
+            const normTarget = targetUnit.normalize('NFC');
+            const normTyped = typedUnit.normalize('NFC');
+            if (normTarget.startsWith(normTyped)) return true;
+            // Canonically equivalent NFD prefix handles Nukta/composite glyphs (e.g. ਸ -> ਸ਼, ड -> ড়, फ -> फ़)
+            if (normTarget.normalize('NFD').startsWith(normTyped.normalize('NFD'))) return true;
+            if (isRemingtonOrKruti && normTarget.startsWith('र्') && normTarget.length > 2 && normTyped === normTarget.slice(2)) return true;
+            let pref = 0;
+            while (pref < normTarget.length && pref < normTyped.length && normTarget[pref] === normTyped[pref]) pref++;
+            const remTarget = normTarget.slice(pref);
+            const remTyped = normTyped.slice(pref);
+            if (!remTyped) return false;
+            if (isRemingtonOrKruti) {
+                if (normTyped.endsWith('्') && pref > 0 && (!remTarget || /^[ा-ौ]/.test(remTarget))) return true;
+                if (!remTarget) return false;
+                const krutiPairs = {
+                    'ा|ो':1,'ा|ौ':1,'अ|आ':1,'अ|ओ':1,'आ|ओ':1,'अ|औ':1,'आ|औ':1,'ण्|ण':1,'ञ्|ञ':1,'ए|ऐ':1,'इ|ई':1
+                };
+                for (const pair of Object.keys(krutiPairs)) {
+                    const [kTyped, kTarg] = pair.split('|');
+                    if (remTyped === kTyped && remTarget.startsWith(kTarg)) return true;
+                }
+            }
+            if (!remTarget) return false;
+            if (activeLayout === 'phonetic') {
+                if (typeof PHONETIC_ASPIRATE_MAP !== 'undefined') {
+                    const asp = PHONETIC_ASPIRATE_MAP[remTyped];
+                    if (asp && remTarget.startsWith(asp)) return true;
+                }
+                if (typeof PHONETIC_VOWEL_COMBOS !== 'undefined') {
+                    for (const k of Object.keys(PHONETIC_VOWEL_COMBOS)) {
+                        const res = PHONETIC_VOWEL_COMBOS[k];
+                        if (res && k.startsWith(remTyped + '|') && remTarget.startsWith(res)) return true;
                     }
                 }
-            } else if (k === inputChars.length) {
-                span.className = 'active';
-            } else {
-                span.className = '';
             }
+            return false;
+        };
+
+        // Walk rendered DOM spans word-by-word separated by .word-space so multi-codepoint syllables never drift across spaces
+        let sPtr = 0;
+        let wordIdx = 0;
+        while (sPtr < chars.length) {
+            const wStart = sPtr;
+            while (sPtr < chars.length && !chars[sPtr].classList.contains('word-space')) {
+                sPtr++;
+            }
+            const wEnd = sPtr;
+            const spaceSpan = (sPtr < chars.length && chars[sPtr].classList.contains('word-space')) ? chars[sPtr] : null;
+            if (spaceSpan) sPtr++;
+
+            const wSpanCount = wEnd - wStart;
+            if (wordIdx >= typedTokens.length) {
+                for (let j = 0; j < wSpanCount; j++) chars[wStart + j].className = '';
+                if (spaceSpan) spaceSpan.className = 'word-space';
+            } else if (wordIdx < typedTokens.length - 1) {
+                // User already pressed Space past this word
+                const typedClusters = tdSegmentUnits(typedTokens[wordIdx], activeLang, currentLesson);
+                for (let j = 0; j < wSpanCount; j++) {
+                    const span = chars[wStart + j];
+                    const targetUnit = span.textContent.normalize('NFC');
+                    const typedUnit = (typedClusters[j] || '').normalize('NFC');
+                    if (typedUnit === targetUnit) {
+                        if (isBlindMode) {
+                            span.className = '';
+                        } else if (!span.classList.contains('letter-pop') && !span.classList.contains('letter-fade')) {
+                            span.className = 'correct';
+                        } else {
+                            span.classList.remove('active');
+                        }
+                        streak++;
+                    } else {
+                        span.className = isBlindMode ? '' : 'wrong';
+                        currentMistakes++;
+                        streak = 0;
+                    }
+                }
+                if (spaceSpan) {
+                    spaceSpan.className = isBlindMode ? 'word-space' : 'word-space correct';
+                    wordsCounted++;
+                    streak++;
+                }
+            } else {
+                // Active word currently being typed
+                const typedWordStr = typedTokens[wordIdx];
+                const typedClusters = tdSegmentUnits(typedWordStr, activeLang, currentLesson);
+                for (let j = 0; j < wSpanCount; j++) {
+                    const gIdx = wStart + j;
+                    const span = chars[gIdx];
+                    const targetUnit = span.textContent.normalize('NFC');
+                    if (j < typedClusters.length) {
+                        const typedUnit = (typedClusters[j] || '').normalize('NFC');
+                        const isLastTypedInActive = (j === typedClusters.length - 1);
+                        const isPartialPrefix = isLastTypedInActive && isValidIntermediateCombo(targetUnit, typedUnit);
+
+                        if (typedUnit === targetUnit) {
+                            if (isBlindMode) {
+                                span.className = '';
+                            } else if (isLastTypedInActive && isNewKeystroke) {
+                                latestCompletedSpanIdx = gIdx;
+                                span.className = (fxConfig.letterAnim === 'pop') ? 'correct letter-pop'
+                                    : (fxConfig.letterAnim === 'fade') ? 'correct letter-fade' : 'correct';
+                            } else if (!span.classList.contains('letter-pop') && !span.classList.contains('letter-fade')) {
+                                span.className = 'correct';
+                            } else {
+                                span.classList.remove('active');
+                            }
+                            streak++;
+                        } else if (isPartialPrefix) {
+                            span.className = 'active';
+                            if (cursorSpanIdx === -1) {
+                                cursorSpanIdx = gIdx;
+                                nextSubOffset = 0;
+                                nextPartialTyped = typedUnit;
+                            }
+                        } else {
+                            if (isBlindMode) {
+                                span.className = '';
+                            } else if (isLastTypedInActive && isNewKeystroke && fxConfig.errorShake) {
+                                span.className = 'wrong error-shake';
+                            } else if (!span.classList.contains('error-shake')) {
+                                span.className = 'wrong';
+                            }
+                            currentMistakes++;
+                            streak = 0;
+                            if (isLastTypedInActive && isNewKeystroke) {
+                                latestStepMatched = false;
+                                latestWrongCharTarget = targetUnit || '';
+                            }
+                        }
+                    } else if (cursorSpanIdx === -1) {
+                        span.className = 'active';
+                        cursorSpanIdx = gIdx;
+                        nextSubOffset = 0;
+                        nextPartialTyped = '';
+                    } else {
+                        span.className = '';
+                    }
+                }
+                if (spaceSpan) {
+                    if (cursorSpanIdx === -1) {
+                        spaceSpan.className = 'word-space active';
+                        cursorSpanIdx = wEnd;
+                        nextSubOffset = 0;
+                        nextPartialTyped = '';
+                    } else {
+                        spaceSpan.className = 'word-space';
+                    }
+                }
+            }
+            wordIdx++;
+        }
+
+        if (hasCssHighlights) {
+            if (hlCorrectRanges.length) CSS.highlights.set('td-correct', new Highlight(...hlCorrectRanges));
+            else CSS.highlights.delete('td-correct');
+            if (hlWrongRanges.length) CSS.highlights.set('td-wrong', new Highlight(...hlWrongRanges));
+            else CSS.highlights.delete('td-wrong');
+            if (hlActiveRanges.length) CSS.highlights.set('td-active', new Highlight(...hlActiveRanges));
+            else CSS.highlights.delete('td-active');
+        }
+
+        if (cursorSpanIdx === -1) {
+            cursorSpanIdx = chars.length;
+        }
+        if (latestWrongCharTarget) {
+            weakspots[latestWrongCharTarget] = (weakspots[latestWrongCharTarget] || 0) + 1;
         }
 
         mistakes = currentMistakes;
-        charIndex = newCharIndex;
+        charIndex = cursorSpanIdx;
         correctStreak = streak;
-        wordsTyped = wordsCounted;
+        wordsTyped = wordsCounted + ((cursorSpanIdx >= chars.length && chars.length > 0) ? 1 : 0);
+        tdActiveSubOffset = nextSubOffset;
+        tdActivePartialTyped = nextPartialTyped;
+        tdCurrentTypedCodeCount = inputCodeLen;
+        tdPrevInputCodeLen = inputCodeLen;
 
         // Audio & Visual Effects on latest keystroke
-        if (inputChars.length > prevCharIndex) {
-            const lastIdx = inputChars.length - 1;
-            const lastTyped = inputChars[lastIdx];
-            const lastTarget = chars[lastIdx] ? chars[lastIdx].textContent : '';
-            if (lastTyped === lastTarget) {
+        if (isNewKeystroke) {
+            if (latestStepMatched) {
                 playClick();
-                
-                // Configurable Sparks (Streak vs Always vs Off)
                 const shouldSpark = fxConfig.sparks === 'always' || (fxConfig.sparks === 'streak' && streak >= 15);
-                if (shouldSpark) {
-                    createSparks(lastIdx);
+                if (shouldSpark && latestCompletedSpanIdx >= 0) {
+                    createSparks(latestCompletedSpanIdx);
                 }
-
-                // Word-done burst animation
-                if (lastTyped === ' ' || lastIdx === chars.length - 1) {
-                    const prevSpan = chars[lastIdx];
+                if (currentInputVal.endsWith(' ') || charIndex >= chars.length) {
+                    const burstIdx = Math.max(0, Math.min(chars.length - 1, charIndex - 1));
+                    const prevSpan = chars[burstIdx];
                     if (prevSpan) {
                         const wordGrp = prevSpan.closest('.word-group');
                         if (wordGrp) {
@@ -3121,7 +3385,8 @@ function initTyping(e) {
                 if (isStopOnError) {
                     textDisplay.classList.add('stop-error-flash');
                     setTimeout(() => textDisplay.classList.remove('stop-error-flash'), 150);
-                    typingInput.value = currentInputVal.substring(0, inputChars.length - 1);
+                    typingInput.value = [...currentInputVal].slice(0, -1).join('');
+                    tdPrevInputCodeLen = [...typingInput.value].length;
                     initTyping(e);
                     return;
                 }
@@ -3132,8 +3397,9 @@ function initTyping(e) {
         if (testMode === 'words' && wordsTyped >= wordLimit) {
             clearInterval(interval);
             const elapsed = Math.max(1, Math.floor((Date.now() - wordModeStartTime) / 1000));
-            const wpm = Math.round((((totalCharsTyped + charIndex - (totalMistakes + mistakes)) / 5) / elapsed) * 60);
-            const accuracy = Math.round(((totalCharsTyped + charIndex - (totalMistakes + mistakes)) / Math.max(totalCharsTyped + charIndex, 1)) * 100);
+            const netChars = totalCharsTyped + tdCurrentTypedCodeCount - (totalMistakes + mistakes);
+            const wpm = Math.round(((netChars / 5) / elapsed) * 60);
+            const accuracy = Math.round((netChars / Math.max(totalCharsTyped + tdCurrentTypedCodeCount, 1)) * 100);
             endGame(Math.max(0, wpm), Math.max(0, accuracy));
             return;
         }
@@ -3156,8 +3422,8 @@ function initTyping(e) {
         
         updateCaretPosition();
 
-        // Live stats calculation
-        let currentTotalChars = totalCharsTyped + charIndex;
+        // Live stats calculation (uses actual keystroke codepoints for accurate Indic/Exam WPM & KDPH)
+        let currentTotalChars = totalCharsTyped + tdCurrentTypedCodeCount;
         let currentTotalMistakes = totalMistakes + mistakes;
         
         const elapsedLive = testMode === 'words'
@@ -3194,6 +3460,18 @@ function initTyping(e) {
         const misStr = String(currentTotalMistakes);
         if (mistakesEl.innerText !== misStr) mistakesEl.innerText = misStr;
 
+        // Live Exam KDPH & Error Percentage Bar (on SSC / RRB / BSF / High Court pages)
+        const kdphLiveEl = document.getElementById('exam-kdph-live');
+        const keystrokesLiveEl = document.getElementById('exam-keystrokes-live');
+        const errRateLiveEl = document.getElementById('exam-error-rate-live');
+        if (kdphLiveEl || keystrokesLiveEl || errRateLiveEl) {
+            const projectedKdph = Math.round(((currentTotalChars / Math.max(elapsedLive, 1)) * 3600));
+            const errPct = currentTotalChars > 0 ? ((currentTotalMistakes / currentTotalChars) * 100).toFixed(2) + '%' : '0.00%';
+            if (kdphLiveEl) kdphLiveEl.textContent = String(projectedKdph);
+            if (keystrokesLiveEl) keystrokesLiveEl.textContent = String(currentTotalChars);
+            if (errRateLiveEl) errRateLiveEl.textContent = errPct;
+        }
+
         if (typingSectionWrapper) {
             const hasErr = mistakes > 0;
             if (typingSectionWrapper.classList.contains('has-error') !== hasErr) {
@@ -3216,9 +3494,13 @@ function initTyping(e) {
         }
 
         // Auto stop if completed current visible chunk — load next chunk or full re-render
-        if (charIndex === chars.length) {
-            totalCharsTyped += charIndex;
+        if (charIndex >= chars.length) {
+            totalCharsTyped += inputCodeLen;
             totalMistakes += mistakes;
+            tdPrevInputCodeLen = 0;
+            tdCurrentTypedCodeCount = 0;
+            tdActiveSubOffset = 0;
+            tdActivePartialTyped = '';
             // If there are still queued words, don't full re-render — just fetch more
             if (chunkStartWordIndex < wordQueue.length) {
                 // Append next chunk immediately (user reached end faster than prefetch fired)
@@ -3238,7 +3520,7 @@ function initTyping(e) {
             return;
         }
     } else {
-        typingInput.value = typingInput.value.substring(0, charIndex); // Prevent overflow
+        typingInput.value = typingInput.value; // Time ended
     }
 }
 
@@ -3560,6 +3842,7 @@ function endGame(finalWpm, finalAccuracy) {
 
 function resetGame() {
     pendingPreBaseMatra = null;
+    pendingRomajiBuffer = '';
     typingInput.disabled = false;
     loadNewText();
 }
@@ -3692,41 +3975,100 @@ function renderKeyboardHeatmap() {
     const section = document.getElementById('result-heatmap-section');
     const container = document.getElementById('result-keyboard-heatmap');
     if (!section || !container) return;
-    
+
     const errorKeys = Object.keys(weakspots);
     if (errorKeys.length === 0) { section.classList.add('hidden'); return; }
     section.classList.remove('hidden');
-    
-    const maxErrors = Math.max(...Object.values(weakspots));
+
+    const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang)
+        ? currentLearningLang.toLowerCase()
+        : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
+    const isLatinLang = ['english', 'hinglish', 'spanish', 'french', 'german', 'portuguese'].includes(activeLang);
+    const activeLayout = localStorage.getItem('typingDostLayout_' + activeLang) || (activeLang === 'urdu' ? 'urdu-phonetic' : activeLang === 'arabic' ? 'arabic-101' : activeLang === 'tamil' ? 'tamil-99' : activeLang === 'japanese' ? 'romaji' : 'inscript');
+    const hasMap = !isLatinLang && typeof getLanguageKeymap === 'function' && activeLayout !== 'direct';
+    const normMap = hasMap ? getLanguageKeymap(activeLang, activeLayout, false) : null;
+    const shiftMap = hasMap ? getLanguageKeymap(activeLang, activeLayout, true) : null;
+
     const rows = [
-        ['1','2','3','4','5','6','7','8','9','0'],
-        ['Q','W','E','R','T','Y','U','I','O','P'],
-        ['A','S','D','F','G','H','J','K','L',';'],
-        ['Z','X','C','V','B','N','M',',','.','/'],
-        ['SPACE']
+        [
+            { code: 'Digit1', q: '1' }, { code: 'Digit2', q: '2' }, { code: 'Digit3', q: '3' },
+            { code: 'Digit4', q: '4' }, { code: 'Digit5', q: '5' }, { code: 'Digit6', q: '6' },
+            { code: 'Digit7', q: '7' }, { code: 'Digit8', q: '8' }, { code: 'Digit9', q: '9' },
+            { code: 'Digit0', q: '0' }
+        ],
+        [
+            { code: 'KeyQ', q: 'Q' }, { code: 'KeyW', q: 'W' }, { code: 'KeyE', q: 'E' },
+            { code: 'KeyR', q: 'R' }, { code: 'KeyT', q: 'T' }, { code: 'KeyY', q: 'Y' },
+            { code: 'KeyU', q: 'U' }, { code: 'KeyI', q: 'I' }, { code: 'KeyO', q: 'O' },
+            { code: 'KeyP', q: 'P' }, { code: 'BracketLeft', q: '[' }, { code: 'BracketRight', q: ']' }
+        ],
+        [
+            { code: 'KeyA', q: 'A' }, { code: 'KeyS', q: 'S' }, { code: 'KeyD', q: 'D' },
+            { code: 'KeyF', q: 'F' }, { code: 'KeyG', q: 'G' }, { code: 'KeyH', q: 'H' },
+            { code: 'KeyJ', q: 'J' }, { code: 'KeyK', q: 'K' }, { code: 'KeyL', q: 'L' },
+            { code: 'Semicolon', q: ';' }, { code: 'Quote', q: "'" }
+        ],
+        [
+            { code: 'KeyZ', q: 'Z' }, { code: 'KeyX', q: 'X' }, { code: 'KeyC', q: 'C' },
+            { code: 'KeyV', q: 'V' }, { code: 'KeyB', q: 'B' }, { code: 'KeyN', q: 'N' },
+            { code: 'KeyM', q: 'M' }, { code: 'Comma', q: ',' }, { code: 'Period', q: '.' },
+            { code: 'Slash', q: '/' }
+        ],
+        [{ code: 'Space', q: 'SPACE' }]
     ];
-    
-    container.innerHTML = rows.map(row => {
-        const keys = row.map(k => {
+
+    const composedFallbacks = {
+        KeyV: ['आ', 'ओ', 'औ'], KeyK: ['ो', 'ौ', 'ण', 'ञ'], KeyS: ['ो', 'ै'],
+        BracketRight: ['ण'], Minus: ['ञ'], KeyA: ['আ', 'ਆ', 'ஆ', 'آ'],
+        KeyI: ['ई', 'ঈ', 'ਈ', 'ீ', 'ी', 'ੀ'], KeyU: ['ऊ', 'ঊ', 'ਊ', 'ூ', 'ू', 'ੂ']
+    };
+
+    const keyCounts = [];
+    rows.forEach(row => {
+        row.forEach(item => {
             let errors = 0;
-            const lk = k.toLowerCase();
-            const uk = k.toUpperCase();
-            if (k === 'SPACE') {
+            if (item.code === 'Space') {
                 errors = weakspots[' '] || 0;
-            } else if (lk === uk) {
-                errors = weakspots[lk] || 0;
             } else {
-                errors = (weakspots[lk] || 0) + (weakspots[uk] || 0);
+                const lk = item.q.toLowerCase();
+                const uk = item.q.toUpperCase();
+                errors += (lk === uk) ? (weakspots[lk] || 0) : ((weakspots[lk] || 0) + (weakspots[uk] || 0));
+                if (normMap && normMap[item.code] && normMap[item.code] !== lk) {
+                    errors += weakspots[normMap[item.code]] || 0;
+                }
+                if (shiftMap && shiftMap[item.code] && shiftMap[item.code] !== uk && shiftMap[item.code] !== normMap?.[item.code]) {
+                    errors += weakspots[shiftMap[item.code]] || 0;
+                }
+                if (hasMap && composedFallbacks[item.code]) {
+                    composedFallbacks[item.code].forEach(c => { errors += weakspots[c] || 0; });
+                }
+                errors += weakspots[item.code] || 0;
             }
+            item._errors = errors;
+            keyCounts.push(errors);
+        });
+    });
+
+    const maxErrors = Math.max(1, ...Object.values(weakspots), ...keyCounts);
+
+    container.innerHTML = rows.map(row => {
+        const keys = row.map(item => {
+            const errors = item._errors;
             const ratio = maxErrors > 0 ? errors / maxErrors : 0;
-            const heatLevel = ratio > 0.66 ? 'heat-3' : ratio > 0.33 ? 'heat-2' : ratio > 0 ? 'heat-1' : 'heat-0';
-            const wClass = k === 'SPACE' ? 'heat-space' : (k.length > 1 ? 'heat-wide' : '');
-            const title = errors > 0 ? `${k}: ${errors} errors` : `${k}: no errors`;
-            return `<div class="heatmap-key ${heatLevel} ${wClass}" title="${title}">${k}</div>`;
+            const heatLevel = errors > 0 ? (ratio > 0.66 ? 'heat-3' : ratio > 0.33 ? 'heat-2' : 'heat-1') : 'heat-0';
+            const wClass = item.code === 'Space' ? 'heat-space' : (item.q.length > 1 ? 'heat-wide' : '');
+            const nativeChar = (normMap && normMap[item.code] && item.code !== 'Space') ? normMap[item.code] : '';
+            const labelHtml = (nativeChar && nativeChar !== item.q && nativeChar !== item.q.toLowerCase())
+                ? `<span class="heat-qwerty">${item.q}</span><span class="heat-native" style="font-family:var(--td-typing-font)">${nativeChar}</span>`
+                : item.q;
+            const titleName = nativeChar ? `${item.q} (${nativeChar})` : item.q;
+            const title = errors > 0 ? `${titleName}: ${errors} errors` : `${titleName}: no errors`;
+            return `<div class="heatmap-key ${heatLevel} ${wClass}${nativeChar ? ' heat-mapped' : ''}" title="${title}">${labelHtml}</div>`;
         }).join('');
         return `<div class="heatmap-row">${keys}</div>`;
     }).join('');
 }
+if (typeof window !== 'undefined') window.renderKeyboardHeatmap = renderKeyboardHeatmap;
 
 // ---- SESSION HISTORY ----
 function showHistory() {
@@ -3804,19 +4146,7 @@ let wordModeStartTime = Date.now();
 typingInput.addEventListener('input', initTyping);
 
 // Smart Independent Vowels for word starts in Phonetic QWERTY mode
-const INDEPENDENT_VOWELS = {
-    tamil: { KeyA: 'அ', KeyI: 'இ', KeyU: 'உ', KeyE: 'எ', KeyO: 'ஒ', KeyW: 'ஐ', KeyQ: 'ஔ' },
-    hindi: { KeyA: 'अ', KeyI: 'इ', KeyU: 'उ', KeyE: 'ए', KeyO: 'ओ', KeyW: 'ऐ', KeyQ: 'औ' },
-    marathi: { KeyA: 'अ', KeyI: 'इ', KeyU: 'उ', KeyE: 'ए', KeyO: 'ओ', KeyW: 'ऐ', KeyQ: 'औ' },
-    telugu: { KeyA: 'అ', KeyI: 'ఇ', KeyU: 'ఉ', KeyE: 'ఎ', KeyO: 'ఒ', KeyW: 'ఐ', KeyQ: 'ఔ' },
-    kannada: { KeyA: 'ಅ', KeyI: 'ಇ', KeyU: 'ಉ', KeyE: 'ಎ', KeyO: 'ಒ', KeyW: 'ಐ', KeyQ: 'ಔ' },
-    malayalam: { KeyA: 'അ', KeyI: 'ഇ', KeyU: 'ഉ', KeyE: 'എ', KeyO: 'ഒ', KeyW: 'ഐ', KeyQ: 'ഔ' },
-    gujarati: { KeyA: 'અ', KeyI: 'ઇ', KeyU: 'ઉ', KeyE: 'એ', KeyO: 'ઓ', KeyW: 'ઐ', KeyQ: 'ઔ' },
-    bengali: { KeyA: 'অ', KeyI: 'ই', KeyU: 'উ', KeyE: 'এ', KeyO: 'ও', KeyW: 'ঐ', KeyQ: 'ঔ' },
-    assamese: { KeyA: 'অ', KeyI: 'ই', KeyU: 'উ', KeyE: 'এ', KeyO: 'ও', KeyW: 'ঐ', KeyQ: 'ঔ' },
-    odia: { KeyA: 'ଅ', KeyI: 'ଇ', KeyU: 'ଉ', KeyE: 'ଏ', KeyO: 'ଓ', KeyW: 'ଐ', KeyQ: 'ଔ' },
-    punjabi: { KeyA: 'ਅ', KeyI: 'ਇ', KeyU: 'ਉ', KeyE: 'ਏ', KeyO: 'ਓ', KeyW: 'ਐ', KeyQ: 'ਔ' }
-};
+const INDEPENDENT_VOWELS = {};
 
 // Tamil 99 Vowel Combination Engine Dictionaries
 const TAMIL_99_CONSONANTS_SET = new Set([
@@ -3838,144 +4168,271 @@ const TAMIL_99_VOWEL_TO_SIGN_MAP = {
     'ஔ': 'ௌ'
 };
 
-// With all languages romanized into English alphabet letters, direct standard typing is active for all languages
-const INDIC_VIRTUAL_KEYBOARD_LANGS = new Set([]);
+// Indic, Arabic & Japanese languages supporting hardware keydown interception
+// Universal Phonetic Mode: Direct English QWERTY typing across all languages
+const INDIC_VIRTUAL_KEYBOARD_LANGS = new Set();
 
-// State for pre-base matras (e.g. 'ि' / KeyF in Remington Gail & Kruti Dev 010)
+// State for pre-base matras and Romaji buffer
 let pendingPreBaseMatra = null;
+let pendingRomajiBuffer = '';
 
-// Half consonant to full consonant mapping when followed by 'ा' (k / KeyK) in Remington / Kruti Dev
+// Half consonant mapping
 const REMINGTON_HALF_TO_FULL = {
     'ख्': 'ख', 'थ्': 'थ', 'भ्': 'भ', 'ध्': 'ध', 'श्': 'श',
-    'झ्': 'झ', 'घ्': 'घ', 'क्ष्': 'क्ष', 'छ्': 'छ'
+    'झ्': 'झ', 'घ्': 'घ', 'क्ष्': 'क्ष', 'छ्': 'छ', 'ण्': 'ण', 'ञ्': 'ञ'
 };
 
-function composeRemingtonKeystroke(currentVal, charToInsert, activeLayout) {
-    if (activeLayout !== 'remington-gail' && activeLayout !== 'kruti-dev') return null;
-    const _chars = [...currentVal];
-    const lastChar = _chars.length > 0 ? _chars[_chars.length - 1] : '';
-    const last2Chars = _chars.length > 1 ? _chars.slice(-2).join('') : lastChar;
-
-    // 1. Half consonant + 'ा' (KeyK) -> Full consonant
-    if (charToInsert === 'ा') {
-        if (REMINGTON_HALF_TO_FULL[last2Chars]) {
-            return { replaceCount: 2, result: REMINGTON_HALF_TO_FULL[last2Chars] };
-        }
-        if (REMINGTON_HALF_TO_FULL[lastChar]) {
-            return { replaceCount: 1, result: REMINGTON_HALF_TO_FULL[lastChar] };
-        }
-        if (lastChar === 'अ') {
-            return { replaceCount: 1, result: 'आ' };
-        }
-    }
-
-    // 2. Vowel & Matra extensions:
-    // 'ए' + 'े' -> 'ऐ'
-    if (charToInsert === 'े' && lastChar === 'ए') {
-        return { replaceCount: 1, result: 'ऐ' };
-    }
-    // 'आ' + 'े' -> 'ओ'
-    if (charToInsert === 'े' && lastChar === 'आ') {
-        return { replaceCount: 1, result: 'ओ' };
-    }
-    // 'आ' + 'ै' -> 'औ'
-    if (charToInsert === 'ै' && lastChar === 'आ') {
-        return { replaceCount: 1, result: 'औ' };
-    }
-    // 'अ' + 'ो' -> 'ओ'
-    if (charToInsert === 'ो' && lastChar === 'अ') {
-        return { replaceCount: 1, result: 'ओ' };
-    }
-    // 'अ' + 'ौ' -> 'औ'
-    if (charToInsert === 'ौ' && lastChar === 'अ') {
-        return { replaceCount: 1, result: 'औ' };
-    }
-    // 'ा' + 'े' -> 'ो'
-    if (charToInsert === 'े' && lastChar === 'ा') {
-        return { replaceCount: 1, result: 'ो' };
-    }
-    // 'ा' + 'ै' -> 'ौ'
-    if (charToInsert === 'ै' && lastChar === 'ा') {
-        return { replaceCount: 1, result: 'ौ' };
-    }
-
-    // 3. Post-base Reph 'र्' (Shift+Z / Z):
-    // Reorders after consonant or consonant+matra (e.g. 'म' + 'र्' -> 'र्म', 'मि' + 'र्' -> 'र्' + 'म' + 'ि')
-    if (charToInsert === 'र्') {
-        if (_chars.length >= 2 && _chars[_chars.length - 1] === 'ि') {
-            const cons = _chars[_chars.length - 2];
-            return { replaceCount: 2, result: 'र्' + cons + 'ि' };
-        }
-        if (lastChar && ![' ', '\n', 'ा', 'ि', 'ी', 'ु', 'ू', 'े', 'ै', 'ो', 'ौ', '्', 'ं', 'ः'].includes(lastChar)) {
-            return { replaceCount: 1, result: 'र्' + lastChar };
-        }
-    }
-
-    return null;
-}
+function composeRemingtonKeystroke(currentVal, charToInsert, activeLayout) { return null; }
 
 // Aspirate mapping for phonetic typing (C + h -> Ch) across Indic languages
 const PHONETIC_ASPIRATE_MAP = {
-    // Hindi & Marathi
     'क': 'ख', 'ग': 'घ', 'च': 'छ', 'ज': 'झ', 'त': 'थ', 'द': 'ध', 'प': 'फ', 'ब': 'भ', 'स': 'श', 'ट': 'ठ', 'ड': 'ढ',
-    // Bengali & Assamese
     'ক': 'খ', 'গ': 'ঘ', 'চ': 'ছ', 'জ': 'ঝ', 'ত': 'থ', 'দ': 'ধ', 'প': 'ফ', 'ব': 'ভ', 'স': 'শ', 'ট': 'ঠ', 'ড': 'ঢ',
-    // Telugu
     'క': 'ఖ', 'గ': 'ఘ', 'చ': 'ఛ', 'జ': 'ఝ', 'త': 'థ', 'ద': 'ధ', 'ప': 'ఫ', 'బ': 'భ', 'స': 'శ', 'ట': 'ఠ', 'డ': 'ఢ',
-    // Gujarati
     'ક': 'ખ', 'ગ': 'ઘ', 'ચ': 'છ', 'જ': 'ઝ', 'ત': 'થ', 'દ': 'ધ', 'પ': 'ફ', 'બ': 'ભ', 'સ': 'શ', 'ટ': 'ઠ', 'ડ': 'ઢ',
-    // Kannada
     'ಕ': 'ಖ', 'ಗ': 'ಘ', 'ಚ': 'ಛ', 'ಜ': 'ಝ', 'ತ': 'ಥ', 'ದ': 'ಧ', 'ಪ': 'ಫ', 'ಬ': 'ಭ', 'ಸ': 'ಶ', 'ಟ': 'ಠ', 'ಡ': 'ಢ',
-    // Malayalam
     'ക': 'ഖ', 'ഗ': 'ഘ', 'ച': 'ഛ', 'ജ': 'ഝ', 'ത': 'ഥ', 'ദ': 'ധ', 'പ': 'ഫ', 'ബ': 'ഭ', 'സ': 'ശ', 'ട': 'ഠ', 'ഡ': 'ഢ',
-    // Odia
     'କ': 'ଖ', 'ଗ': 'ଘ', 'ଚ': 'ଛ', 'ଜ': 'ଝ', 'ତ': 'ଥ', 'ଦ': 'ଧ', 'ପ': 'ଫ', 'ବ': 'ଭ', 'ସ': 'ଶ', 'ଟ': 'ଠ', 'ଡ': 'ଢ',
-    // Punjabi
     'ਕ': 'ਖ', 'ਗ': 'ਘ', 'ਚ': 'ਛ', 'ਜ': 'ਝ', 'ਤ': 'ਥ', 'ਦ': 'ਧ', 'ਪ': 'ਫ', 'ਬ': 'ਭ', 'ਸ': 'ਸ਼', 'ਟ': 'ਠ', 'ਡ': 'ਢ'
 };
+
+// Table-driven Phonetic multi-stroke vowel & nukta expansions: pairKey (`prevChar + '|' + nextChar`) -> replacement
+const PHONETIC_VOWEL_COMBOS = {
+    // Hindi & Marathi long vowels + nukta
+    'अ|ा':'आ','अ|ि':'ऐ','ा|ि':'ै','इ|ि':'ई','ि|ि':'ी','अ|ु':'औ','ा|ु':'ौ','उ|ु':'ऊ','ु|ु':'ू','ए|े':'ऐ',
+    'क|़':'क़','ख|़':'ख़','ग|़':'ग़','ज|़':'ज़','ड|़':'ड़','ढ|़':'ढ़','फ|़':'फ़',
+    // Bengali & Assamese long vowels + nukta
+    'অ|া':'আ','অ|ি':'ঐ','া|ি':'ৈ','ই|ি':'ঈ','ি|ি':'ী','অ|ু':'ঔ','া|ু':'ৌ','উ|ু':'ঊ','ু|ু':'ূ',
+    'ড|়':'ড়','ঢ|়':'ঢ়','য|়':'য়',
+    // Tamil long vowels & vowel-signs
+    'அ|ா':'ஆ','அ|ி':'ஐ','ா|ி':'ை','இ|ி':'ஈ','ி|ி':'ீ','அ|ு':'ஔ','ா|ு':'ௌ','உ|ு':'ஊ','ு|ு':'ூ',
+    'எ|ெ':'ஏ','ெ|ெ':'ே','ஒ|ொ':'ஓ','ொ|ொ':'ோ',
+    // Telugu long vowels & vowel-signs
+    'అ|ా':'ఆ','అ|ి':'ఐ','ా|ి':'ై','ఇ|ి':'ఈ','ి|ి':'ీ','అ|ు':'ఔ','ా|ు':'ౌ','ఉ|ు':'ఊ','ు|ు':'ూ',
+    'ఎ|ె':'ఏ','ె|ె':'ే','ఒ|ొ':'ఓ','ొ|ొ':'ో',
+    // Gujarati long vowels
+    'અ|ા':'આ','અ|િ':'ઐ','ા|િ':'ૈ','ઇ|િ':'ઈ','િ|િ':'ી','અ|ુ':'ઔ','ા|ુ':'ૌ','ઉ|ુ':'ઊ','ુ|ુ':'ૂ',
+    // Kannada long vowels & vowel-signs
+    'ಅ|ಾ':'ಆ','ಅ|ಿ':'ಐ','ಾ|ಿ':'ೈ','ಇ|ಿ':'ಈ','ಿ|ಿ':'ೀ','ಅ|ು':'ಔ','ಾ|ು':'ೌ','ಉ|ು':'ಊ','ು|ು':'ೂ',
+    'ಎ|ೆ':'ಏ','ೆ|ೆ':'ೇ','ಒ|ೊ':'ಓ','ೊ|ೊ':'ೋ',
+    // Malayalam long vowels & vowel-signs
+    'അ|ാ':'ആ','അ|ി':'ഐ','ാ|ി':'ൈ','ഇ|ി':'ഈ','ി|ി':'ീ','അ|ു':'ഔ','ാ|ു':'ൗ','ഉ|ു':'ഊ','ു|ു':'ൂ',
+    'എ|െ':'ഏ','െ|െ':'േ','ഒ|ൊ':'ഓ','ൊ|ൊ':'ോ',
+    // Odia long vowels + nukta
+    'ଅ|ା':'ଆ','ଅ|ି':'ଐ','ା|ି':'ୈ','ଇ|ି':'ଈ','ି|ି':'ୀ','ଅ|ୁ':'ଔ','ା|ୁ':'ୌ','ଉ|ୁ':'ଊ','ୁ|ୁ':'ୂ',
+    'ଯ|଼':'ୟ',
+    // Punjabi long vowels + nukta (pairik / bindi)
+    'ਅ|ਾ':'ਆ','ਅ|ਿ':'ਐ','ਾ|ਿ':'ੈ','ਇ|ਿ':'ਈ','ਿ|ਿ':'ੀ','ਅ|ੁ':'ਔ','ਾ|ੁ':'ੌ','ਉ|ੁ':'ਊ','ੁ|ੁ':'ੂ',
+    'ਏ|ੇ':'ਐ','ਸ|਼':'ਸ਼','ਖ|਼':'ਖ਼','ਗ|਼':'ਗ਼','ਜ|਼':'ਜ਼','ਫ|਼':'ਫ਼','ਲ|਼':'ਲ਼'
+};
+
+const PHONETIC_NUKTA_CHARS = new Set(['़', '়', '਼', '଼']);
+const INDIC_VOWEL_OR_MATRA_SET = new Set([
+    'अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','ा','ि','ी','ु','ू','े','ै','ो','ौ',
+    'অ','আ','ই','ঈ','উ','ঊ','এ','ঐ','ও','ঔ','া','ি','ী','ু','ূ','ে','ৈ','ো','ৌ',
+    'அ','ஆ','இ','ஈ','உ','ஊ','எ','ஏ','ஐ','ஒ','ஓ','ஔ','ா','ி','ீ','ு','ூ','ெ','ே','ை','ொ','ோ','ௌ',
+    'అ','ఆ','ఇ','ఈ','ఉ','ఊ','ఎ','ఏ','ఐ','ఒ','ఓ','ఔ','ా','ి','ీ','ు','ూ','ె','ే','ై','ొ','ో','ౌ',
+    'અ','આ','ઇ','ઈ','ઉ','ઊ','એ','ઐ','ઓ','ઔ','ા','િ','ી','ુ','ૂ','ે','ૈ','ો','ૌ',
+    'ಅ','ಆ','ಇ','ಈ','ಉ','ಊ','ಎ','ಏ','ಐ','ಒ','ಓ','ಔ','ಾ','ಿ','ೀ','ು','ೂ','ೆ','ೇ','ೈ','ೊ','ೋ','ೌ',
+    'അ','ആ','ഇ','ഈ','ഉ','ഊ','എ','ഏ','ഐ','ഒ','ഓ','ഔ','ാ','ി','ീ','ു','ൂ','െ','േ','ൈ','ൊ','ോ','ൗ',
+    'ଅ','ଆ','ଇ','ଈ','ଉ','ଊ','ଏ','ଐ','ଓ','ଔ','ା','ି','ୀ','ୁ','ୂ','େ','ୈ','ୋ','ୌ',
+    'ਅ','ਆ','ਇ','ਈ','ਉ','ਊ','ਏ','ਐ','ਓ','ਔ','ਾ','ਿ','ੀ','ੁ','ੂ','ੇ','ੈ','ੋ','ੌ'
+]);
+
+const PHONETIC_H_SET = new Set(['ह', 'হ', 'హ', 'હ', 'ಹ', 'ഹ', 'ହ', 'ਹ', 'ஹ']);
 
 function composePhoneticKeystroke(currentVal, charToInsert, activeLayout) {
     if (activeLayout !== 'phonetic') return null;
     const _chars = [...currentVal];
     const lastChar = _chars.length > 0 ? _chars[_chars.length - 1] : '';
 
-    // 1. Aspirated Consonants (C + 'ह'/'h' -> Ch)
-    if (['ह', 'হ', 'హ', 'હ', 'ಹ', 'ഹ', 'ହ', 'ਹ'].includes(charToInsert)) {
-        if (PHONETIC_ASPIRATE_MAP[lastChar]) {
-            return { replaceCount: 1, result: PHONETIC_ASPIRATE_MAP[lastChar] };
-        }
+    if (PHONETIC_H_SET.has(charToInsert) && PHONETIC_ASPIRATE_MAP[lastChar]) {
+        return { replaceCount: 1, result: PHONETIC_ASPIRATE_MAP[lastChar] };
     }
-
-    // 2. Vowel Diphthongs & Long Vowels:
-    if (charToInsert === 'ा' || charToInsert === 'া' || charToInsert === 'ಾ' || charToInsert === 'ா' || charToInsert === 'ા') {
-        if (lastChar === 'अ') return { replaceCount: 1, result: 'आ' };
-        if (lastChar === 'অ') return { replaceCount: 1, result: 'আ' };
-        if (lastChar === 'અ') return { replaceCount: 1, result: 'આ' };
-        if (lastChar === 'അ') return { replaceCount: 1, result: 'ആ' };
+    const combo = PHONETIC_VOWEL_COMBOS[lastChar + '|' + charToInsert];
+    if (combo) {
+        return { replaceCount: 1, result: combo };
     }
-    if (charToInsert === 'ि' || charToInsert === 'ি' || charToInsert === 'િ' || charToInsert === 'ി') {
-        if (lastChar === 'इ') return { replaceCount: 1, result: 'ई' };
-        if (lastChar === 'ই') return { replaceCount: 1, result: 'ঈ' };
-        if (lastChar === 'ઇ') return { replaceCount: 1, result: 'ઈ' };
-        if (lastChar === 'ि') return { replaceCount: 1, result: 'ी' };
-        if (lastChar === 'ি') return { replaceCount: 1, result: 'ী' };
-        if (lastChar === 'ा') return { replaceCount: 1, result: 'ै' };
-        if (lastChar === 'अ') return { replaceCount: 1, result: 'ऐ' };
-    }
-    if (charToInsert === 'ु' || charToInsert === 'ু' || charToInsert === 'ુ' || charToInsert === 'ു') {
-        if (lastChar === 'उ') return { replaceCount: 1, result: 'ऊ' };
-        if (lastChar === 'উ') return { replaceCount: 1, result: 'ঊ' };
-        if (lastChar === 'ઉ') return { replaceCount: 1, result: 'ઊ' };
-        if (lastChar === 'ु') return { replaceCount: 1, result: 'ू' };
-        if (lastChar === 'ু') return { replaceCount: 1, result: 'ূ' };
-        if (lastChar === 'ा') return { replaceCount: 1, result: 'ौ' };
-        if (lastChar === 'अ') return { replaceCount: 1, result: 'औ' };
-    }
-
     return null;
 }
 
-// Hardware Keydown Interceptor for all Indic typing modes (Full Shift-Aware)
+// Japanese Dakuten & Handakuten tables for JIS Kana (`゛` BracketLeft, `゜` BracketRight)
+const JP_DAKUTEN_MAP = {
+    'か':'が','き':'ぎ','く':'ぐ','け':'げ','こ':'ご','さ':'ざ','し':'じ','す':'ず','せ':'ぜ','そ':'ぞ',
+    'た':'だ','ち':'ぢ','つ':'づ','て':'で','と':'ど','は':'ば','ひ':'び','ふ':'ぶ','へ':'べ','ほ':'ぼ','う':'ゔ'
+};
+const JP_HANDAKUTEN_MAP = { 'は':'ぱ','ひ':'ぴ','ふ':'ぷ','へ':'ぺ','ほ':'ぽ' };
+
+// Hepburn / Kunrei Romaji-to-Hiragana converter map
+const JP_ROMAJI_MAP = {
+    a:'あ',i:'い',u:'う',e:'え',o:'お',
+    ka:'か',ki:'き',ku:'く',ke:'け',ko:'こ',sa:'さ',shi:'し',si:'し',su:'す',se:'せ',so:'そ',
+    ta:'た',chi:'ち',ti:'ち',tsu:'つ',tu:'つ',te:'て',to:'と',na:'な',ni:'に',nu:'ぬ',ne:'ね',no:'の',
+    ha:'は',hi:'ひ',fu:'ふ',hu:'ふ',he:'へ',ho:'ほ',ma:'ま',mi:'み',mu:'む',me:'め',mo:'も',
+    ya:'や',yu:'ゆ',yo:'よ',ra:'ら',ri:'り',ru:'る',re:'れ',ro:'ろ',wa:'わ',wo:'を',
+    ga:'が',gi:'ぎ',gu:'ぐ',ge:'げ',go:'ご',za:'ざ',ji:'じ',zi:'じ',zu:'ず',ze:'ぜ',zo:'ぞ',
+    da:'だ',di:'ぢ',du:'づ',de:'で',do:'ど',ba:'ば',bi:'び',bu:'ぶ',be:'べ',bo:'ぼ',
+    pa:'ぱ',pi:'ぴ',pu:'ぷ',pe:'ぺ',po:'ぽ',
+    kya:'きゃ',kyu:'きゅ',kyo:'きょ',sha:'しゃ',shu:'しゅ',sho:'しょ',cha:'ちゃ',chu:'ちゅ',cho:'ちょ',
+    nya:'にゃ',nyu:'にゅ',nyo:'にょ',hya:'ひゃ',hyu:'ひゅ',hyo:'ひょ',mya:'みゃ',myu:'みゅ',myo:'みょ',
+    rya:'りゃ',ryu:'りゅ',ryo:'りょ',gya:'ぎゃ',gyu:'ぎゅ',gyo:'ぎょ',ja:'じゃ',ju:'じゅ',jo:'じょ',
+    jya:'じゃ',jyu:'じゅ',jyo:'じょ',bya:'びゃ',byu:'びゅ',byo:'びょ',pya:'ぴゃ',pyu:'ぴゅ',pyo:'ぴょ',
+    nn:'ん'
+};
+const JP_SMALL_TSU_CONS = new Set(['k','s','t','c','h','f','m','y','r','w','g','z','d','b','p']);
+
+// Malayalam CDAC InScript Chillu fallback map (`consonant + ് + ]` -> Chillu)
+const ML_CHILLU_MAP = { 'ര':'ർ', 'ല':'ൽ', 'ള':'ൾ', 'ന':'ൻ', 'ണ':'ൺ' };
+
+/**
+ * Shared key processor used by BOTH physical keydown interceptor & #mobile-virtual-keyboard
+ */
+function processMappedKeyInput(inputEl, activeLang, activeLayout, eCode, isShift) {
+    if (!inputEl || activeLayout === 'direct') return false;
+
+    // Special Japanese Romaji-to-Hiragana live engine
+    if (activeLang === 'japanese' && activeLayout === 'romaji') {
+        const romaDirect = { Space: ' ', Comma: '、', Period: '。', Minus: 'ー', Slash: '・', BracketLeft: '「', BracketRight: '」' };
+        let keyChar = '';
+        if (eCode && eCode.startsWith('Key')) keyChar = eCode.slice(3).toLowerCase();
+        else if (eCode && eCode.startsWith('Digit')) keyChar = eCode.slice(5);
+        else if (romaDirect[eCode]) keyChar = romaDirect[eCode];
+
+        if (!keyChar) return false;
+
+        const curVal = inputEl.value;
+        const start = inputEl.selectionStart || curVal.length;
+        const end = inputEl.selectionEnd || curVal.length;
+
+        if (romaDirect[eCode]) {
+            const flush = (pendingRomajiBuffer === 'n' ? 'ん' : pendingRomajiBuffer) + romaDirect[eCode];
+            pendingRomajiBuffer = '';
+            inputEl.value = curVal.substring(0, start) + flush + curVal.substring(end);
+            inputEl.selectionStart = inputEl.selectionEnd = start + flush.length;
+            initTyping({ type: 'input' });
+            return true;
+        }
+
+        if (/^[a-z]$/.test(keyChar)) {
+            let out = '';
+            if (pendingRomajiBuffer === 'n' && !'aiueoyn'.includes(keyChar)) {
+                out += 'ん';
+                pendingRomajiBuffer = '';
+            }
+            if (pendingRomajiBuffer.length === 1 && pendingRomajiBuffer === keyChar && keyChar !== 'n' && JP_SMALL_TSU_CONS.has(keyChar)) {
+                out += 'っ';
+            } else {
+                pendingRomajiBuffer += keyChar;
+            }
+            if (JP_ROMAJI_MAP[pendingRomajiBuffer]) {
+                out += JP_ROMAJI_MAP[pendingRomajiBuffer];
+                pendingRomajiBuffer = '';
+            } else if (pendingRomajiBuffer.length > 3) {
+                pendingRomajiBuffer = keyChar;
+            }
+            if (out) {
+                inputEl.value = curVal.substring(0, start) + out + curVal.substring(end);
+                inputEl.selectionStart = inputEl.selectionEnd = start + out.length;
+                initTyping({ type: 'input' });
+            } else if (typeof updateKeyboardGuideNextKey === 'function') {
+                updateKeyboardGuideNextKey();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    if (typeof getLanguageKeymap !== 'function') return false;
+    const layoutMap = getLanguageKeymap(activeLang, activeLayout, isShift);
+    if (!layoutMap || !layoutMap[eCode]) return false;
+
+    let charToInsert = layoutMap[eCode];
+    const isRemingtonOrKruti = false;
+
+    // 1. Pre-Base Matra handling
+    if (eCode === 'Space') {
+        pendingPreBaseMatra = null;
+        pendingRomajiBuffer = '';
+    }
+    if (isRemingtonOrKruti && charToInsert === 'ि' && eCode === 'KeyF' && !isShift) {
+        pendingPreBaseMatra = 'ि';
+        if (typeof updateKeyboardGuideNextKey === 'function') {
+            updateKeyboardGuideNextKey();
+        }
+        return true;
+    }
+
+    if (pendingPreBaseMatra) {
+        charToInsert = charToInsert + pendingPreBaseMatra;
+        pendingPreBaseMatra = null;
+    }
+
+    const curVal = inputEl.value;
+    const start = (typeof inputEl.selectionStart === 'number') ? inputEl.selectionStart : curVal.length;
+    const end = (typeof inputEl.selectionEnd === 'number') ? inputEl.selectionEnd : curVal.length;
+
+    // 2. JIS Kana Dakuten / Handakuten composition
+    if (activeLang === 'japanese' && activeLayout === 'jis-kana' && (charToInsert === '゛' || charToInsert === '゜')) {
+        const prev = start > 0 ? curVal.charAt(start - 1) : '';
+        const replaced = (charToInsert === '゛' ? JP_DAKUTEN_MAP[prev] : JP_HANDAKUTEN_MAP[prev]);
+        if (replaced) {
+            const newBefore = curVal.substring(0, start - 1) + replaced;
+            inputEl.value = newBefore + curVal.substring(end);
+            inputEl.selectionStart = inputEl.selectionEnd = newBefore.length;
+            initTyping({ type: 'input' });
+            return true;
+        }
+    }
+
+    // 3. Malayalam InScript Chillu CDAC sequence (`consonant + ് + ]` -> Chillu)
+    if (activeLang === 'malayalam' && activeLayout === 'inscript' && eCode === 'BracketRight' && !isShift && start >= 2) {
+        const c = curVal.charAt(start - 2);
+        const h = curVal.charAt(start - 1);
+        if (h === '്' && ML_CHILLU_MAP[c]) {
+            const newBefore = curVal.substring(0, start - 2) + ML_CHILLU_MAP[c];
+            inputEl.value = newBefore + curVal.substring(end);
+            inputEl.selectionStart = inputEl.selectionEnd = newBefore.length;
+            initTyping({ type: 'input' });
+            return true;
+        }
+    }
+
+    // 4. Tamil 99 Smart Vowel Combination Engine
+    if (activeLang === 'tamil' && (activeLayout === 'tamil-99' || activeLayout === 'tamil99')) {
+        const prevChar = start > 0 ? curVal.charAt(start - 1) : '';
+        if (TAMIL_99_CONSONANTS_SET.has(prevChar) && Object.prototype.hasOwnProperty.call(TAMIL_99_VOWEL_TO_SIGN_MAP, charToInsert)) {
+            charToInsert = TAMIL_99_VOWEL_TO_SIGN_MAP[charToInsert];
+        }
+    }
+
+    // 5. Smart vowel context detection in Phonetic mode (at word start OR after existing vowel/matra unless forming a long vowel combo)
+    if (activeLayout === 'phonetic' && !isShift && INDEPENDENT_VOWELS[activeLang] && INDEPENDENT_VOWELS[activeLang][eCode]) {
+        const prevChar = start > 0 ? curVal.charAt(start - 1) : ' ';
+        const formsLongCombo = Boolean(PHONETIC_VOWEL_COMBOS[prevChar + '|' + charToInsert]);
+        if (start === 0 || prevChar === ' ' || prevChar === '\n' || (INDIC_VOWEL_OR_MATRA_SET.has(prevChar) && !formsLongCombo)) {
+            charToInsert = INDEPENDENT_VOWELS[activeLang][eCode];
+        }
+    }
+
+    // 6. Smart Keystroke Composition (Phonetic)
+    const composition = composeRemingtonKeystroke(curVal.substring(0, start), charToInsert, activeLayout)
+        || composePhoneticKeystroke(curVal.substring(0, start), charToInsert, activeLayout);
+
+    if (composition) {
+        const before = [...curVal.substring(0, start)];
+        before.splice(before.length - composition.replaceCount, composition.replaceCount);
+        const newBefore = before.join('') + composition.result;
+        inputEl.value = newBefore + curVal.substring(end);
+        inputEl.selectionStart = inputEl.selectionEnd = newBefore.length;
+    } else if (charToInsert !== '') {
+        inputEl.value = curVal.substring(0, start) + charToInsert + curVal.substring(end);
+        inputEl.selectionStart = inputEl.selectionEnd = start + charToInsert.length;
+    }
+    initTyping({ type: 'input' });
+    return true;
+}
+
+// Hardware Keydown Interceptor for all non-Latin script typing modes (Full Shift-Aware)
 typingInput.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.altKey || e.metaKey || e.key === 'Tab' || e.key === 'Enter') return;
 
@@ -3983,87 +4440,44 @@ typingInput.addEventListener('keydown', (e) => {
         if (pendingPreBaseMatra) {
             pendingPreBaseMatra = null;
             e.preventDefault();
+            if (typeof updateKeyboardGuideNextKey === 'function') updateKeyboardGuideNextKey();
+            return;
+        }
+        if (pendingRomajiBuffer.length > 0) {
+            pendingRomajiBuffer = pendingRomajiBuffer.slice(0, -1);
+            e.preventDefault();
+            if (typeof updateKeyboardGuideNextKey === 'function') updateKeyboardGuideNextKey();
             return;
         }
         return;
     }
 
-    const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang)
-        ? currentLearningLang.toLowerCase()
-        : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
+    // Prevent accidental empty/double Spacebar press at word start from skipping an entire word across ALL languages
+    if ((e.code === 'Space' || e.key === ' ') && (!typingInput.value || typingInput.value.endsWith(' '))) {
+        e.preventDefault();
+        return;
+    }
 
-    // Only intercept for Indic languages with custom keyboard layouts; allow standard input for English, Hinglish, Spanish, French, etc.
+    const activeLang = tdGetActiveLangSafe();
     if (!INDIC_VIRTUAL_KEYBOARD_LANGS.has(activeLang)) return;
 
-    const defaultLayout = (activeLang === 'urdu' ? 'urdu-phonetic' : 'phonetic');
-    const activeLayout = localStorage.getItem('typingDostLayout_' + activeLang) || defaultLayout;
+    const defaultLayout = (activeLang === 'urdu' ? 'urdu-phonetic' : activeLang === 'arabic' ? 'arabic-101' : activeLang === 'tamil' ? 'tamil-99' : activeLang === 'japanese' ? 'romaji' : 'phonetic');
+    const manualChoice = (typeof window !== 'undefined' && window.__tdManualLayoutLangs) ? window.__tdManualLayoutLangs[activeLang] : null;
+    const activeLayout = manualChoice || localStorage.getItem('typingDostLayout_' + activeLang) || defaultLayout;
 
-    if (activeLayout === 'direct') return; // Native OS keyboard / IME bypass
+    if (activeLayout === 'direct') return;
+    const isNativeHardwareLayout = ['inscript', 'tamil-99', 'tamil99', 'urdu-standard', 'urdu-phonetic', 'arabic-101', 'romaji', 'jis-kana', 'phonetic'].includes(activeLayout);
+    if (!isNativeHardwareLayout && !window.__TD_NATIVE_INDIC_SCRIPT__) return;
 
-    if (typeof getLanguageKeymap === 'function') {
-        const layoutMap = getLanguageKeymap(activeLang, activeLayout, e.shiftKey);
-        if (layoutMap && layoutMap[e.code]) {
-            e.preventDefault();
-            let charToInsert = layoutMap[e.code];
-            const isRemingtonOrKruti = (activeLayout === 'remington-gail' || activeLayout === 'kruti-dev');
-
-            // 1. Remington Gail & Kruti Dev 010 Pre-Base Matra 'ि' (KeyF):
-            if (isRemingtonOrKruti && charToInsert === 'ि' && e.code === 'KeyF' && !e.shiftKey) {
-                pendingPreBaseMatra = 'ि';
-                return;
-            }
-
-            if (pendingPreBaseMatra) {
-                charToInsert = charToInsert + pendingPreBaseMatra;
-                pendingPreBaseMatra = null;
-            }
-
-            // 2. Tamil 99 Smart Vowel Combination Engine:
-            if (activeLang === 'tamil' && (activeLayout === 'tamil-99' || activeLayout === 'tamil99')) {
-                const curVal = typingInput.value;
-                const start = typingInput.selectionStart;
-                const prevChar = start > 0 ? curVal.charAt(start - 1) : '';
-                if (TAMIL_99_CONSONANTS_SET.has(prevChar) && TAMIL_99_VOWEL_TO_SIGN_MAP.hasOwnProperty(charToInsert)) {
-                    charToInsert = TAMIL_99_VOWEL_TO_SIGN_MAP[charToInsert];
-                }
-            }
-
-            // 3. Smart vowel context detection in Phonetic mode:
-            if (activeLayout === 'phonetic' && !e.shiftKey && INDEPENDENT_VOWELS[activeLang] && INDEPENDENT_VOWELS[activeLang][e.code]) {
-                const curVal = typingInput.value;
-                const start = typingInput.selectionStart;
-                const prevChar = start > 0 ? curVal.charAt(start - 1) : ' ';
-                if (start === 0 || prevChar === ' ' || prevChar === '\n') {
-                    charToInsert = INDEPENDENT_VOWELS[activeLang][e.code];
-                }
-            }
-
-            // 4. Smart Keystroke Composition (Remington / Kruti Dev & Phonetic):
-            const curVal = typingInput.value;
-            const start = typingInput.selectionStart;
-            const end = typingInput.selectionEnd;
-            const composition = composeRemingtonKeystroke(curVal.substring(0, start), charToInsert, activeLayout)
-                || composePhoneticKeystroke(curVal.substring(0, start), charToInsert, activeLayout);
-
-            if (composition) {
-                const before = [...curVal.substring(0, start)];
-                before.splice(before.length - composition.replaceCount, composition.replaceCount);
-                const newBefore = before.join('') + composition.result;
-                typingInput.value = newBefore + curVal.substring(end);
-                typingInput.selectionStart = typingInput.selectionEnd = newBefore.length;
-            } else if (charToInsert !== '') {
-                typingInput.value = curVal.substring(0, start) + charToInsert + curVal.substring(end);
-                typingInput.selectionStart = typingInput.selectionEnd = start + charToInsert.length;
-            }
-            initTyping(e);
-        }
+    if (processMappedKeyInput(typingInput, activeLang, activeLayout, e.code, e.shiftKey)) {
+        e.preventDefault();
     }
 });
 
 // Shift key listeners for dynamic On-Screen Keyboard Guide live flip
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Shift') {
-        const activeLang = localStorage.getItem('typingDostLang') || 'english';
+        const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang) ? currentLearningLang.toLowerCase() : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
         const activeLayout = localStorage.getItem('typingDostLayout_' + activeLang) || 'phonetic';
         if (typeof updateOnScreenKeyboardLayout === 'function') {
             updateOnScreenKeyboardLayout(activeLayout, activeLang, true);
@@ -4074,7 +4488,7 @@ window.addEventListener('keydown', (e) => {
 
 window.addEventListener('keyup', (e) => {
     if (e.key === 'Shift') {
-        const activeLang = localStorage.getItem('typingDostLang') || 'english';
+        const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang) ? currentLearningLang.toLowerCase() : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
         const activeLayout = localStorage.getItem('typingDostLayout_' + activeLang) || 'phonetic';
         if (typeof updateOnScreenKeyboardLayout === 'function') {
             updateOnScreenKeyboardLayout(activeLayout, activeLang, false);
@@ -4248,7 +4662,7 @@ function openCertificatePage() {
         durationLabel = `${title} • ${durationLabel}`;
     }
 
-    const certUrl = `certificate.html?wpm=${lastWpm}&accuracy=${lastAccuracy}&mode=${encodeURIComponent(lastTestMode)}&duration=${encodeURIComponent(durationLabel)}&lang=${encodeURIComponent(activeLang)}&rawWpm=${lastRawWpm}&keyAcc=${lastKeyAccuracy}&corrected=${lastCorrectedMistakes}&uncorrected=${lastUncorrectedMistakes}&backspaces=${lastBackspaceCount}&theme=${encodeURIComponent(currentTheme)}`;
+    const certUrl = tdResolveRootAsset(`certificate.html?wpm=${lastWpm}&accuracy=${lastAccuracy}&mode=${encodeURIComponent(lastTestMode)}&duration=${encodeURIComponent(durationLabel)}&lang=${encodeURIComponent(activeLang)}&rawWpm=${lastRawWpm}&keyAcc=${lastKeyAccuracy}&corrected=${lastCorrectedMistakes}&uncorrected=${lastUncorrectedMistakes}&backspaces=${lastBackspaceCount}&theme=${encodeURIComponent(currentTheme)}`);
     window.open(certUrl, '_blank');
 }
 const modalCertBtn = document.getElementById('modal-certificate-btn');
@@ -4849,6 +5263,11 @@ const dropdowns = [
         dropdown: document.getElementById('game-dropdown'),
         trigger: document.getElementById('game-trigger'),
         menu: document.getElementById('game-menu')
+    },
+    {
+        dropdown: document.getElementById('header-menu-dropdown'),
+        trigger: document.getElementById('header-menu-trigger'),
+        menu: document.getElementById('header-settings-menu')
     }
 ];
 
@@ -4878,6 +5297,9 @@ dropdowns.forEach(({ trigger, menu }) => {
             });
             // Open current one if it was closed
             if (!isOpen) {
+                if (menu.id === 'sound-menu' && typeof ensureSoundMenuPopulated === 'function') {
+                    ensureSoundMenuPopulated();
+                }
                 menu.classList.remove('hidden');
                 trigger.classList.add('open');
             }
@@ -5118,18 +5540,21 @@ function applyDisplayMode(mode) {
     document.body.classList.remove('gray-mode');
     const btn = document.getElementById('display-mode-btn') || displayModeBtn;
     
+    const modeTextEl = document.getElementById('display-mode-text');
     if (mode === 'gray') {
         document.body.classList.add('gray-mode');
         if (btn) {
             btn.innerHTML = '💿 Gray';
             btn.classList.add('active');
         }
+        if (modeTextEl) modeTextEl.textContent = 'Gray';
     } else {
         // default normal mode
         if (btn) {
             btn.innerHTML = '🎨 Normal';
             btn.classList.remove('active');
         }
+        if (modeTextEl) modeTextEl.textContent = 'Normal';
         mode = 'normal';
     }
     
@@ -5178,11 +5603,11 @@ if (eyeComfortBtn) {
     if (savedEyeComfort) {
         document.body.classList.add('eye-comfort-active');
         eyeComfortBtn.classList.add('active');
-        eyeComfortBtn.innerHTML = '☀️ On';
+        eyeComfortBtn.innerHTML = '☀️ On'; const t1 = document.getElementById('eye-comfort-text'); if (t1) { t1.textContent = 'On'; }
     } else {
         document.body.classList.remove('eye-comfort-active');
         eyeComfortBtn.classList.remove('active');
-        eyeComfortBtn.innerHTML = '🌙 Off';
+        eyeComfortBtn.innerHTML = '🌙 Off'; const t2 = document.getElementById('eye-comfort-text'); if (t2) { t2.textContent = 'Off'; }
     }
     
     eyeComfortBtn.addEventListener('click', (e) => {
@@ -5191,10 +5616,10 @@ if (eyeComfortBtn) {
         const isActive = document.body.classList.toggle('eye-comfort-active');
         eyeComfortBtn.classList.toggle('active', isActive);
         if (isActive) {
-            eyeComfortBtn.innerHTML = '☀️ On';
+            eyeComfortBtn.innerHTML = '☀️ On'; const t1 = document.getElementById('eye-comfort-text'); if (t1) { t1.textContent = 'On'; }
             localStorage.setItem('typingDostEyeComfort', 'enabled');
         } else {
-            eyeComfortBtn.innerHTML = '🌙 Off';
+            eyeComfortBtn.innerHTML = '🌙 Off'; const t2 = document.getElementById('eye-comfort-text'); if (t2) { t2.textContent = 'Off'; }
             localStorage.setItem('typingDostEyeComfort', 'disabled');
         }
         playClick();
@@ -5297,19 +5722,29 @@ const soundTrigger = document.getElementById('sound-trigger');
 const currentSoundIcon = document.getElementById('current-sound-icon');
 const currentSoundName = document.getElementById('current-sound-name');
 
-if (soundMenu) {
+let _soundMenuPopulated = false;
+function ensureSoundMenuPopulated() {
+    if (!soundMenu || _soundMenuPopulated) return;
+    _soundMenuPopulated = true;
     soundMenu.innerHTML = "";
     keyboardSounds.forEach(sound => {
         const row = document.createElement('div');
         row.className = 'sound-item-row';
         row.innerHTML = `
-            <button class="sound-item" data-sound="${sound.id}">
+            <button class="sound-item${sound.id === currentSoundProfile ? ' active' : ''}" data-sound="${sound.id}">
                 <span class="sound-item-icon">${sound.icon}</span> ${sound.name}
             </button>
             <button class="sound-preview-btn" data-sound="${sound.id}" title="Preview Sound">🔊</button>
         `;
         soundMenu.appendChild(row);
     });
+}
+if (typeof window !== 'undefined') window.ensureSoundMenuPopulated = ensureSoundMenuPopulated;
+
+// Lazy-populate on first interaction before opening (focus/hover)
+if (soundTrigger) {
+    soundTrigger.addEventListener('pointerenter', ensureSoundMenuPopulated, { once: true });
+    soundTrigger.addEventListener('focus', ensureSoundMenuPopulated, { once: true });
 }
 
 // Sound Selection State persistence
@@ -5327,20 +5762,17 @@ function selectSoundProfile(soundId) {
         previousSoundProfile = soundId;
         localStorage.setItem('typingDostPrevSound', soundId);
     }
+
+    const soundDef = keyboardSounds.find(s => s.id === soundId);
+    if (soundDef) {
+        if (currentSoundIcon) currentSoundIcon.innerText = soundDef.icon;
+        if (currentSoundName) currentSoundName.innerText = soundDef.name;
+    }
     
     const items = document.querySelectorAll('.sound-item');
     items.forEach(item => {
         if (item.getAttribute('data-sound') === soundId) {
             item.classList.add('active');
-            
-            const iconSpan = item.querySelector('.sound-item-icon');
-            if (iconSpan && currentSoundIcon) {
-                currentSoundIcon.innerText = iconSpan.innerText;
-            }
-            if (currentSoundName) {
-                const name = item.innerText.replace(iconSpan ? iconSpan.innerText : '', '').trim();
-                currentSoundName.innerText = name;
-            }
         } else {
             item.classList.remove('active');
         }
@@ -6077,7 +6509,7 @@ function triggerMascotGameComment(type) {
     else if (type === 'danger') imgSrc = 'typingdost_mindblown.webp';
     else if (type === 'meganitro') imgSrc = 'typingdost_happy.webp';
     
-    img.src = imgSrc;
+    img.src = tdResolveRootAsset(imgSrc);
     bubble.innerText = randomComment;
     
     bubble.style.animation = 'none';
@@ -6259,7 +6691,7 @@ function startGame() {
     const mascotImg = document.createElement('img');
     mascotImg.className = 'hud-mascot-img';
     mascotImg.id = 'hud-mascot-img';
-    mascotImg.src = 'typingdost_cool.webp';
+    mascotImg.src = tdResolveRootAsset('typingdost_cool.webp');
     
     imgWrap.appendChild(mascotImg);
     mascotContainer.appendChild(bubble);
@@ -6346,7 +6778,7 @@ function startGame() {
         cabin.className = 'car-cabin';
         const driver = document.createElement('img');
         driver.className = 'driver-mascot';
-        driver.src = 'typingdost_cool.webp';
+        driver.src = tdResolveRootAsset('typingdost_cool.webp');
         cabin.appendChild(driver);
         
         // Engine exhaust
@@ -7657,7 +8089,7 @@ function showMascotPopup(wpm, accuracy, score, isGame) {
     
     // Update DOM
     const mascotImg = document.getElementById('mascot-popup-img');
-    if (mascotImg) mascotImg.src = poseImg;
+    if (mascotImg) mascotImg.src = tdResolveRootAsset(poseImg);
     const mascotBubbleText = document.getElementById('mascot-bubble-text');
     if (mascotBubbleText) mascotBubbleText.innerText = comment;
 
@@ -7665,7 +8097,7 @@ function showMascotPopup(wpm, accuracy, score, isGame) {
     const resMascotImg = document.getElementById('result-mascot-img');
     const resMascotText = document.getElementById('result-mascot-text');
     if (resMascotImg && resMascotText) {
-        resMascotImg.src = poseImg;
+        resMascotImg.src = tdResolveRootAsset(poseImg);
         
         const statsMap = STATS_MASCOT_COMMENTS_BY_LANG[activeLang] || STATS_MASCOT_COMMENTS_BY_LANG.english;
         const statsComments = statsMap[poseImg] || statsMap['typingdost_determined.webp'];
@@ -7745,6 +8177,153 @@ document.addEventListener('click', (e) => {
     focusInput();
     initAudio();
 });
+// Synchronize Page-Specific Pre-Configuration (Timer, Lesson, Exam Telemetry Bar & Indic Layout Pills)
+function applyPageConfigToUI() {
+    const cfg = (typeof window !== 'undefined' && window.TYPINGDOST_PAGE_CONFIG) ? window.TYPINGDOST_PAGE_CONFIG : null;
+    if (cfg) {
+        if (cfg.testMode === 'words') {
+            testMode = 'words';
+            wordLimit = Number(cfg.wordLimit) || 50;
+            if (timeEl) timeEl.innerText = `${wordLimit}w`;
+            document.querySelectorAll('.time-btn').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-mode') === 'words' && Number(b.getAttribute('data-words')) === wordLimit);
+            });
+        } else if (cfg.maxTime) {
+            testMode = 'time';
+            maxTime = Number(cfg.maxTime);
+            timeLeft = maxTime;
+            if (timeEl) timeEl.innerText = typeof formatTime === 'function' ? formatTime(timeLeft) : `${timeLeft}s`;
+            document.querySelectorAll('.time-btn').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-mode') !== 'words' && Number(b.getAttribute('data-time')) === maxTime);
+            });
+        }
+
+        if (cfg.lesson) {
+            currentLesson = cfg.lesson;
+            lessonBtns.forEach(b => {
+                if (b.getAttribute('data-lesson')) {
+                    b.classList.toggle('active', b.getAttribute('data-lesson') === currentLesson);
+                }
+            });
+            document.querySelectorAll('.practice-item').forEach(item => {
+                const match = item.getAttribute('data-lesson') === currentLesson;
+                item.classList.toggle('selected', match);
+                if (match) {
+                    const dd = item.closest('.practice-dropdown');
+                    const trig = dd ? dd.querySelector('.practice-trigger') : null;
+                    if (trig) trig.classList.add('active-sub');
+                }
+            });
+        }
+
+        const wrapper = document.getElementById('typing-section-wrapper');
+        if (cfg.examBadge && wrapper && !document.getElementById('exam-rule-bar')) {
+            const bar = document.createElement('div');
+            bar.id = 'exam-rule-bar';
+            bar.className = 'exam-rule-bar';
+            bar.innerHTML = `
+                <span class="exam-rule-pill">${cfg.examBadge}</span>
+                <div class="exam-live-metrics">
+                    <span>KDPH: <strong id="exam-kdph-live">0</strong></span>
+                    <span>Keys: <strong id="exam-keystrokes-live">0</strong></span>
+                    <span>Error: <strong id="exam-error-rate-live">0.00%</strong></span>
+                </div>
+            `;
+            wrapper.insertBefore(bar, wrapper.firstChild);
+        }
+    }
+
+    window.renderLayoutSwitchBar = function(langOverride) {
+        const activeLang = (langOverride || (typeof currentLearningLang !== 'undefined' && currentLearningLang) || localStorage.getItem('typingDostLang') || 'english').toLowerCase();
+        const existingBar = document.getElementById('layout-switch-bar');
+        if (existingBar) existingBar.remove();
+
+        const langCfg = (typeof SUPPORTED_LANGUAGES !== 'undefined' && SUPPORTED_LANGUAGES[activeLang]) ? SUPPORTED_LANGUAGES[activeLang] : null;
+        const wrapEl = document.getElementById('typing-section-wrapper');
+        if (!wrapEl || !langCfg || !Array.isArray(langCfg.layouts) || langCfg.layouts.length < 2) return;
+
+        const hardwareLayouts = langCfg.layouts.filter(l => [
+            'inscript', 'tamil-99',
+            'urdu-standard', 'urdu-phonetic', 'arabic-101', 'romaji', 'jis-kana', 'phonetic', 'direct'
+        ].includes(l));
+        if (hardwareLayouts.length < 2) return;
+
+        const labels = {
+            'inscript': 'InScript',
+            'tamil-99': 'Tamil 99',
+            'urdu-standard': 'Urdu CRULP',
+            'urdu-phonetic': 'Urdu Phonetic',
+            'arabic-101': 'Arabic 101',
+            'romaji': 'Romaji (Hiragana)',
+            'jis-kana': 'JIS Kana',
+            'phonetic': 'Easy Phonetic',
+            'direct': 'OS Keyboard'
+        };
+        // Phonetic default
+
+        const cfgObj = (typeof window !== 'undefined' && window.TYPINGDOST_PAGE_CONFIG) ? window.TYPINGDOST_PAGE_CONFIG : null;
+        const manualChoice = (typeof window !== 'undefined' && window.__tdManualLayoutLangs) ? window.__tdManualLayoutLangs[activeLang] : null;
+        const curLayout = manualChoice || localStorage.getItem('typingDostLayout_' + activeLang) || (cfgObj && cfgObj.lang === activeLang && cfgObj.layout) || hardwareLayouts[0];
+        const bar = document.createElement('div');
+        bar.id = 'layout-switch-bar';
+        bar.className = 'layout-switch-bar';
+        bar.innerHTML = `<span class="layout-switch-label">Keyboard Layout:</span>` + hardwareLayouts.map(lid => {
+            const isActive = lid === curLayout ? ' active' : '';
+            return `<button type="button" class="layout-switch-pill${isActive}" data-layout-id="${lid}">${labels[lid] || lid}</button>`;
+        }).join('');
+        const textDisp = document.getElementById('text-display');
+        const refNode = (textDisp && textDisp.parentElement === wrapEl) ? textDisp : wrapEl.firstElementChild;
+        wrapEl.insertBefore(bar, refNode);
+
+        // Prevent typingInput blur (OUT OF FOCUS overlay) when user taps any layout pill
+        bar.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.layout-switch-pill')) {
+                e.preventDefault();
+            }
+        });
+
+        bar.addEventListener('click', (e) => {
+            const pill = e.target.closest('.layout-switch-pill');
+            if (!pill) return;
+            const nextLid = pill.getAttribute('data-layout-id');
+            if (!nextLid) return;
+            if (!window.__tdManualLayoutLangs) window.__tdManualLayoutLangs = {};
+            window.__tdManualLayoutLangs[activeLang] = nextLid;
+            localStorage.setItem('typingDostLayout_' + activeLang, nextLid);
+            if (typeof window.initFontSelector === 'function') {
+                window.initFontSelector(activeLang, nextLid);
+            }
+            if (typeof window.onTypingLayoutChange === 'function') {
+                window.onTypingLayoutChange(nextLid, activeLang);
+            }
+            focusInput();
+        });
+    };
+    window.renderLayoutSwitchBar();
+}
+
+window.onTypingLayoutChange = function(layoutId, lang) {
+    const activeLang = (lang || tdGetActiveLangSafe() || 'english').toLowerCase();
+    if (!window.__tdManualLayoutLangs) window.__tdManualLayoutLangs = {};
+    window.__tdManualLayoutLangs[activeLang] = layoutId;
+    try { localStorage.setItem('typingDostLayout_' + activeLang, layoutId); } catch(e){}
+    const isLatinLang = ['english', 'hinglish', 'spanish', 'french', 'german', 'portuguese'].includes(activeLang);
+    window.__TD_NATIVE_INDIC_SCRIPT__ = !isLatinLang && layoutId !== 'direct';
+    pendingPreBaseMatra = null;
+    pendingRomajiBuffer = '';
+    document.querySelectorAll('#layout-switch-bar .layout-switch-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-layout-id') === layoutId);
+    });
+    if (typeof updateOnScreenKeyboardLayout === 'function') {
+        updateOnScreenKeyboardLayout(layoutId, activeLang, false);
+    }
+    resetGame();
+    if (typeof updateKeyboardGuideNextKey === 'function') {
+        updateKeyboardGuideNextKey();
+    }
+};
+
+applyPageConfigToUI();
 loadNewText();
 
 // ---- CURSOR PARTICLE TRAIL ANIMATION ----
@@ -8133,47 +8712,7 @@ if (cursorCanvas && cursorCtx) {
     updateActiveFxUI();
 })();
 
-// ---- CRYPTO DONATE MODAL LOGIC ----
-function copyAddress(elementId, btn) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-    const text = el.innerText.trim();
-    navigator.clipboard.writeText(text).then(() => {
-        // Show ✓ tick in button
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
-        btn.classList.add('copied');
-        setTimeout(() => {
-            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
-            btn.classList.remove('copied');
-        }, 2000);
-    }).catch(() => {
-        // Fallback for older browsers
-        const range = document.createRange();
-        range.selectNode(el);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand('copy');
-        window.getSelection().removeAllRanges();
-    });
-}
-
-// Close crypto modal when clicking backdrop or close button
-const cryptoDonateModal = document.getElementById('crypto-donate-modal');
-if (cryptoDonateModal) {
-    cryptoDonateModal.addEventListener('click', (e) => {
-        if (e.target === cryptoDonateModal) {
-            cryptoDonateModal.classList.add('hidden');
-        }
-    });
-    const cryptoCloseBtn = cryptoDonateModal.querySelector('.crypto-modal-close');
-    if (cryptoCloseBtn) {
-        cryptoCloseBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            cryptoDonateModal.classList.add('hidden');
-        });
-    }
-}
+// Support & Gear moved cleanly to dedicated /support/ and /gear/ pages
 
 // ============================================================
 //  🫧 BUBBLE SHOOTER GAME ENGINE - COMPLETE IMPLEMENTATION
@@ -9179,7 +9718,7 @@ if (cryptoDonateModal) {
             closeBtn: "Close",
             learningTitle: "🎓 Learning Academy",
             learningSubtitle: "Learn Touch Typing from Zero to Keyboard Master",
-            soundLabel: "Keyboard Sound",
+            soundLabel: "Sound",
             themeLabel: "Theme Mode",
             displayModeLabel: "Display Mode",
             footerText: "Elevate your typing speed with sleek cyberpunk aesthetics.",
@@ -9221,7 +9760,7 @@ if (cryptoDonateModal) {
             closeBtn: "बंद करें",
             learningTitle: "🎓 लर्निंग अकादमी",
             learningSubtitle: "शून्य से कीबोर्ड मास्टर तक टच टाइपिंग सीखें",
-            soundLabel: "कीबोर्ड ध्वनि",
+            soundLabel: "Sound",
             themeLabel: "थीम मोड",
             displayModeLabel: "डिस्प्ले मोड",
             footerText: "Sleek cyberpunk aesthetics ke sath apni typing speed ko elevate karein.",
@@ -9263,7 +9802,7 @@ if (cryptoDonateModal) {
             closeBtn: "Close",
             learningTitle: "🎓 Learning Academy",
             learningSubtitle: "Learn Touch Typing from Zero to Keyboard Master",
-            soundLabel: "Keyboard Sound",
+            soundLabel: "Sound",
             themeLabel: "Theme Mode",
             displayModeLabel: "Display Mode",
             footerText: "Sleek cyberpunk aesthetics ke sath apni typing speed ko elevate karein.",
@@ -9558,7 +10097,7 @@ if (cryptoDonateModal) {
         closeBtn: "বন্ধ করুন",
         learningTitle: "🎓 লার্নিং একাডেমি",
         learningSubtitle: "শূন্য থেকে কীবোর্ড মাস্টার পর্যন্ত টাচ টাইপিং শিখুন",
-        soundLabel: "কীবোর্ড সাউন্ড",
+        soundLabel: "Sound",
         themeLabel: "থিম মোড",
         displayModeLabel: "ডিসপ্লে মোড",
         footerText: "স্লিক সাইবারপাঙ্ক নান্দনিকতার সাথে আপনার টাইপিং স্পিড উন্নত করুন।",
@@ -9600,7 +10139,7 @@ if (cryptoDonateModal) {
         closeBtn: "बंद करा",
         learningTitle: "🎓 लर्निंग अकादमी",
         learningSubtitle: "शून्यापासून कीबोर्ड मास्टरपर्यंत टच टायपिंग शिका",
-        soundLabel: "कीबोर्ड ध्वनी",
+        soundLabel: "Sound",
         themeLabel: "थीम मोड",
         displayModeLabel: "डिस्प्ले मोड",
         footerText: "स्लीक सायबरपंक एस्थेटिक्ससह तुमचा टायपिंग स्पीड वाढवा.",
@@ -9642,7 +10181,7 @@ if (cryptoDonateModal) {
         closeBtn: "மூடு",
         learningTitle: "🎓 கற்றல் அகாடமி",
         learningSubtitle: "பூஜ்ஜியத்திலிருந்து கீபோர்டு மாஸ்டர் வரை டச் டைப்பிங் கற்றுக்கொள்ளுங்கள்",
-        soundLabel: "கீபோர்டு ஒலி",
+        soundLabel: "Sound",
         themeLabel: "தீம் பயன்முறை",
         displayModeLabel: "காட்சி பயன்முறை",
         footerText: "நேர்த்தியான சைபர்பங்க் அழகியலுடன் உங்கள் தட்டச்சு வேகத்தை மேம்படுத்தவும்.",
@@ -9684,7 +10223,7 @@ if (cryptoDonateModal) {
         closeBtn: "మూసివేయి",
         learningTitle: "🎓 అభ్యాస అకాడమీ",
         learningSubtitle: "సున్నా నుండి కీబోర్డ్ మాస్టర్ వరకు టచ్ టైపింగ్ నేర్చుకోండి",
-        soundLabel: "కీబోర్డ్ ధ్వని",
+        soundLabel: "Sound",
         themeLabel: "థీమ్ మోడ్",
         displayModeLabel: "డిస్ప్లే మోడ్",
         footerText: "స్లీక్ సైబర్‌పంక్ ఈస్తటిక్స్‌తో మీ టైపింగ్ వేగాన్ని పెంచుకోండి.",
@@ -9726,7 +10265,7 @@ if (cryptoDonateModal) {
         closeBtn: "બંધ કરો",
         learningTitle: "🎓 લર્નિંગ એકેડેમી",
         learningSubtitle: "શૂન્યથી કીબોર્ડ માસ્ટર સુધી ટચ ટાઇપિંગ શીખો",
-        soundLabel: "કીબોર્ડ અવાજ",
+        soundLabel: "Sound",
         themeLabel: "થીમ મોડ",
         displayModeLabel: "ડિસ્પ્લે મોડ",
         footerText: "સ્લીક સાયબરપંક એસ્થેટિક્સ સાથે તમારી ટાઇપિંગ સ્પીડમાં વધારો કરો.",
@@ -9768,7 +10307,7 @@ if (cryptoDonateModal) {
         closeBtn: "ಮುಚ್ಚು",
         learningTitle: "🎓 ಲರ್ನಿಂಗ್ ಅಕಾಡೆಮಿ",
         learningSubtitle: "ಶೂನ್ಯದಿಂದ ಕೀಬೋರ್ಡ್ ಮಾಸ್ಟರ್ ವರೆಗೆ ಟಚ್ ಟೈಪಿಂಗ್ ಕಲಿಯಿರಿ",
-        soundLabel: "ಕೀಬೋರ್ಡ್ ಧ್ವನಿ",
+        soundLabel: "Sound",
         themeLabel: "ಥೀಮ್ ಮೋಡ್",
         displayModeLabel: "ಡಿಸ್ಪ್ಲೇ ಮೋಡ್",
         footerText: "ಸ್ಲೀಕ್ ಸೈಬರ್‌ಪಂಕ್ ಸೌಂದರ್ಯಶಾಸ್ತ್ರದೊಂದಿಗೆ ನಿಮ್ಮ ಟೈಪಿಂಗ್ ವೇಗವನ್ನು ಹೆಚ್ಚಿಸಿ.",
@@ -9810,7 +10349,7 @@ if (cryptoDonateModal) {
         closeBtn: "അടയ്ക്കുക",
         learningTitle: "🎓 ലേണിംഗ് അക്കാദമി",
         learningSubtitle: "പൂജ്യത്തിൽ നിന്ന് കീബോർഡ് മാസ്റ്ററിലേക്ക് ടച്ച് ടൈപ്പിംഗ് പഠിക്കുക",
-        soundLabel: "കീബോർഡ് ശബ്ദം",
+        soundLabel: "Sound",
         themeLabel: "തീം മോഡ്",
         displayModeLabel: "ഡിസ്പ്ലേ മോഡ്",
         footerText: "സ്ലീക്ക് സൈബർപങ്ക് സൗന്ദര്യശാസ്ത്രം ഉപയോഗിച്ച് നിങ്ങളുടെ ടൈപ്പിംഗ് വേഗത വർദ്ധിപ്പിക്കുക.",
@@ -9852,7 +10391,7 @@ if (cryptoDonateModal) {
         closeBtn: "ବନ୍ଦ କରନ୍ତୁ",
         learningTitle: "🎓 ଲର୍ନିଂ ଏକାଡେମୀ",
         learningSubtitle: "ଶୂନରୁ କୀବୋର୍ଡ ମାଷ୍ଟର ପର୍ଯ୍ୟନ୍ତ ଟଚ୍ ଟାଇପିଂ ଶିଖନ୍ତୁ",
-        soundLabel: "କୀବୋର୍ଡ ଧ୍ୱନି",
+        soundLabel: "Sound",
         themeLabel: "ଥିମ୍ ମୋଡ୍",
         displayModeLabel: "ଡିସପ୍ଲେ ମୋଡ୍",
         footerText: "ସ୍ଲିକ୍ ସାଇବରପଙ୍କ ଆସ୍ଥେଟିକ୍ସ ସହିତ ଆପଣଙ୍କ ଟାଇପିଂ ସ୍ପିଡ୍ ବଢାନ୍ତୁ।",
@@ -9894,7 +10433,7 @@ if (cryptoDonateModal) {
         closeBtn: "ਬੰਦ ਕਰੋ",
         learningTitle: "🎓 ਲਰਨਿੰਗ ਅਕੈਡਮੀ",
         learningSubtitle: "ਜ਼ੀਰੋ ਤੋਂ ਕੀਬੋਰਡ ਮਾਸਟਰ ਤੱਕ ਟੱਚ ਟਾਈਪਿੰਗ ਸਿੱਖੋ",
-        soundLabel: "ਕੀਬੋਰਡ ਆਵਾਜ਼",
+        soundLabel: "Sound",
         themeLabel: "ਥੀਮ ਮੋਡ",
         displayModeLabel: "ਡਿਸਪਲੇ ਮੋਡ",
         footerText: "ਸਲੀਕ ਸਾਈਬਰਪੰਕ ਸੁਹਜ-ਸ਼ਾਸਤਰ ਨਾਲ ਆਪਣੀ ਟਾਈਪਿੰਗ ਸਪੀਡ ਵਧਾਓ।",
@@ -9936,7 +10475,7 @@ if (cryptoDonateModal) {
         closeBtn: "بند کریں",
         learningTitle: "🎓 لرننگ اکیڈمی",
         learningSubtitle: "صفر سے کی بورڈ ماسٹر تک ٹچ ٹائپنگ سیکھیں",
-        soundLabel: "کی بورڈ کی آواز",
+        soundLabel: "Sound",
         themeLabel: "تھیم موڈ",
         displayModeLabel: "ڈسپلے موڈ",
         footerText: "سلیک سائبر پنک جمالیات کے ساتھ اپنی ٹائپنگ کی رفتار کو بلند کریں۔",
@@ -9978,7 +10517,7 @@ if (cryptoDonateModal) {
         closeBtn: "বন্ধ কৰক",
         learningTitle: "🎓 লাৰ্নিং একাডেমী",
         learningSubtitle: "শূণ্যৰ পৰা কীবৰ্ড মাষ্টাৰলৈ টাচ টাইপিং শিকক",
-        soundLabel: "কীবৰ্ড চাউণ্ড",
+        soundLabel: "Sound",
         themeLabel: "থীম মোড",
         displayModeLabel: "ডিচপ্লে মোড",
         footerText: "স্লিক চাইবাৰপাংক নান্দনিকতাৰ সৈতে আপোনাৰ টাইপিং স্পীড উন্নত কৰক।",
@@ -10852,34 +11391,42 @@ if (cryptoDonateModal) {
             // Save selection and forcefully reload the page to ensure completely clean rendering
             localStorage.setItem('typingDostLang', chosenLang);
             
-            // Check if there is a dedicated standalone regional page for this language
-                        const pageMap = {
-                'hindi': 'hindi-typing-test.html',
-                'bengali': 'bengali-typing-test.html',
-                'marathi': 'marathi-typing-test.html',
-                'tamil': 'tamil-typing-test.html',
-                'telugu': 'telugu-typing-test.html',
-                'gujarati': 'gujarati-typing-test.html',
-                'kannada': 'kannada-typing-test.html',
-                'malayalam': 'malayalam-typing-test.html',
-                'odia': 'odia-typing-test.html',
-                'punjabi': 'punjabi-typing-test.html',
-                'urdu': 'urdu-typing-test.html',
-                'assamese': 'assamese-typing-test.html',
-                'english': 'english-typing-test.html',
-                'hinglish': 'hinglish-typing-test.html'
+            // Check if there is a dedicated standalone clean directory page for this language
+            const slugs = {
+                'hindi': 'hindi-typing-test',
+                'bengali': 'bengali-typing-test',
+                'marathi': 'marathi-typing-test',
+                'tamil': 'tamil-typing-test',
+                'telugu': 'telugu-typing-test',
+                'gujarati': 'gujarati-typing-test',
+                'kannada': 'kannada-typing-test',
+                'malayalam': 'malayalam-typing-test',
+                'odia': 'odia-typing-test',
+                'punjabi': 'punjabi-typing-test',
+                'urdu': 'urdu-typing-test',
+                'assamese': 'assamese-typing-test',
+                'english': 'english-typing-test',
+                'hinglish': 'hinglish-typing-test'
             };
             
-            const targetPage = pageMap[chosenLang];
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            
-            if (targetPage && targetPage !== currentPage && !(targetPage === 'index.html' && currentPage === '')) {
-                window.location.href = targetPage;
-            } else {
-                const url = new URL(window.location.href);
-                url.searchParams.set('lang', chosenLang);
-                window.location.href = url.toString();
+            const targetSlug = slugs[chosenLang];
+            if (targetSlug) {
+                if (window.location.protocol === 'file:') {
+                    window.location.href = tdGetSitePrefix() + targetSlug + '/index.html';
+                    return;
+                }
+                const targetPage = '/' + targetSlug + '/';
+                const currentNormPath = window.location.pathname.endsWith('/') ? window.location.pathname : (window.location.pathname + '/');
+                if (targetPage !== currentNormPath) {
+                    window.location.href = targetPage;
+                    return;
+                }
             }
+            const isFileProto = window.location.protocol === 'file:';
+            const baseDest = tdGetSitePrefix() + (isFileProto ? 'index.html' : '');
+            const url = new URL(baseDest, window.location.href);
+            url.searchParams.set('lang', chosenLang);
+            window.location.href = url.toString();
         });
     });
 
@@ -11059,7 +11606,15 @@ if (cryptoDonateModal) {
         if (soundControlLabelElement) soundControlLabelElement.textContent = trans.soundLabel;
 
         const themeControlLabelElement = document.getElementById('theme-control-label');
-        if (themeControlLabelElement) themeControlLabelElement.textContent = trans.themeLabel;
+        if (themeControlLabelElement) themeControlLabelElement.textContent = "Theme";
+        const soundControlLabelElement2 = document.getElementById('sound-control-label');
+        if (soundControlLabelElement2) soundControlLabelElement2.textContent = "Sound";
+        const headerLangLabelElement2 = document.getElementById('header-lang-label');
+        if (headerLangLabelElement2) headerLangLabelElement2.textContent = "Lang";
+        const modeControlLabelElement = document.getElementById('mode-control-label');
+        if (modeControlLabelElement) modeControlLabelElement.textContent = "Mode";
+        const comfortControlLabelElement = document.getElementById('comfort-control-label');
+        if (comfortControlLabelElement) comfortControlLabelElement.textContent = "Comfort";
 
         const displayModeLabelEl = document.getElementById('display-mode-label');
         if (displayModeLabelEl) displayModeLabelEl.textContent = trans.displayModeLabel || "Display Mode";
@@ -11170,10 +11725,12 @@ if (cryptoDonateModal) {
         const activeChapterId = activeTab ? activeTab.getAttribute('data-chapter') : "1";
         renderChapter(activeChapterId);
 
-        // Initialize Layout/Font Selector for current language
-        if (typeof window.initFontSelector === "function") window.initFontSelector(lang);
+        // Initialize Layout/Font Selector & Layout Bar for current language
         if (typeof window.initFontSelector === 'function') {
             window.initFontSelector(lang);
+        }
+        if (typeof window.renderLayoutSwitchBar === 'function') {
+            window.renderLayoutSwitchBar(lang);
         }
     }
 
@@ -11192,8 +11749,6 @@ if (cryptoDonateModal) {
 
             // Define friendly names for known layouts
             const LAYOUT_META = {
-                'remington-gail': { icon: '🖋️', name: 'Remington Gail' },
-                'kruti-dev': { icon: '📝', name: 'Kruti Dev 010' },
                 'inscript': { icon: '⌨️', name: 'Inscript' },
                 'phonetic': { icon: '🔊', name: 'Phonetic' },
                 'tamil-99': { icon: '⌨️', name: 'Tamil 99' }
@@ -11423,6 +11978,13 @@ if (cryptoDonateModal) {
         let isShiftActive = false;
 
         function updateKeyCases() {
+            const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang) ? currentLearningLang.toLowerCase() : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
+            const defaultLay = (activeLang === 'urdu' ? 'urdu-phonetic' : activeLang === 'arabic' ? 'arabic-101' : activeLang === 'tamil' ? 'tamil-99' : activeLang === 'japanese' ? 'romaji' : 'phonetic');
+            const activeLayout = localStorage.getItem('typingDostLayout_' + activeLang) || defaultLay;
+            if (typeof syncMobileVirtualKeyboard === 'function' && !['english', 'hinglish', 'spanish', 'french', 'german', 'portuguese'].includes(activeLang) && activeLayout !== 'direct') {
+                syncMobileVirtualKeyboard(activeLayout, activeLang, isShiftActive);
+                return;
+            }
             const keys = virtualKeyboard.querySelectorAll('.v-key');
             keys.forEach(k => {
                 const keyVal = k.getAttribute('data-key');
@@ -11431,6 +11993,15 @@ if (cryptoDonateModal) {
                 }
             });
         }
+
+        const vKeyToCode = {
+            'q':'KeyQ','w':'KeyW','e':'KeyE','r':'KeyR','t':'KeyT','y':'KeyY','u':'KeyU','i':'KeyI','o':'KeyO','p':'KeyP',
+            'a':'KeyA','s':'KeyS','d':'KeyD','f':'KeyF','g':'KeyG','h':'KeyH','j':'KeyJ','k':'KeyK','l':'KeyL',
+            'z':'KeyZ','x':'KeyX','c':'KeyC','v':'KeyV','b':'KeyB','n':'KeyN','m':'KeyM',
+            '1':'Digit1','2':'Digit2','3':'Digit3','4':'Digit4','5':'Digit5','6':'Digit6','7':'Digit7','8':'Digit8','9':'Digit9','0':'Digit0',
+            '-':'Minus','=':'Equal','[':'BracketLeft',']':'BracketRight','\\':'Backslash','`':'Backquote',
+            ',':'Comma','.':'Period','/':'Slash',';':'Semicolon',"'":'Quote',' ':'Space'
+        };
 
         virtualKeyboard.addEventListener('click', (e) => {
             const btn = e.target.closest('.v-key');
@@ -11444,7 +12015,7 @@ if (cryptoDonateModal) {
 
             const keyVal = btn.getAttribute('data-key');
 
-            // Play simulated click sound
+            // Handle Shift toggle cleanly across Latin + Non-Latin keyboards
             if (keyVal === 'shift') {
                 isShiftActive = !isShiftActive;
                 btn.classList.toggle('active-press', isShiftActive);
@@ -11452,8 +12023,17 @@ if (cryptoDonateModal) {
                 return;
             }
 
-            let charToAppend = keyVal;
-            if (charToAppend === 'backspace') {
+            if (keyVal === 'backspace') {
+                if (pendingPreBaseMatra) {
+                    pendingPreBaseMatra = null;
+                    if (typeof updateKeyboardGuideNextKey === 'function') updateKeyboardGuideNextKey();
+                    return;
+                }
+                if (pendingRomajiBuffer && pendingRomajiBuffer.length > 0) {
+                    pendingRomajiBuffer = pendingRomajiBuffer.slice(0, -1);
+                    if (typeof updateKeyboardGuideNextKey === 'function') updateKeyboardGuideNextKey();
+                    return;
+                }
                 const currentVal = inputArea.value;
                 if (currentVal.length > 0) {
                     inputArea.value = currentVal.substring(0, currentVal.length - 1);
@@ -11462,12 +12042,22 @@ if (cryptoDonateModal) {
                 return;
             }
 
-            if (charToAppend !== ' ') {
-                charToAppend = isShiftActive ? charToAppend.toUpperCase() : charToAppend.toLowerCase();
-            }
+            const activeLang = (typeof currentLearningLang !== 'undefined' && currentLearningLang) ? currentLearningLang.toLowerCase() : (localStorage.getItem('typingDostLang') || 'english').toLowerCase();
+            const isLatinLang = ['english', 'hinglish', 'spanish', 'french', 'german', 'portuguese'].includes(activeLang);
+            const defaultLay = (activeLang === 'urdu' ? 'urdu-phonetic' : activeLang === 'arabic' ? 'arabic-101' : activeLang === 'tamil' ? 'tamil-99' : activeLang === 'japanese' ? 'romaji' : 'phonetic');
+            const activeLayout = localStorage.getItem('typingDostLayout_' + activeLang) || defaultLay;
+            const eCode = vKeyToCode[(keyVal || '').toLowerCase()];
 
-            inputArea.value += charToAppend;
-            inputArea.dispatchEvent(new Event('input', { bubbles: true }));
+            if (!isLatinLang && activeLayout !== 'direct' && eCode && typeof processMappedKeyInput === 'function') {
+                processMappedKeyInput(inputArea, activeLang, activeLayout, eCode, isShiftActive);
+            } else {
+                let charToAppend = keyVal;
+                if (charToAppend !== ' ') {
+                    charToAppend = isShiftActive ? charToAppend.toUpperCase() : charToAppend.toLowerCase();
+                }
+                inputArea.value += charToAppend;
+                inputArea.dispatchEvent(new Event('input', { bubbles: true }));
+            }
 
             // Autoshift release flow
             if (isShiftActive && keyVal !== ' ') {
@@ -11522,234 +12112,13 @@ if (cryptoDonateModal) {
 
 
     // --- PROGRESSIVE WEB APP (PWA) SERVICE WORKER REGISTRATION ---
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
+            navigator.serviceWorker.register('/sw.js')
                 .then(reg => console.log('[Service Worker] Cyber precache systems activated scope:', reg.scope))
                 .catch(err => console.error('[Service Worker] Cyber systems failed initialization:', err));
         });
     }
-
-    // --- DYNAMIC TYPING GEARS FOOTER CLICK ACTION (GOOGLE SHEETS CMS) ---
-    const sheetsCSVUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFSkERnvD90fxv3tk6yOB7CjaUEWSIfMtDFOsFaMzwSfUE2ghby6JDl6Z6a4sv6CPeIUw8wZRuJV/pub?gid=0&single=true&output=csv';
-    const sheetsWebUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFSkERnvD90fxv3tk6yOB7CjaUEWSIfMtDFOsFaMzwSfUE2ghby6JDl6Z6a4sv6CPeIUw8wZRuJV/pubhtml?gid=0&single=true';
-    let cachedGears = null;
-
-    function ensureGearsModal() {
-        let gearsModal = document.getElementById('typing-gears-modal');
-        if (!gearsModal) {
-            gearsModal = document.createElement('div');
-            gearsModal.id = 'typing-gears-modal';
-            gearsModal.className = 'modal hidden';
-            gearsModal.innerHTML = `
-                <div class="modal-content glass-card" style="max-width: 800px; padding: 2rem;">
-                    <button class="crypto-modal-close" onclick="document.getElementById('typing-gears-modal').classList.add('hidden')" title="Close">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    </button>
-                    <div style="text-align: center; margin-bottom: 1.5rem;">
-                        <h2 style="font-family: 'Orbitron', sans-serif; color: var(--primary, #00f0ff); text-shadow: 0 0 10px rgba(0, 240, 255, 0.4); margin-bottom: 0.5rem; text-transform: uppercase; font-size: 1.8rem; letter-spacing: 1px;">Premium Typing Gears ⌨️</h2>
-                        <p style="color: var(--text-sub, #8b9bb4); font-size: 0.9rem; max-width: 600px; margin: 0 auto; line-height: 1.5;">
-                            Optimize your speed & accuracy with these high-performance keyboards, mouse, and typing setups handpicked for candidates and professional typists.
-                        </p>
-                        <div style="margin-top: 0.8rem;">
-                            <a href="${sheetsWebUrl}" target="_blank" rel="noopener noreferrer" class="gears-sheet-btn">
-                                📊 Open Live Google Sheet Catalog ↗
-                            </a>
-                        </div>
-                    </div>
-                    <div id="gears-loader" class="gears-loader-container">
-                        <div class="gears-spinner"></div>
-                        <p style="color: var(--primary, #00f0ff); margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">Syncing products with database...</p>
-                    </div>
-                    <div id="gears-error" class="hidden" style="text-align: center; padding: 2rem 0;">
-                        <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">⚠️</span>
-                        <p style="color: #ff4757; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 1rem;">Failed to fetch live gear products. Please try again later.</p>
-                        <div style="display: flex; gap: 0.8rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-                            <button id="gears-retry-btn" class="cyber-btn" style="padding: 0.5rem 1.5rem; font-size: 0.85rem;">🔄 Retry Fetch</button>
-                            <a href="${sheetsWebUrl}" target="_blank" rel="noopener noreferrer" class="gears-sheet-btn">📊 View Google Sheet Directly</a>
-                        </div>
-                    </div>
-                    <div id="gears-products-grid" class="gears-grid hidden"></div>
-                    <div class="gears-disclaimer" style="margin-top: 2rem; border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 1rem; text-align: center;">
-                        <p style="font-size: 0.75rem; color: var(--text-sub, #8b9bb4); line-height: 1.4; max-width: 650px; margin: 0 auto; font-family: var(--font-sans, 'Inter', sans-serif);">
-                            ℹ️ <strong>Disclosure:</strong> As an Amazon Associate, TypingDost earns from qualifying purchases. When you buy through our links, we may earn an affiliate commission at no extra cost to you. Thank you for supporting us!
-                        </p>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(gearsModal);
-        }
-        return gearsModal;
-    }
-
-    function parseCSVLine(line) {
-        const result = [];
-        let current = '';
-        let inQuotes = false;
-        for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"') {
-                inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-                result.push(current.trim());
-                current = '';
-            } else {
-                current += char;
-            }
-        }
-        result.push(current.trim());
-        return result;
-    }
-
-    async function fetchGearProducts() {
-        const gearsModal = ensureGearsModal();
-        const gearsLoader = gearsModal.querySelector('#gears-loader') || document.getElementById('gears-loader');
-        const gearsError = gearsModal.querySelector('#gears-error') || document.getElementById('gears-error');
-        const gearsGrid = gearsModal.querySelector('#gears-products-grid') || document.getElementById('gears-products-grid');
-
-        if (gearsLoader) gearsLoader.classList.remove('hidden');
-        if (gearsError) gearsError.classList.add('hidden');
-        if (gearsGrid) gearsGrid.classList.add('hidden');
-        
-        try {
-            const response = await fetch(sheetsCSVUrl);
-            if (!response.ok) throw new Error('Network response was not OK');
-            const dataText = await response.text();
-            
-            const lines = dataText.split('\n');
-            const products = [];
-            
-            // Skip header row
-            for (let i = 1; i < lines.length; i++) {
-                const line = lines[i].trim();
-                if (!line) continue;
-                
-                const cols = parseCSVLine(line);
-                if (cols.length >= 3 && cols[0] && cols[2]) {
-                    products.push({
-                        name: cols[0],
-                        image: cols[1] || 'typingdost_brand.png',
-                        link: cols[2],
-                        price: cols[3] || 'Check Price',
-                        description: cols[4] || 'Highly recommended gear'
-                    });
-                }
-            }
-            
-            if (products.length === 0) {
-                throw new Error('No products found in the sheet');
-            }
-            
-            cachedGears = products;
-            renderGears(products);
-            
-        } catch (error) {
-            console.error('[Typing Gears] Error fetching products:', error);
-            if (gearsLoader) gearsLoader.classList.add('hidden');
-            if (gearsError) gearsError.classList.remove('hidden');
-        }
-    }
-
-    function renderGears(products) {
-        const gearsModal = ensureGearsModal();
-        const gearsLoader = gearsModal.querySelector('#gears-loader') || document.getElementById('gears-loader');
-        const gearsGrid = gearsModal.querySelector('#gears-products-grid') || document.getElementById('gears-products-grid');
-        if (!gearsGrid) return;
-        
-        gearsGrid.innerHTML = '';
-        products.forEach(prod => {
-            const card = document.createElement('div');
-            card.className = 'gear-card';
-            
-            const nameClean = prod.name.replace(/^"(.*)"$/, '$1').trim();
-            const descClean = prod.description.replace(/^"(.*)"$/, '$1').trim();
-            const priceClean = prod.price.replace(/^"(.*)"$/, '$1').trim();
-            const imageClean = prod.image.replace(/^"(.*)"$/, '$1').trim();
-            let linkClean = prod.link.replace(/^"(.*)"$/, '$1').trim();
-
-            // Sanitize Link so it NEVER 404s or navigates locally
-            if (!linkClean.startsWith('http://') && !linkClean.startsWith('https://')) {
-                if (linkClean.toLowerCase().startsWith('www.')) {
-                    linkClean = 'https://' + linkClean;
-                } else {
-                    linkClean = 'https://www.amazon.in/s?k=' + encodeURIComponent(linkClean) + '&tag=ubermench-21';
-                }
-            }
-            
-            card.innerHTML = `
-                <div class="gear-img-wrap">
-                    <img src="${imageClean}" alt="${nameClean}" class="gear-img" onerror="this.src='typingdost_brand.png'" loading="lazy">
-                </div>
-                <h4 class="gear-title" title="${nameClean}">${nameClean}</h4>
-                <p class="gear-desc" title="${descClean}">${descClean}</p>
-                <div class="gear-footer">
-                    <span class="gear-price">${priceClean.startsWith('₹') || priceClean.toLowerCase().includes('price') ? priceClean : '₹' + priceClean}</span>
-                    <a href="${linkClean}" target="_blank" rel="noopener noreferrer" class="gear-buy-btn">
-                        Shop Now
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" style="vertical-align: middle;">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </a>
-                </div>
-            `;
-            gearsGrid.appendChild(card);
-        });
-        
-        if (gearsLoader) gearsLoader.classList.add('hidden');
-        gearsGrid.classList.remove('hidden');
-    }
-
-    function openTypingGearsModal() {
-        if (typeof initAudio === 'function') { try { initAudio(); } catch(e){} }
-        if (typeof playClick === 'function') { try { playClick(); } catch(e){} }
-        
-        const modal = ensureGearsModal();
-        modal.classList.remove('hidden');
-        
-        if (!cachedGears) {
-            fetchGearProducts();
-        } else {
-            renderGears(cachedGears);
-        }
-    }
-
-    // Unified Document-Level Event Delegation for Gears Button & Modal
-    document.addEventListener('click', (e) => {
-        const gearsBtn = e.target.closest('#typing-gears-btn, .typing-gears-btn');
-        if (gearsBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            openTypingGearsModal();
-            return;
-        }
-
-        const banner = e.target.closest('#result-gear-banner');
-        if (banner) {
-            e.preventDefault();
-            e.stopPropagation();
-            const resultModal = document.getElementById('result-modal');
-            if (resultModal) resultModal.classList.add('hidden');
-            openTypingGearsModal();
-            return;
-        }
-
-        const retryBtn = e.target.closest('#gears-retry-btn');
-        if (retryBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            fetchGearProducts();
-            return;
-        }
-
-        const modal = document.getElementById('typing-gears-modal');
-        if (modal && !modal.classList.contains('hidden')) {
-            if (e.target === modal || e.target.closest('.crypto-modal-close')) {
-                modal.classList.add('hidden');
-            }
-        }
-    });
 
     /* ==========================================================================
        ⚡ MASCOT CORNER GREETING POPUP SYSTEM (MULTILINGUAL WELCOME & 15-MIN)
@@ -11761,7 +12130,7 @@ if (cryptoDonateModal) {
         widget.id = 'mascot-greeting-widget';
         widget.innerHTML = `
             <div class="mascot-greeting-avatar">
-                <img id="mascot-greeting-img-tag" class="mascot-greeting-img" src="typingdost_welcome.webp" alt="Mascot">
+                <img id="mascot-greeting-img-tag" class="mascot-greeting-img" src="${tdResolveRootAsset('typingdost_welcome.webp')}" width="56" height="56" alt="Mascot">
             </div>
             <div class="mascot-greeting-bubble">
                 <button class="mascot-greeting-close" id="mascot-greeting-close-btn" title="Dismiss">&times;</button>
@@ -11881,7 +12250,7 @@ if (cryptoDonateModal) {
                 message = trans.milestoneMsg;
             }
 
-            imgTag.src = pose;
+            imgTag.src = tdResolveRootAsset(pose);
             titleTag.textContent = title;
             textTag.innerHTML = message;
             widget.classList.add('active');
@@ -12072,115 +12441,154 @@ if (cryptoDonateModal) {
             return UNIVERSAL_KEYCODES_MAP[targetChar];
         }
 
-        // 2. Comprehensive Hindi Remington Gail & Kruti Dev 010 direct mapping table
-        const HINDI_REMINGTON_KRUTI = {
-            'क': { code: 'KeyD', shift: false }, 'ख': { code: 'BracketLeft', shift: false }, 'ग': { code: 'KeyX', shift: false }, 'घ': { code: 'BracketRight', shift: false }, 'ङ': { code: 'KeyU', shift: true },
-            'च': { code: 'KeyP', shift: false }, 'छ': { code: 'KeyN', shift: true }, 'ज': { code: 'KeyT', shift: false }, 'झ': { code: 'Period', shift: true }, 'ञ': { code: 'BracketRight', shift: true },
-            'ट': { code: 'KeyV', shift: true }, 'ठ': { code: 'KeyB', shift: true }, 'ड': { code: 'KeyM', shift: true }, 'ढ': { code: 'Comma', shift: true }, 'ण': { code: 'KeyC', shift: true },
-            'त': { code: 'KeyR', shift: false }, 'थ': { code: 'KeyF', shift: true }, 'द': { code: 'KeyN', shift: false }, 'ध': { code: 'Slash', shift: false }, 'न': { code: 'KeyU', shift: false },
-            'प': { code: 'KeyI', shift: false }, 'फ': { code: 'KeyQ', shift: true }, 'ब': { code: 'KeyC', shift: false }, 'भ': { code: 'KeyG', shift: true }, 'म': { code: 'KeyE', shift: false },
-            'य': { code: 'Semicolon', shift: false }, 'र': { code: 'KeyJ', shift: false }, 'ल': { code: 'KeyY', shift: false }, 'व': { code: 'KeyO', shift: false },
-            'श': { code: 'Quote', shift: false }, 'ष': { code: 'Quote', shift: true }, 'स': { code: 'KeyL', shift: false }, 'ह': { code: 'KeyG', shift: false },
-            'ा': { code: 'KeyK', shift: false }, 'ि': { code: 'KeyF', shift: false }, 'ी': { code: 'KeyH', shift: false }, 'ु': { code: 'KeyQ', shift: false }, 'ू': { code: 'KeyW', shift: false },
-            'ृ': { code: 'Backquote', shift: false }, 'े': { code: 'KeyS', shift: false }, 'ै': { code: 'KeyS', shift: true }, 'ो': { code: 'KeyK', shift: false }, 'ौ': { code: 'KeyK', shift: false },
-            'ं': { code: 'KeyA', shift: false }, 'ँ': { code: 'KeyA', shift: true }, 'ः': { code: 'Minus', shift: true }, '्': { code: 'KeyD', shift: false },
-            '़': { code: 'BracketRight', shift: false }, '।': { code: 'Period', shift: false },
-            'अ': { code: 'KeyV', shift: false }, 'आ': { code: 'KeyV', shift: false }, 'इ': { code: 'KeyB', shift: false }, 'ई': { code: 'KeyB', shift: false },
-            'उ': { code: 'KeyM', shift: false }, 'ऊ': { code: 'KeyM', shift: true }, 'ऋ': { code: 'Backquote', shift: true },
-            'ए': { code: 'Comma', shift: false }, 'ऐ': { code: 'Comma', shift: false }, 'ओ': { code: 'KeyV', shift: false }, 'औ': { code: 'KeyV', shift: false },
-            'ज्ञ': { code: 'KeyK', shift: true }, 'श्र': { code: 'KeyJ', shift: true }, 'त्र': { code: 'Digit1', shift: true }, 'क्ष': { code: 'KeyD', shift: false }
-        };
+        // Dynamic single-source-of-truth lookup across getLanguageKeymap + multi-step sequence resolution
+        const isRemingtonOrKruti = false;
 
-        // Comprehensive Tamil 99 direct mapping table
-        const TAMIL_99_DIRECT_MAP = {
-            'க': { code: 'KeyH', shift: false }, 'ங': { code: 'KeyH', shift: true },
-            'ச': { code: 'BracketLeft', shift: false }, 'ஞ': { code: 'BracketRight', shift: false },
-            'ட': { code: 'KeyO', shift: false }, 'ண': { code: 'KeyP', shift: false },
-            'த': { code: 'KeyL', shift: false }, 'ந': { code: 'Semicolon', shift: false },
-            'ப': { code: 'KeyJ', shift: false }, 'ம': { code: 'KeyK', shift: false },
-            'ய': { code: 'Quote', shift: false }, 'ர': { code: 'KeyN', shift: false },
-            'ல': { code: 'KeyB', shift: false }, 'வ': { code: 'KeyC', shift: false },
-            'ழ': { code: 'KeyM', shift: false }, 'ள': { code: 'KeyY', shift: false },
-            'ற': { code: 'KeyU', shift: false }, 'ன': { code: 'KeyI', shift: false },
-            'ஜ': { code: 'Quote', shift: true }, 'ஷ': { code: 'BracketRight', shift: true },
-            'ஸ': { code: 'BracketLeft', shift: true }, 'ஹ': { code: 'KeyC', shift: true },
-            'க்ஷ': { code: 'KeyV', shift: true }, 'ஶ': { code: 'KeyB', shift: true },
-            'அ': { code: 'KeyA', shift: false }, 'ஆ': { code: 'KeyQ', shift: false },
-            'இ': { code: 'KeyS', shift: false }, 'ஈ': { code: 'KeyW', shift: false },
-            'உ': { code: 'KeyD', shift: false }, 'ஊ': { code: 'KeyE', shift: false },
-            'எ': { code: 'KeyG', shift: false }, 'ஏ': { code: 'KeyR', shift: false },
-            'ஐ': { code: 'KeyT', shift: false }, 'ஒ': { code: 'KeyZ', shift: false },
-            'ஓ': { code: 'KeyZ', shift: true }, 'ஔ': { code: 'KeyX', shift: false },
-            'ஃ': { code: 'Backquote', shift: false },
-            'ா': { code: 'KeyQ', shift: false }, 'ி': { code: 'KeyS', shift: false },
-            'ீ': { code: 'KeyW', shift: false }, 'ு': { code: 'KeyD', shift: false },
-            'ூ': { code: 'KeyE', shift: false }, 'ெ': { code: 'KeyG', shift: false },
-            'ே': { code: 'KeyR', shift: false }, 'ை': { code: 'KeyT', shift: false },
-            'ொ': { code: 'KeyZ', shift: false }, 'ோ': { code: 'KeyZ', shift: true },
-            'ௌ': { code: 'KeyX', shift: false }, '்': { code: 'KeyF', shift: false },
-            '।': { code: 'Period', shift: false }
-        };
+        if (isRemingtonOrKruti) {
+            const krutiMultiStep = {
+                'आ': { code: 'KeyV', shift: false },
+                'ई': { code: 'KeyB', shift: false },
+                'ऐ': { code: 'Comma', shift: false },
+                'ओ': { code: 'KeyV', shift: false },
+                'औ': { code: 'KeyV', shift: false },
+                'ो': { code: 'KeyK', shift: false },
+                'ौ': { code: 'KeyK', shift: false },
+                'ण': { code: 'BracketRight', shift: true },
+                'ञ': { code: 'Minus', shift: true }
+            };
+            if (krutiMultiStep[targetChar]) return krutiMultiStep[targetChar];
+        }
 
-        if (lang === 'hindi' || lang === 'marathi') {
-            if ((layout === 'remington-gail' || layout === 'kruti-dev') && HINDI_REMINGTON_KRUTI[targetChar]) {
-                return HINDI_REMINGTON_KRUTI[targetChar];
+        if (lang === 'tamil' && (layout === 'tamil-99' || layout === 'tamil99')) {
+            const tamil99SignBase = {
+                'ா': 'ஆ', 'ி': 'இ', 'ீ': 'ஈ', 'ு': 'உ', 'ூ': 'ஊ',
+                'ெ': 'எ', 'ே': 'ஏ', 'ை': 'ஐ', 'ொ': 'ஒ', 'ோ': 'ஓ', 'ௌ': 'ஔ'
+            };
+            const lookupChar = tamil99SignBase[targetChar] || targetChar;
+            if (typeof getLanguageKeymap === 'function') {
+                const nm = getLanguageKeymap(lang, 'tamil-99', false);
+                const sm = getLanguageKeymap(lang, 'tamil-99', true);
+                if (nm) for (const [kCode, ch] of Object.entries(nm)) if (ch === lookupChar) return { code: kCode, shift: false };
+                if (sm) for (const [kCode, ch] of Object.entries(sm)) if (ch === lookupChar) return { code: kCode, shift: true };
             }
         }
 
-        if (lang === 'tamil') {
-            if ((layout === 'tamil-99' || layout === 'tamil99') && TAMIL_99_DIRECT_MAP[targetChar]) {
-                return TAMIL_99_DIRECT_MAP[targetChar];
+        // Japanese Romaji & JIS Kana Dakuten resolution
+        if (lang === 'japanese') {
+            if (layout === 'romaji') {
+                const hiraToRomaji = {
+                    あ:'a',い:'i',う:'u',え:'e',お:'o',か:'ka',き:'ki',く:'ku',け:'ke',こ:'ko',
+                    さ:'sa',し:'shi',す:'su',せ:'se',そ:'so',た:'ta',ち:'chi',つ:'tsu',て:'te',と:'to',
+                    な:'na',に:'ni',ぬ:'nu',ね:'ne',の:'no',は:'ha',ひ:'hi',ふ:'fu',へ:'he',ほ:'ho',
+                    ま:'ma',み:'mi',む:'mu',め:'me',も:'mo',や:'ya',ゆ:'yu',よ:'yo',
+                    ら:'ra',り:'ri',る:'ru',れ:'re',ろ:'ro',わ:'wa',を:'wo',ん:'nn',
+                    が:'ga',ぎ:'gi',ぐ:'gu',げ:'ge',ご:'go',ざ:'za',じ:'ji',ず:'zu',ぜ:'ze',ぞ:'zo',
+                    だ:'da',ぢ:'di',づ:'du',で:'de',ど:'do',ば:'ba',び:'bi',ぶ:'bu',べ:'be',ぼ:'bo',
+                    ぱ:'pa',ぴ:'pi',ぷ:'pu',ぺ:'pe',ぽ:'po',っ:'t',ょ:'y',ゃ:'y',ゅ:'y',
+                    'ー':'-', '、':',', '。':'.', ' ':' '
+                };
+                const seq = hiraToRomaji[targetChar];
+                if (seq) {
+                    const rem = (typeof pendingRomajiBuffer === 'string' && pendingRomajiBuffer && seq.startsWith(pendingRomajiBuffer))
+                        ? seq.slice(pendingRomajiBuffer.length)
+                        : seq;
+                    const ch = rem[0] || seq[0];
+                    if (ch === '-') return { code: 'Minus', shift: false };
+                    if (ch === ',') return { code: 'Comma', shift: false };
+                    if (ch === '.') return { code: 'Period', shift: false };
+                    if (ch === ' ') return { code: 'Space', shift: false };
+                    if (/^[a-z]$/.test(ch)) return { code: 'Key' + ch.toUpperCase(), shift: false };
+                }
+            } else if (layout === 'jis-kana' && typeof JP_DAKUTEN_MAP !== 'undefined') {
+                for (const [b, v] of Object.entries(JP_DAKUTEN_MAP)) {
+                    if (v === targetChar) targetChar = b;
+                }
+                for (const [b, v] of Object.entries(JP_HANDAKUTEN_MAP)) {
+                    if (v === targetChar) targetChar = b;
+                }
             }
         }
 
-        // 3. Dynamic search in LANGUAGE_KEYBOARDS for active layout
+        // Primary lookup in active layout's exact keymap (Single source of truth from fontSystem.js)
         if (typeof getLanguageKeymap === 'function') {
             const normalMap = getLanguageKeymap(lang, layout, false);
             const shiftMap = getLanguageKeymap(lang, layout, true);
 
             if (normalMap) {
                 for (const [kCode, char] of Object.entries(normalMap)) {
-                    if (char === targetChar) {
-                        return { code: kCode, shift: false };
-                    }
+                    if (char === targetChar) return { code: kCode, shift: false };
                 }
             }
             if (shiftMap) {
                 for (const [kCode, char] of Object.entries(shiftMap)) {
-                    if (char === targetChar) {
-                        return { code: kCode, shift: true };
-                    }
-                }
-            }
-        }
-
-        // 4. Secondary fallback: Check Inscript layout of same language if currently in Phonetic
-        if (layout === 'phonetic' && typeof getLanguageKeymap === 'function') {
-            const inscriptNormal = getLanguageKeymap(lang, 'inscript', false);
-            const inscriptShift = getLanguageKeymap(lang, 'inscript', true);
-            if (inscriptNormal) {
-                for (const [kCode, char] of Object.entries(inscriptNormal)) {
-                    if (char === targetChar) return { code: kCode, shift: false };
-                }
-            }
-            if (inscriptShift) {
-                for (const [kCode, char] of Object.entries(inscriptShift)) {
                     if (char === targetChar) return { code: kCode, shift: true };
                 }
             }
         }
 
+        // Phonetic multi-stroke inverse resolution (stays strictly inside Phonetic layout)
+        if (layout === 'phonetic' && typeof getLanguageKeymap === 'function') {
+            let baseChar = null;
+            if (typeof PHONETIC_ASPIRATE_MAP !== 'undefined') {
+                for (const [plain, asp] of Object.entries(PHONETIC_ASPIRATE_MAP)) {
+                    if (asp === targetChar) { baseChar = plain; break; }
+                }
+            }
+            if (!baseChar && typeof PHONETIC_VOWEL_COMBOS !== 'undefined') {
+                for (const [pairKey, full] of Object.entries(PHONETIC_VOWEL_COMBOS)) {
+                    if (full === targetChar) { baseChar = pairKey.split('|')[0]; break; }
+                }
+            }
+            if (!baseChar && typeof INDEPENDENT_VOWELS !== 'undefined' && INDEPENDENT_VOWELS[lang]) {
+                for (const [kCode, vow] of Object.entries(INDEPENDENT_VOWELS[lang])) {
+                    if (vow === targetChar) return { code: kCode, shift: false };
+                }
+            }
+            if (baseChar) {
+                const nm = getLanguageKeymap(lang, 'phonetic', false);
+                const sm = getLanguageKeymap(lang, 'phonetic', true);
+                if (nm) for (const [kCode, ch] of Object.entries(nm)) if (ch === baseChar) return { code: kCode, shift: false };
+                if (sm) for (const [kCode, ch] of Object.entries(sm)) if (ch === baseChar) return { code: kCode, shift: true };
+            }
+        }
+
+        // Canonically precomposed Indic/Nukta character fallback (e.g. ਸ਼ -> ਸ + ਼, ड़ -> ড + ়, फ़ -> फ + ़)
+        if (typeof targetChar === 'string' && targetChar.length === 1 && targetChar.normalize) {
+            const nfdTarget = targetChar.normalize('NFD');
+            if (nfdTarget.length > 1 && nfdTarget[0] !== targetChar) {
+                const baseMatch = findTargetKeyForChar(nfdTarget[0], lang, layout);
+                if (baseMatch) return baseMatch;
+            }
+        }
+
+        // European accented fallback & ASCII normalized fallback
+        const euroBaseMap = {
+            'á':'a','à':'a','â':'a','ã':'a','ä':'a','é':'e','è':'e','ê':'e','ë':'e',
+            'í':'i','ì':'i','î':'i','ï':'i','ó':'o','ò':'o','ô':'o','õ':'o','ö':'o',
+            'ú':'u','ù':'u','û':'u','ü':'u','ñ':'n','ç':'c','ß':'s','¡':'1','¿':'/'
+        };
+        const euroBase = euroBaseMap[targetChar.toLowerCase()];
+        if (euroBase && /^[a-z]$/.test(euroBase)) {
+            return { code: 'Key' + euroBase.toUpperCase(), shift: (targetChar !== targetChar.toLowerCase()) };
+        }
+
         return null;
     }
 
-    // 1. Define next key guidance helper
+    const codeToMobileKey = {
+        KeyQ:'q',KeyW:'w',KeyE:'e',KeyR:'r',KeyT:'t',KeyY:'y',KeyU:'u',KeyI:'i',KeyO:'o',KeyP:'p',
+        KeyA:'a',KeyS:'s',KeyD:'d',KeyF:'f',KeyG:'g',KeyH:'h',KeyJ:'j',KeyK:'k',KeyL:'l',
+        KeyZ:'z',KeyX:'x',KeyC:'c',KeyV:'v',KeyB:'b',KeyN:'n',KeyM:'m',
+        Semicolon:';',Quote:"'",Comma:',',Period:'.',Slash:'/',Space:' '
+    };
+
+    // Next-key live pulse guidance helper (Desktop + Mobile Virtual Keyboard + Multi-step sequences)
     updateKeyboardGuideNextKey = function() {
-        // Early exit: if guide is hidden or off, do absolutely nothing!
+        document.querySelectorAll('#mobile-virtual-keyboard .v-key.next-key').forEach(el => el.classList.remove('next-key'));
         if (!liveKeyboardGuide || liveKeyboardGuide.classList.contains('hidden')) {
             return;
         }
 
-        // Fast class removal using tracked highlighted elements (both letter key and Shift key)
         if (highlightedKeyElements.length > 0) {
             highlightedKeyElements.forEach(el => {
                 if (el) el.classList.remove('next-key');
@@ -12193,11 +12601,86 @@ if (cryptoDonateModal) {
         const nextSpan = activeSpansList[charIndex];
         if (!nextSpan) return;
 
-        const nextChar = nextSpan.textContent;
-        const activeLang = localStorage.getItem('typingDostLang') || 'english';
-        const activeLayout = localStorage.getItem('typingDostLayout_' + activeLang) || 'phonetic';
+        const spanText = nextSpan.textContent || '';
+        const remainingInSpan = tdActiveSubOffset > 0 && tdActiveSubOffset < spanText.length
+            ? spanText.slice(tdActiveSubOffset)
+            : spanText;
+        let nextChar = remainingInSpan.charAt(0);
+        const activeLang = tdGetActiveLangSafe();
+        const defaultLayout = (activeLang === 'urdu' ? 'urdu-phonetic' : activeLang === 'arabic' ? 'arabic-101' : activeLang === 'tamil' ? 'tamil-99' : activeLang === 'japanese' ? 'romaji' : 'phonetic');
+        const manualChoice = (typeof window !== 'undefined' && window.__tdManualLayoutLangs) ? window.__tdManualLayoutLangs[activeLang] : null;
+        const activeLayout = manualChoice || localStorage.getItem('typingDostLayout_' + activeLang) || defaultLayout;
 
-        const match = findTargetKeyForChar(nextChar, activeLang, activeLayout);
+        let match = null;
+        const valStr = typingInput ? typingInput.value : '';
+        const typedLast = valStr.length > 0 ? valStr.slice(-1) : '';
+        const activeTargetSlotStr = spanText;
+
+        // Multi-step keyboard guidance
+        if (false) {
+            // Check in-progress Reph ('र्म' -> user typed 'म', now needs Shift+Z 'र्')
+            if (activeTargetSlotStr.startsWith('र्') && activeTargetSlotStr.length > 2) {
+                if (tdActivePartialTyped === activeTargetSlotStr.slice(2)) {
+                    match = { code: 'KeyZ', shift: true };
+                } else if (!tdActivePartialTyped) {
+                    nextChar = activeTargetSlotStr.charAt(2);
+                }
+            }
+            // Check multi-stroke vowels & conjuncts ('आ', 'ओ', 'औ', 'ो', 'ौ', 'ण', 'ञ', 'ऐ', 'ई')
+            if (!match && typedLast) {
+                if ((nextChar === 'आ' || nextChar === 'ओ' || nextChar === 'औ') && typedLast === 'अ') match = { code: 'KeyK', shift: false };
+                else if (nextChar === 'ओ' && typedLast === 'आ') match = { code: 'KeyS', shift: false };
+                else if (nextChar === 'औ' && typedLast === 'आ') match = { code: 'KeyS', shift: true };
+                else if (nextChar === 'ो' && typedLast === 'ा') match = { code: 'KeyS', shift: false };
+                else if (nextChar === 'ौ' && typedLast === 'ा') match = { code: 'KeyS', shift: true };
+                else if ((nextChar === 'ण' && typedLast === 'ण्') || (nextChar === 'ञ' && typedLast === 'ञ्')) match = { code: 'KeyK', shift: false };
+                else if (nextChar === 'ऐ' && typedLast === 'ए') match = { code: 'KeyS', shift: false };
+                else if (nextChar === 'ई' && typedLast === 'इ') match = { code: 'KeyZ', shift: true };
+            }
+            // Pre-base matra 'ि' inside akshar span (e.g. 'वि', 'कि', 'ति') -> highlight KeyF FIRST, then consonant after KeyF!
+            const afterThisSpan = (charIndex + 1 < activeSpansList.length) ? activeSpansList[charIndex + 1].textContent : '';
+            if (!match && !pendingPreBaseMatra) {
+                if ((remainingInSpan.length >= 2 && remainingInSpan.charAt(1) === 'ि') || afterThisSpan === 'ि') {
+                    match = { code: 'KeyF', shift: false };
+                }
+            }
+        }
+
+        // Phonetic in-progress completion guidance (aspirate C + 'h' -> Ch, or long vowel 2nd key)
+        if (!match && activeLayout === 'phonetic' && tdActivePartialTyped) {
+            const remTypedLast = tdActivePartialTyped.slice(-1);
+            if (typeof PHONETIC_ASPIRATE_MAP !== 'undefined' && PHONETIC_ASPIRATE_MAP[remTypedLast] === nextChar) {
+                match = { code: 'KeyH', shift: false };
+            } else if (typeof PHONETIC_VOWEL_COMBOS !== 'undefined') {
+                for (const k of Object.keys(PHONETIC_VOWEL_COMBOS)) {
+                    const [a, b] = k.split('|');
+                    if (a === remTypedLast && PHONETIC_VOWEL_COMBOS[k] === nextChar) {
+                        match = findTargetKeyForChar(b, activeLang, activeLayout);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Check JIS Kana voiced completion
+        if (!match && activeLang === 'japanese' && activeLayout === 'jis-kana' && typedLast && typedLast !== nextChar) {
+            if (typeof JP_DAKUTEN_MAP !== 'undefined' && JP_DAKUTEN_MAP[typedLast] === nextChar) match = { code: 'BracketLeft', shift: false };
+            else if (typeof JP_HANDAKUTEN_MAP !== 'undefined' && JP_HANDAKUTEN_MAP[typedLast] === nextChar) match = { code: 'BracketRight', shift: false };
+        }
+
+        // Phonetic/Indic composite NFD step 2 guidance (e.g. 'ਸ਼' after user typed 'ਸ' -> pulse Nukta '਼')
+        if (!match && tdActivePartialTyped && spanText.normalize) {
+            const nfdSpan = spanText.normalize('NFD');
+            const nfdTyped = tdActivePartialTyped.normalize('NFD');
+            if (nfdSpan.length > nfdTyped.length && nfdSpan.startsWith(nfdTyped)) {
+                nextChar = nfdSpan.slice(nfdTyped.length).charAt(0);
+            }
+        }
+
+        if (!match && nextChar) {
+            match = findTargetKeyForChar(nextChar, activeLang, activeLayout);
+        }
+
         if (match && match.code) {
             const targetKey = getKeyElement(match.code);
             if (targetKey) {
@@ -12210,6 +12693,11 @@ if (cryptoDonateModal) {
                     shiftKey.classList.add('next-key');
                     highlightedKeyElements.push(shiftKey);
                 }
+            }
+            const mobAttr = codeToMobileKey[match.code];
+            if (mobAttr) {
+                const mobKey = document.querySelector(`#mobile-virtual-keyboard .v-key[data-key="${mobAttr}"]`);
+                if (mobKey) mobKey.classList.add('next-key');
             }
         }
     };
@@ -12542,8 +13030,9 @@ function updateLiveMascot(state, info = {}) {
     }
 
     // Only update image src if changed to prevent flashing
+    const resolvedMascotSrc = tdResolveRootAsset(src);
     if (mascotImg.src.indexOf(src) === -1) {
-        mascotImg.src = src;
+        mascotImg.src = resolvedMascotSrc;
         mascotImg.classList.add('bounce');
         setTimeout(() => mascotImg.classList.remove('bounce'), 400);
     }
@@ -12731,8 +13220,7 @@ if (openContactBtn && closeContactBtn && contactModal) {
     audioCache: {},
 
     resolvePath(relPath) {
-      const isBlog = window.location.pathname.includes('/blog/');
-      return (isBlog ? '../' : '') + relPath.replace(/^(\.\.\/|\/)/, '');
+      return tdResolveRootAsset(relPath);
     },
 
     init() {
@@ -12745,7 +13233,7 @@ if (openContactBtn && closeContactBtn && contactModal) {
       } catch (e) {}
 
       document.body.classList.add("td-premium-dark");
-      this.preloadAudio();
+      // CWV optimization: do not eagerly preload meme MP3 files on page load
       this.injectHUD();
       this.initSmoothCaret();
       this.bindTypingListeners();
@@ -13160,3 +13648,73 @@ if (openContactBtn && closeContactBtn && contactModal) {
   }
 })();
 
+// Local file:// preview helper so clean directory links open index.html instead of folder listings
+if (typeof window !== 'undefined' && typeof document !== 'undefined' && window.location && window.location.protocol === 'file:') {
+  document.addEventListener('click', (e) => {
+    const anchor = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!anchor) return;
+    const rawHref = anchor.getAttribute('href');
+    if (!rawHref || /^(https?:|mailto:|tel:|javascript:|#)/i.test(rawHref)) return;
+    const [basePart, hashPart] = rawHref.split('#');
+    if (basePart && (basePart.endsWith('/') || basePart === '.' || basePart === '..')) {
+      e.preventDefault();
+      const targetUrl = (basePart.endsWith('/') ? basePart : basePart + '/') + 'index.html' + (hashPart ? '#' + hashPart : '');
+      window.location.href = targetUrl;
+    }
+  });
+}
+
+
+
+// ---- EXPANDABLE HEADER DOCK CONTROLLER ----
+(function initHeaderDock() {
+    function setupDock() {
+        const headerDock = document.getElementById('header-expandable-dock');
+        const headerMenuCenterBtn = document.getElementById('header-menu-center-btn');
+
+        if (headerMenuCenterBtn && headerDock && !headerMenuCenterBtn.__dockBound) {
+            headerMenuCenterBtn.__dockBound = true;
+            headerMenuCenterBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (typeof initAudio === 'function') { try { initAudio(); } catch(err){} }
+                if (typeof playClick === 'function') { try { playClick(); } catch(err){} }
+                
+                const isExpanded = headerDock.classList.toggle('is-expanded');
+                headerMenuCenterBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+                
+                if (!isExpanded) {
+                    document.querySelectorAll('.theme-menu, .sound-menu').forEach(m => m.classList.add('hidden'));
+                    document.querySelectorAll('.theme-trigger, .sound-trigger').forEach(t => t.classList.remove('open'));
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!headerDock.contains(e.target) && headerDock.classList.contains('is-expanded')) {
+                    const activeDropdownMenu = e.target.closest('.theme-menu, .sound-menu');
+                    if (!activeDropdownMenu) {
+                        headerDock.classList.remove('is-expanded');
+                        headerMenuCenterBtn.setAttribute('aria-expanded', 'false');
+                        document.querySelectorAll('.theme-menu, .sound-menu').forEach(m => m.classList.add('hidden'));
+                        document.querySelectorAll('.theme-trigger, .sound-trigger').forEach(t => t.classList.remove('open'));
+                    }
+                }
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupDock);
+    } else {
+        setupDock();
+    }
+})();
+
+// Guarantee all footer social links (Telegram, X, YouTube, Instagram, Facebook, Medium) open reliably
+document.addEventListener('click', function(e) {
+    var socialBtn = e.target.closest('.social-btn[href]');
+    if (socialBtn && socialBtn.href) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open(socialBtn.href, '_blank', 'noopener,noreferrer');
+    }
+});

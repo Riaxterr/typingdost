@@ -1,0 +1,69 @@
+# Enforce Single-Domain Canonicalization (HTTPS + non-www)
+http://typingdost.com/* https://typingdost.com/:splat 301!
+http://www.typingdost.com/* https://typingdost.com/:splat 301!
+https://www.typingdost.com/* https://typingdost.com/:splat 301!
+
+# 301 Permanent Redirects: Legacy Regional HTML Pages -> Clean Trailing-Slash Paths
+/assamese-typing-test.html /assamese-typing-test/ 301
+/bengali-typing-test.html /bengali-typing-test/ 301
+/english-typing-test.html /english-typing-test/ 301
+/gujarati-typing-test.html /gujarati-typing-test/ 301
+/hindi-typing-test.html /hindi-typing-test/ 301
+/hinglish-typing-test.html /hinglish-typing-test/ 301
+/kannada-typing-test.html /kannada-typing-test/ 301
+/malayalam-typing-test.html /malayalam-typing-test/ 301
+/marathi-typing-test.html /marathi-typing-test/ 301
+/odia-typing-test.html /odia-typing-test/ 301
+/punjabi-typing-test.html /punjabi-typing-test/ 301
+/tamil-typing-test.html /tamil-typing-test/ 301
+/telugu-typing-test.html /telugu-typing-test/ 301
+/urdu-typing-test.html /urdu-typing-test/ 301
+/assamese-typing-test /assamese-typing-test/ 301
+/bengali-typing-test /bengali-typing-test/ 301
+/english-typing-test /english-typing-test/ 301
+/gujarati-typing-test /gujarati-typing-test/ 301
+/hindi-typing-test /hindi-typing-test/ 301
+/hinglish-typing-test /hinglish-typing-test/ 301
+/kannada-typing-test /kannada-typing-test/ 301
+/malayalam-typing-test /malayalam-typing-test/ 301
+/marathi-typing-test /marathi-typing-test/ 301
+/odia-typing-test /odia-typing-test/ 301
+/punjabi-typing-test /punjabi-typing-test/ 301
+/tamil-typing-test /tamil-typing-test/ 301
+/telugu-typing-test /telugu-typing-test/ 301
+/urdu-typing-test /urdu-typing-test/ 301
+/touch-typing-lessons.html /touch-typing-lessons/ 301
+/1-minute-typing-test.html /1-minute-typing-test/ 301
+/2-minute-typing-test.html /2-minute-typing-test/ 301
+/5-minute-typing-test.html /5-minute-typing-test/ 301
+/10-minute-typing-test.html /10-minute-typing-test/ 301
+/ssc-chsl-typing-test.html /ssc-chsl-typing-test/ 301
+/ssc-cgl-typing-test.html /ssc-cgl-typing-test/ 301
+/rrb-ntpc-typing-test.html /rrb-ntpc-typing-test/ 301
+/bsf-hcm-typing-test.html /bsf-hcm-typing-test/ 301
+/high-court-typing-test.html /high-court-typing-test/ 301
+/kruti-dev-typing-test.html /kruti-dev-typing-test/ 301
+/mangal-inscript-typing-test.html /mangal-inscript-typing-test/ 301
+/coding-typing-test.html /coding-typing-test/ 301
+/data-entry-typing-test.html /data-entry-typing-test/ 301
+/verify.html /verify/ 301
+/support.html /support/ 301
+/gear.html /gear/ 301
+
+# 301 Permanent Redirects: Legacy Blog Articles -> New Clean SEO Guides & Tools
+/blog/court-clerk-typing-test-guide.html /blog/rrb-ntpc-high-court-typing-test-strategy/ 301
+/blog/cpct-typing-test-guide.html /blog/hindi-typing-kaise-sikhe-phonetic-qwerty/ 301
+/blog/free-typing-certificate-download.html /certificate.html 301
+/blog/hindi-typing-kaise-sikhe.html /blog/hindi-typing-kaise-sikhe-phonetic-qwerty/ 301
+/blog/kruti-dev-typing-test.html /hindi-typing-test/ 301
+/blog/mangal-font-typing-test.html /hindi-typing-test/ 301
+/blog/rrb-ntpc-typing-test-guide.html /blog/rrb-ntpc-high-court-typing-test-strategy/ 301
+/blog/ssc-cgl-typing-test-guide.html /blog/ssc-chsl-cgl-typing-test-rules-error-formula/ 301
+/blog/ssc-chsl-typing-test-guide.html /blog/ssc-chsl-cgl-typing-test-rules-error-formula/ 301
+/blog/typing-speed-kaise-badhaye.html /blog/how-to-increase-typing-speed/ 301
+/blog/typing-speed-test-5-minute.html /5-minute-typing-test/ 301
+/blog/typing-test-1-minute.html /1-minute-typing-test/ 301
+
+# 301 Permanent Redirects: Deprecated Legacy Font Pages -> Unified Guide
+/blog/hindi-typing-kaise-sikhe-mangal-kruti-dev/ /blog/hindi-typing-kaise-sikhe-phonetic-qwerty/ 301
+/blog/hindi-typing-kaise-sikhe-mangal-kruti-dev /blog/hindi-typing-kaise-sikhe-phonetic-qwerty/ 301

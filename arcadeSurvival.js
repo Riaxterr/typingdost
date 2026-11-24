@@ -51,8 +51,20 @@
     audioCache: {},
 
     resolvePath(relPath) {
-      const isBlog = window.location.pathname.includes('/blog/');
-      return (isBlog ? '../' : '') + relPath.replace(/^(\.\.\/|\/)/, '');
+      if (!relPath) return relPath;
+      if (/^(https?:|data:|blob:)/i.test(relPath)) return relPath;
+      const clean = relPath.replace(/^(\.\.\/)+/, '').replace(/^\/+/, '');
+      if (window.location.protocol === 'file:') {
+        if (typeof window.tdGetSitePrefix === 'function') {
+          return window.tdGetSitePrefix() + clean;
+        }
+        const refEl = document.querySelector('link[href*="style.min.css"], script[src*="script.min.js"]');
+        const raw = refEl ? (refEl.getAttribute('href') || refEl.getAttribute('src') || '') : '';
+        const idx = raw.search(/(?:style(?:\.min)?\.css|script(?:\.min)?\.js)/);
+        const prefix = idx > 0 ? raw.slice(0, idx) : './';
+        return prefix + clean;
+      }
+      return '/' + clean;
     },
 
     init() {
@@ -65,7 +77,7 @@
       } catch (e) {}
 
       document.body.classList.add("td-premium-dark");
-      this.preloadAudio();
+      // CWV optimization: defer meme audio downloads until actual gameplay SFX event
       this.injectHUD();
       this.initSmoothCaret();
       this.bindTypingListeners();

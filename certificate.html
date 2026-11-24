@@ -1,6 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- TypingDost Dynamic Theme Synchronization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('typingDostTheme') || 'matrix';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } catch(e) {}
+        })();
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Typing Certificate Download — Verify WPM | TypingDost</title>
@@ -15,7 +26,6 @@
      crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-1661683734652344">
     <meta name="description" content="Download your free typing speed certificate PDF instantly from TypingDost. Shows verified WPM score & accuracy for resumes and govt exam applications!">
-    <meta name="keywords" content="typingtest, typing test keyboard, typing speed test keyboard, computer keyboard typing test, keyboard typing practice, typing certificate free, online typing certificate, typing test with certificate, download typing certificate pdf, free verified typing speed certificate, wpm certificate online">
     <meta name="author" content="TypingDost">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="rating" content="General">
@@ -28,23 +38,20 @@
     <meta property="og:url" content="https://typingdost.com/certificate.html">
     <meta property="og:title" content="Free Typing Certificate Download — TypingDost">
     <meta property="og:description" content="Get your free typing speed certificate showing verified WPM & accuracy. Perfect for job applications and government exams. Download instantly, no login needed!">
-    <meta property="og:image" content="https://typingdost.com/typingdost_brand.png">
+    <meta property="og:image" content="https://typingdost.com/typingdost_brand.webp">
     <meta property="og:site_name" content="TypingDost">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://typingdost.com/certificate.html">
     <meta property="twitter:title" content="Free Typing Certificate Download — TypingDost">
-    <meta property="twitter:description" content="Get your free typing speed certificate showing verified WPM & accuracy. Perfect for job applications and government exams!">
-    <meta property="twitter:image" content="https://typingdost.com/typingdost_brand.png">
+    <meta property="twitter:description" content="Get your free typing speed certificate showing verified WPM &amp; accuracy. Perfect for job applications and government exams!">
+    <meta property="twitter:image" content="https://typingdost.com/typingdost_brand.webp">
 
         <!-- AI Search & LLM Discovery (GEO / Generative Engine Optimization) -->
     <link rel="alternate" type="text/plain" href="https://typingdost.com/llms.txt" title="LLM Knowledge Base (llms.txt)" />
     <link rel="alternate" type="text/plain" href="https://typingdost.com/llms-full.txt" title="Full LLM Knowledge Base (llms-full.txt)" />
     <link rel="help" type="application/json" href="https://typingdost.com/ai-context.json" title="AI Machine-Readable Context" />
-    <meta name="ai-content-declaration" content="human-crafted educational platform" />
-    <meta name="chatgpt-fts" content="allow" />
-
     <!-- Favicons & Brand Logo Tab Icon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -390,9 +397,11 @@
             border-radius: 6px;
             padding: 0.35rem 0.9rem;
             font-family: monospace;
-            font-size: 0.82rem;
+            font-size: 0.85rem;
+            font-weight: 700;
             color: #8b9bb4;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         /* Title Area */
@@ -813,14 +822,14 @@
     <div class="main-container">
         <!-- Verified Banner (Shown only when verified via URL parameters) -->
         <div id="verified-banner" class="verified-banner hidden">
-            <span class="verified-icon">🛡️</span>
+            <span class="verified-icon">✅</span>
             <span class="verified-text">OFFICIAL VERIFIED TOUCH-TYPING SPEED ACCREDITATION — HOSTED ON TYPINGDOST.COM</span>
         </div>
 
         <!-- FORM: Enter User Name -->
         <div class="form-card" id="form-card">
             <div class="form-logo">
-                <img src="typingdost_brand.png" alt="TypingDost" style="height: 55px; object-fit: contain;">
+                <img src="typingdost_brand.webp" width="42" height="42" alt="TypingDost" style="height: 55px; object-fit: contain;">
             </div>
             <h2>Claim Official Certificate</h2>
             <p class="form-desc">Enter your full name as it should appear on your verified typing speed certificate.</p>
@@ -846,10 +855,10 @@
             <!-- Top Header Bar -->
             <div class="cert-top-bar">
                 <div class="cert-top-brand">
-                    <img src="typingdost_brand.png" alt="TypingDost Brand Mascot" style="height: 42px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0,240,255,0.4));">
+                    <img src="typingdost_brand.webp" alt="TypingDost Brand Mascot" width="42" height="42" style="height: 42px; width: 42px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0,240,255,0.4));">
                     <span class="brand-text">Typing <strong>Dost</strong></span>
                 </div>
-                <div class="cert-serial-capsule" id="cert-id">TD-20260629-6526</div>
+                <div class="cert-serial-capsule" id="cert-id">TD-PENDING</div>
             </div>
 
             <!-- Main Titles -->
@@ -863,7 +872,7 @@
             <div class="cert-candidate-name" id="cert-recipient-name">Example name</div>
             <div>
                 <div class="cert-mode-capsule" id="cert-mode-capsule">
-                    <span class="mode-icon">⏱️</span>
+                    <span class="mode-icon">📜</span>
                     <span class="mode-text" id="cert-mode-text">1 MINUTE TEST</span>
                 </div>
             </div>
@@ -921,18 +930,21 @@
                     <div class="footer-date-line" id="cert-date">JUNE 29, 2026</div>
                 </div>
             </div>
+            <div id="cert-verify-strip" style="margin-top:1.1rem; padding-top:0.85rem; border-top:1px dashed rgba(0,240,255,0.25); font-size:0.78rem; color:#94a3b8; font-family:'JetBrains Mono',monospace;">
+                Verify authenticity online: <a id="cert-verify-link" href="verify/" target="_blank" rel="noopener" style="color:#00f0ff;text-decoration:underline;word-break:break-all;">https://typingdost.com/verify/</a>
+            </div>
         </div>
 
         <!-- Mascot Commentary Box on Certificate Result -->
         <div class="cert-mascot-section hidden" id="cert-mascot-section">
-            <img id="cert-mascot-img" src="typingdost_welcome.webp" alt="Mascot Dost" class="cert-mascot-avatar">
-            <p id="cert-mascot-text" class="cert-mascot-bubble">Outstanding run, friend! Your certified keyboard performance record is ready to download! 🚀✨</p>
+            <img id="cert-mascot-img" src="typingdost_welcome.webp" width="56" height="56" alt="Mascot Dost" class="cert-mascot-avatar">
+            <p id="cert-mascot-text" class="cert-mascot-bubble">Outstanding run, friend! Your certified keyboard performance record is ready to download! 🏆</p>
         </div>
 
         <!-- Action Controls -->
         <div class="actions-row hidden" id="actions-row">
             <button class="action-btn primary-action" id="download-btn">
-                📥 Download High-Res PNG
+                🖼️ Download High-Res PNG
             </button>
             <button class="action-btn" id="print-btn" onclick="window.print()">
                 🖨️ Print / Save PDF
@@ -940,9 +952,26 @@
             <button class="action-btn" id="share-btn">
                 🔗 Share Verification Link
             </button>
-            <button class="action-btn" onclick="window.location.href='index.html'">
-                ⚡ Practice Again
+            <a class="action-btn" id="verify-portal-btn" href="verify/" style="text-decoration:none;display:inline-flex;align-items:center;">
+                🔍 Open Verify Page
+            </a>
+            <button class="action-btn" onclick="window.location.href='/'">
+                ⌨️ Practice Again
             </button>
+        </div>
+
+        <!-- Advertisement: Certificate Page Leaderboard -->
+        <div class="td-ad-wrapper td-ad-leaderboard" id="ad-slot-leaderboard" style="max-width: 728px; min-height: 90px; margin: 2rem auto;">
+            <span class="td-ad-label">Advertisement</span>
+            <div class="td-ad-placeholder">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1661683734652344"
+                     data-ad-slot=""
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
         </div>
     </div>
 
@@ -951,11 +980,12 @@
 
     <!-- CERTIFICATE FOOTER -->
     <footer style="width: 100%; margin-top: auto; text-align: center; padding: 2rem 1.5rem; color: var(--text-sub); font-size: 0.9rem; border-top: 1px solid var(--border); z-index: 10;">
-        <p>© 2026 <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 600;">TypingDost</a> — Free Typing Test &amp; Speed Certificate.</p>
+        <p>— 2026 <a href="./" style="color: var(--primary); text-decoration: none; font-weight: 600;">TypingDost</a> — Free Typing Test &amp; Speed Certificate.</p>
         <p style="margin-top: 0.6rem;">
-            <a href="index.html" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">Home</a> | 
-            <a href="blog/index.html" style="color: var(--primary); text-decoration: none; margin: 0 0.6rem; font-weight: 600;">Official Blog</a> | 
-            <a href="hindi-typing-test.html" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">Hindi Test</a> | 
+            <a href="./" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">Home</a> | 
+            <a href="verify/" style="color: var(--primary); text-decoration: none; margin: 0 0.6rem; font-weight: 600;">Verify Certificate</a> | 
+            <a href="blog/" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">Official Blog</a> | 
+            <a href="hindi-typing-test/" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">Hindi Test</a> | 
             <a href="about.html" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">About</a> | 
             <a href="contact.html" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">Contact</a> | 
             <a href="privacy-policy.html" style="color: var(--text-sub); text-decoration: none; margin: 0 0.6rem;">Privacy Policy</a> | 
@@ -964,6 +994,7 @@
         </p>
     </footer>
 
+    <script src="certVerify.min.js?v=6.2"></script>
     <script>
         // Extract URL parameters
         const urlParams = new URLSearchParams(window.location.search);
@@ -1098,17 +1129,51 @@
             certTierBadge.innerText = tier.name;
             certTierBadge.style.color = tier.color;
             
-            // Set dynamic date in UPPERCASE
+            // Set dynamic date in UPPERCASE & ISO YYYY-MM-DD
+            const nowObj = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const todayStr = new Date().toLocaleDateString('en-US', options).toUpperCase();
+            const todayStr = nowObj.toLocaleDateString('en-US', options).toUpperCase();
+            const todayISO = nowObj.toISOString().slice(0, 10);
             certDate.innerText = todayStr;
-            
-            // Set serial ID
-            certId.innerText = generatedSerialId;
 
-            if (certKeyAcc) certKeyAcc.innerText = keyAccParam ? (keyAccParam.endsWith('%') ? keyAccParam : `${keyAccParam}%`) : `${accuracy}%`;
+            const resolvedKeyAcc = keyAccParam ? (keyAccParam.endsWith('%') ? keyAccParam : `${keyAccParam}%`) : `${accuracy}%`;
+            if (certKeyAcc) certKeyAcc.innerText = resolvedKeyAcc;
             if (certErrorsSplit) certErrorsSplit.innerText = `${correctedParam} / ${uncorrectedParam}`;
             if (certBackspaces) certBackspaces.innerText = backspacesParam;
+
+            // Issue cryptographic self-verifying TD-[HASH] certificate ID & update /verify/?id= URL
+            if (window.TypingDostCert && typeof window.TypingDostCert.createCertificateId === 'function') {
+                generatedSerialId = window.TypingDostCert.createCertificateId({
+                    name: name,
+                    wpm: rawWpm,
+                    accuracy: accuracy,
+                    mode: finalTestMode,
+                    date: todayISO,
+                    lang: langParam,
+                    rawWpm: rawWpmParam || rawWpm,
+                    keyAcc: resolvedKeyAcc
+                });
+            }
+            // Organized Short Form for Display (e.g. TD-FFD799C2)
+            let shortCertId = generatedSerialId;
+            const idParts = (generatedSerialId || '').split('-');
+            if (idParts.length >= 2 && idParts[0] === 'TD') {
+                shortCertId = `${idParts[0]}-${idParts[1]}`;
+            }
+            certId.innerText = shortCertId;
+            certId.setAttribute('data-full-id', generatedSerialId);
+            certId.setAttribute('title', `Certificate ID: ${shortCertId}`);
+            const verifyUrlStr = `https://typingdost.com/verify/?id=${encodeURIComponent(generatedSerialId)}`;
+            const localVerifyHref = (window.location.protocol === 'file:' ? 'verify/index.html?id=' : 'verify/?id=') + encodeURIComponent(generatedSerialId);
+            const certVerifyLink = document.getElementById('cert-verify-link');
+            if (certVerifyLink) {
+                certVerifyLink.href = localVerifyHref;
+                certVerifyLink.innerText = verifyUrlStr;
+            }
+            const verifyPortalBtn = document.getElementById('verify-portal-btn');
+            if (verifyPortalBtn) {
+                verifyPortalBtn.href = localVerifyHref;
+            }
 
             try {
                 const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?wpm=${rawWpm}&accuracy=${accuracy}&mode=${mode}&rawWpm=${rawWpmParam}&keyAcc=${encodeURIComponent(keyAccParam)}&corrected=${correctedParam}&uncorrected=${uncorrectedParam}&backspaces=${backspacesParam}&name=${encodeURIComponent(name)}&theme=${encodeURIComponent(theme)}`;
@@ -1134,61 +1199,61 @@
 
             const certMascotComments = {
                 'typingdost_zen.webp': [
-                    "Bhai, accuracy is purely zen flow! 🧘‍♂️ Flawless 100% hits, absolutely legendary certificate! ✨💎",
-                    "Zen state verified! Flawless keyboard touch records today, this certificate is extremely premium! 🧘‍♂️✨"
+                    "Bhai, accuracy is purely zen flow! 🕉️✨ Flawless 100% hits, absolutely legendary certificate! 👑",
+                    "Zen state verified! Flawless keyboard touch records today, this certificate is extremely premium! 💎"
                 ],
                 'typingdost_ninja.webp': [
-                    "Supersonic ninja speed! 🥷 Keycaps were slashed into pieces, F1 racer level certificate! 🏁⚡",
-                    "Cyber sword strikes! Total stealth typing, a certified shadow clone typing master! 🥷🔥"
+                    "Supersonic ninja speed! ⚡ Keycaps were slashed into pieces, F1 racer level certificate! 🏎️",
+                    "Cyber sword strikes! Total stealth typing, a certified shadow clone typing master! 🚀"
                 ],
                 'typingdost_hacker.webp': [
-                    "Admin access granted! 💻 System root compromised by your supersonic typing! 🕶️🛸",
-                    "Firewall bypassed! A certified cyber hacker speed demon is loose in the grid! 💻👾"
+                    "Admin access granted! 💻 System root compromised by your supersonic typing! ⚡🚀",
+                    "Firewall bypassed! A certified cyber hacker speed demon is loose in the grid! 🔥"
                 ],
                 'typingdost_genius.webp': [
-                    "Relativity theory verified! 🧠 You are officially typing at quantum speed! 🪐⚡",
-                    "Big brain mathematical strokes! Absolutely logical key movements verified on this certificate! 🧠💎"
+                    "Relativity theory verified! 🌌 You are officially typing at quantum speed! ⚡",
+                    "Big brain mathematical strokes! Absolutely logical key movements verified on this certificate! 🏆"
                 ],
                 'typingdost_gamer.webp': [
-                    "Pro gamer lobby cleared! 🎮 Highscore crushed with active neon mechanical switches! 🕹️👾",
-                    "Supersonic combo streak! GG, dost, you literally unlocked typing cheatcodes! 🎮🚀"
+                    "Pro gamer lobby cleared! 🎮 Highscore crushed with active neon mechanical switches! ⌨️",
+                    "Supersonic combo streak! GG, dost, you literally unlocked typing cheatcodes! 🚀"
                 ],
                 'typingdost_coffee.webp': [
-                    "Caffeine-induced speed! ☕ Neon adrenaline rush, this certificate is hot and steaming! ☕🔥",
-                    "Double espresso keystrokes! Speed sensors are buzzing at maximum capacity! ☕⚡"
+                    "Caffeine-induced speed! ☕ Neon adrenaline rush, this certificate is hot and steaming! ☕",
+                    "Double espresso keystrokes! Speed sensors are buzzing at maximum capacity! 🔋"
                 ],
                 'typingdost_rage.webp': [
-                    "Rage typing 100%! 😡 Keyboard destruction certified, please spare the spacebar next time! 👿💥"
+                    "Rage typing 100%! 😡 Keyboard destruction certified, please spare the spacebar next time! 😅"
                 ],
                 'typingdost_noob.webp': [
-                    "Cardboard helmet is shaking! 📦 Cute efforts, slow but steady progress is certified! 📦😄"
+                    "Cardboard helmet is shaking! 🐱 Cute efforts, slow but steady progress is certified! 🌟"
                 ],
                 'typingdost_racer.webp': [
-                    "Formula 1 racing pace! 🏎️ No breaks, pure nitro booster verified on this dynamic certificate! 🏁⚡"
+                    "Formula 1 racing pace! 🏎️ No breaks, pure nitro booster verified on this dynamic certificate! 🏁"
                 ],
                 'typingdost_cosmic.webp': [
-                    "Interstellar certificate! 🪐 Astronaut WPM level, sending telemetry records to deep space! 🛸🌌"
+                    "Interstellar certificate! 🚀 Astronaut WPM level, sending telemetry records to deep space! 🌌"
                 ],
                 'typingdost_monk.webp': [
-                    "Stable and mindful stone typing! 🧘‍♂️ Patience and perfect placement certified! 🪨🧘‍♂️"
+                    "Stable and mindful stone typing! 🧘 Patience and perfect placement certified! 🕉️✨"
                 ],
                 'typingdost_glitch.webp': [
-                    "System overload! 👾 Matrix code glitched out, tearing reality with this WPM! ⚡🛸"
+                    "System overload! 👾 Matrix code glitched out, tearing reality with this WPM! 🔮"
                 ],
                 'typingdost_sleeping.webp': [
-                    "Sleeping beauty mode... 😴 Please wake up or take a double shot of espresso! 😴💤"
+                    "Sleeping beauty mode... 😴 Please wake up or take a double shot of espresso! ☕"
                 ],
                 'typingdost_happy.webp': [
-                    "Happy breakdance time! 💃 Mascot is dancing with joy for your decent typing performance! 🎉✨"
+                    "Happy breakdance time! 🕺 Mascot is dancing with joy for your decent typing performance! 🎉"
                 ],
                 'typingdost_cool.webp': [
-                    "Vibe check passed! 😎 Swagger operator, neon glasses are glowing with sheer style! 😎🛸"
+                    "Vibe check passed! 😎 Swagger operator, neon glasses are glowing with sheer style! 🚀🔥"
                 ],
                 'typingdost_determined.webp': [
-                    "Solid dedication! 💪 You are extremely close to elite beast speeds, keep grinding! 💪🎯"
+                    "Solid dedication! 👏 You are extremely close to elite beast speeds, keep grinding! 💪🔥"
                 ],
                 'typingdost_mindblown.webp': [
-                    "Speechless reactions! 🤯 Mind is completely blown to pieces by your stats index! 🧠💥"
+                    "Speechless reactions! 🤯 Mind is completely blown to pieces by your stats index! 🌟✨"
                 ]
             };
 
@@ -1367,7 +1432,7 @@
             // Mode & Duration Badge Capsule
             const resolvedModeStr = (modeBadgeText || getFormattedTestMode()).toUpperCase();
             ctx.font = '700 24px "Orbitron", sans-serif';
-            const badgeTextWidth = ctx.measureText('⏱️ ' + resolvedModeStr).width;
+            const badgeTextWidth = ctx.measureText('🏅 ' + resolvedModeStr).width;
             const badgeW = Math.max(360, badgeTextWidth + 70);
             const badgeH = 50;
             const badgeX = canvas.width / 2 - badgeW / 2;
@@ -1383,7 +1448,7 @@
 
             ctx.textAlign = 'center';
             ctx.fillStyle = '#00f0ff';
-            ctx.fillText('⏱️  ' + resolvedModeStr, canvas.width / 2, badgeY + 34);
+            ctx.fillText('🏅  ' + resolvedModeStr, canvas.width / 2, badgeY + 34);
 
             // Paragraph Statement
             ctx.font = '400 27px "Space Grotesk", sans-serif';
@@ -1391,8 +1456,6 @@
             ctx.fillText('has successfully completed a real-time keyboard evaluation challenge on the TypingDost platform.', canvas.width / 2, 850);
             ctx.fillText('Under monitored testing conditions, they demonstrated rapid keystroke response rates, fluid muscle', canvas.width / 2, 895);
             ctx.fillText('memory coordination, and exceptional character entry precision.', canvas.width / 2, 940);
-            ctx.fillText('Under monitored testing conditions, they demonstrated rapid keystroke response rates, fluid muscle', canvas.width / 2, 880);
-            ctx.fillText('memory coordination, and exceptional character entry precision.', canvas.width / 2, 930);
 
             // 6. Primary Stat Cards (3 Large Glass Cards)
             const pCardW = 630;
@@ -1544,6 +1607,13 @@
             ctx.fillStyle = '#8b9bb4';
             ctx.fillText(dateStr, canvas.width - 180, footerY + 205);
 
+            // Live Verification URL footer strip on PNG
+            ctx.textAlign = 'center';
+            ctx.font = '600 18px "JetBrains Mono", monospace';
+            ctx.fillStyle = '#00f0ff';
+            const canvasVerifyStr = `Verify: https://typingdost.com/verify/?id=${serialStr}`;
+            ctx.fillText(canvasVerifyStr.length > 98 ? canvasVerifyStr.slice(0, 95) + '...' : canvasVerifyStr, canvas.width / 2, footerY + 285);
+
             return canvas;
         }
 
@@ -1566,7 +1636,7 @@
 
                     const mascotImg = new Image();
                     mascotImg.crossOrigin = 'anonymous';
-                    mascotImg.src = 'typingdost_brand.png';
+                    mascotImg.src = 'typingdost_brand.webp';
 
                     const executeDownload = () => {
                         const finalModeStr = (testModeInput && testModeInput.value.trim().length > 0) ? testModeInput.value.trim() : getFormattedTestMode();
@@ -1676,12 +1746,9 @@
             const existing = document.getElementById('share-modal-overlay');
             if (existing) existing.remove();
 
-            // Format clean public verification URL even when running locally
-            let cleanShareUrl = shareUrl;
             const candidateName = (certRecipientName ? certRecipientName.innerText.trim() : '') || 'Candidate';
-            if (cleanShareUrl.startsWith('file:') || cleanShareUrl.includes('localhost') || cleanShareUrl.includes('127.0.0.1') || cleanShareUrl.includes('C:/')) {
-                cleanShareUrl = `https://typingdost.com/certificate.html?wpm=${rawWpm}&accuracy=${accuracy}&mode=${mode}&name=${encodeURIComponent(candidateName)}`;
-            }
+            const currentCertId = (certId && certId.innerText.trim()) ? certId.innerText.trim() : generatedSerialId;
+            let cleanShareUrl = `https://typingdost.com/verify/?id=${encodeURIComponent(currentCertId)}`;
 
             const overlay = document.createElement('div');
             overlay.id = 'share-modal-overlay';
@@ -1860,9 +1927,9 @@
             
             copyBtn.onclick = () => {
                 copyToClipboard(cleanShareUrl).then(() => {
-                    copyBtn.innerHTML = `✓ Copied!`;
+                    copyBtn.innerHTML = `✅ Copied!`;
                     copyBtn.style.background = '#39ff14';
-                    showToast('🔗 Live certificate verification link copied to clipboard!');
+                    showToast('📋 Live certificate verification link copied to clipboard!');
                     setTimeout(() => {
                         copyBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy`;
                         copyBtn.style.background = 'linear-gradient(135deg, var(--primary), #00aaff)';
@@ -1870,8 +1937,8 @@
                 }).catch(() => {
                     input.select();
                     document.execCommand('copy');
-                    copyBtn.innerHTML = `✓ Copied!`;
-                    showToast('🔗 Verification link copied!');
+                    copyBtn.innerHTML = `✅ Copied!`;
+                    showToast('📋 Verification link copied!');
                 });
             };
             linkBox.appendChild(copyBtn);
@@ -1932,8 +1999,8 @@
             const rank = certTierBadge.innerText || 'Pro Typist';
             const certNumber = certId.innerText || generatedSerialId;
             
-            const shareText = `🏆 I just earned my Verified ${rank} Typing Certificate on TypingDost! ⚡ Speed: ${wpm} WPM | Accuracy: ${acc}% | ID: ${certNumber}`;
-            const shareUrl = window.location.href;
+            const shareText = `📜 Verified ${rank} Typing Certificate on TypingDost! ⚡ Speed: ${wpm} WPM | Accuracy: ${acc} | Verify ID: ${certNumber}`;
+            const shareUrl = `https://typingdost.com/verify/?id=${encodeURIComponent(certNumber)}`;
 
             // Open custom luxury share modal directly for instant 1-click sharing
             showShareModal(shareUrl, shareText);
