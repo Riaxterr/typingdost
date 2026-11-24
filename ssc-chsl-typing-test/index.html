@@ -57,14 +57,14 @@
     <meta name="application-name" content="TypingDost">
 
     <!-- Preload Critical Resources for Fast LCP -->
-    <link rel="preload" href="../style.min.css?v=12.0" as="style">
-    <link rel="preload" href="../languageConfig.min.js?v=12.0" as="script">
-    <link rel="preload" href="../fontSystem.min.js?v=12.0" as="script">
-    <link rel="preload" href="../script.min.js?v=12.0" as="script">
+    <link rel="preload" href="../style.min.css?v=13.0" as="style">
+    <link rel="preload" href="../languageConfig.min.js?v=13.0" as="script">
+    <link rel="preload" href="../fontSystem.min.js?v=13.0" as="script">
+    <link rel="preload" href="../script.min.js?v=13.0" as="script">
 
     <link rel="manifest" href="../manifest.json">
-    <link rel="stylesheet" href="../style.min.css?v=12.0">
-    <!-- Inline Guaranteed Header Button Full Names Override (bypasses browser cache) -->
+    <link rel="stylesheet" href="../style.min.css?v=13.0">
+    <!-- Inline Guaranteed Header Button Full Names & Textbox FX Overrides (bypasses browser cache) -->
     <style id="header-button-fullnames">
         #current-sound-name,
         #current-theme-name,
@@ -79,6 +79,153 @@
             overflow: visible !important;
             text-overflow: clip !important;
             white-space: nowrap !important;
+        }
+
+        .textbox-fx-dropdown,
+        .textbox-fx-dropdown:not(.hidden) {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.25rem !important;
+            width: 320px !important;
+            min-width: 300px !important;
+            max-width: calc(100vw - 24px) !important;
+            box-sizing: border-box !important;
+            right: 0 !important;
+            left: auto !important;
+            top: calc(100% + 8px) !important;
+            padding: 0.85rem !important;
+            border-radius: 14px !important;
+            background: var(--dropdown-bg, #0c1427) !important;
+            border: 1px solid var(--primary, rgba(0, 240, 255, 0.35)) !important;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 20px var(--primary-glow, rgba(0, 240, 255, 0.15)) !important;
+            backdrop-filter: blur(24px) !important;
+            -webkit-backdrop-filter: blur(24px) !important;
+            z-index: 10005 !important;
+            overflow: visible !important;
+        }
+
+        .textbox-fx-dropdown.hidden {
+            display: none !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            visibility: hidden !important;
+        }
+
+        .textbox-fx-dropdown .fx-dropdown-header {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 0.35rem !important;
+            font-size: 0.68rem !important;
+            text-transform: uppercase !important;
+            font-family: var(--font-mono, monospace) !important;
+            color: var(--primary, #00f0ff) !important;
+            letter-spacing: 0.8px !important;
+            margin: 0.25rem 0 0.3rem 0 !important;
+            font-weight: 700 !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            user-select: none !important;
+        }
+
+        .textbox-fx-dropdown .fx-option-group {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            gap: 0.35rem !important;
+            width: 100% !important;
+            margin-bottom: 0.25rem !important;
+            box-sizing: border-box !important;
+        }
+
+        .textbox-fx-dropdown .fx-option {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            padding: 0.35rem 0.55rem !important;
+            font-size: 0.72rem !important;
+            font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+            font-weight: 500 !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 8px !important;
+            color: rgba(255, 255, 255, 0.75) !important;
+            cursor: pointer !important;
+            transition: all 0.18s ease !important;
+            user-select: none !important;
+            outline: none !important;
+            flex: 1 1 auto !important;
+            box-sizing: border-box !important;
+        }
+
+        .textbox-fx-dropdown .fx-option:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+            border-color: var(--primary, #00f0ff) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .textbox-fx-dropdown .fx-option.active {
+            background: rgba(0, 240, 255, 0.16) !important;
+            border-color: var(--primary, #00f0ff) !important;
+            color: var(--primary, #00f0ff) !important;
+            font-weight: 700 !important;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25) !important;
+        }
+
+        .textbox-fx-dropdown .fx-dropdown-divider {
+            height: 1px !important;
+            width: 100% !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+            margin: 0.35rem 0 0.45rem 0 !important;
+            display: block !important;
+            flex-shrink: 0 !important;
+        }
+
+        .textbox-fx-dropdown .fx-toggle-row {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            font-size: 0.74rem !important;
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+            font-weight: 500 !important;
+            padding: 0.25rem 0 !important;
+            user-select: none !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .textbox-style-dropdown,
+        .textbox-style-dropdown:not(.hidden) {
+            position: absolute !important;
+            top: calc(100% + 8px) !important;
+            right: 0 !important;
+            left: auto !important;
+            background: var(--dropdown-bg, #0c1427) !important;
+            border: 1px solid var(--primary, rgba(0, 240, 255, 0.35)) !important;
+            border-radius: 12px !important;
+            padding: 0.45rem !important;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 16px var(--primary-glow, rgba(0, 240, 255, 0.15)) !important;
+            min-width: 190px !important;
+            width: max-content !important;
+            box-sizing: border-box !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.25rem !important;
+            z-index: 10005 !important;
+        }
+
+        .textbox-style-dropdown.hidden {
+            display: none !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            visibility: hidden !important;
         }
     </style>
     <!-- Inline Mobile UI/UX Overrides to bypass Aggressive Mobile Browser Caching -->
@@ -1668,10 +1815,10 @@
 
     <!-- Core Application & Multilingual Engine Scripts (Strict Load Order) -->
     <script>window.TYPINGDOST_PAGE_CONFIG = {"lang":"english","testMode":"time","maxTime":600,"lesson":"govtexam","examBadge":"SSC CHSL Tier-II Pattern — 1,750 Key Depressions (35 WPM) — 10 Min Standard"};</script>
-    <script defer src="../languageConfig.min.js?v=12.0"></script>
+    <script defer src="../languageConfig.min.js?v=13.0"></script>
     <script defer src="../indicTransliteration.min.js?v=6.2"></script>
-    <script defer src="../fontSystem.min.js?v=12.0"></script>
-    <script defer src="../script.min.js?v=12.0"></script>
+    <script defer src="../fontSystem.min.js?v=13.0"></script>
+    <script defer src="../script.min.js?v=13.0"></script>
 
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"583a1f2fffa34cd5a61a0a873ff056d0","r":1}' crossorigin="anonymous"></script>
 </body>

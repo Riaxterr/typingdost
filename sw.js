@@ -1,4 +1,4 @@
-const CACHE_NAME = "typingdost-v55";
+const CACHE_NAME = "typingdost-v56";
 const ASSETS_TO_CACHE = [
   "/",
   "/1-minute-typing-test/",
@@ -12,11 +12,11 @@ const ASSETS_TO_CACHE = [
   "/contact.html",
   "/privacy-policy.html",
   "/terms.html",
-  "/style.min.css?v=12.0",
-  "/script.min.js?v=12.0",
-  "/languageConfig.min.js?v=12.0",
-  "/fontSystem.min.js?v=12.0",
-  "/certVerify.min.js?v=12.0",
+  "/style.min.css?v=13.0",
+  "/script.min.js?v=13.0",
+  "/languageConfig.min.js?v=13.0",
+  "/fontSystem.min.js?v=13.0",
+  "/certVerify.min.js?v=13.0",
   "/manifest.json",
   "/favicon.ico",
   "/favicon-32x32.png",

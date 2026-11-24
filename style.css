@@ -6389,49 +6389,65 @@ body.focused-typing .textbox-header {
 }
 
 .textbox-style-dropdown {
-    position: absolute;
-    top: calc(100% + 5px);
-    right: 0;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    left: auto !important;
     background: var(--dropdown-bg, #0c1427) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 0.4rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 255, 0.05);
-    min-width: 160px;
-    backdrop-filter: blur(20px);
-    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform-origin: top right;
-    opacity: 1;
-    transform: scale(1);
+    border: 1px solid var(--primary, rgba(0, 240, 255, 0.35)) !important;
+    border-radius: 12px !important;
+    padding: 0.45rem !important;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 16px var(--primary-glow, rgba(0, 240, 255, 0.15)) !important;
+    min-width: 190px !important;
+    width: max-content !important;
+    box-sizing: border-box !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    transform-origin: top right !important;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    z-index: 10005 !important;
 }
 
 .textbox-style-dropdown.hidden {
     display: none !important;
-    opacity: 0;
-    transform: scale(0.9) translateY(-10px);
-    pointer-events: none;
+    opacity: 0 !important;
+    transform: scale(0.9) translateY(-10px) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
 }
 
 .style-option {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: left;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.78rem !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.18s ease !important;
+    text-align: left !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    user-select: none !important;
 }
 
 .style-option:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
 }
 
 .style-option.active {
-    background: rgba(0, 255, 255, 0.1);
-    color: var(--primary);
-    font-weight: 600;
-    box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.05);
+    background: rgba(0, 240, 255, 0.15) !important;
+    color: var(--primary, #00f0ff) !important;
+    font-weight: 700 !important;
+    box-shadow: inset 0 0 8px rgba(0, 240, 255, 0.1) !important;
 }
 
 /* ---- VISUAL FX & ANIMATIONS CUSTOMIZER DROPDOWN ---- */
@@ -6440,100 +6456,128 @@ body.focused-typing .textbox-header {
 }
 
 .textbox-fx-dropdown {
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    left: auto !important;
+    width: 320px !important;
+    min-width: 300px !important;
+    max-width: calc(100vw - 24px) !important;
+    box-sizing: border-box !important;
     background: var(--dropdown-bg, #0c1427) !important;
-    border: 1px solid rgba(0, 240, 255, 0.25);
-    border-radius: 14px;
-    padding: 0.85rem;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 20px rgba(0, 240, 255, 0.12);
-    min-width: 260px;
-    max-width: 300px;
-    backdrop-filter: blur(24px);
-    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform-origin: top right;
-    opacity: 1;
-    transform: scale(1);
-    z-index: 100;
-    text-transform: none;
-    letter-spacing: normal;
+    border: 1px solid var(--primary, rgba(0, 240, 255, 0.35)) !important;
+    border-radius: 14px !important;
+    padding: 0.85rem !important;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 20px var(--primary-glow, rgba(0, 240, 255, 0.15)) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    transform-origin: top right !important;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    z-index: 10005 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    overflow: visible !important;
 }
 
 .textbox-fx-dropdown.hidden {
     display: none !important;
-    opacity: 0;
-    transform: scale(0.9) translateY(-10px);
-    pointer-events: none;
+    opacity: 0 !important;
+    transform: scale(0.9) translateY(-10px) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
 }
 
 .fx-dropdown-header {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    font-family: var(--font-mono);
-    color: var(--primary);
-    letter-spacing: 0.8px;
-    margin-bottom: 0.4rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    font-size: 0.68rem !important;
+    text-transform: uppercase !important;
+    font-family: var(--font-mono, monospace) !important;
+    color: var(--primary, #00f0ff) !important;
+    letter-spacing: 0.8px !important;
+    margin: 0.25rem 0 0.3rem 0 !important;
+    font-weight: 700 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    user-select: none !important;
 }
 
 .fx-option-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-bottom: 0.55rem;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    width: 100% !important;
+    margin-bottom: 0.25rem !important;
+    box-sizing: border-box !important;
 }
 
 .fx-option {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 7px;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.74rem;
-    font-family: var(--font-ui);
-    padding: 0.3rem 0.55rem;
-    cursor: pointer;
-    transition: all 0.18s ease;
-    outline: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    user-select: none;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    padding: 0.35rem 0.55rem !important;
+    font-size: 0.72rem !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-weight: 500 !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    cursor: pointer !important;
+    transition: all 0.18s ease !important;
+    user-select: none !important;
+    outline: none !important;
+    flex: 1 1 auto !important;
+    box-sizing: border-box !important;
 }
 
 .fx-option:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-color: rgba(0, 240, 255, 0.35);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border-color: var(--primary, #00f0ff) !important;
+    transform: translateY(-1px) !important;
 }
 
 .fx-option.active {
-    background: rgba(0, 240, 255, 0.16);
-    border-color: var(--primary);
-    color: var(--primary);
-    font-weight: 600;
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.22);
+    background: rgba(0, 240, 255, 0.16) !important;
+    border-color: var(--primary, #00f0ff) !important;
+    color: var(--primary, #00f0ff) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.25) !important;
 }
 
 .fx-dropdown-divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.08);
-    margin: 0.5rem 0;
+    height: 1px !important;
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    margin: 0.35rem 0 0.45rem 0 !important;
+    display: block !important;
+    flex-shrink: 0 !important;
 }
 
 .fx-toggle-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.74rem;
-    color: rgba(255, 255, 255, 0.85);
-    font-family: var(--font-ui);
-    padding: 0.2rem 0;
-    user-select: none;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 0.74rem !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-weight: 500 !important;
+    padding: 0.25rem 0 !important;
+    user-select: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .fx-switch {
@@ -13734,6 +13778,7 @@ header:hover {
 .textbox-style-dropdown:not(.hidden),
 .textbox-fx-dropdown:not(.hidden) {
     display: flex !important;
+    flex-direction: column !important;
     opacity: 1 !important;
     pointer-events: auto !important;
     visibility: visible !important;
@@ -14193,4 +14238,152 @@ header nav[aria-label="Site Controls"] {
     overflow: visible !important;
     text-overflow: clip !important;
     white-space: nowrap !important;
+}
+
+/* 100% Guaranteed Layout & Alignment for Textbox FX & Style Dropdowns */
+.textbox-fx-dropdown,
+.textbox-fx-dropdown:not(.hidden) {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    width: 320px !important;
+    min-width: 300px !important;
+    max-width: calc(100vw - 24px) !important;
+    box-sizing: border-box !important;
+    right: 0 !important;
+    left: auto !important;
+    top: calc(100% + 8px) !important;
+    padding: 0.85rem !important;
+    border-radius: 14px !important;
+    background: var(--dropdown-bg, #0c1427) !important;
+    border: 1px solid var(--primary, rgba(0, 240, 255, 0.35)) !important;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 20px var(--primary-glow, rgba(0, 240, 255, 0.15)) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    z-index: 10005 !important;
+    overflow: visible !important;
+}
+
+.textbox-fx-dropdown.hidden {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+.textbox-fx-dropdown .fx-dropdown-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    font-size: 0.68rem !important;
+    text-transform: uppercase !important;
+    font-family: var(--font-mono, monospace) !important;
+    color: var(--primary, #00f0ff) !important;
+    letter-spacing: 0.8px !important;
+    margin: 0.25rem 0 0.3rem 0 !important;
+    font-weight: 700 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    user-select: none !important;
+}
+
+.textbox-fx-dropdown .fx-option-group {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    width: 100% !important;
+    margin-bottom: 0.25rem !important;
+    box-sizing: border-box !important;
+}
+
+.textbox-fx-dropdown .fx-option {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    padding: 0.35rem 0.55rem !important;
+    font-size: 0.72rem !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-weight: 500 !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    cursor: pointer !important;
+    transition: all 0.18s ease !important;
+    user-select: none !important;
+    outline: none !important;
+    flex: 1 1 auto !important;
+    box-sizing: border-box !important;
+}
+
+.textbox-fx-dropdown .fx-option:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border-color: var(--primary, #00f0ff) !important;
+    transform: translateY(-1px) !important;
+}
+
+.textbox-fx-dropdown .fx-option.active {
+    background: rgba(0, 240, 255, 0.16) !important;
+    border-color: var(--primary, #00f0ff) !important;
+    color: var(--primary, #00f0ff) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.25) !important;
+}
+
+.textbox-fx-dropdown .fx-dropdown-divider {
+    height: 1px !important;
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    margin: 0.35rem 0 0.45rem 0 !important;
+    display: block !important;
+    flex-shrink: 0 !important;
+}
+
+.textbox-fx-dropdown .fx-toggle-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 0.74rem !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-family: var(--font-ui, 'Space Grotesk', sans-serif) !important;
+    font-weight: 500 !important;
+    padding: 0.25rem 0 !important;
+    user-select: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.textbox-style-dropdown,
+.textbox-style-dropdown:not(.hidden) {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    left: auto !important;
+    background: var(--dropdown-bg, #0c1427) !important;
+    border: 1px solid var(--primary, rgba(0, 240, 255, 0.35)) !important;
+    border-radius: 12px !important;
+    padding: 0.45rem !important;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 16px var(--primary-glow, rgba(0, 240, 255, 0.15)) !important;
+    min-width: 190px !important;
+    width: max-content !important;
+    box-sizing: border-box !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    z-index: 10005 !important;
+}
+
+.textbox-style-dropdown.hidden {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
 }
