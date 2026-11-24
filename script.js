@@ -13718,3 +13718,180 @@ document.addEventListener('click', function(e) {
         window.open(socialBtn.href, '_blank', 'noopener,noreferrer');
     }
 });
+
+// --- DYNAMIC TYPING GEARS FOOTER CLICK ACTION (GOOGLE SHEETS CMS & MODAL) ---
+(function() {
+    let cachedGears = null;
+    const sheetsCSVUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQFMFSkERnvD90fxv3tk6yOB7CjaUEWSIfMtDFOsFaMzwSfUE2ghby6JDl6Z6a4sv6CPeIUw8wZRuJV/pub?gid=0&single=true&output=csv';
+
+    function parseCSVLine(line) {
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                result.push(current.trim());
+                current = '';
+            } else {
+                current += char;
+            }
+        }
+        result.push(current.trim());
+        return result;
+    }
+
+    async function fetchGearProducts() {
+        const gearsLoader = document.getElementById('gears-loader');
+        const gearsError = document.getElementById('gears-error');
+        const gearsGrid = document.getElementById('gears-products-grid');
+        if (!gearsLoader || !gearsError || !gearsGrid) return;
+        
+        gearsLoader.classList.remove('hidden');
+        gearsError.classList.add('hidden');
+        gearsGrid.classList.add('hidden');
+        
+        try {
+            const response = await fetch(sheetsCSVUrl);
+            if (!response.ok) throw new Error('Network response was not OK');
+            const dataText = await response.text();
+            
+            const lines = dataText.split('\n');
+            const products = [];
+            
+            // Skip header row
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                const cols = parseCSVLine(line);
+                if (cols.length >= 3 && cols[0] && cols[2]) {
+                    products.push({
+                        name: cols[0],
+                        image: cols[1] || 'typingdost_brand.png',
+                        link: cols[2],
+                        price: cols[3] || 'Check Price',
+                        description: cols[4] || 'Highly recommended gear'
+                    });
+                }
+            }
+            
+            if (products.length === 0) {
+                throw new Error('No products found in the sheet');
+            }
+            
+            cachedGears = products;
+            renderGears(products);
+            
+        } catch (error) {
+            console.error('[Typing Gears] Error fetching products:', error);
+            gearsLoader.classList.add('hidden');
+            gearsError.classList.remove('hidden');
+        }
+    }
+
+    function renderGears(products) {
+        const gearsGrid = document.getElementById('gears-products-grid');
+        const gearsLoader = document.getElementById('gears-loader');
+        if (!gearsGrid || !gearsLoader) return;
+        
+        gearsGrid.innerHTML = '';
+        products.forEach(prod => {
+            const card = document.createElement('div');
+            card.className = 'gear-card';
+            
+            const nameClean = prod.name.replace(/^"(.*)"$/, '$1');
+            const descClean = prod.description.replace(/^"(.*)"$/, '$1');
+            const priceClean = prod.price.replace(/^"(.*)"$/, '$1');
+            const imageClean = prod.image.replace(/^"(.*)"$/, '$1');
+            const linkClean = prod.link.replace(/^"(.*)"$/, '$1');
+            
+            card.innerHTML = `
+                <div class="gear-img-wrap">
+                    <img src="${imageClean}" alt="${nameClean}" class="gear-img" onerror="this.src='typingdost_brand.png'" loading="lazy">
+                </div>
+                <h4 class="gear-title" title="${nameClean}">${nameClean}</h4>
+                <p class="gear-desc" title="${descClean}">${descClean}</p>
+                <div class="gear-footer">
+                    <span class="gear-price">${priceClean.startsWith('₹') || priceClean.toLowerCase().includes('price') ? priceClean : '₹' + priceClean}</span>
+                    <a href="${linkClean}" target="_blank" rel="noopener noreferrer" class="gear-buy-btn">
+                        Shop Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" style="vertical-align: middle;">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            `;
+            gearsGrid.appendChild(card);
+        });
+        
+        gearsLoader.classList.add('hidden');
+        gearsGrid.classList.remove('hidden');
+    }
+
+    window.openGearsModal = function() {
+        const gearsModal = document.getElementById('typing-gears-modal');
+        if (!gearsModal) {
+            window.location.href = './gear/';
+            return;
+        }
+        if (typeof initAudio === 'function') initAudio();
+        if (typeof playClick === 'function') playClick();
+        
+        gearsModal.classList.remove('hidden');
+        
+        if (!cachedGears) {
+            fetchGearProducts();
+        } else {
+            renderGears(cachedGears);
+        }
+    };
+
+    function setupGearsListeners() {
+        const gearsBtn = document.getElementById('typing-gears-btn');
+        const gearsModal = document.getElementById('typing-gears-modal');
+        const gearsRetryBtn = document.getElementById('gears-retry-btn');
+        const resultGearBanner = document.getElementById('result-gear-banner');
+        const resultModal = document.getElementById('result-modal');
+
+        if (gearsBtn) {
+            gearsBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.openGearsModal();
+            });
+        }
+
+        if (gearsModal) {
+            gearsModal.addEventListener('click', function(e) {
+                if (e.target === gearsModal) {
+                    gearsModal.classList.add('hidden');
+                }
+            });
+        }
+
+        if (gearsRetryBtn) {
+            gearsRetryBtn.addEventListener('click', function() {
+                fetchGearProducts();
+            });
+        }
+
+        if (resultGearBanner && gearsModal) {
+            resultGearBanner.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (resultModal) resultModal.classList.add('hidden');
+                window.openGearsModal();
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupGearsListeners);
+    } else {
+        setupGearsListeners();
+    }
+})();

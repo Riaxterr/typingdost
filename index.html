@@ -4198,6 +4198,12 @@
 
                     </a>
 
+                    <a href="./gear/" class="gears-sheet-btn" style="background: rgba(0, 240, 255, 0.15); border-color: var(--primary);">
+
+                        ⌨️ Curated Gear Guide ↗
+
+                    </a>
+
                 </div>
 
             </div>
@@ -4973,7 +4979,7 @@
 
                     </button>
 
-                    <button id="typing-gears-btn" class="footer-action-btn typing-gears-btn" title="Shop Premium Typing Gears">
+                    <button id="typing-gears-btn" class="footer-action-btn typing-gears-btn" title="Shop Premium Typing Gears" onclick="if(window.openGearsModal){window.openGearsModal();}else{var m=document.getElementById('typing-gears-modal');if(m)m.classList.remove('hidden');else window.location.href='./gear/';}">
 
                         <svg class="gears-cart-icon action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 
